@@ -1,15 +1,9 @@
-
+import { RouterProvider } from '@tanstack/react-router'
+import { router } from './router'
 import './App.css'
 
 function App() {
-
-  return (
-    <>
-      <div className="bg-green-300 text-white text-4xl font-bold p-10 rounded-lg shadow-lg text-center">
-        ✅ TAILWIND FUNCIONANDO
-      </div>
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
