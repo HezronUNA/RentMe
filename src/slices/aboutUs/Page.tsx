@@ -8,6 +8,5 @@ export default function AboutUsPage() {
         inolvidable para el huésped, y una operación sin estrés para el propietario.
       </p>
     </section>
-  )
-  
+  ) 
 }
