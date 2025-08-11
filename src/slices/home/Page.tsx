@@ -1,3 +1,5 @@
+import ButtonLogin from "../../shared/components/ButtonLogin";
+
 export default function HomePage() {
   return (
     <section>
@@ -6,6 +8,7 @@ export default function HomePage() {
         No solo administramos tu propiedad, creamos experiencias inolvidables para los huéspedes
         y tranquilidad para los propietarios.
       </p>
+      <ButtonLogin />
     </section>
   )
 }

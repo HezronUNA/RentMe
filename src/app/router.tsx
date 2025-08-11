@@ -10,6 +10,7 @@ import AppLayout from './Layout'
 // Importación diferida (lazy) de las páginas
 const HomePage = lazy(() => import('../slices/home/Page'))
 const AboutUsPage = lazy(() => import('../slices/aboutUs/Page'))
+const NotFoundPage = lazy(() => import('../app/NotFoundPage'))
 
 // Ruta raíz con layout
 const rootRoute = createRootRoute({
@@ -17,8 +18,11 @@ const rootRoute = createRootRoute({
     <Suspense fallback={<div>Cargando...</div>}>
       <AppLayout />
     </Suspense>
-  )
+  ),
+  notFoundComponent: NotFoundPage
 })
+
+
 
 // Rutas hijas
 const homeRoute = createRoute({
