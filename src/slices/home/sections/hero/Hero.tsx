@@ -14,18 +14,33 @@ export default function Hero() {
 
   return (
     <section className="relative text-white">
-      <div className="relative h-[70vh] min-h-[520px] md:h-[80vh] lg:h-[896px] overflow-hidden">
-        {/* ======= BACKGROUNDS ======= */}
-        {/* Mobile: una sola imagen */}
+   <div className="relative h-[55vh] min-h-[420px] md:h-[65vh] lg:h-[720px] overflow-hidden">
+
+        {/* ===== Fondos para MOBILE (dos mitades horizontales) ===== */}
+        {/* Mitad superior: izquierda */}
         {left.imagen && (
-          <img
-            src={left.imagen}
-            alt={left.titulo || ''}
-            className="absolute inset-0 h-full w-full object-cover md:hidden"
-          />
+          <div className="absolute inset-x-0 top-0 h-1/2 md:hidden">
+            <img
+              src={left.imagen}
+              alt={left.titulo || ''}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/35" />
+          </div>
+        )}
+        {/* Mitad inferior: derecha */}
+        {right.imagen && (
+          <div className="absolute inset-x-0 bottom-0 h-1/2 md:hidden">
+            <img
+              src={right.imagen}
+              alt={right.titulo || ''}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/35" />
+          </div>
         )}
 
-        {/* Desktop: dos imágenes con clip-path */}
+        {/* ===== Fondos para DESKTOP (triángulos) ===== */}
         <div className="hidden md:block absolute inset-0">
           {/* Izquierda */}
           {left.imagen && (
@@ -50,38 +65,69 @@ export default function Hero() {
         {/* Gradiente general */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
 
-        {/* ======= FOREGROUND CONTENT ======= */}
-        {/* Grid responsive: 1 col en mobile, 2 cols en md+ */}
-        <div className="relative z-10 h-full container mx-auto grid grid-cols-1 md:grid-cols-2 place-items-center gap-10 px-6 md:px-10 text-center">
-          {/* Bloque izquierdo */}
-          <div className="max-w-[420px] md:max-w-[460px] bg-black/30 md:bg-transparent rounded-xl p-4 md:p-0">
-            <h1 className="uppercase tracking-widest font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
+        {/* ===== Contenido (textos/botones) ===== */}
+        {/* Mobile: cada bloque dentro de su mitad */}
+        <div className="relative z-10 md:hidden h-full">
+          {/* Bloque superior (izquierda) */}
+          <div className="absolute inset-x-0 top-0 h-1/2 flex items-center justify-center text-center px-6">
+            <div className="max-w-[420px] bg-black/30 rounded-xl p-4">
+              <h1 className="uppercase tracking-widest font-medium text-3xl leading-tight">
+                {left.titulo}
+              </h1>
+              {left.subtitulo && (
+                <p className="mt-3 text-base tracking-wider">{left.subtitulo}</p>
+              )}
+              <div className="mt-5">
+                <Button asChild size="lg">
+                  <Link to="/alojamientos">{left.textoBoton || 'Ver más'}</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Bloque inferior (derecha) */}
+          <div className="absolute inset-x-0 bottom-0 h-1/2 flex items-center justify-center text-center px-6">
+            <div className="max-w-[420px] bg-black/30 rounded-xl p-4">
+              <h2 className="uppercase tracking-widest font-medium text-3xl leading-tight">
+                {right.titulo}
+              </h2>
+              {right.subtitulo && (
+                <p className="mt-3 text-base tracking-wider">{right.subtitulo}</p>
+              )}
+              <div className="mt-5">
+                <Button asChild size="lg">
+                  <Link to="/alojamientos">{right.textoBoton || 'Ver más'}</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop: grid 2 columnas como antes */}
+        <div className="relative z-10 hidden md:grid h-full container mx-auto grid-cols-2 place-items-center gap-10 px-6 md:px-10 text-center">
+          <div className="max-w-[460px]">
+            <h1 className="uppercase tracking-widest font-medium text-5xl lg:text-6xl leading-tight">
               {left.titulo}
             </h1>
             {left.subtitulo && (
-              <p className="mt-4 text-base sm:text-lg md:text-2xl tracking-wider">
-                {left.subtitulo}
-              </p>
+              <p className="mt-4 text-2xl tracking-wider">{left.subtitulo}</p>
             )}
             <div className="mt-6">
-              <Button asChild size="lg" variant="default">
+              <Button asChild size="lg">
                 <Link to="/alojamientos">{left.textoBoton || 'Ver más'}</Link>
               </Button>
             </div>
           </div>
 
-          {/* Bloque derecho */}
-          <div className="max-w-[420px] md:max-w-[460px] bg-black/30 md:bg-transparent rounded-xl p-4 md:p-0">
-            <h2 className="uppercase tracking-widest font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
+          <div className="max-w-[460px]">
+            <h2 className="uppercase tracking-widest font-medium text-5xl lg:text-6xl leading-tight">
               {right.titulo}
             </h2>
             {right.subtitulo && (
-              <p className="mt-4 text-base sm:text-lg md:text-2xl tracking-wider">
-                {right.subtitulo}
-              </p>
+              <p className="mt-4 text-2xl tracking-wider">{right.subtitulo}</p>
             )}
             <div className="mt-6">
-              <Button asChild size="lg" variant="default">
+              <Button asChild size="lg">
                 <Link to="/alojamientos">{right.textoBoton || 'Ver más'}</Link>
               </Button>
             </div>
