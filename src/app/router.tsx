@@ -11,6 +11,9 @@ import AppLayout from './Layout'
 const HomePage = lazy(() => import('../slices/home/Page'))
 const AboutUsPage = lazy(() => import('../slices/aboutUs/Page'))
 const NotFoundPage = lazy(() => import('../app/NotFoundPage'))
+const AccommodationsPage = lazy(() => import("../slices/accommodations/Page"))
+const SalesPage = lazy(() => import("../slices/sales/Page"))
+const ServicesPage = lazy(() => import("../slices/services/Page"))
 
 // Ruta raíz con layout
 const rootRoute = createRootRoute({
@@ -21,8 +24,6 @@ const rootRoute = createRootRoute({
   ),
   notFoundComponent: NotFoundPage
 })
-
-
 
 // Rutas hijas
 const homeRoute = createRoute({
@@ -37,10 +38,31 @@ const nosotrosRoute = createRoute({
   component: AboutUsPage
 })
 
+const alojamientosRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/alojamientos",
+  component: AccommodationsPage,
+})
+
+const ventasRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/ventas",
+  component: SalesPage,
+})
+
+const serviciosRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/servicios",
+  component: ServicesPage,
+})
+
 // Árbol de rutas
 const routeTree = rootRoute.addChildren([
-  homeRoute,
-  nosotrosRoute
+   homeRoute,
+  nosotrosRoute,
+  alojamientosRoute,
+  ventasRoute,
+  serviciosRoute,
 ])
 
 // Configuración del router
