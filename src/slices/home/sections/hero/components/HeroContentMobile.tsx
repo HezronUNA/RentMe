@@ -47,9 +47,7 @@ const HeroContentMobile: React.FC<Props> = React.memo(({ left, right }) => {
 
           <div className="mt-4 flex justify-center">
             <Button
-              asChild
-              size="lg"
-              className="h-9 px-4 text-sm md:h-10 md:px-6" /* botón más compacto en SE */
+              variant="whiteBorder"
             >
               <Link to="/alojamientos">{left.textoBoton || 'Ver más'}</Link>
             </Button>
@@ -86,9 +84,7 @@ const HeroContentMobile: React.FC<Props> = React.memo(({ left, right }) => {
 
           <div className="mt-4 flex justify-center">
             <Button
-              asChild
-              size="lg"
-              className="h-9 px-4 text-sm md:h-10 md:px-6"
+              variant="whiteBorder"
             >
               <Link to="/alojamientos">{right.textoBoton || 'Ver más'}</Link>
             </Button>

@@ -17,8 +17,8 @@ type Props = {
         </h1>
         {left.subtitulo && <p className="mt-4 text-2xl tracking-wider">{left.subtitulo}</p>}
         <div className="mt-6">
-          <Button className='hover:bg-gray-300 hover:border-gray-300' asChild size="lg">
-            <Link to="/alojamientos">{left.textoBoton || 'Ver más'}</Link>
+          <Button  variant="whiteBorder" className='hover:bg-gray-300 hover:border-gray-300' asChild size="lg">
+            <Link to="/alojamientos">{left.textoBoton}</Link>
           </Button>
         </div>
       </div>
@@ -29,8 +29,8 @@ type Props = {
         </h2>
         {right.subtitulo && <p className="mt-4 text-2xl tracking-wider">{right.subtitulo}</p>}
         <div className="mt-6">
-          <Button className='hover:bg-gray-300 hover:border-gray-300' asChild size="lg">
-            <Link to="/alojamientos">{right.textoBoton || 'Ver más'}</Link>
+          <Button variant="whiteBorder" className='hover:bg-gray-300 hover:border-gray-300' asChild size="lg">
+            <Link to="/alojamientos">{right.textoBoton}</Link>
           </Button>
         </div>
       </div>
