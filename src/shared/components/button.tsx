@@ -4,11 +4,16 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-500 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-white focus-visible:ring-white/50 focus-visible:ring-[3px]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-500 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-[3px]",
   {
     variants: {
       variant: {
-        default: "border border-white text-white bg-transparent hover:bg-white hover:text-black hover:cursor-pointer",
+        // Botón verde: empieza solo con borde y texto verde
+        green: "border border-[#52655B] text-[#52655B] bg-transparent",
+        // Botón borde blanco: empieza transparente con borde y texto blanco
+        whiteBorder: "border border-white text-white bg-transparent",
+
+        white: "bg-white text-[#52655B] border border-[#52655B]",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -16,44 +21,82 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
       },
+      revealed: {
+        false: "",
+        true: "",
+      },
     },
+    compoundVariants: [
+      {
+        variant: "green",
+        revealed: true,
+        class: "bg-[#52655B] text-white border-[#52655B]",
+      },
+      {
+        variant: "whiteBorder",
+        revealed: true,
+        class: "bg-white text-[#52655B] border-white",
+      },
+       {
+        variant: "white",
+        revealed: true,
+        class: "bg-white text-[#52655B] border border-[#52655B]",
+      },
+    ],
     defaultVariants: {
-      variant: "default",
+      variant: "green",
       size: "default",
+      revealed: false,
     },
   }
 )
 
-function Button({
+type ButtonProps = React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+    revealOnView?: boolean
+    revealDelay?: number
+  }
+
+export function Button({
   className,
   variant,
   size,
   asChild = false,
+  revealOnView = true,
+  revealDelay = 200,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button"
-  const [hovered, setHovered] = React.useState(false)
+  const ref = React.useRef<HTMLButtonElement | null>(null)
+  const [revealed, setRevealed] = React.useState(false)
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setHovered(true)
-    }, 800) // delay antes del cambio
-    return () => clearTimeout(timer)
-  }, [])
+    if (!revealOnView || revealed) return
+    const el = ref.current
+    if (!el) return
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const t = setTimeout(() => setRevealed(true), revealDelay)
+          return () => clearTimeout(t)
+        }
+      },
+      { threshold: 0.25 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [revealOnView, revealDelay, revealed])
 
   return (
     <Comp
+      ref={ref as any}
       data-slot="button"
-      className={cn(
-        buttonVariants({ variant, size, className }),
-        hovered && "bg-white text-black border-white"
-      )}
+      className={cn(buttonVariants({ variant, size, revealed, className }))}
       {...props}
     />
   )
 }
 
-export { Button, buttonVariants }
+export { buttonVariants }
