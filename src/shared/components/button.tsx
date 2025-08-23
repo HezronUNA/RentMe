@@ -12,6 +12,8 @@ const buttonVariants = cva(
         green: "border border-[#52655B] text-[#52655B] bg-transparent",
         // Botón borde blanco: empieza transparente con borde y texto blanco
         whiteBorder: "border border-white text-white bg-transparent",
+
+        white: "bg-white text-[#52655B] border border-[#52655B]",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -34,6 +36,11 @@ const buttonVariants = cva(
         variant: "whiteBorder",
         revealed: true,
         class: "bg-white text-[#52655B] border-white",
+      },
+       {
+        variant: "white",
+        revealed: true,
+        class: "bg-white text-[#52655B] border border-[#52655B]",
       },
     ],
     defaultVariants: {

@@ -54,11 +54,7 @@ export default function Footer() {
   return (
     <footer
       className="
-        relative bg-white text-black border-t border-black/10
-        before:content-[''] before:absolute before:inset-x-0 before:-top-6 before:h-6
-        before:pointer-events-none before:bg-gradient-to-b before:from-black/10 before:to-transparent
-        shadow-[inset_0_10px_20px_rgba(0,0,0,0.06)]
-      "
+        relative bg-white text-black border-t border-black/10"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
         {/* Columnas más pegadas entre 'PÁGINAS PRINCIPALES' y 'CONTÁCTANOS' */}
