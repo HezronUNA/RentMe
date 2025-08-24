@@ -1,17 +1,17 @@
 // src/slices/accomodations/components/FeaturedAccommodations.tsx
-import getAccomodations from "../../api/getAccomodations"
+import useGetAccomodationHighlights from "../../hooks/useAccomodationHighligths"
 import AccomodationsDesktop from "./components/AccomodationsDesktop"
 import AccomodationsMobile from "./components/AccomodationsMobile"
 
 export default function Accomodations() {
-  const { hospedajes, loading } = getAccomodations()
+  const { hospedajes, loading } = useGetAccomodationHighlights()
 
   if (loading) return <div className="py-10 text-center">Cargando...</div>
   if (!hospedajes.length) return <div className="py-10 text-center">Sin propiedades destacadas.</div>
 
   return (
     <section className="w-full flex flex-col items-center gap-8 py-10 px-4">
-      <h2 className="text-center text-2xl md:text-4xl font-light uppercase tracking-widest">
+      <h2 className="text-center text-2xl md:text-4xl font-regular uppercase tracking-widest">
         Alojamientos Disponibles
       </h2>
 
