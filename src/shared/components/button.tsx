@@ -64,7 +64,7 @@ export function Button({
   size,
   asChild = false,
   revealOnView = true,
-  revealDelay = 200,
+  revealDelay = 500,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button"
