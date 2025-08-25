@@ -1,17 +1,17 @@
 // src/slices/accomodations/components/FeaturedDesktop.tsx
 import { Button } from "@/shared/components/button"
 import { Link } from "@tanstack/react-router"
-import  useHorizontalCarousel  from "../../../../../shared/hooks/useCarrouselScroll"
+import useHorizontalCarousel from "@/shared/hooks/useCarrouselScroll"
 
 type Props = { hospedajes: any[] }
 
 export default function AccomodationsDesktop({ hospedajes }: Props) {
   const { scrollerRef, bindHover } = useHorizontalCarousel({
     slideSelector: "[data-slide]",
-    gapPx: 0,          // sin espacio: 1 card por pantalla
-    autoplayMs: 4000,  // cada 4s
-    pauseOnHover: true,
-    loop: true,
+    gapPx: 24,           // espacio entre los 2 cards
+    autoplayMs: 4000,    // scroll automático
+    pauseOnHover: true,  // pausa al hacer hover
+    loop: true,          // que se repita en bucle
   })
 
   return (
@@ -20,19 +20,18 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
         <div
           ref={scrollerRef}
           className="
-            max-w-[1000px] w-full overflow-x-auto snap-x snap-mandatory
+            max-w-[1100px] w-full overflow-x-auto snap-x snap-mandatory
             [scrollbar-width:none] [-ms-overflow-style:none]
           "
         >
           <style>{`div::-webkit-scrollbar{display:none}`}</style>
 
-          {/* Track SIN gap */}
-          <div className="flex items-stretch w-full mx-auto">
+          <div className="flex items-stretch mx-auto w-max gap-8 px-2">
             {hospedajes.map((h) => {
               const img =
                 (h.imagenes && h.imagenes[0]) ||
                 (h.Imagenes && h.Imagenes[0]) ||
-                "https://placehold.co/1100x650"
+                "https://placehold.co/600x400"
 
               return (
                 <div
@@ -40,12 +39,11 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                   data-slide
                   className="
                     snap-center flex-shrink-0
-                    basis-full min-w-full       /* 1 card visible */
-                    h-[56vw] md:h-[520px] lg:h-[600px]
-                    relative rounded-lg overflow-hidden
+                    basis-[520px] min-w-[520px]
+                    h-[360px] relative rounded-lg overflow-hidden
                     bg-black shadow-md group
                   "
-                   {...bindHover}
+                  {...bindHover}
                 >
                   <img
                     src={img}
@@ -53,18 +51,21 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                     className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-500 group-hover:scale-105"
                   />
 
-                  <div className="absolute bottom-10 left-10 text-white max-w-[600px] space-y-2">
-                    <h3 className="text-2xl md:text-4xl font-light uppercase tracking-widest">
+                  <div className="absolute bottom-6 left-6 text-white max-w-[460px] space-y-1">
+                    <h3 className="text-xl font-medium uppercase tracking-wide">
                       {h.ubicacion?.direccion}
                     </h3>
-                    <p className="text-lg">
+                    <p className="text-base">
                       {h.camas} Camas, {h.baños} Baños, {h.cuartos} Habitaciones
                     </p>
-                    <p className="text-2xl font-medium tracking-wide">
+                    <p className="text-lg font-semibold">
                       {h.precioNoche?.toLocaleString?.("es-CR") ?? h.precioNoche}₡ por noche
                     </p>
 
-                    <Button variant="whiteBorder" className="hover:cursor-pointer hover:bg-gray-300">
+                    <Button
+                      variant="whiteBorder"
+                      className="mt-2 px-4 py-1.5 text-sm hover:bg-gray-300 hover:cursor-pointer"
+                    >
                       Ver propiedad
                     </Button>
                   </div>
