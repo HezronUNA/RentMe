@@ -3,7 +3,6 @@ import {
   getDocs,
   onSnapshot,
   CollectionReference,
-  doc,
 } from "firebase/firestore";
 import { db } from "@/services/firebase";
 import type { Objetivo } from "../sections/ourObjetive/type";
