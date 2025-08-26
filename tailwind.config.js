@@ -19,7 +19,11 @@ export default {
           800: '#075985',
           900: '#0c4a6e',
         }
-      }
+      },
+       fontFamily: {
+        title: ["Inter", "sans-serif"],   // Para títulos
+        body: ["Poppins", "sans-serif"],  // Para textos y subtítulos
+      },
     },
   },
   plugins: [],

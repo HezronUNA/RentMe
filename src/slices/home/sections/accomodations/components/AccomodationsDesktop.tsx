@@ -52,7 +52,7 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                   />
 
                   <div className="absolute bottom-6 left-6 text-white max-w-[460px] space-y-1">
-                    <h3 className="text-xl font-medium uppercase tracking-wide">
+                    <h3 className="text-xl font-medium font-body uppercase tracking-wide">
                       {h.ubicacion?.direccion}
                     </h3>
                     <p className="text-base">

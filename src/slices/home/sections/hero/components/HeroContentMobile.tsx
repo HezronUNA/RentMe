@@ -21,7 +21,7 @@ const HeroContentMobile: React.FC<Props> = React.memo(({ left, right }) => {
         >
           <h1
             className="
-              uppercase tracking-widest font-medium
+              uppercase font-title
               /* clamp de fuente para móviles angostos */
               text-[clamp(18px,6vw,26px)]
               leading-tight
@@ -67,7 +67,7 @@ const HeroContentMobile: React.FC<Props> = React.memo(({ left, right }) => {
         >
           <h2
             className="
-              uppercase tracking-widest font-medium
+              uppercase  font-title
               text-[clamp(18px,6vw,26px)]
               leading-tight
               text-center
