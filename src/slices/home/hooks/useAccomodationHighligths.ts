@@ -1,42 +1,28 @@
 // src/slices/sections/accomodations/hooks/useHospedajesDestacados.ts
-import { useEffect, useState, useCallback } from "react"
-import type { HospedajeDestacado } from "../sections/accomodations"
+import { useQuery } from "@tanstack/react-query"
 import { getAccomodations } from "@/slices/home/api/getAccomodations"
+import type { HospedajeDestacado } from "../sections/accomodations"
+
+export const hospedajesKeys = {
+  destacados: ["hospedajes", "destacados"] as const,
+}
 
 export function useGetAccomodationHighlights() {
-  const [hospedajes, setHospedajes] = useState<HospedajeDestacado[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<unknown>(null)
+  const query = useQuery<HospedajeDestacado[]>({
+    queryKey: hospedajesKeys.destacados,
+    queryFn: getAccomodations,
+    staleTime: 1000 * 60 * 5, // 5 minutos "frescos"
+    gcTime: 1000 * 60 * 60,   // 1 hora antes de limpiar el cache
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  })
 
-  const load = useCallback(async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const data = await getAccomodations()
-      setHospedajes(data)
-    } catch (err) {
-      console.error("Error al cargar hospedajes destacados:", err)
-      setError(err)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    let mounted = true
-    ;(async () => {
-      try {
-        await load()
-      } finally {
-        if (!mounted) return
-      }
-    })()
-    return () => {
-      mounted = false
-    }
-  }, [load])
-
-  return { hospedajes, loading, error, reload: load }
+  return {
+    hospedajes: query.data ?? [],
+    loading: query.isLoading && !query.data,
+    error: query.error,
+    reload: query.refetch,
+  }
 }
 
 export default useGetAccomodationHighlights
