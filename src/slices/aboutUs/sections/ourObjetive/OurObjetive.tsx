@@ -1,4 +1,4 @@
-import { Skeleton } from "@/shared/components/skeleton";
+import { Skeleton } from "@/shared/components/Skeleton";
 import { useObjetivo } from "../../hooks/useObjetive";
 
 export default function OurObjetiveSection() {
@@ -38,11 +38,11 @@ export default function OurObjetiveSection() {
           />
         </div>
 
-        <div className="w-full md:w-1/2 text-center md:text-left">
-          <h2 className="text-3xl md:text-4xl font-regular tracking-widest uppercase mb-4">
+        <div className="w-full md:w-1/2 font-title text-center md:text-left">
+          <h2 className="text-3xl md:text-4xl font-regular uppercase mb-4">
             {data.titulo}
           </h2>
-          <p className="text-gray-700 text-lg leading-relaxed">
+          <p className="text-gray-700 text-lg font-body">
             {data.subtitulo}
           </p>
         </div>

@@ -2,7 +2,7 @@
 import ReviewDesktop from "./components/ReviewDesktop"
 import ReviewMobile from "./components/ReviewMobile"
 import { useReviewsCarousel } from "../../hooks/useReviewsCarousel"
-import { Skeleton } from "@/shared/components/skeleton"
+import { Skeleton } from "@/shared/components/Skeleton"
 
 type Props = {
   title?: string
@@ -22,8 +22,7 @@ export default function ReviewsCarousel({
   return (
     <section className={`w-full flex flex-col items-center justify-center ${className}`}>
       <h3
-        className="text-4xl font-bold text-black mb-8 text-center"
-        style={{ fontFamily: "Work Sans, sans-serif" }}
+        className="text-center text-2xl md:text-4xl font-title uppercase mb-2"
       >
         {title}
       </h3>
@@ -88,14 +87,14 @@ export default function ReviewsCarousel({
           <>
             <button
               aria-label="Anterior"
-              className="hidden md:grid absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 place-items-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white hover:scale-105 transition-all shadow-md border border-white"
+              className="hidden md:grid absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 place-items-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white hover:scale-105 transition-all shadow-md border border-white hover:cursor-pointer"
               onClick={() => setIdx((i) => (i - 1 + count) % count)}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M14.5 7L9.5 12L14.5 17"
                   stroke="#666"
-                  strokeWidth="2.5"
+                  strokeWidth="2.5" 
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
