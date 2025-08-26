@@ -1,23 +1,23 @@
-import type { Review } from "./type";
+import type { Review } from "../type";
 
-export default function ReviewSlide({ review }: { review: Review }) {
+export default function ReviewDesktop({ review }: { review: Review }) {
   return (
-    <div className="px-6 sm:px-10 py-8 sm:py-10">
-      <div className="flex items-center gap-6 sm:gap-8">
+    <div className="px-10 py-10 w-full">
+      <div className="flex flex-row items-start gap-8">
         {/* Avatar */}
-        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-green-200 grid place-items-center text-green-900 font-bold text-2xl sm:text-3xl shrink-0">
+        <div className="w-24 h-24 rounded-full overflow-hidden bg-green-200 grid place-items-center text-green-900 font-bold text-3xl shrink-0">
           {getInitials(review.nombreHuesped)}
         </div>
 
         {/* Contenido */}
-        <div className="flex-1">
-          <div className="text-xl sm:text-2xl font-semibold text-green-900 mb-2">
+        <div className="flex-1 text-left">
+          <div className="text-2xl font-semibold text-green-900 mb-2">
             {review.nombreHuesped}
           </div>
-          <p className="text-neutral-800 text-base sm:text-lg mb-4">
+          <p className="text-neutral-800 text-lg mb-4">
             {review.mensaje}
           </p>
-          <div className="flex gap-1.5">
+          <div className="flex gap-1.5 justify-start">
             {Array.from({ length: 5 }).map((_, i) => (
               <svg
                 key={i}
