@@ -1,5 +1,5 @@
 // src/slices/accomodations/components/FeaturedDesktop.tsx
-import { Button } from "@/shared/components/button"
+import { Button } from "@/shared/components/Button"
 import { Link } from "@tanstack/react-router"
 import useHorizontalCarousel from "@/shared/hooks/useCarrouselScroll"
 

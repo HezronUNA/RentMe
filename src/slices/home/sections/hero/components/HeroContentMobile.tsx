@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from '@tanstack/react-router'
-import { Button } from '@/shared/components/button'
+import { Button } from '@/shared/components/Button'
 import type { HeroItem } from '../type';
 
 type Props = { left: HeroItem; right: HeroItem }
