@@ -18,7 +18,7 @@ const HeroContentDesktop: React.FC<Props> = React.memo(({ left, right }) => {
       gap-8 px-4 md:px-8 text-center
     ">
       <div className="max-w-full md:max-w-[460px] px-2">
-        <h1 className="uppercase font-title font-medium text-4xl lg:text-5xl">
+        <h1 className="uppercase font-title text-4xl lg:text-5xl">
           {left.titulo}
         </h1>
         {left.subtitulo && (
@@ -36,7 +36,7 @@ const HeroContentDesktop: React.FC<Props> = React.memo(({ left, right }) => {
       </div>
 
       <div className="max-w-full md:max-w-[460px] px-2">
-        <h2 className="uppercase font-title font-medium text-4xl lg:text-5xl ">
+        <h2 className="uppercase font-title text-4xl lg:text-5xl ">
           {right.titulo}
         </h2>
         {right.subtitulo && (

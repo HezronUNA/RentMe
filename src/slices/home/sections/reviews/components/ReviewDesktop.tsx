@@ -11,10 +11,10 @@ export default function ReviewDesktop({ review }: { review: Review }) {
 
         {/* Contenido */}
         <div className="flex-1 text-left">
-          <div className="text-2xl font-semibold text-green-900 mb-2">
+          <div className="text-2xl font-title font-semibold text-green-900 mb-2">
             {review.nombreHuesped}
           </div>
-          <p className="text-neutral-800 text-lg mb-4">
+          <p className="text-neutral-800 font-body text-lg mb-4">
             {review.mensaje}
           </p>
           <div className="flex gap-1.5 justify-start">
