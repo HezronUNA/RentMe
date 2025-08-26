@@ -1,4 +1,5 @@
-import { Skeleton } from "@/shared/components/skeleton"
+
+import { Skeleton } from "@/shared/components/Skeleton"
 import useGetAccomodationHighlights from "../../hooks/useAccomodationHighligths"
 import AccomodationsDesktop from "./components/AccomodationsDesktop"
 import AccomodationsMobile from "./components/AccomodationsMobile"
@@ -9,7 +10,7 @@ export default function Accomodations() {
   if (loading) {
     return (
       <section className="w-full flex flex-col items-center gap-8 py-10 px-4">
-        <h2 className="text-center text-2xl md:text-4xl font-regular uppercase tracking-widest">
+        <h2 className="text-center text-2xl md:text-4xl font-title uppercase">
           Alojamientos Disponibles
         </h2>
 
@@ -43,7 +44,7 @@ export default function Accomodations() {
 
   return (
     <section className="w-full flex flex-col items-center gap-8 py-10 px-4">
-      <h2 className="text-center text-2xl md:text-4xl font-regular uppercase tracking-widest">
+      <h2 className="text-center text-2xl md:text-4xl font-title uppercase">
         Alojamientos Disponibles
       </h2>
 
