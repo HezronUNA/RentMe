@@ -1,18 +1,26 @@
-import { useEffect, useState } from 'react'
-import type { HeroItem } from '../sections/hero/type'
-import { getHeroItems } from '../api/getHero'
+// src/slices/hero/hooks/useHero.ts
+import { useQuery } from "@tanstack/react-query";
+import { getHeroItems } from "../api/getHero";
+import type { HeroItem } from "../sections/hero/type";
+
+export const heroKeys = {
+  all: ["hero", "items"] as const,
+};
 
 export function useHero() {
-  const [items, setItems] = useState<HeroItem[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const query = useQuery<HeroItem[]>({
+    queryKey: heroKeys.all,
+    queryFn: getHeroItems,
+    staleTime: 1000 * 60 * 5, // 5 minutos
+    gcTime: 1000 * 60 * 60,   // 1 hora
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
 
-  useEffect(() => {
-    getHeroItems()
-      .then(setItems)
-      .catch(() => setError('No se pudo cargar el contenido'))
-      .finally(() => setLoading(false))
-  }, [])
-
-  return { items, loading, error }
+  return {
+    items: query.data ?? [],
+    loading: query.isLoading && !query.data,
+    error: query.isError ? "No se pudo cargar el contenido" : null,
+    refetch: query.refetch,
+  };
 }
