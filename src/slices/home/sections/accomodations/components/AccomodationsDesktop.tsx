@@ -77,9 +77,11 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
       </div>
 
       <div className="mt-6 flex justify-center">
-        <Button variant="green" className="hover:cursor-pointer">
-          <Link to="/alojamientos">Ver más propiedades</Link>
-        </Button>
+        <Link to="/alojamientos">
+          <Button variant="green" className="hover:cursor-pointer">
+            Ver más propiedades
+          </Button>
+        </Link>
       </div>
     </>
   )
