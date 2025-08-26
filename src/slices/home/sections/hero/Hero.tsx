@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section className="relative text-white">
       {/* CONTENEDOR ÚNICO: define altura y contexto de posicionamiento */}
-      <div className="relative h-[55vh] min-h-[420px] md:h-[65vh] lg:h-[720px] overflow-hidden">
+      <div className="relative h-[55vh] min-h-[420px] md:h-[65vh] lg:h-[640px] overflow-hidden">
         {/* Fondo en capa absoluta */}
         <HeroBackground left={left} right={right} />
 
