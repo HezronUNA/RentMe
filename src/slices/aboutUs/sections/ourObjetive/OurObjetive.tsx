@@ -1,5 +1,6 @@
 import { Skeleton } from "@/shared/components/Skeleton";
 import { useObjetivo } from "../../hooks/useObjetive";
+import { H2, P } from "@/shared/components/Typography";
 
 export default function OurObjetiveSection() {
   const { data, isLoading, isError } = useObjetivo();
@@ -39,12 +40,12 @@ export default function OurObjetiveSection() {
         </div>
 
         <div className="w-full md:w-1/2 font-title text-center md:text-left">
-          <h2 className="text-3xl md:text-4xl font-regular uppercase mb-4">
+          <H2 className="text-3xl md:text-4xl font-regular uppercase mb-4">
             {data.titulo}
-          </h2>
-          <p className="text-gray-700 text-lg font-body">
+          </H2>
+          <P className="text-gray-700 text-lg font-body">
             {data.subtitulo}
-          </p>
+          </P>
         </div>
       </div>
     </section>

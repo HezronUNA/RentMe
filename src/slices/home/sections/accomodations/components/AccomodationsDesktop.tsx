@@ -2,6 +2,7 @@
 import { Button } from "@/shared/components/Button"
 import { Link } from "@tanstack/react-router"
 import useHorizontalCarousel from "@/shared/hooks/useCarrouselScroll"
+import { Small } from "@/shared/components/Typography"
 
 type Props = { hospedajes: any[] }
 
@@ -71,7 +72,9 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                       variant="whiteBorder"
                       className="mt-2 px-4 py-1.5 text-xs hover:bg-gray-300 hover:cursor-pointer"
                     >
+                      <Small>
                       Ver propiedad
+                      </Small>
                     </Button>
                   </div>
                 </div>
@@ -83,8 +86,10 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
 
       <div className="mt-6 flex justify-center">
         <Link to="/alojamientos">
-          <Button variant="green" className="hover:cursor-pointer">
+          <Button variant="green" className="hover:cursor-pointer hover:bg-[#435349]">
+            <Small>
             Ver más propiedades
+            </Small>
           </Button>
         </Link>
       </div>
