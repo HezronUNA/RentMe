@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from '@tanstack/react-router'
 import { Button } from '@/shared/components/Button'
-import type { HeroItem } from '../type';
+import type { HeroItem } from '../type'
+import { H1, P } from '@/shared/components/Typography'
 
 type Props = { left: HeroItem; right: HeroItem }
 
@@ -12,45 +13,33 @@ const HeroContentMobile: React.FC<Props> = React.memo(({ left, right }) => {
       <div className="absolute inset-x-0 top-0 h-1/2 flex items-center justify-center px-4">
         <div
           className="
-            w-[92%] max-w-[340px] bg-black/30 rounded-lg
-            p-3
-            /* asegura no salirse de la mitad */
-            max-h-[86%] overflow-hidden
-            backdrop-blur-[1px]
+            w-[92%] max-w-[360px] rounded-xl
+            bg-black/35 backdrop-blur-sm
+            p-4 shadow-md
+            max-h-[88%] overflow-hidden
+            text-white
           "
+          aria-label="Información para huéspedes"
         >
-          <h1
-            className="
-              uppercase font-title
-              /* clamp de fuente para móviles angostos */
-              text-[clamp(18px,6vw,26px)]
-              leading-tight
-              text-center
-            "
-          >
+          <H1 className="uppercase text-[clamp(20px,6.4vw,28px)] leading-tight text-center">
             {left.titulo}
-          </h1>
+          </H1>
 
           {left.subtitulo && (
-            <p
+            <P
               className="
-                mt-2
-                text-[13px] leading-snug
-                text-center
-                /* evita crecer demasiado en SE */
+                mt-2 text-[13px] leading-snug text-center
                 max-h-24 overflow-hidden
               "
             >
               {left.subtitulo}
-            </p>
+            </P>
           )}
 
           <div className="mt-4 flex justify-center">
-            <Button
-              variant="whiteBorder"
-            >
-              <Link to="/alojamientos">{left.textoBoton || 'Ver más'}</Link>
-            </Button>
+            <Link to="/alojamientos" aria-label="Ver alojamientos">
+              <Button variant="whiteBorder">{left.textoBoton || 'Ver más'}</Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -59,35 +48,28 @@ const HeroContentMobile: React.FC<Props> = React.memo(({ left, right }) => {
       <div className="absolute inset-x-0 bottom-0 h-1/2 flex items-center justify-center px-4">
         <div
           className="
-            w-[92%] max-w-[340px] bg-black/30 rounded-lg
-            p-3
-            max-h-[86%] overflow-hidden
-            backdrop-blur-[1px]
+            w-[92%] max-w-[360px] rounded-xl
+            bg-black/35 backdrop-blur-sm
+            p-4 shadow-md
+            max-h-[88%] overflow-hidden
+            text-white
           "
+          aria-label="Información para propietarios"
         >
-          <h2
-            className="
-              uppercase  font-title
-              text-[clamp(18px,6vw,26px)]
-              leading-tight
-              text-center
-            "
-          >
+          <H1 className="uppercase text-[clamp(20px,6.4vw,28px)] leading-tight text-center">
             {right.titulo}
-          </h2>
+          </H1>
 
           {right.subtitulo && (
-            <p className="mt-2 text-[13px] leading-snug text-center max-h-24 overflow-hidden">
+            <P className="mt-2 text-[13px] leading-snug text-center max-h-24 overflow-hidden">
               {right.subtitulo}
-            </p>
+            </P>
           )}
 
           <div className="mt-4 flex justify-center">
-            <Button
-              variant="whiteBorder"
-            >
-              <Link to="/alojamientos">{right.textoBoton || 'Ver más'}</Link>
-            </Button>
+            <Link to="/alojamientos" aria-label="Ver alojamientos">
+              <Button variant="whiteBorder">{right.textoBoton || 'Ver más'}</Button>
+            </Link>
           </div>
         </div>
       </div>

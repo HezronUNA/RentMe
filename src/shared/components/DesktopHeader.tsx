@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router"
 import type { UseNavbar } from "@/shared/hooks/useNavbar"
 import Logo from "@/shared/assets/RentMe.jpg"
+import { Small } from "./Typography"
 
 type Props = {
   nav: UseNavbar
@@ -23,7 +24,7 @@ export default function DesktopHeader({ nav }: Props) {
         {/* Izquierda */}
         <div className="flex items-center justify-start gap-12">
           <Link to="/ventas" className={getLinkClass("/ventas")}>
-            VENTAS
+            <Small className="uppercase tracking-wide">VENTAS</Small>
           </Link>
 
           {/* Alojamientos con dropdown */}
@@ -41,11 +42,10 @@ export default function DesktopHeader({ nav }: Props) {
                 }
               }}
             >
-              ALOJAMIENTOS
+              <Small className="uppercase tracking-wide">ALOJAMIENTOS</Small>
               <svg
                 className={`w-4 h-4 transition-all duration-300 ${openDrop ? "rotate-180" : "rotate-0"} ${
-                  isAlojaSectionActive || openDrop ? "text-[#52655B]" : "text-black group-hover:text-[#52655B]"
-                }`}
+                  isAlojaSectionActive || openDrop ? "text-[#52655B]" : "text-black group-hover:text-[#52655B]"} `}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -83,9 +83,8 @@ export default function DesktopHeader({ nav }: Props) {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
-                      <span>Huésped</span>
+                      <Small className="tracking-wide">Huésped</Small>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#52655B]/10 to-transparent transition-all duration-300 -translate-x-full group-hover:translate-x-0" />
                   </Link>
 
                   <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4" />
@@ -109,9 +108,8 @@ export default function DesktopHeader({ nav }: Props) {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                       </svg>
-                      <span>Propietario</span>
+                      <Small className="tracking-wide">Propietario</Small>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#52655B]/10 to-transparent transition-all duration-300 -translate-x-full group-hover:translate-x-0" />
                   </Link>
                 </nav>
               </div>
@@ -127,14 +125,14 @@ export default function DesktopHeader({ nav }: Props) {
         {/* Derecha */}
         <div className="flex items-center justify-start gap-12">
           <Link to="/nosotros" className={getLinkClass("/nosotros")}>
-            SOBRE NOSOTROS
+            <Small className="uppercase tracking-wide">SOBRE NOSOTROS</Small>
           </Link>
           <Link
             to="/servicios"
             onClick={() => nav.setIsServiciosFromAlojamientos(false)}
             className={nav.isActive("/servicios") && !nav.isServiciosFromAlojamientos ? nav.classes.activeLink : nav.classes.inactiveLink}
           >
-            SERVICIOS
+            <Small className="uppercase tracking-wide">SERVICIOS</Small>
           </Link>
         </div>
       </div>

@@ -3,6 +3,7 @@ import ReviewDesktop from "./components/ReviewDesktop"
 import ReviewMobile from "./components/ReviewMobile"
 import { useReviewsCarousel } from "../../hooks/useReviewsCarousel"
 import { Skeleton } from "@/shared/components/Skeleton"
+import { H2 } from "@/shared/components/Typography"
 
 type Props = {
   title?: string
@@ -21,11 +22,9 @@ export default function ReviewsCarousel({
 
   return (
     <section className={`w-full flex flex-col items-center justify-center ${className}`}>
-      <h3
-        className="text-center text-2xl md:text-4xl font-title uppercase mb-2"
-      >
+      <H2 className="text-center text-2xl md:text-4xl font-title uppercase mb-2">
         {title}
-      </h3>
+      </H2>
 
       <div
         className="w-full max-w-[1020px] h-auto md:h-96 relative rounded-[5px] overflow-hidden mx-auto flex items-center justify-center"

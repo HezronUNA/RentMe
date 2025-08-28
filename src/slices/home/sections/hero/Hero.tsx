@@ -1,4 +1,4 @@
-import { Skeleton } from '@/shared/components/skeleton'
+import { Skeleton } from '@/shared/components/Skeleton'
 import { useHero } from '../../hooks/useHero'
 import HeroBackground from './components/HeroBackground'
 import HeroContentDesktop from './components/HeroContentDesktop'
