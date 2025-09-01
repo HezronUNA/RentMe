@@ -2,11 +2,12 @@ import * as React from "react";
 import { useIcons } from "@/shared/hooks/useIcons";
 import { buildWhatsAppHref, type Platform, type SocialEntry } from "@/shared/types/socialMedia";
 import { SOCIAL_CONFIG } from "../utils/socialMediaConfig";
+import { Link } from "@tanstack/react-router";
 
 const WHATSAPP_PHONE = "50683888231";
 const FOLLOW_PLATFORMS: Platform[] = ["instagram", "facebook", "tiktok"];
 
-// Helpers
+
 function hrefFromEntry(entry: SocialEntry) {
   return entry.platform === "whatsapp"
     ? buildWhatsAppHref(entry.phone, entry.message)
@@ -16,30 +17,31 @@ function getHrefByPlatform(p: Platform) {
   const entry = SOCIAL_CONFIG.find((e) => e.platform === p);
   return entry ? hrefFromEntry(entry) : "#";
 }
-
 export default function Footer() {
   const Icons = useIcons();
 
-  // Fila de íconos: respetamos el orden de SOCIAL_CONFIG
+ 
   const promoIcons = SOCIAL_CONFIG;
 
-  // “Síguenos”: subset con orden fijo
+ 
   const followList = FOLLOW_PLATFORMS
     .map((p) => SOCIAL_CONFIG.find((e) => e.platform === p))
     .filter(Boolean) as SocialEntry[];
-
-  // Animación fluida al entrar/salir del viewport (se repite siempre)
   const iconsRef = React.useRef<HTMLDivElement | null>(null);
   const [iconsVisible, setIconsVisible] = React.useState(false);
+  const [hasAnimated, setHasAnimated] = React.useState(false);
 
   React.useEffect(() => {
     const el = iconsRef.current;
-    if (!el) return;
+    if (!el || hasAnimated) return;
 
     const obs = new IntersectionObserver(
       ([entry]) => {
-        // Activa y desactiva según visibilidad para que se repita
-        setIconsVisible(entry.isIntersecting);
+        if (entry.isIntersecting && !hasAnimated) {
+          setIconsVisible(true);
+          setHasAnimated(true);
+          obs.disconnect(); 
+        }
       },
       {
         threshold: 0.18,
@@ -49,7 +51,7 @@ export default function Footer() {
 
     obs.observe(el);
     return () => obs.disconnect();
-  }, []);
+  }, [hasAnimated]);
 
   return (
     <footer
@@ -57,9 +59,9 @@ export default function Footer() {
         relative bg-white text-black border-t border-black/10 mt-8"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-        {/* Columnas más pegadas entre 'PÁGINAS PRINCIPALES' y 'CONTÁCTANOS' */}
+      
         <div className="grid lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:gap-x-6">
-          {/* Marca */}
+    
           <div className="lg:col-span-2">
             <h3 className="text-4xl font-semibold tracking-tight">RENTME CR</h3>
             <p className="mt-4 max-w-prose text-sm leading-relaxed">
@@ -95,7 +97,7 @@ export default function Footer() {
                         ${iconsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}
                       `}
                       style={{
-                        // salen uno por uno (stagger)
+          
                         transitionDelay: iconsVisible ? `${idx * 180}ms` : "0ms",
                       }}
                     >
@@ -106,21 +108,17 @@ export default function Footer() {
               </div>
             </div>
           </div>
-
-          {/* PÁGINAS PRINCIPALES */}
           <nav aria-label="PÁGINAS PRINCIPALES" className="lg:pr-2">
             <h4 className="text-sm font-semibold uppercase tracking-wider text-black/70">
               PÁGINAS PRINCIPALES
             </h4>
             <ul className="mt-4 space-y-3 text-[15px]">
-              <li><a href="/" className="hover:underline underline-offset-4">Inicio</a></li>
-              <li><a href="/servicios" className="hover:underline underline-offset-4">Servicios</a></li>
-              <li><a href="/alojamientos" className="hover:underline underline-offset-4">Alojamientos</a></li>
-              <li><a href="/ventas" className="hover:underline underline-offset-4">Ventas</a></li>
+              <li><Link href="/" className="hover:underline underline-offset-4" to={"."}>Inicio</Link></li>
+              <li><Link href="/servicios" className="hover:underline underline-offset-4" to={"."}>Servicios</Link></li>
+              <li><Link href="/alojamientos" className="hover:underline underline-offset-4" to={"."}>Alojamientos</Link></li>
+              <li><Link href="/ventas" className="hover:underline underline-offset-4" to={"."}>Ventas</Link></li>
             </ul>
           </nav>
-
-          {/* CONTÁCTANOS + SÍGUENOS */}
           <div className="grid grid-cols-2 gap-5 lg:ml-0">
             {/* CONTÁCTANOS */}
             <nav aria-label="CONTÁCTANOS">
@@ -191,8 +189,6 @@ export default function Footer() {
             </nav>
           </div>
         </div>
-
-        {/* Línea inferior */}
         <div className="mt-10 flex justify-end">
           <p className="text-xs font-semibold text-black/80">
             Todos los derechos reservados por ChocoTec
