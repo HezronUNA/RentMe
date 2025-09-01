@@ -7,18 +7,7 @@ import { FaChevronDown } from "react-icons/fa";
 
 export default function BannerAboutUs() {
   // El banner de "sobre nosotros" tiene ID "1" según tu estructura
-  const { data, isLoading, isError } = useBanner("1");
-
-  // Función para hacer scroll suave a la siguiente sección
-  const scrollToNextSection = () => {
-    const nextSection = document.querySelector('section:nth-of-type(2)');
-    if (nextSection) {
-      nextSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
+  const { data, isLoading, isError, scrollToNextSection } = useBanner("1");
 
   if (isLoading) {
     return (

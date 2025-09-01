@@ -34,11 +34,23 @@ export function useBanner(id: string) {
     };
   }, [queryClient, id]);
 
+  // Función para hacer scroll suave a la siguiente sección
+  const scrollToNextSection = () => {
+    const nextSection = document.querySelector('section:nth-of-type(2)');
+    if (nextSection) {
+      nextSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return {
     data: query.data,
     isLoading: query.isLoading && !query.data,
     isError: query.isError,
     error: query.error,
     refetch: query.refetch,
+    scrollToNextSection
   };
 }
