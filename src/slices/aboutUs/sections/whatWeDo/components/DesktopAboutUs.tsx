@@ -18,9 +18,9 @@ const Card = ({ card, Icon }: { card: AboutSection; Icon: LucideIcon }) => (
     </div>
 
     <div className="space-y-2">
-      <H3 className="text-zinc-700 text-xl font-medium">
+      <H2 className="text-zinc-700 text-xl font-medium">
         {card.title}
-      </H3>
+      </H2>
       <P className="text-zinc-900 text-base leading-relaxed">
         {card.subtitle}
       </P>
