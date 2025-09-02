@@ -2,14 +2,14 @@
 import { Skeleton } from "@/shared/components/Skeleton";
 import { Button } from "@/shared/components/Button";
 import { H1, P } from "@/shared/components/Typography";
-import { useBanner } from "../../hooks/useBanner";
 import { FaChevronDown } from "react-icons/fa";
+import { useHero } from "@/shared/hooks/useHero";
 
 export default function BannerAboutUs() {
   // El banner de "sobre nosotros" tiene ID "1" según tu estructura
-  const { data, isLoading, isError, scrollToNextSection } = useBanner("1");
+  const { items, error, loading, scrollToNextSection } = useHero("4");
 
-  if (isLoading) {
+  if (loading) {
     return (
       <section className="relative text-white">
         <div className="relative h-[50vh] min-h-[400px] md:h-[60vh] lg:h-[500px] overflow-hidden">
@@ -31,7 +31,7 @@ export default function BannerAboutUs() {
     );
   }
 
-  if (isError) {
+  if (error) {
     return (
       <section className="py-16 text-center text-red-600">
         <p>Error al cargar el banner de la sección.</p>
@@ -39,7 +39,7 @@ export default function BannerAboutUs() {
     );
   }
 
-  if (!data) {
+  if (!items.length) {
     return (
       <section className="py-16 text-center">
         <p>Sin contenido para mostrar.</p>
@@ -53,8 +53,8 @@ export default function BannerAboutUs() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src={data.imagen}
-            alt={data.titulo}
+            src={items[0].imagen}
+            alt={items[0].titulo}
             className="h-full w-full object-cover"
           />
           {/* Overlay for better text readability */}
@@ -67,11 +67,11 @@ export default function BannerAboutUs() {
         <div className="relative z-10 flex h-full items-center justify-center px-4 md:px-10">
           <div className="max-w-4xl text-center space-y-6">
             <H1 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wide font-title">
-              {data.titulo}
+              {items[0].titulo}
             </H1>
             
             <P className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed font-body">
-              {data.subtitulo}
+              {items[0].subtitulo}
             </P>
 
             <div className="pt-4">
