@@ -1,5 +1,5 @@
 // src/features/about/ui/DesktopAboutUs.tsx
-import { H2, H3, P } from "@/shared/components/Typography";
+import { H2, P } from "@/shared/components/Typography";
 import type { AboutSection } from "../type";
 import type { LucideIcon } from "lucide-react";
 
