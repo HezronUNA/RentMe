@@ -6,8 +6,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { useHero } from "@/shared/hooks/useHero";
 
 export default function BannerAboutUs() {
-  // El banner de "sobre nosotros" tiene ID "1" según tu estructura
-  const { items, error, loading, scrollToNextSection } = useHero("4");
+  const { items, error, loading, scrollToNextSection } = useHero("");
 
   if (loading) {
     return (
@@ -53,8 +52,8 @@ export default function BannerAboutUs() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src={items[0].imagen}
-            alt={items[0].titulo}
+            src={items[2].imagen}
+            alt={items[2].titulo}
             className="h-full w-full object-cover"
           />
           {/* Overlay for better text readability */}
@@ -67,11 +66,11 @@ export default function BannerAboutUs() {
         <div className="relative z-10 flex h-full items-center justify-center px-4 md:px-10">
           <div className="max-w-4xl text-center space-y-6">
             <H1 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wide font-title">
-              {items[0].titulo}
+              {items[2].titulo}
             </H1>
             
             <P className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed font-body">
-              {items[0].subtitulo}
+              {items[2].subtitulo}
             </P>
 
             <div className="pt-4">

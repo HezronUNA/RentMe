@@ -33,8 +33,8 @@ export default function Hero() {
   if (error) return <div className="py-16 text-center text-red-600">{error}</div>
   if (!items.length) return <div className="py-16 text-center">Sin contenido.</div>
 
-  const left: HeroItem = items[1]
-  const right: HeroItem = items[2] || items[1]
+  const left: HeroItem = items[0]
+  const right: HeroItem = items[1] || items[0]
 
   return (
     <section className="relative text-white">
