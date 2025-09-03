@@ -40,7 +40,7 @@ export default function OurObjetiveSection() {
         </div>
 
         <div className="w-full md:w-1/2 font-title text-center md:text-left">
-          <H2 className="text-3xl md:text-4xl font-regular uppercase mb-4">
+          <H2 className="text-3xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4">
             {data.titulo}
           </H2>
           <P className="text-gray-700 text-lg font-body">
