@@ -19,11 +19,7 @@ function getHrefByPlatform(p: Platform) {
 }
 export default function Footer() {
   const Icons = useIcons();
-
- 
   const promoIcons = SOCIAL_CONFIG;
-
- 
   const followList = FOLLOW_PLATFORMS
     .map((p) => SOCIAL_CONFIG.find((e) => e.platform === p))
     .filter(Boolean) as SocialEntry[];
@@ -63,14 +59,14 @@ export default function Footer() {
         <div className="grid lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:gap-x-6">
     
           <div className="lg:col-span-2">
-            <h3 className="text-4xl font-semibold tracking-tight">RENTME CR</h3>
-            <p className="mt-4 max-w-prose text-sm leading-relaxed">
+            <h3 className="text-4xl text-black/70 font-semibold tracking-tight">RENTME CR</h3>
+            <p className="mt-4 max-w-prose text-black/70 text-sm leading-relaxed">
               Tu aliado confiable en la compra, venta y gestión de propiedades en Costa Rica.
               Convertimos tu visión inmobiliaria en una experiencia real, segura y personalizada.
             </p>
 
             <div className="mt-8">
-              <p className="text-xl font-semibold">¿Dónde promocionamos tu propiedad?</p>
+              <p className="text-xl text-black/70 font-semibold">¿Dónde promocionamos tu propiedad?</p>
               <div ref={iconsRef} className="mt-4 flex items-center gap-4">
                 {promoIcons.map((s, idx) => {
                   const Icon = Icons[s.platform];
@@ -94,7 +90,7 @@ export default function Footer() {
                         transition-transform transition-opacity
                         duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)]
                         motion-reduce:transition-none motion-reduce:transform-none
-                        ${iconsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}
+                        ${iconsVisible ? "opacity-70 translate-y-0" : "opacity-0 translate-y-20"}
                       `}
                       style={{
           
@@ -112,11 +108,43 @@ export default function Footer() {
             <h4 className="text-sm font-semibold uppercase tracking-wider text-black/70">
               PÁGINAS PRINCIPALES
             </h4>
-            <ul className="mt-4 space-y-3 text-[15px]">
-              <li><Link href="/" className="hover:underline underline-offset-4" to={"."}>Inicio</Link></li>
-              <li><Link href="/servicios" className="hover:underline underline-offset-4" to={"."}>Servicios</Link></li>
-              <li><Link href="/alojamientos" className="hover:underline underline-offset-4" to={"."}>Alojamientos</Link></li>
-              <li><Link href="/ventas" className="hover:underline underline-offset-4" to={"."}>Ventas</Link></li>
+            <ul className="mt-3 space-y-3 text-[15px]">
+              <li>
+                <Link 
+                  href="/" 
+                  to={"."} 
+                  className="inline-flex items-center rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-[#94a593]/20 hover:text-black/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
+                >
+                  Inicio
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/servicios" 
+                  to={"."} 
+                  className="inline-flex items-center rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-[#94a593]/20 hover:text-black/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
+                >
+                  Servicios
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/alojamientos" 
+                  to={"."} 
+                  className="inline-flex items-center rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-[#94a593]/20 hover:text-black/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
+                >
+                  Alojamientos
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/ventas" 
+                  to={"."} 
+                  className="inline-flex items-center rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-[#94a593]/20 hover:text-black/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
+                >
+                  Ventas
+                </Link>
+              </li>
             </ul>
           </nav>
           <div className="grid grid-cols-2 gap-5 lg:ml-0">
@@ -131,7 +159,7 @@ export default function Footer() {
                     href={buildWhatsAppHref(WHATSAPP_PHONE)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline underline-offset-4"
+                    className="inline-flex items-center rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-[#94a593]/20 hover:text-black/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
                   >
                     WhatsApp
                   </a>
@@ -141,29 +169,32 @@ export default function Footer() {
                     href={getHrefByPlatform("instagram")}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline underline-offset-4"
+                    className="inline-flex items-center rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-[#94a593]/20 hover:text-black/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
                   >
                     Instagram
                   </a>
                 </li>
                 <li>
-                  {/* Cambia por tu correo real */}
-                  <a href="#" className="hover:underline underline-offset-4">Gmail</a>
+
+                  <a
+                    href="#"
+                    className="inline-flex items-center rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-[#94a593]/20 hover:text-black/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
+                  >
+                    Gmail
+                  </a>
                 </li>
                 <li>
                   <a
                     href={getHrefByPlatform("facebook")}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline underline-offset-4"
+                    className="inline-flex items-center rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-[#94a593]/20 hover:text-black/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
                   >
                     Facebook
                   </a>
                 </li>
               </ul>
             </nav>
-
-            {/* SÍGUENOS */}
             <nav aria-label="SÍGUENOS">
               <h4 className="text-sm font-semibold uppercase tracking-wider text-black/70">
                 SÍGUENOS
@@ -178,7 +209,7 @@ export default function Footer() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:underline underline-offset-4"
+                        className="inline-flex items-center rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-[#94a593]/20 hover:text-black/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
                       >
                         {label.charAt(0).toUpperCase() + label.slice(1)}
                       </a>
@@ -189,12 +220,25 @@ export default function Footer() {
             </nav>
           </div>
         </div>
-        <div className="mt-10 flex justify-end">
-          <p className="text-xs font-semibold text-black/80">
-            Todos los derechos reservados por ChocoTec
+      
+        <div className="relative mt-12 mb-8">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-black/10"></div>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center text-center">
+          <div className="mb-4">
+          </div>
+          <p className="text-sm text-black/70 mb-1 font-medium">
+            © 2025 RentME CR. Todos los derechos reservados.
+          </p>
+          <p className="text-xs font-semibold text-[#94a593]">
+            Desarrollado por ChocoTec
           </p>
         </div>
+        
       </div>
+      <div className="h-1.5 w-full bg-gradient-to-r from-transparent via-[#94a593]/70 to-transparent"></div>
     </footer>
   );
 }
