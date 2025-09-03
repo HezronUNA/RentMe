@@ -23,7 +23,7 @@ export default function DesktopOurTeam({ members, toggleMember }: Props) {
                         <article
                             key={m.id}
                             onClick={() => toggleMember(m.id)}
-                            className="group relative w-[300px] md:w-[320px] overflow-hidden bg-neutral-50 rounded-[10px] shadow-[0px_0px_6px_2px_rgba(0,0,0,0.15)] outline outline-zinc-600 outline-offset-[-1px] transform hover:-translate-y-1 transition-all duration-500 ease-out cursor-default"
+                            className="group relative w-[300px] md:w-[320px] overflow-hidden bg-neutral-50 rounded-2xl border border-zinc-200 shadow-sm hover:shadow-[0_10px_40px_rgb(82,101,91,0.35)] transition-all duration-300 cursor-default"
                         >
                             {/* Contenido Principal */}
                             <div className="p-6 flex flex-col items-center gap-4">
