@@ -48,8 +48,8 @@ export default function ReviewsCarousel({
   } = useReviewsCarousel(hospedajeId, limit)
 
   return (
-    <section className={`w-full flex flex-col items-center justify-center ${className}`}>
-      <H2 className="text-3xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4">
+    <section className={`w-full text-center mx-auto flex flex-col items-center justify-center ${className}`}>
+      <H2 className="text-2xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4">
         {title}
       </H2>
 
@@ -156,7 +156,7 @@ export default function ReviewsCarousel({
               </button>
               <button
                 aria-label="Siguiente"
-                className="hidden md:grid absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 place-items-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white hover:scale-105 transition-all shadow-md border border-white"
+                className="hidden md:grid absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 place-items-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white hover:scale-105 transition-all shadow-md border border-white hover:cursor-pointer"
                 onClick={nextSlide}
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
