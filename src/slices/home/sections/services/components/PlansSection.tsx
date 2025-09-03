@@ -87,7 +87,7 @@ export default function PlansSection() {
 
               
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-1000 px-4">
-                  <P className={`${getTextSize(index)} font-light text-center mb-4 uppercase`}>
+                  <P className={`${getTextSize(index)} text-sm sm:text-2xl text-center mb-4 uppercase`}>
                     {plan.title || 'Servicio'}
                   </P>
                   <Link to="/servicios">
