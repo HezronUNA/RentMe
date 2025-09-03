@@ -24,7 +24,7 @@ export default function MobileOurTeam({ members, activeId, toggleMember }: Props
                         <article
                             key={m.id}
                             onClick={() => toggleMember(m.id)}
-                            className="group relative w-[280px] overflow-hidden bg-neutral-50 rounded-[10px] shadow-[0px_0px_6px_2px_rgba(0,0,0,0.15)] outline outline-zinc-600 outline-offset-[-1px] transition-all duration-500 ease-out cursor-pointer"
+                            className="group relative w-[280px] overflow-hidden bg-neutral-50 rounded-2xl border border-zinc-200 shadow-sm transition-all duration-300 cursor-pointer"
                         >
                             {/* Contenido Principal */}
                             <div className="p-6 flex flex-col items-center gap-4">
