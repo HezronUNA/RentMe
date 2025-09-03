@@ -1,5 +1,6 @@
-import { H2, P } from "@/shared/components/Typography"
+import { H2, P, Small } from "@/shared/components/Typography"
 import usePlans from "@/slices/home/hooks/usePlans"
+import { Link } from "@tanstack/react-router"
 
 export default function PlansSection() {
   const { PlanesGestion, loading, error } = usePlans()
@@ -32,11 +33,11 @@ export default function PlansSection() {
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-10 bg-white">
       <div className="container mx-auto px-4">
         
-        <div className="text-center mb-16">
-          <H2 className="text-3xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4">
+        <div className="text-center mb-10">
+          <H2 className="text-3xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800">
             SOLUCIONES INMOBILIARIAS INTEGRALES
           </H2>
           <P className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -71,7 +72,7 @@ export default function PlansSection() {
             return (
               <div 
                 key={`${plan.id}-${index}`}
-                className={`group relative overflow-hidden cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all duration-300 ${getCardSize(index)}`}
+                className={`group relative overflow-hidden border border-gray-200/50 hover:border-gray-300 transition-all duration-300 ${getCardSize(index)}`}
               >
                 {/* Background image - not affected by hover */}
                 <div 
@@ -86,13 +87,16 @@ export default function PlansSection() {
 
               
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-1000 px-4">
-                  <h3 className={`${getTextSize(index)} font-light text-center mb-4 tracking-wider uppercase line-clamp-2`}>
+                  <P className={`${getTextSize(index)} font-light text-center mb-4 uppercase`}>
                     {plan.title || 'Servicio'}
-                  </h3>
-                  
-                  <button className="border border-white rounded-md px-6 py-2 text-sm font-normal tracking-wider hover:bg-white hover:text-gray-800 transition-all duration-300">
+                  </P>
+                  <Link to="/servicios">
+                  <button className="border border-white rounded-md px-6 py-2 text-sm hover:bg-white hover:cursor-pointer hover:text-gray-800 transition-all duration-300">
+                   <Small>
                     {plan.textbutton || "Ver mas"}
+                   </Small>
                   </button>
+                  </Link>
                 </div>
               </div>
             )
