@@ -45,7 +45,7 @@ export default function Accomodations() {
 
   return (
     <section className="w-full flex flex-col items-center gap-8 py-10 px-4">
-      <H2 className="text-center text-2xl md:text-4xl font-title uppercase">
+      <H2 className="text-3xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4">
         Alojamientos Disponibles
       </H2>
 
