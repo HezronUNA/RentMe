@@ -1,3 +1,4 @@
+import { H2, P } from "@/shared/components/Typography"
 import usePlans from "@/slices/home/hooks/usePlans"
 
 export default function PlansSection() {
@@ -35,12 +36,12 @@ export default function PlansSection() {
       <div className="container mx-auto px-4">
         
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-light tracking-wider text-gray-800 mb-4">
+          <H2 className="text-3xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4">
             SOLUCIONES INMOBILIARIAS INTEGRALES
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          </H2>
+          <P className="text-lg text-gray-600 max-w-3xl mx-auto">
             Asesoría personalizada en gestión, venta y compra de propiedades en Costa Rica.
-          </p>
+          </P>
         </div>
         <div className="grid grid-cols-4 gap-1">
           {PlanesGestion.map((plan, index) => {
