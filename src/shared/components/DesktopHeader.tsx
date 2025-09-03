@@ -23,15 +23,16 @@ export default function DesktopHeader({ nav }: Props) {
       <div className="h-32 inline-flex w-full justify-center items-center gap-12">
         {/* Izquierda */}
         <div className="flex items-center justify-start gap-12">
-          <Link to="/ventas" className={getLinkClass("/ventas")}>
-            <Small className="uppercase tracking-wide">VENTAS</Small>
+          <Link to="/ventas" className={`${getLinkClass("/ventas")} relative group`}>
+            <Small className="uppercase tracking-wide relative z-10">VENTAS</Small>
+            <span className="absolute inset-0 bg-[#52655B]/10 opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-x-100 scale-x-0 origin-left rounded-lg"></span>
           </Link>
 
           {/* Alojamientos con dropdown */}
           <div className="relative" ref={dropRef}>
             <button
               type="button"
-              className={(isAlojaSectionActive ? nav.classes.activeLink : nav.classes.inactiveLink) + " flex items-center gap-2.5 p-2 group"}
+              className={(isAlojaSectionActive ? nav.classes.activeLink : nav.classes.inactiveLink) + " flex items-center gap-2.5 p-2 group relative"}
               aria-haspopup="menu"
               aria-expanded={openDrop}
               onClick={() => setOpenDrop((v) => !v)}
@@ -42,7 +43,8 @@ export default function DesktopHeader({ nav }: Props) {
                 }
               }}
             >
-              <Small className="uppercase tracking-wide">ALOJAMIENTOS</Small>
+              <Small className="uppercase tracking-wide relative z-10">ALOJAMIENTOS</Small>
+              <span className="absolute inset-0 bg-[#52655B]/10 opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-x-100 scale-x-0 origin-left rounded-lg"></span>
               <svg
                 className={`w-4 h-4 transition-all duration-300 ${openDrop ? "rotate-180" : "rotate-0"} ${
                   isAlojaSectionActive || openDrop ? "text-[#52655B]" : "text-black group-hover:text-[#52655B]"} `}
@@ -124,15 +126,17 @@ export default function DesktopHeader({ nav }: Props) {
 
         {/* Derecha */}
         <div className="flex items-center justify-start gap-12">
-          <Link to="/nosotros" className={getLinkClass("/nosotros")}>
-            <Small className="uppercase tracking-wide">SOBRE NOSOTROS</Small>
+          <Link to="/nosotros" className={`${getLinkClass("/nosotros")} relative group`}>
+            <Small className="uppercase tracking-wide relative z-10">SOBRE NOSOTROS</Small>
+            <span className="absolute inset-0 bg-[#52655B]/10 opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-x-100 scale-x-0 origin-left rounded-lg"></span>
           </Link>
           <Link
             to="/servicios"
             onClick={() => nav.setIsServiciosFromAlojamientos(false)}
-            className={nav.isActive("/servicios") && !nav.isServiciosFromAlojamientos ? nav.classes.activeLink : nav.classes.inactiveLink}
+            className={`${nav.isActive("/servicios") && !nav.isServiciosFromAlojamientos ? nav.classes.activeLink : nav.classes.inactiveLink} relative group`}
           >
-            <Small className="uppercase tracking-wide">SERVICIOS</Small>
+            <Small className="uppercase tracking-wide relative z-10">SERVICIOS</Small>
+            <span className="absolute inset-0 bg-[#52655B]/10 opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:scale-x-100 scale-x-0 origin-left rounded-lg"></span>
           </Link>
         </div>
       </div>
