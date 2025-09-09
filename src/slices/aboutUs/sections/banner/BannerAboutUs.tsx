@@ -52,8 +52,8 @@ export default function BannerAboutUs() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src={items[2].imagen}
-            alt={items[2].titulo}
+            src={items[3].imagen}
+            alt={items[3].titulo}
             className="h-full w-full object-cover"
           />
           {/* Overlay for better text readability */}
@@ -65,12 +65,12 @@ export default function BannerAboutUs() {
         {/* Content */}
         <div className="relative z-10 flex h-full items-center justify-center px-4 md:px-10">
           <div className="max-w-4xl text-center space-y-6">
-            <H1 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wide font-title">
-              {items[2].titulo}
+            <H1>
+              {items[3].titulo}
             </H1>
             
             <P className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed font-body">
-              {items[2].subtitulo}
+              {items[3].subtitulo}
             </P>
 
             <div className="pt-4">

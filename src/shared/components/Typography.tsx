@@ -5,7 +5,7 @@ import * as React from "react"
 export function H1({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h1
-      className={cn("scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl", className)}
+      className={cn("scroll-m-20 text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight uppercase tracking-tight", className)}
       {...props}
     />
   )
