@@ -1,12 +1,10 @@
 // src/slices/aboutUs/sections/banner/BannerAboutUs.tsx
 import { Skeleton } from "@/shared/components/Skeleton";
-import { Button } from "@/shared/components/Button";
 import { H1, P } from "@/shared/components/Typography";
-import { FaChevronDown } from "react-icons/fa";
 import { useHero } from "@/shared/hooks/useHero";
 
 export default function BannerAboutUs() {
-  const { items, error, loading, scrollToNextSection } = useHero("");
+  const { items, error, loading } = useHero("");
 
   if (loading) {
     return (
@@ -72,18 +70,6 @@ export default function BannerAboutUs() {
             <P className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed font-body">
               {items[2].subtitulo}
             </P>
-
-            <div className="pt-4">
-              <Button
-                variant="whiteBorder"
-                size="lg"
-                className="hover:bg-white hover:text-[#52655B] hover:cursor-pointer hover:border-white transition-all duration-300 p-4 rounded-full animate-bounce"
-                onClick={scrollToNextSection}
-                aria-label="Ir a la siguiente sección"
-              >
-                <FaChevronDown className="text-xl" />
-              </Button>
-            </div>
           </div>
         </div>
       </div>

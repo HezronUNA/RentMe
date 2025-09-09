@@ -70,7 +70,7 @@ export default function WaysWork() {
               <div
                 key={modalidad.id}
                 className="group h-full bg-neutral-50 rounded-2xl border border-zinc-200 shadow-sm p-6 flex flex-col 
-                 hover:shadow-[0_10px_40px_rgb(82,101,91,0.35)] hover:border-[#52655B] transition-all duration-300"
+                 hover:shadow-[0_10px_40px_rgb(82,101,91,0.35)]  transition-all duration-300"
               >
                 {/* Número de modalidad */}
                 <div className="flex items-center mb-6">
@@ -113,7 +113,4 @@ export default function WaysWork() {
       </div>
     </section>
   );
-// ...existing code...
-
-// ...existing code...
 }
