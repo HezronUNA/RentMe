@@ -45,14 +45,14 @@ export function PriceSection({
 
   return (
     <div className="px-6 py-5">
-      <div className="text-zinc-600 text-lg font-medium tracking-wide mb-3">
+      <div className="text-zinc-600 text-sm font-medium tracking-wide mb-3">
         Precio
       </div>
       <div className="flex items-center">
         <div className="relative w-full">
           <button
             onClick={onCurrencyToggle}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-600 font-medium hover:text-zinc-800 transition-colors px-1"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-600 text-sm font-medium hover:text-zinc-800 transition-colors px-1"
           >
             {currency === 'USD' ? '$' : '₡'}
           </button>
@@ -62,7 +62,7 @@ export function PriceSection({
             onChange={onPriceChange}
             onBlur={onPriceBlur}
             placeholder="0.00"
-            className="w-full border border-zinc-300 rounded-lg py-3 px-9 text-black text-lg font-medium tracking-wide text-left outline-none focus:border-zinc-600 transition-colors"
+            className="w-full border border-zinc-300 rounded-lg py-2.5 px-9 text-black text-base font-medium tracking-wide text-left outline-none focus:border-zinc-600 transition-colors"
           />
         </div>
       </div>

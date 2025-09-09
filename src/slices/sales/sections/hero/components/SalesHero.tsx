@@ -2,7 +2,7 @@ import { useHero } from "@/shared/hooks/useHero";
 import { SearchBox } from "./SearchBox";
 
 export function SalesHero() {
-  const { items, loading, error } = useHero("");
+  const { items, loading, error } = useHero("sales");
 
   if (loading) {
     return (
