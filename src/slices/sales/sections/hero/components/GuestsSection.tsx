@@ -35,19 +35,19 @@ export function GuestsSection({ variant, guests, onDecrease, onIncrease }: Guest
 
   return (
     <div className="px-6 py-5 border-b border-zinc-200 mx-2">
-      <div className="text-zinc-600 text-lg font-medium tracking-wide mb-3">
+      <div className="text-zinc-600 text-sm font-medium tracking-wide mb-3">
         Huéspedes
       </div>
       <div className="flex justify-between items-center">
-        <div className="text-black text-base font-medium">
+        <div className="text-black text-sm font-medium">
           {guests} huéspedes
         </div>
         <div className="flex items-center gap-4">
           <button
             onClick={onDecrease}
-            className="w-8 h-8 bg-zinc-600 hover:bg-zinc-700 rounded-full flex items-center justify-center transition-colors"
+            className="w-7 h-7 bg-zinc-600 hover:bg-zinc-700 rounded-full flex items-center justify-center transition-colors"
           >
-            <span className="text-neutral-50 text-lg font-medium leading-none mb-0.5">-</span>
+            <span className="text-neutral-50 text-base font-medium leading-none mb-0.5">-</span>
           </button>
           <button
             onClick={onIncrease}
