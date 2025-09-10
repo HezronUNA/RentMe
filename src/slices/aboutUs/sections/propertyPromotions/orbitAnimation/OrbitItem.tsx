@@ -9,6 +9,7 @@ interface OrbitItemProps {
   delay?: number;
   direction?: number;
   initialAngle?: number;
+  animate?: boolean;
 }
 
 export function OrbitItem({ 
