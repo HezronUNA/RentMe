@@ -4,12 +4,13 @@ import { getHeroItems } from "../api/getHero";
 import type { HeroItem } from "../../slices/home/sections/hero/type";
 
 export const heroKeys = {
-  all: ["hero", "items"] as const,
+  all: ["hero"] as const,
+  bySection: (section: string) => [...heroKeys.all, section] as const,
 };
 
-export function useHero(_id: string) {
+export function useHero(section: string) {
   const query = useQuery<HeroItem[]>({
-    queryKey: heroKeys.all,
+    queryKey: heroKeys.bySection(section),
     queryFn: getHeroItems,
     staleTime: 1000 * 60 * 5, // 5 minutos
     gcTime: 1000 * 60 * 60,   // 1 hora
