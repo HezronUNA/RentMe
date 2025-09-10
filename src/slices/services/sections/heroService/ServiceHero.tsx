@@ -61,9 +61,9 @@ import { useHero } from "@/shared/hooks/useHero"
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 w-full text-center">
         <div className="space-y-6">
-          <H1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight uppercase tracking-wide">
             {items[4].titulo}
-          </H1>
+          </h1>
 
           {items[4].subtitulo && (
             <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto font-light">

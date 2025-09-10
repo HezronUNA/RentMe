@@ -121,7 +121,7 @@ export default function DesktopHeader({ nav }: Props) {
 
         {/* Logo */}
         <Link to="/" aria-label="Ir al inicio" className="block">
-          <img src={Logo} alt="Logo RentME" className="h-28 w-28 object-contain" />
+          <img src="https://i.ibb.co/5hgNzr0f/image-5.png"  alt="Logo RentME" className="h-28 w-28 object-contain" />
         </Link>
 
         {/* Derecha */}
