@@ -1,11 +1,16 @@
-import { Skeleton } from "@/shared/components/Skeleton";
+
 import { H2, H3, P, Small } from "@/shared/components/Typography";
 import { useModalidadesServicio } from ".";
 import type { ModalidadConServicios } from "./type";
 import { Button } from "@/shared/components/Button";
+import { Skeleton } from "@/shared/components/Skeleton";
+import { useNavigate } from "@tanstack/react-router";
+import { useTitles } from "@/shared/hooks/useTitles";
+
 
 export default function ModalidadesServicio() {
   const { modalidades, loading, error } = useModalidadesServicio();
+  const {items} = useTitles("5")
 
   if (loading) {
     return (
@@ -22,7 +27,6 @@ export default function ModalidadesServicio() {
                   {Array.from({ length: 4 }).map((_, j) => (
                     <div key={j} className="flex items-start gap-3">
                       <Skeleton className="w-6 h-6 rounded-full flex-shrink-0" />
-                      <Skeleton className="h-4 flex-1" />
                     </div>
                   ))}
                 </div>
@@ -54,17 +58,14 @@ export default function ModalidadesServicio() {
     );
   }
 
- return (
-    <section className="w-full py-16 px-4 bg-gray-50">
+  return (
+    <section className="w-full py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <H2 className="text-center text-3xl md:text-4xl font-title uppercase mb-4">
-          Nuestras Modalidades de Servicio
+        <H2 className="text-center text-3xl md:text-4xl font-title uppercase mb-4">{items[4]?.titulo}
         </H2>
-        
         <P className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          Descubrí nuestras modalidades de servicio y elegí la que mejor se adapta a tus necesidades.
+          {items[4]?.descripcion}
         </P>
-
         <div className="grid lg:grid-cols-3 gap-8">
           {modalidades.map((modalidad, index) => (
             <ModalidadCard 
@@ -85,11 +86,11 @@ type ModalidadCardProps = {
 };
 
 function ModalidadCard({ modalidad, numero }: ModalidadCardProps) {
+  const navigate = useNavigate();
   const hasServiciosIncluidos = modalidad.serviciosIncluidosData && modalidad.serviciosIncluidosData.length > 0;
   const hasServiciosAdicionales = modalidad.serviciosAdicionalesData && modalidad.serviciosAdicionalesData.length > 0;
-  
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:bg-[[#52655B]] transition-all duration-300 flex flex-col h-full border border-gray-100">
+    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:shadow-bg-[#435349] transition-all duration-300 flex flex-col h-full border border-gray-100">
       {/* Número circular */}
       <div className="w-16 h-16 bg-[#52655B] text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
         <span className="text-2xl font-bold">{numero}</span>
@@ -102,7 +103,11 @@ function ModalidadCard({ modalidad, numero }: ModalidadCardProps) {
 
       {/* Botón de acción */}
       <div className="flex justify-center mb-8">
-        <Button variant="green" className="px-8 hover:cursor-pointer hover:bg-[#435349]">
+        <Button
+          variant="green"
+          className="px-8 hover:cursor-pointer hover:bg-[#435349]"
+          onClick={() => navigate({ to: `/servicios/${modalidad.id}` })}
+        >
           <Small className="font-medium">
             {modalidad.textBoton || 'Reservar'}
           </Small>
