@@ -19,13 +19,6 @@ export function useModalidadesServicio() {
     refetchOnReconnect: false,
   });
 
-  // Debug
-  console.log('Hook useModalidadesServicio:', {
-    data: query.data,
-    isLoading: query.isLoading,
-    isError: query.isError,
-    error: query.error
-  });
 
   return {
     modalidades: query.data ?? [],
