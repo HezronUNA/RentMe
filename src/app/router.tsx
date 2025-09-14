@@ -59,7 +59,7 @@ const serviciosRoute = createRoute({
 
 const serviceDetailRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/servicios/$serviceId",
+  path: "/servicios/$modalidadId",
   component: ServiceDetailPage,
 })
 
