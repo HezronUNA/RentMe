@@ -90,7 +90,7 @@ function ModalidadCard({ modalidad, numero }: ModalidadCardProps) {
   const hasServiciosIncluidos = modalidad.serviciosIncluidosData && modalidad.serviciosIncluidosData.length > 0;
   const hasServiciosAdicionales = modalidad.serviciosAdicionalesData && modalidad.serviciosAdicionalesData.length > 0;
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:shadow-bg-[#435349] transition-all duration-300 flex flex-col h-full border border-gray-100">
+    <div className="bg-neutral-50 border border-zinc-200 rounded-2xl p-8 shadow-lg hover:shadow-[0_10px_40px_rgb(82,101,91,0.35)] transition-all duration-300 flex flex-col h-full border border-gray-100">
       {/* Número circular */}
       <div className="w-16 h-16 bg-[#52655B] text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
         <span className="text-2xl font-bold">{numero}</span>

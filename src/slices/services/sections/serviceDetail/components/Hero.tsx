@@ -63,7 +63,7 @@ export default function BannerAboutUs() {
         {/* Content */}
         <div className="relative z-10 flex h-full items-center justify-center px-4 md:px-10">
           <div className="max-w-4xl text-center space-y-6">
-            <H1 className="text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wide font-title">
+            <H1>
               {items[2].titulo}
             </H1>
             
