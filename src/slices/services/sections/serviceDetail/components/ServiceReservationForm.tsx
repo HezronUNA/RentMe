@@ -1,9 +1,9 @@
 import { Button } from "@/shared/components/Button";
+import { FcGoogle } from "react-icons/fc";
 import { Link } from "@tanstack/react-router";
 import { Input } from "@/shared/components/Input";
 
 import { useLogicFormService } from "@/slices/services/hooks/useLogicFormService";
-
 
 export function ServiceReservationForm() {
   const {
@@ -11,10 +11,13 @@ export function ServiceReservationForm() {
     errors,
     handleChange,
     handleSubmit,
+    handleGoogleLogin,
+    googleLoading,
     isPending,
     isError,
     error,
     user,
+    googleUser,
   } = useLogicFormService();
 
   return (
@@ -66,7 +69,7 @@ export function ServiceReservationForm() {
             value={form.email}
             onChange={handleChange}
             placeholder="Ejemplo: juan@email.com"
-            disabled={!!user}
+            disabled={!!user || !!googleUser}
             maxLength={50}
           />
           {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
@@ -87,20 +90,32 @@ export function ServiceReservationForm() {
         />
         {errors.detalle && <p className="text-red-600 text-xs mt-1">{errors.detalle}</p>}
       </div>
-      <div className="flex justify-end gap-4">
+      <div className="flex flex-col gap-4 w-full">
         <Button
-          type="submit"
-          variant="green"
-          className="hover:bg-[#435349] hover:cursor-pointer"
-          disabled={isPending}
+          type="button"
+          variant="white"
+          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-2 text-base font-medium shadow-sm hover:bg-gray-100"
+          onClick={handleGoogleLogin}
+          disabled={googleLoading || !!user || !!googleUser}
         >
-          {isPending ? "Enviando..." : "Solicitar"}
+          <FcGoogle size={22} />
+          {googleLoading ? "Cargando..." : "Solicitar con Google"}
         </Button>
-        <Link to="/servicios">
-          <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer">
-            Cancelar
+        <div className="flex flex-col md:flex-row justify-end gap-4 w-full">
+          <Button
+            type="submit"
+            variant="green"
+            className="hover:bg-[#435349] hover:cursor-pointer w-full md:w-auto"
+            disabled={isPending}
+          >
+            {isPending ? "Enviando..." : "Solicitar"}
           </Button>
-        </Link>
+          <Link to="/servicios" className="w-full md:w-auto">
+            <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto">
+              Cancelar
+            </Button>
+          </Link>
+        </div>
       </div>
       {isError && <p className="text-red-600 mt-2">Error: {String(error)}</p>}
     </form>

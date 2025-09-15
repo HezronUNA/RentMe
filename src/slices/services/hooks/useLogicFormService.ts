@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, getAuth, type User } from "firebase/auth";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { firebaseApp } from "@/services/firebase";
 import { usePostReservaServicio } from "@/slices/services/hooks/usePostRequestService";
@@ -11,7 +11,9 @@ function validateEmail(email: string) {
 
 export function useLogicFormService() {
 	const { mutate, isPending, isSuccess, isError, error, reset } = usePostReservaServicio();
-	const user = useAuth();
+		const user = useAuth();
+		const [googleLoading, setGoogleLoading] = useState(false);
+		const [googleUser, setGoogleUser] = useState<User | null>(null);
 	const [form, setForm] = useState({
 		nombre: "",
 		email: "",
@@ -25,15 +27,15 @@ export function useLogicFormService() {
 		detalle: "",
 	});
 
-	useEffect(() => {
-		if (user) {
-			setForm((prev) => ({
-				...prev,
-				nombre: prev.nombre || user.displayName || "",
-				email: user.email || "",
-			}));
-		}
-	}, [user]);
+		useEffect(() => {
+			if (user || googleUser) {
+				setForm((prev) => ({
+					...prev,
+					nombre: prev.nombre || (user?.displayName || googleUser?.displayName) || "",
+					email: (user?.email || googleUser?.email) || "",
+				}));
+			}
+		}, [user, googleUser]);
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -89,36 +91,53 @@ export function useLogicFormService() {
 		return valid;
 	};
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!user) {
+		const handleSubmit = async (e: React.FormEvent) => {
+			e.preventDefault();
+			if (!user && !googleUser) {
+				// Permitir enviar con correo manual
+				if (!validateForm()) return;
+				mutate({ ...form, email: form.email });
+				return;
+			}
+			if (!validateForm()) return;
+			mutate({
+				...form,
+				email: (user?.email || googleUser?.email) || form.email,
+			});
+		};
+
+		const handleGoogleLogin = async () => {
+			setGoogleLoading(true);
 			const provider = new GoogleAuthProvider();
 			const auth = getAuth(firebaseApp);
 			try {
-				await signInWithPopup(auth, provider);
+				const result = await signInWithPopup(auth, provider);
+				setGoogleUser(result.user);
+				setForm((prev) => ({
+					...prev,
+					email: result.user.email || "",
+					nombre: prev.nombre || result.user.displayName || "",
+				}));
 			} catch (err) {
 				setErrors((prev) => ({ ...prev, email: "Error al iniciar sesión con Google" }));
-				return;
+			} finally {
+				setGoogleLoading(false);
 			}
-			return;
-		}
-		if (!validateForm()) return;
-		mutate({
-			...form,
-			email: user.email || form.email,
-		});
-	};
+		};
 
-	return {
-		form,
-		setForm,
-		errors,
-		setErrors,
-		handleChange,
-		handleSubmit,
-		isPending,
-		isError,
-		error,
-		user,
-	};
+		return {
+			form,
+			setForm,
+			errors,
+			setErrors,
+			handleChange,
+			handleSubmit,
+			handleGoogleLogin,
+			googleLoading,
+			isPending,
+			isError,
+			error,
+			user,
+			googleUser,
+		};
 }
