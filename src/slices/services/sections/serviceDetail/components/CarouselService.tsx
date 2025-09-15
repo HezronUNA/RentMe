@@ -1,5 +1,4 @@
-
-import { H3, P } from "@/shared/components/Typography";
+import { H2, H3, P } from "@/shared/components/Typography";
 import { useEffect, useState } from "react";
 import { useServiciosByModalidad } from "@/slices/services/hooks/useServiceByModality";
 
@@ -7,19 +6,17 @@ export default function CarouselService({ modalidadId }: { modalidadId: string }
   const { data, isLoading, error } = useServiciosByModalidad(modalidadId);
   const [current, setCurrent] = useState(0);
 
-  // Map API data to Servicio type
   const servicios: Servicio[] = (data || []).map((item: any) => ({
     imagen: item.imagen,
     nombre: item.nombre ?? "Sin nombre",
     descripcion: item.descripcion ?? "Sin descripción",
   }));
 
-  // Avance automático del carrusel
   useEffect(() => {
     if (!servicios || servicios.length === 0) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev === servicios.length - 1 ? 0 : prev + 1));
-    }, 4000); // 3 segundos
+    }, 4000);
     return () => clearInterval(interval);
   }, [servicios]);
 
@@ -28,17 +25,25 @@ export default function CarouselService({ modalidadId }: { modalidadId: string }
   if (!servicios || servicios.length === 0) return <div className="py-12 text-center">No hay servicios disponibles</div>;
 
   return (
-    <section className="w-full py-12">
-      <div className="max-w-4xl mx-auto flex flex-col items-center">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="w-full max-w-md transition-all duration-700 ease-in-out">
-            {servicios[current] ? (
-              <ServicioCard servicio={servicios[current]} />
-            ) : (
-              <div className="text-center text-gray-400">Servicio no disponible</div>
-            )}
-          </div>
+    <section className="w-full">
+      <div className="flex flex-col items-center text-center mb-6">
+        <H2 className="text-2xl font-bold text-gray-800">
+          Servicios incluidos en esta modalidad
+        </H2>
+        <P className="text-gray-600 mt-2 max-w-md">
+          Descubre los beneficios que recibirás al elegir esta opción.
+        </P>
+      </div>
+
+      <div className="flex flex-col items-center">
+        <div className="w-full max-w-sm transition-all duration-700 ease-in-out">
+          {servicios[current] ? (
+            <ServicioCard servicio={servicios[current]} />
+          ) : (
+            <div className="text-center text-gray-400">Servicio no disponible</div>
+          )}
         </div>
+
         <div className="flex gap-2 justify-center mt-4">
           {servicios.map((_, idx) => (
             <span
