@@ -118,3 +118,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Agregar al archivo src/app/styles.css */
+
+/* Embla Carousel Styles */
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+}
+
+.embla__slide {
+  transform: translate3d(0, 0, 0);
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+/* Smooth scrolling behavior */
+.embla__container {
+  backface-visibility: hidden;
+}
+
+/* Optional: Hide scrollbar for better visual */
+.embla {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.embla::-webkit-scrollbar {
+  display: none;
+}
