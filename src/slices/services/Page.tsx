@@ -1,4 +1,5 @@
 import { ServiceHero } from "./sections/heroService/ServiceHero";
+import SalesService from "./sections/salesService/SalesService";
 import WaysWork from "./sections/waysWork/WaysWork";
 
 export default function AboutUsPage() {
@@ -6,6 +7,7 @@ export default function AboutUsPage() {
     <section>
       <ServiceHero />
       <WaysWork />
+      <SalesService/>
     </section>
   )
 }
