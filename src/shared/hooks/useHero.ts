@@ -19,9 +19,12 @@ export function useHero(section: string) {
   });
 
     // Función para hacer scroll suave a la siguiente sección
+  // Scroll a la sección con id específico (ej: "about-us-content")
   const scrollToNextSection = () => {
-    const nextSection = document.querySelector('section:nth-of-type(2)');
+    const nextSection = document.getElementById('about-us-content');
     if (nextSection) {
+      // Ajusta el scroll-margin-top para que no quede pegado al borde
+      nextSection.style.scrollMarginTop = '80px';
       nextSection.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'

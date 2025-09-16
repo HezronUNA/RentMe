@@ -8,13 +8,13 @@ import WhatWeDo from "./sections/whatWeDo/WhatWeDo";
 
 export default function AboutUsPage() {
   return (
-    <section>
+    <>
         <BannerAboutUs />
        <WhatWeDo/>
        <OurTeam/>
       <Promotions />
        <WaysWork />
       <OurObjetiveSection />
-    </section>
+    </>
   ) 
 }

@@ -1,131 +1,29 @@
-import { toast } from "sonner";
-import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
-import { useAuth } from "@/shared/hooks/useAuth";
-import { firebaseApp } from "@/services/firebase";
-import { useEffect, useState } from "react";
 import { Button } from "@/shared/components/Button";
+import { FcGoogle } from "react-icons/fc";
 import { Link } from "@tanstack/react-router";
 import { Input } from "@/shared/components/Input";
-import { usePostReservaServicio } from "@/slices/services/hooks/usePostRequestService";
 
-function validateEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+import { useLogicFormService } from "@/slices/services/hooks/useLogicFormService";
 
 export function ServiceReservationForm() {
-  const { mutate, isPending, isSuccess, isError, error, reset } = usePostReservaServicio();
-  const user = useAuth();
-  const [form, setForm] = useState({
-    nombre: "",
-    email: "",
-    telefono: "",
-    detalle: "",
-  });
-  const [errors, setErrors] = useState({
-    nombre: "",
-    email: "",
-    telefono: "",
-    detalle: "",
-  });
-
-  useEffect(() => {
-    if (user) {
-      setForm((prev) => ({
-        ...prev,
-        nombre: prev.nombre || user.displayName || "",
-        email: user.email || "",
-      }));
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("¡Solicitud enviada correctamente!", {
-        style: {
-          background: "#22c55e", // verde tailwind 500
-          border: "1px solid #22c55e", // verde tailwind 600
-          color: "white",
-        },
-      });
-      setForm({
-        nombre: "",
-        email: "",
-        telefono: "",
-        detalle: "",
-      });
-      setErrors({
-        nombre: "",
-        email: "",
-        telefono: "",
-        detalle: "",
-      });
-      reset();
-    }
-  }, [isSuccess, reset]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    let maxLength = 50;
-    if (name === "telefono") maxLength = 15;
-    if (name === "detalle") maxLength = 200;
-    if (value.length > maxLength) return;
-    setForm({ ...form, [name]: value });
-    setErrors({ ...errors, [name]: "" });
-  };
-
-  const validateForm = () => {
-    let valid = true;
-    const newErrors = { nombre: "", email: "", telefono: "", detalle: "" };
-    if (!form.nombre.trim()) {
-      newErrors.nombre = "El nombre es obligatorio.";
-      valid = false;
-    }
-    if (!form.email.trim()) {
-      newErrors.email = "El email es obligatorio.";
-      valid = false;
-    } else if (!validateEmail(form.email)) {
-      newErrors.email = "El correo electrónico no es válido.";
-      valid = false;
-    }
-    if (!form.telefono.trim()) {
-      newErrors.telefono = "El teléfono es obligatorio.";
-      valid = false;
-    } else if (form.telefono.length < 8) {
-      newErrors.telefono = "El teléfono debe tener al menos 8 caracteres.";
-      valid = false;
-    }
-    if (!form.detalle.trim()) {
-      newErrors.detalle = "El detalle es obligatorio.";
-      valid = false;
-    }
-    setErrors(newErrors);
-    return valid;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user) {
-      const provider = new GoogleAuthProvider();
-      const auth = getAuth(firebaseApp);
-      try {
-        await signInWithPopup(auth, provider);
-      } catch (err) {
-        setErrors((prev) => ({ ...prev, email: "Error al iniciar sesión con Google" }));
-        return;
-      }
-      return;
-    }
-    if (!validateForm()) return;
-    mutate({
-      ...form,
-      email: user.email || form.email,
-    });
-  };
+  const {
+    form,
+    errors,
+    handleChange,
+    handleSubmit,
+    handleGoogleLogin,
+    googleLoading,
+    isPending,
+    isError,
+    error,
+    user,
+    googleUser,
+  } = useLogicFormService();
 
   return (
     <form
       className="bg-white border border-zinc-200 rounded-xl shadow-lg p-6 flex flex-col gap-4 w-full max-w-xl mx-auto"
-      onSubmit={handleSubmit}
+  onSubmit={handleSubmit}
     >
       <h2 className="text-xl font-semibold mb-2 text-center">
         Solicita más información sobre este servicio
@@ -146,22 +44,6 @@ export function ServiceReservationForm() {
           {errors.nombre && <p className="text-red-600 text-xs mt-1">{errors.nombre}</p>}
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email
-          </label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="Ejemplo: juan@email.com"
-            disabled={!!user}
-            maxLength={50}
-          />
-          {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
-        </div>
-        <div>
           <label htmlFor="telefono" className="block text-sm font-medium text-gray-700 mb-1">
             Teléfono
           </label>
@@ -176,34 +58,64 @@ export function ServiceReservationForm() {
           {errors.telefono && <p className="text-red-600 text-xs mt-1">{errors.telefono}</p>}
         </div>
       </div>
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            Email
+          </label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Ejemplo: juan@email.com"
+            disabled={!!user || !!googleUser}
+            maxLength={50}
+          />
+          {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+        </div>
       <div>
         <label htmlFor="detalle" className="block text-sm font-medium text-gray-700 mb-1">
           Detalle de reservación
         </label>
-        <Input
+        <textarea
           id="detalle"
           name="detalle"
           value={form.detalle}
           onChange={handleChange}
           placeholder="Ejemplo: Quiero reservar para el mes de octubre"
           maxLength={200}
+          rows={3}
+          className="block w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 resize-y min-h-[48px] max-h-40"
         />
         {errors.detalle && <p className="text-red-600 text-xs mt-1">{errors.detalle}</p>}
       </div>
-      <div className="flex justify-end gap-4">
+      <div className="flex flex-col gap-4 w-full">
         <Button
-          type="submit"
-          variant="green"
-          className="hover:bg-[#435349] hover:cursor-pointer"
-          disabled={isPending}
+          type="button"
+          variant="white"
+          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-2 text-base font-medium shadow-sm hover:bg-gray-100"
+          onClick={handleGoogleLogin}
+          disabled={googleLoading || !!user || !!googleUser}
         >
-          {isPending ? "Enviando..." : "Solicitar"}
+          <FcGoogle size={22} />
+          {googleLoading ? "Cargando..." : "Solicitar con Google"}
         </Button>
-        <Link to="/servicios">
-          <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer">
-            Cancelar
+        <div className="flex flex-col md:flex-row justify-end gap-4 w-full">
+          <Button
+            type="submit"
+            variant="green"
+            className="hover:bg-[#435349] hover:cursor-pointer w-full md:w-auto"
+            disabled={isPending}
+          >
+            {isPending ? "Enviando..." : "Solicitar"}
           </Button>
-        </Link>
+          <Link to="/servicios" className="w-full md:w-auto">
+            <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto">
+              Cancelar
+            </Button>
+          </Link>
+        </div>
       </div>
       {isError && <p className="text-red-600 mt-2">Error: {String(error)}</p>}
     </form>

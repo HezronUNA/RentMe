@@ -9,7 +9,7 @@ export default function WhatWeDDo() {
 
   if (loading) {
     return (
-      <section className="mx-auto max-w-6xl px-4 py-16">
+  <section >
         <div className="animate-pulse space-y-6">
           <div className="h-8 w-72 bg-neutral-200 rounded" />
           <div className="h-5 w-full bg-neutral-200 rounded" />
@@ -27,7 +27,7 @@ export default function WhatWeDDo() {
   if (!header) return null;
 
   return (
-    <>
+    <section id="about-us-content" className="mx-auto max-w-6xl px-4 py-16">
       {/* Versión Desktop */}
       <div className="hidden md:block">
         <DesktopAboutUs header={header} cards={cards} icons={icons} />
@@ -37,6 +37,6 @@ export default function WhatWeDDo() {
       <div className="md:hidden">
         <MobileAboutUs header={header} cards={cards} icons={icons} setupCarousel={setupCarousel} />
       </div>
-    </>
+    </section>
   );
 }
