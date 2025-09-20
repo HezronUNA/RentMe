@@ -1,6 +1,6 @@
 import { SalesHero } from "./sections/hero/components/SalesHero";
 
-export default function AboutUsPage() {
+export default function SalesPage() {
   return (
     <section>
      <SalesHero/>
