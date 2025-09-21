@@ -14,7 +14,6 @@ export default function SalesPage() {
   } = usePropiedadesConFiltros()
 
   const handleApplyFilters = (filters: FiltrosBusqueda) => {
-    console.log('Aplicando filtros desde SearchBox:', filters);
     buscarConFiltros(filters);
   };
 

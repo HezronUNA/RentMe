@@ -24,7 +24,6 @@ interface SearchBoxActions {
   handlePriceMaxBlur: () => void;
   handleUbicacionChange: (ubicacion: string) => void;
   toggleCurrency: () => void;
-  handleSearch: () => void;
   getFiltrosActuales: () => FiltrosBusqueda;
 }
 
@@ -138,14 +137,6 @@ export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
     return filtros;
   };
 
-  const handleSearch = () => {
-    const filtros = getFiltrosActuales();
-    console.log('Búsqueda con filtros:', filtros);
-    
-    // Aquí se aplicarían los filtros al hook de propiedades
-    // Esto se manejará desde el componente padre
-  };
-
   return [
     // Estado
     {
@@ -171,8 +162,7 @@ export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
       handlePriceMaxBlur,
       handleUbicacionChange,
       toggleCurrency,
-      handleSearch,
-      getFiltrosActuales,
+      getFiltrosActuales
     },
   ];
 }
