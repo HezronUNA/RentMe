@@ -20,10 +20,10 @@ export interface PropiedadVenta {
   id: string
   descripcion: string
   habitaciones: number
-  banos: number
+  baños: number
   areaTerreno: number
   estado: EstadoPropiedad
-  anoConstruccion?: number
+  añoConstruccion?: number
   precio: number
   amenidades: string[]
   ubicacion: Ubicacion
@@ -36,10 +36,10 @@ export interface PropiedadVenta {
 export interface PropiedadVentaFirestore {
   descripcion: string
   habitaciones: number
-  banos: number
+  baños: number
   areaTerreno: number
   estado: EstadoPropiedad
-  anoConstruccion?: number
+  añoConstruccion?: number
   precio: number
   amenidades: string[]
   ubicacion: Ubicacion

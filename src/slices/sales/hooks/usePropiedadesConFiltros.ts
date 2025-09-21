@@ -13,7 +13,7 @@ export interface FiltrosBusqueda {
   precioMin?: number
   precioMax?: number
   habitaciones?: number
-  banos?: number
+  baños?: number
 }
 
 /**
@@ -74,8 +74,8 @@ export function usePropiedadesConFiltros() {
         resultado = resultado.filter(p => p.habitaciones === filtrosActivos.habitaciones)
       }
 
-      if (filtrosActivos.banos !== undefined) {
-        resultado = resultado.filter(p => p.banos === filtrosActivos.banos)
+      if (filtrosActivos.baños !== undefined) {
+        resultado = resultado.filter(p => p.baños === filtrosActivos.baños)
       }
 
       // Si se aplicaron filtros de precio pero no se usó la API de precio
@@ -132,7 +132,7 @@ export function usePropiedadesConFiltros() {
 
     const precios = query.data.map(p => p.precio)
     const habitaciones = query.data.map(p => p.habitaciones)
-    const banos = query.data.map(p => p.banos)
+    const baños = query.data.map(p => p.baños)
 
     return {
       total: query.data.length,
@@ -146,10 +146,10 @@ export function usePropiedadesConFiltros() {
         maximo: Math.max(...habitaciones),
         promedio: Math.round(habitaciones.reduce((sum, h) => sum + h, 0) / habitaciones.length)
       },
-      banos: {
-        minimo: Math.min(...banos),
-        maximo: Math.max(...banos),
-        promedio: Math.round(banos.reduce((sum, b) => sum + b, 0) / banos.length)
+      baños: {
+        minimo: Math.min(...baños),
+        maximo: Math.max(...baños),
+        promedio: Math.round(baños.reduce((sum, b) => sum + b, 0) / baños   .length)
       }
     }
   }, [query.data])
