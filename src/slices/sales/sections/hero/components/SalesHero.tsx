@@ -10,7 +10,6 @@ export function SalesHero({ onApplyFilters }: SalesHeroProps) {
   const { items, loading, error } = useHero("sales");
 
   const handleSearchFilters = (filters: FiltrosBusqueda) => {
-    console.log('Filtros recibidos en SalesHero:', filters);
     if (onApplyFilters) {
       onApplyFilters(filters);
     }

@@ -24,21 +24,18 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
       handlePriceMaxBlur,
       handleUbicacionChange,
       toggleCurrency, 
-      handleSearch,
       getFiltrosActuales
     }
   ] = useSearchBox();
 
   const handleSearchClick = () => {
     const filtros = getFiltrosActuales();
-    console.log('Filtros aplicados:', filtros);
     
     // Llamar la función de callback si existe
     if (onSearchFilters) {
       onSearchFilters(filtros);
     }
     
-    handleSearch();
   };
 
   if (variant === 'desktop') {
