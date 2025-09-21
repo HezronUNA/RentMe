@@ -80,7 +80,7 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                       <div className="pt-2 flex justify-center">
                         <Button 
                           variant="white" 
-                          className="hover:bg-gray-200 hover:cursor-pointer transition-colors duration-200 transform hover:scale-105"
+                          className="hover:bg-gray-100 hover:cursor-pointer transition-colors duration-200 "
                         >
                           <Small>Ver propiedad</Small>
                         </Button>

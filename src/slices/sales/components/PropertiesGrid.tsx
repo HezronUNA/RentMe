@@ -23,7 +23,7 @@ export function PropertiesGrid({
     return (
       <div className="relative w-full flex justify-center px-4">
         <div className="max-w-[1700px] w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-2 py-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-2 pb-4">
             {Array.from({ length: 6 }).map((_, index) => (
               <PropertyCardSkeleton key={index} />
             ))}
@@ -38,7 +38,7 @@ export function PropertiesGrid({
     return (
       <div className="relative w-full flex justify-center px-4">
         <div className="max-w-[1700px] w-full">
-          <div className="text-center py-12">
+          <div className="text-center py-8">
             <div className="text-red-500 text-lg font-medium mb-2">
               Error al cargar las propiedades
             </div>
@@ -60,7 +60,7 @@ export function PropertiesGrid({
     return (
       <div className="relative w-full flex justify-center px-4">
         <div className="max-w-[1700px] w-full">
-          <div className="text-center py-12">
+          <div className="text-center py-8">
             <div className="text-gray-500 text-lg font-medium mb-2">
               {emptyMessage}
             </div>
@@ -77,18 +77,9 @@ export function PropertiesGrid({
   return (
     <div className="relative w-full flex justify-center px-4">
       <div className="max-w-[1700px] w-full">
-        {/* Header con conteo */}
-        <div className="mb-6 px-2">
-          <h2 className="text-2xl font-bold text-zinc-900 mb-2">
-            Propiedades de Venta
-          </h2>
-          <p className="text-zinc-600">
-            {properties.length} {properties.length === 1 ? 'propiedad encontrada' : 'propiedades encontradas'}
-          </p>
-        </div>
 
         {/* Grid de cards - 3 por fila */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-2 py-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-2 pb-4">
           {properties.map((property) => (
             <div key={property.id} className="w-full max-w-[420px] min-w-[340px] mx-auto">
               <PropertyCard

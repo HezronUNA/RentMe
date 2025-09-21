@@ -1,8 +1,20 @@
 import { useHero } from "@/shared/hooks/useHero";
 import { SearchBox } from "./SearchBox";
+import type { FiltrosBusqueda } from "../../../hooks/usePropiedadesConFiltros";
 
-export function SalesHero() {
+interface SalesHeroProps {
+  onApplyFilters?: (filters: FiltrosBusqueda) => void;
+}
+
+export function SalesHero({ onApplyFilters }: SalesHeroProps) {
   const { items, loading, error } = useHero("sales");
+
+  const handleSearchFilters = (filters: FiltrosBusqueda) => {
+    console.log('Filtros recibidos en SalesHero:', filters);
+    if (onApplyFilters) {
+      onApplyFilters(filters);
+    }
+  };
 
   if (loading) {
     return (
@@ -74,12 +86,12 @@ export function SalesHero() {
 
           {/* Desktop Search Box */}
           <div className="hidden lg:flex justify-center mt-6">
-            <SearchBox variant="desktop" />
+            <SearchBox variant="desktop" onSearchFilters={handleSearchFilters} />
           </div>
 
           {/* Mobile Search Box */}
           <div className="lg:hidden mt-4">
-            <SearchBox variant="mobile" />
+            <SearchBox variant="mobile" onSearchFilters={handleSearchFilters} />
           </div>
         </div>
       </div>
