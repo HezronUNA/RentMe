@@ -57,7 +57,7 @@ export function SalesHero({ onApplyFilters }: SalesHeroProps) {
 
   return (
     <section
-      className="relative py-12 md:py-16 min-h-[55vh] md:min-h-[65vh] lg:min-h-[75vh] flex items-start overflow-hidden"
+      className="relative py-12 md:py-16 min-h-[55vh] md:min-h-[65vh] lg:min-h-[75vh] flex items-start"
       style={{
         backgroundImage: heroData.imagen
           ? `url(${heroData.imagen})`
@@ -69,8 +69,8 @@ export function SalesHero({ onApplyFilters }: SalesHeroProps) {
     >
       {heroData.imagen && <div className="absolute inset-0 bg-black/60" />}
 
-      <div className="relative z-10 w-full px-4 pt-6 md:pt-8">
-        <div className="max-w-4xl mx-auto space-y-5">
+      <div className="relative z-10 w-full px-4 pt-6 md:pt-8 overflow-visible">
+        <div className="max-w-4xl mx-auto space-y-5 overflow-visible">
           <div className="space-y-2">
             <h1 className="text-2xl lg:text-5xl font-bold text-white leading-tight uppercase tracking-wide text-center">
               {heroData.titulo}
@@ -89,7 +89,7 @@ export function SalesHero({ onApplyFilters }: SalesHeroProps) {
           </div>
 
           {/* Mobile Search Box */}
-          <div className="lg:hidden mt-4">
+          <div className="lg:hidden mt-4 overflow-visible">
             <SearchBox variant="mobile" onSearchFilters={handleSearchFilters} />
           </div>
         </div>
