@@ -1,6 +1,7 @@
 import { Button } from "@/shared/components/Button"
 import { Small } from "@/shared/components/Typography"
 import type { PropiedadVenta } from "../type"
+import { useNavigate } from "@tanstack/react-router"
 
 interface PropertyCardProps {
   property: PropiedadVenta
@@ -28,9 +29,13 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
     }
   }
 
+  const navigate = useNavigate()
+
   const handleClick = () => {
     if (onPropertyClick) {
       onPropertyClick(property.id)
+    } else {
+      navigate({ to: `/ventas/${property.id}` })
     }
   }
 
@@ -118,6 +123,7 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
           <Button 
             variant="white" 
             className="hover:bg-gray-100 hover:cursor-pointer transition-colors duration-200"
+            onClick={handleClick}
           >
             <Small>Ver propiedad</Small>
           </Button>
