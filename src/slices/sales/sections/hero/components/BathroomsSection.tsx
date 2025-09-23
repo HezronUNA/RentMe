@@ -23,7 +23,7 @@ export function BathroomsSection({
             <button
               onClick={onDecrease}
               disabled={baños === 0}
-              className="w-10 h-10 rounded-full border border-zinc-300 flex items-center justify-center hover:border-zinc-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-10 h-10 rounded-full border-2 border-[#52655B] bg-white text-[#52655B] flex items-center justify-center hover:bg-[#52655B] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-[#52655B] transition-all duration-200 cursor-pointer"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                 <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -34,7 +34,7 @@ export function BathroomsSection({
             </span>
             <button
               onClick={onIncrease}
-              className="w-10 h-10 rounded-full border border-zinc-300 flex items-center justify-center hover:border-zinc-400 transition-colors"
+              className="w-10 h-10 rounded-full border-2 border-[#52655B] bg-white text-[#52655B] flex items-center justify-center hover:bg-[#52655B] hover:text-white transition-all duration-200 cursor-pointer"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                 <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -58,7 +58,7 @@ export function BathroomsSection({
           <button
             onClick={onDecrease}
             disabled={baños === 0}
-            className="w-8 h-8 rounded-full border border-zinc-300 flex items-center justify-center hover:border-zinc-400 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-8 h-8 rounded-full border-2 border-[#52655B] bg-white text-[#52655B] flex items-center justify-center hover:bg-[#52655B] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-[#52655B] transition-all duration-200 cursor-pointer"
           >
             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none">
               <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -69,7 +69,7 @@ export function BathroomsSection({
           </span>
           <button
             onClick={onIncrease}
-            className="w-8 h-8 rounded-full border border-zinc-300 flex items-center justify-center hover:border-zinc-400"
+            className="w-8 h-8 rounded-full border-2 border-[#52655B] bg-white text-[#52655B] flex items-center justify-center hover:bg-[#52655B] hover:text-white transition-all duration-200 cursor-pointer"
           >
             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none">
               <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
