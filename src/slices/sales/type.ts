@@ -2,6 +2,8 @@
 
 export type EstadoPropiedad = 'Disponible' | 'Reservada' | 'Vendida'
 
+export type EstadoReservaVenta = 'Pendiente' | 'Confirmada' | 'Cancelada' | 'Completada'
+
 export interface Ubicacion {
   canton: string
   distrito: string
@@ -46,4 +48,46 @@ export interface PropiedadVentaFirestore {
   ubicacionExacta: UbicacionExacta
   imagenes: string[]
   asesorResponsable: AsesorResponsable
+}
+
+// Tipos para ReservaVenta
+export interface ReservaVenta {
+  id: string
+  propiedadId: string
+  propiedadTitulo?: string
+  clienteNombre: string
+  clienteEmail: string
+  clienteTelefono: string
+  mensaje?: string
+  fechaReserva: Date
+  fechaCreacion: Date
+  estado: EstadoReservaVenta
+  usuarioId?: string // Si el cliente está registrado
+  asesorAsignado?: string // Email del asesor
+}
+
+// Tipo para Firestore (sin el ID que se genera automáticamente)
+export interface ReservaVentaFirestore {
+  propiedadId: string
+  propiedadTitulo?: string
+  clienteNombre: string
+  clienteEmail: string
+  clienteTelefono: string
+  mensaje?: string
+  fechaReserva: Date
+  fechaCreacion: Date
+  estado: EstadoReservaVenta
+  usuarioId?: string
+  asesorAsignado?: string
+}
+
+// Tipo para crear una nueva reserva (datos del formulario)
+export interface CrearReservaVenta {
+  propiedadId: string
+  propiedadTitulo?: string
+  nombre: string
+  email: string
+  telefono: string
+  mensaje?: string
+  usuarioId?: string
 }
