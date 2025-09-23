@@ -3,6 +3,7 @@ import { GoogleAuthProvider, signInWithPopup, getAuth, type User } from "firebas
 import { useAuth } from "@/shared/hooks/useAuth";
 import { firebaseApp } from "@/services/firebase";
 import { toast } from "sonner";
+import { crearReservaVenta } from "../api/reservaVentaService";
 
 function validateEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -10,16 +11,12 @@ function validateEmail(email: string) {
 
 interface ContactFormData {
   nombre: string;
-  primerApellido: string;
-  segundoApellido: string;
   email: string;
   telefono: string;
 }
 
 interface ContactFormErrors {
   nombre: string;
-  primerApellido: string;
-  segundoApellido: string;
   email: string;
   telefono: string;
 }
@@ -33,16 +30,12 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
   
   const [form, setForm] = useState<ContactFormData>({
     nombre: "",
-    primerApellido: "",
-    segundoApellido: "",
     email: "",
     telefono: "",
   });
   
   const [errors, setErrors] = useState<ContactFormErrors>({
     nombre: "",
-    primerApellido: "",
-    segundoApellido: "",
     email: "",
     telefono: "",
   });
@@ -51,13 +44,10 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
   useEffect(() => {
     if (user || googleUser) {
       const displayName = (user?.displayName || googleUser?.displayName) || "";
-      const nameParts = displayName.split(' ');
       
       setForm((prev) => ({
         ...prev,
-        nombre: prev.nombre || nameParts[0] || "",
-        primerApellido: prev.primerApellido || nameParts[1] || "",
-        segundoApellido: prev.segundoApellido || nameParts[2] || "",
+        nombre: prev.nombre || displayName,
         email: (user?.email || googleUser?.email) || prev.email,
       }));
     }
@@ -82,19 +72,12 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
     let valid = true;
     const newErrors: ContactFormErrors = {
       nombre: "",
-      primerApellido: "",
-      segundoApellido: "",
       email: "",
       telefono: "",
     };
 
     if (!form.nombre.trim()) {
-      newErrors.nombre = "El nombre es obligatorio.";
-      valid = false;
-    }
-
-    if (!form.primerApellido.trim()) {
-      newErrors.primerApellido = "El primer apellido es obligatorio.";
+      newErrors.nombre = "El nombre completo es obligatorio.";
       valid = false;
     }
 
@@ -126,12 +109,20 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
     setIsPending(true);
     
     try {
-      // Simular envío del formulario
-      // TODO: Implementar la API para enviar el contacto de propiedad
-      console.log('Enviando contacto para propiedad:', propertyId, form);
+      // Crear la reserva usando el service
+      const reservaData = {
+        propiedadId: propertyId,
+        propiedadTitulo: _propertyTitle,
+        nombre: form.nombre,
+        email: form.email,
+        telefono: form.telefono,
+        mensaje: `Interés en la propiedad. Contactar al cliente para más información.`,
+        usuarioId: user?.uid || googleUser?.uid
+      };
+
+      const reservaId = await crearReservaVenta(reservaData);
       
-      // Simular delay de API
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log('Reserva creada exitosamente:', reservaId);
       
       toast.success("¡Mensaje enviado correctamente!", {
         description: "Nos pondremos en contacto contigo pronto.",
@@ -164,14 +155,11 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
       setGoogleUser(result.user);
       
       const displayName = result.user.displayName || "";
-      const nameParts = displayName.split(' ');
       
       setForm((prev) => ({
         ...prev,
         email: result.user.email || prev.email,
-        nombre: prev.nombre || nameParts[0] || "",
-        primerApellido: prev.primerApellido || nameParts[1] || "",
-        segundoApellido: prev.segundoApellido || nameParts[2] || "",
+        nombre: prev.nombre || displayName,
       }));
       
       toast.success("¡Sesión iniciada con Google!", {
@@ -193,15 +181,11 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
   const resetForm = () => {
     setForm({
       nombre: "",
-      primerApellido: "",
-      segundoApellido: "",
       email: "",
       telefono: "",
     });
     setErrors({
       nombre: "",
-      primerApellido: "",
-      segundoApellido: "",
       email: "",
       telefono: "",
     });

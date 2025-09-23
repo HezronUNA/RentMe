@@ -21,7 +21,6 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
     isSubmitted,
     user,
     googleUser,
-    resetForm,
   } = useContactFormLogic(propertyId, propertyTitle)
 
   if (isSubmitted) {
@@ -40,12 +39,6 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
             Gracias por tu interés. Nos pondremos en contacto contigo pronto.
           </p>
         </div>
-        <Button 
-          onClick={resetForm}
-          className="bg-[#52655B] text-white hover:bg-[#3f4f42]"
-        >
-          Enviar otro mensaje
-        </Button>
       </div>
     )
   }
@@ -59,61 +52,24 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
         Agenda una cita con el propietario
       </h2>
       
-      {/* Fila 1: Nombre y Primer Apellido */}
+      {/* Fila 1: Nombre completo y Email */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-1">
-            Nombre
+            Nombre completo
           </label>
           <Input
             id="nombre"
             name="nombre"
             type="text"
-            placeholder="Nombre"
+            placeholder="Ejemplo: Juan Pérez Rodríguez"
             value={form.nombre}
             onChange={handleChange('nombre')}
-            maxLength={50}
+            maxLength={100}
             required
             className="w-full"
           />
           {errors.nombre && <p className="text-red-600 text-xs mt-1">{errors.nombre}</p>}
-        </div>
-        <div>
-          <label htmlFor="primerApellido" className="block text-sm font-medium text-gray-700 mb-1">
-            Primer apellido
-          </label>
-          <Input
-            id="primerApellido"
-            name="primerApellido"
-            type="text"
-            placeholder="Primer apellido"
-            value={form.primerApellido}
-            onChange={handleChange('primerApellido')}
-            maxLength={50}
-            required
-            className="w-full"
-          />
-          {errors.primerApellido && <p className="text-red-600 text-xs mt-1">{errors.primerApellido}</p>}
-        </div>
-      </div>
-
-      {/* Fila 2: Segundo Apellido y Email */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="segundoApellido" className="block text-sm font-medium text-gray-700 mb-1">
-            Segundo apellido
-          </label>
-          <Input
-            id="segundoApellido"
-            name="segundoApellido"
-            type="text"
-            placeholder="Segundo apellido"
-            value={form.segundoApellido}
-            onChange={handleChange('segundoApellido')}
-            maxLength={50}
-            className="w-full"
-          />
-          {errors.segundoApellido && <p className="text-red-600 text-xs mt-1">{errors.segundoApellido}</p>}
         </div>
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -135,7 +91,7 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
         </div>
       </div>
 
-      {/* Fila 3: Teléfono (campo completo) */}
+      {/* Fila 2: Teléfono (campo completo) */}
       <div>
         <label htmlFor="telefono" className="block text-sm font-medium text-gray-700 mb-1">
           Teléfono
