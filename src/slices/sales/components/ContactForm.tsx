@@ -19,6 +19,8 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
     handleDelete,
     isPending,
     isSubmitted,
+    isError,
+    error,
     user,
     googleUser,
   } = useContactFormLogic(propertyId, propertyTitle)
@@ -64,9 +66,8 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
             type="text"
             placeholder="Ejemplo: Juan Pérez Rodríguez"
             value={form.nombre}
-            onChange={handleChange('nombre')}
+            onChange={handleChange}
             maxLength={100}
-            required
             className="w-full"
           />
           {errors.nombre && <p className="text-red-600 text-xs mt-1">{errors.nombre}</p>}
@@ -81,9 +82,8 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
             type="email"
             placeholder="Ejemplo: juan@email.com"
             value={form.email}
-            onChange={handleChange('email')}
+            onChange={handleChange}
             maxLength={50}
-            required
             className="w-full"
           />
           {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
@@ -101,9 +101,8 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
           type="tel"
           placeholder="Ejemplo: 8888-8888"
           value={form.telefono}
-          onChange={handleChange('telefono')}
+          onChange={handleChange}
           maxLength={15}
-          required
           className="w-full"
         />
         {errors.telefono && <p className="text-red-600 text-xs mt-1">{errors.telefono}</p>}
@@ -152,6 +151,7 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
             </Button>
         </div>
       </div>
+      {isError && <p className="text-red-600 mt-2">Error: {String(error)}</p>}
     </form>
   )
 }

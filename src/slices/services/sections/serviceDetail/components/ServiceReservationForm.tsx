@@ -1,6 +1,5 @@
 import { Button } from "@/shared/components/Button";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "@tanstack/react-router";
 import { Input } from "@/shared/components/Input";
 
 import { useLogicFormService } from "@/slices/services/hooks/useLogicFormService";
