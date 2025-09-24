@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup, getAuth, type User } from "firebase/auth";
+import { type User } from "firebase/auth";
 import { useAuth } from "@/shared/hooks/useAuth";
-import { firebaseApp } from "@/services/firebase";
+import { signInWithGoogle, switchGoogleAccount } from "@/services/firebase/auth";
 import { toast } from "sonner";
 import { crearReservaVenta } from "../api/reservaVentaService";
 
@@ -27,6 +27,8 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
   const [googleUser, setGoogleUser] = useState<User | null>(null);
   const [isPending, setIsPending] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   
   const [form, setForm] = useState<ContactFormData>({
     nombre: "",
@@ -39,6 +41,13 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
     email: "",
     telefono: "",
   });
+
+  const handleDelete = () => {
+    setGoogleUser(null);
+    setForm(prev => ({ ...prev, email: "" }));
+    setForm(prev => ({ ...prev, telefono: "" }));
+    setForm(prev => ({ ...prev, nombre: "" }));
+  }
 
   // Llenar datos del usuario si está autenticado
   useEffect(() => {
@@ -53,19 +62,16 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
     }
   }, [user, googleUser]);
 
-  const handleChange = (field: keyof ContactFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     let maxLength = 50;
-    if (field === "telefono") maxLength = 15;
+    if (name === "telefono") maxLength = 15;
+    if (name === "nombre") maxLength = 100;
     
     if (value.length > maxLength) return;
     
-    setForm(prev => ({ ...prev, [field]: value }));
-    
-    // Limpiar error al empezar a escribir
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
-    }
+    setForm({ ...form, [name]: value });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const validateForm = (): boolean => {
@@ -78,6 +84,9 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
 
     if (!form.nombre.trim()) {
       newErrors.nombre = "El nombre completo es obligatorio.";
+      valid = false;
+    } else if (form.nombre.trim().length < 2) {
+      newErrors.nombre = "El nombre debe tener al menos 2 caracteres.";
       valid = false;
     }
 
@@ -95,6 +104,9 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
     } else if (form.telefono.length < 8) {
       newErrors.telefono = "El teléfono debe tener al menos 8 caracteres.";
       valid = false;
+    } else if (!/^\d{4}-?\d{4}$/.test(form.telefono.replace(/\s/g, ''))) {
+      newErrors.telefono = "El formato del teléfono debe ser 8888-8888.";
+      valid = false;
     }
 
     setErrors(newErrors);
@@ -103,6 +115,10 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Limpiar errores previos
+    setIsError(false);
+    setError(null);
     
     if (!validateForm()) return;
 
@@ -113,9 +129,9 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
       const reservaData = {
         propiedadId: propertyId,
         propiedadTitulo: _propertyTitle,
-        nombre: form.nombre,
-        email: form.email,
-        telefono: form.telefono,
+        nombre: form.nombre.trim(),
+        email: (user?.email || googleUser?.email) || form.email.trim(),
+        telefono: form.telefono.trim(),
         mensaje: `Interés en la propiedad. Contactar al cliente para más información.`,
         usuarioId: user?.uid || googleUser?.uid
       };
@@ -135,8 +151,13 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
       
       setIsSubmitted(true);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting form:', error);
+      
+      const errorMessage = error?.message || "Error desconocido";
+      setError(errorMessage);
+      setIsError(true);
+      
       toast.error("Error al enviar el formulario", {
         description: "Por favor intenta nuevamente.",
       });
@@ -147,24 +168,28 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
 
   const handleGoogleLogin = async () => {
     setGoogleLoading(true);
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth(firebaseApp);
     
     try {
-      const result = await signInWithPopup(auth, provider);
-      setGoogleUser(result.user);
+      // Si ya hay un usuario autenticado, permitir cambiar de cuenta
+      const result = googleUser ? await switchGoogleAccount() : await signInWithGoogle();
+      setGoogleUser(result);
       
-      const displayName = result.user.displayName || "";
+      const displayName = result.displayName || "";
       
       setForm((prev) => ({
         ...prev,
-        email: result.user.email || prev.email,
+        email: result.email || prev.email,
         nombre: prev.nombre || displayName,
       }));
       
-      toast.success("¡Sesión iniciada con Google!", {
-        description: "Tus datos han sido completados automáticamente.",
-      });
+      toast.success(
+        googleUser 
+          ? "¡Cuenta cambiada correctamente!" 
+          : "¡Sesión iniciada con Google!", 
+        {
+          description: "Tus datos han sido completados automáticamente.",
+        }
+      );
       
     } catch (err) {
       console.error('Error with Google login:', err);
@@ -200,7 +225,10 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
     handleGoogleLogin,
     googleLoading,
     isPending,
+    handleDelete,
     isSubmitted,
+    isError,
+    error,
     user,
     googleUser,
     resetForm,

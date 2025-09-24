@@ -1,7 +1,6 @@
 import { Button } from '@/shared/components/Button'
 import { Input } from '@/shared/components/Input'
 import { FcGoogle } from "react-icons/fc"
-import { Link } from "@tanstack/react-router"
 import { useContactFormLogic } from '../hooks/useContactFormLogic'
 
 interface ContactFormProps {
@@ -17,8 +16,11 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
     handleSubmit,
     handleGoogleLogin,
     googleLoading,
+    handleDelete,
     isPending,
     isSubmitted,
+    isError,
+    error,
     user,
     googleUser,
   } = useContactFormLogic(propertyId, propertyTitle)
@@ -64,9 +66,8 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
             type="text"
             placeholder="Ejemplo: Juan Pérez Rodríguez"
             value={form.nombre}
-            onChange={handleChange('nombre')}
+            onChange={handleChange}
             maxLength={100}
-            required
             className="w-full"
           />
           {errors.nombre && <p className="text-red-600 text-xs mt-1">{errors.nombre}</p>}
@@ -81,10 +82,8 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
             type="email"
             placeholder="Ejemplo: juan@email.com"
             value={form.email}
-            onChange={handleChange('email')}
+            onChange={handleChange}
             maxLength={50}
-            disabled={!!user || !!googleUser}
-            required
             className="w-full"
           />
           {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
@@ -102,26 +101,30 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
           type="tel"
           placeholder="Ejemplo: 8888-8888"
           value={form.telefono}
-          onChange={handleChange('telefono')}
+          onChange={handleChange}
           maxLength={15}
-          required
           className="w-full"
         />
         {errors.telefono && <p className="text-red-600 text-xs mt-1">{errors.telefono}</p>}
       </div>
 
       {/* Botones */}
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 w-full"> 
         {/* Botón de Google */}
         <Button
           type="button"
           variant="white"
-          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-2 text-base font-medium shadow-sm hover:bg-gray-100"
+          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-2 text-base hover:cursor-pointer font-medium shadow-sm hover:bg-gray-100"
           onClick={handleGoogleLogin}
-          disabled={googleLoading || !!user || !!googleUser}
+          disabled={googleLoading}
         >
           <FcGoogle size={22} />
-          {googleLoading ? "Cargando..." : "Completar con Google"}
+          {googleLoading 
+            ? "Cargando..." 
+            : user || googleUser 
+            ? "Cambiar cuenta de Google" 
+            : "Completar con Google"
+          }
         </Button>
 
         {/* Botones de acción */}
@@ -141,13 +144,14 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
               'Enviar'
             )}
           </Button>
-          <Link to="/ventas" className="w-full md:w-auto">
-            <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto">
+  
+            <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto"
+            onClick={handleDelete}>
               Cancelar
             </Button>
-          </Link>
         </div>
       </div>
+      {isError && <p className="text-red-600 mt-2">Error: {String(error)}</p>}
     </form>
   )
 }
