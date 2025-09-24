@@ -1,12 +1,21 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { User } from 'firebase/auth'
-import { onAuthChanged } from '../services/firebase/auth'
+import { onAuthChanged, signInWithGoogle, signOut, switchGoogleAccount } from '../services/firebase/auth'
 
 type AuthCtx = {
   user: User | null
   loading: boolean
+  signInWithGoogle: () => Promise<User>
+  signOut: () => Promise<void>
+  switchGoogleAccount: () => Promise<User>
 }
-const Ctx = createContext<AuthCtx>({ user: null, loading: true })
+const Ctx = createContext<AuthCtx>({ 
+  user: null, 
+  loading: true,
+  signInWithGoogle: async () => { throw new Error('AuthProvider not initialized') },
+  signOut: async () => { throw new Error('AuthProvider not initialized') },
+  switchGoogleAccount: async () => { throw new Error('AuthProvider not initialized') }
+})
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
@@ -20,7 +29,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return unsub
   }, [])
 
-  return <Ctx.Provider value={{ user, loading }}>{children}</Ctx.Provider>
+  const contextValue: AuthCtx = {
+    user,
+    loading,
+    signInWithGoogle,
+    signOut,
+    switchGoogleAccount
+  }
+
+  return <Ctx.Provider value={contextValue}>{children}</Ctx.Provider>
 }
 
 export function useAuth() {

@@ -1,7 +1,6 @@
 import { Button } from '@/shared/components/Button'
 import { Input } from '@/shared/components/Input'
 import { FcGoogle } from "react-icons/fc"
-import { Link } from "@tanstack/react-router"
 import { useContactFormLogic } from '../hooks/useContactFormLogic'
 
 interface ContactFormProps {
@@ -17,6 +16,7 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
     handleSubmit,
     handleGoogleLogin,
     googleLoading,
+    handleDelete,
     isPending,
     isSubmitted,
     user,
@@ -83,7 +83,6 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
             value={form.email}
             onChange={handleChange('email')}
             maxLength={50}
-            disabled={!!user || !!googleUser}
             required
             className="w-full"
           />
@@ -111,17 +110,22 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
       </div>
 
       {/* Botones */}
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 w-full"> 
         {/* Botón de Google */}
         <Button
           type="button"
           variant="white"
-          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-2 text-base font-medium shadow-sm hover:bg-gray-100"
+          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-2 text-base hover:cursor-pointer font-medium shadow-sm hover:bg-gray-100"
           onClick={handleGoogleLogin}
-          disabled={googleLoading || !!user || !!googleUser}
+          disabled={googleLoading}
         >
           <FcGoogle size={22} />
-          {googleLoading ? "Cargando..." : "Completar con Google"}
+          {googleLoading 
+            ? "Cargando..." 
+            : user || googleUser 
+            ? "Cambiar cuenta de Google" 
+            : "Completar con Google"
+          }
         </Button>
 
         {/* Botones de acción */}
@@ -141,11 +145,11 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
               'Enviar'
             )}
           </Button>
-          <Link to="/ventas" className="w-full md:w-auto">
-            <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto">
+  
+            <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto"
+            onClick={handleDelete}>
               Cancelar
             </Button>
-          </Link>
         </div>
       </div>
     </form>

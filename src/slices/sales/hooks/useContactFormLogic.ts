@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup, getAuth, type User } from "firebase/auth";
+import { type User } from "firebase/auth";
 import { useAuth } from "@/shared/hooks/useAuth";
-import { firebaseApp } from "@/services/firebase";
+import { signInWithGoogle, switchGoogleAccount } from "@/services/firebase/auth";
 import { toast } from "sonner";
 import { crearReservaVenta } from "../api/reservaVentaService";
 
@@ -39,6 +39,13 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
     email: "",
     telefono: "",
   });
+
+  const handleDelete = () => {
+    setGoogleUser(null);
+    setForm(prev => ({ ...prev, email: "" }));
+    setForm(prev => ({ ...prev, telefono: "" }));
+    setForm(prev => ({ ...prev, nombre: "" }));
+  }
 
   // Llenar datos del usuario si está autenticado
   useEffect(() => {
@@ -147,24 +154,28 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
 
   const handleGoogleLogin = async () => {
     setGoogleLoading(true);
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth(firebaseApp);
     
     try {
-      const result = await signInWithPopup(auth, provider);
-      setGoogleUser(result.user);
+      // Si ya hay un usuario autenticado, permitir cambiar de cuenta
+      const result = googleUser ? await switchGoogleAccount() : await signInWithGoogle();
+      setGoogleUser(result);
       
-      const displayName = result.user.displayName || "";
+      const displayName = result.displayName || "";
       
       setForm((prev) => ({
         ...prev,
-        email: result.user.email || prev.email,
+        email: result.email || prev.email,
         nombre: prev.nombre || displayName,
       }));
       
-      toast.success("¡Sesión iniciada con Google!", {
-        description: "Tus datos han sido completados automáticamente.",
-      });
+      toast.success(
+        googleUser 
+          ? "¡Cuenta cambiada correctamente!" 
+          : "¡Sesión iniciada con Google!", 
+        {
+          description: "Tus datos han sido completados automáticamente.",
+        }
+      );
       
     } catch (err) {
       console.error('Error with Google login:', err);
@@ -200,6 +211,7 @@ export function useContactFormLogic(propertyId: string, _propertyTitle?: string)
     handleGoogleLogin,
     googleLoading,
     isPending,
+    handleDelete,
     isSubmitted,
     user,
     googleUser,
