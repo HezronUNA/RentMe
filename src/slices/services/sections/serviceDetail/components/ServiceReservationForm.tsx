@@ -17,6 +17,7 @@ export function ServiceReservationForm() {
     isError,
     error,
     user,
+    handleDelete,
     googleUser,
   } = useLogicFormService();
 
@@ -69,7 +70,6 @@ export function ServiceReservationForm() {
             value={form.email}
             onChange={handleChange}
             placeholder="Ejemplo: juan@email.com"
-            disabled={!!user || !!googleUser}
             maxLength={50}
           />
           {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
@@ -94,12 +94,17 @@ export function ServiceReservationForm() {
         <Button
           type="button"
           variant="white"
-          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-2 text-base font-medium shadow-sm hover:bg-gray-100"
+          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-2 text-base hover:cursor-pointer font-medium shadow-sm hover:bg-gray-100"
           onClick={handleGoogleLogin}
-          disabled={googleLoading || !!user || !!googleUser}
+          disabled={googleLoading}
         >
           <FcGoogle size={22} />
-          {googleLoading ? "Cargando..." : "Solicitar con Google"}
+          {googleLoading 
+            ? "Cargando..." 
+            : user || googleUser 
+            ? "Cambiar cuenta de Google" 
+            : "Solicitar con Google"
+          }
         </Button>
         <div className="flex flex-col md:flex-row justify-end gap-4 w-full">
           <Button
@@ -110,11 +115,9 @@ export function ServiceReservationForm() {
           >
             {isPending ? "Enviando..." : "Solicitar"}
           </Button>
-          <Link to="/servicios" className="w-full md:w-auto">
-            <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto">
-              Cancelar
-            </Button>
-          </Link>
+          <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto" onClick={handleDelete}>
+            Cancelar
+          </Button>
         </div>
       </div>
       {isError && <p className="text-red-600 mt-2">Error: {String(error)}</p>}

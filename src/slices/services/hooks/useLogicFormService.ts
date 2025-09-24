@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup, getAuth, type User } from "firebase/auth";
+import { type User } from "firebase/auth";
 import { useAuth } from "@/shared/hooks/useAuth";
-import { firebaseApp } from "@/services/firebase";
+import { signInWithGoogle, switchGoogleAccount } from "@/services/firebase/auth";
 import { usePostReservaServicio } from "@/slices/services/hooks/usePostRequestService";
 import { toast } from "sonner";
 
@@ -62,6 +62,13 @@ export function useLogicFormService() {
 		setErrors({ ...errors, [name]: "" });
 	};
 
+	const handleDelete = () => {
+		setGoogleUser(null);
+		setForm(prev => ({ ...prev, email: "" }));
+		setForm(prev => ({ ...prev, telefono: "" }));
+		setForm(prev => ({ ...prev, nombre: "" }));
+	}
+
 	const validateForm = () => {
 		let valid = true;
 		const newErrors = { nombre: "", email: "", telefono: "", detalle: "" };
@@ -108,18 +115,34 @@ export function useLogicFormService() {
 
 		const handleGoogleLogin = async () => {
 			setGoogleLoading(true);
-			const provider = new GoogleAuthProvider();
-			const auth = getAuth(firebaseApp);
+			
 			try {
-				const result = await signInWithPopup(auth, provider);
-				setGoogleUser(result.user);
+				// Si ya hay un usuario autenticado, permitir cambiar de cuenta
+				const result = googleUser ? await switchGoogleAccount() : await signInWithGoogle();
+				setGoogleUser(result);
+				
 				setForm((prev) => ({
 					...prev,
-					email: result.user.email || "",
-					nombre: prev.nombre || result.user.displayName || "",
+					email: result.email || "",
+					nombre: prev.nombre || result.displayName || "",
 				}));
+				
+				toast.success(
+					googleUser 
+						? "¡Cuenta cambiada correctamente!" 
+						: "¡Sesión iniciada con Google!", 
+					{
+						description: "Tus datos han sido completados automáticamente.",
+					}
+				);
+				
 			} catch (err) {
-				setErrors((prev) => ({ ...prev, email: "Error al iniciar sesión con Google" }));
+				console.error('Error with Google login:', err);
+				setErrors((prev) => ({ 
+					...prev, 
+					email: "Error al iniciar sesión con Google" 
+				}));
+				toast.error("Error al iniciar sesión con Google");
 			} finally {
 				setGoogleLoading(false);
 			}
@@ -139,5 +162,6 @@ export function useLogicFormService() {
 			error,
 			user,
 			googleUser,
+			handleDelete
 		};
 }
