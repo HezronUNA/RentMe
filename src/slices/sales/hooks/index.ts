@@ -7,6 +7,9 @@ export { usePropiedadesByUbicacion } from './usePropiedadesByUbicacion'
 export { usePropiedadesByPrecio } from './usePropiedadesByPrecio'
 export { usePropiedadesConFiltros, type FiltrosBusqueda } from './usePropiedadesConFiltros'
 
+// Hook para la galería de imágenes
+export { usePropertyImageGallery } from './usePropertyImageGallery'
+
 // Hooks para mutations (crear, actualizar, eliminar)
 export { 
   useCreatePropiedad, 
