@@ -1,32 +1,33 @@
 import { useEffect, useRef, useState } from 'react';
+import type { UbicacionExacta, FirebaseGeoPoint } from '../type';
+import { geoPointToUbicacion } from '../type';
 
 interface UseGoogleMapProps {
-  lat?: number;
-  lng?: number;
+  ubicacionExacta?: UbicacionExacta | FirebaseGeoPoint | any;
   zoom?: number;
 }
 
 interface UseGoogleMapReturn {
   mapRef: React.RefObject<HTMLDivElement | null>;
   isValidCoordinates: boolean;
-  coordinates: { lat: number; lng: number } | null;
+  coordinates: UbicacionExacta | null;
   apiKey: string;
 }
 
-export const useGoogleMap = ({ lat, lng, zoom = 16 }: UseGoogleMapProps): UseGoogleMapReturn => {
+export const useGoogleMap = ({ ubicacionExacta, zoom = 16 }: UseGoogleMapProps): UseGoogleMapReturn => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
   
   // API Key de Google Maps
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
-  // Validar coordenadas
-  const isValidCoordinates = !!(lat && lng && 
-    typeof lat === 'number' && typeof lng === 'number' && 
-    !isNaN(lat) && !isNaN(lng));
+  // Convertir GeoPoint a UbicacionExacta
+  const coordinates = geoPointToUbicacion(ubicacionExacta);
   
-  // Coordenadas procesadas
-  const coordinates = isValidCoordinates ? { lat: lat!, lng: lng! } : null;
+  // Validar coordenadas
+  const isValidCoordinates = !!(coordinates?.lat && coordinates?.lng && 
+    typeof coordinates.lat === 'number' && typeof coordinates.lng === 'number' && 
+    !isNaN(coordinates.lat) && !isNaN(coordinates.lng));
   
   // Inicializar mapa
   useEffect(() => {

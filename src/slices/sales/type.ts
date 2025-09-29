@@ -14,6 +14,29 @@ export interface UbicacionExacta {
   lng: number
 }
 
+// Tipo para GeoPoint de Firebase
+export interface FirebaseGeoPoint {
+  latitude: number
+  longitude: number
+}
+
+// Función utilitaria para convertir GeoPoint a UbicacionExacta
+export const geoPointToUbicacion = (geoPoint: FirebaseGeoPoint | any): UbicacionExacta | null => {
+  if (!geoPoint) return null;
+  
+  // Si ya tiene el formato correcto
+  if (typeof geoPoint.lat === 'number' && typeof geoPoint.lng === 'number') {
+    return { lat: geoPoint.lat, lng: geoPoint.lng };
+  }
+  
+  // Si es un GeoPoint de Firebase
+  if (typeof geoPoint.latitude === 'number' && typeof geoPoint.longitude === 'number') {
+    return { lat: geoPoint.latitude, lng: geoPoint.longitude };
+  }
+  
+  return null;
+};
+
 export interface AsesorResponsable {
   email: string
 }
@@ -29,7 +52,7 @@ export interface PropiedadVenta {
   precio: number
   amenidades: string[]
   ubicacion: Ubicacion
-  ubicacionExacta: UbicacionExacta
+  ubicacionExacta: FirebaseGeoPoint
   imagenes: string[]
   asesorResponsable: AsesorResponsable
 }
@@ -45,7 +68,7 @@ export interface PropiedadVentaFirestore {
   precio: number
   amenidades: string[]
   ubicacion: Ubicacion
-  ubicacionExacta: UbicacionExacta
+  ubicacionExacta: FirebaseGeoPoint
   imagenes: string[]
   asesorResponsable: AsesorResponsable
 }

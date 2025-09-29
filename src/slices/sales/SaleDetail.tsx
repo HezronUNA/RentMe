@@ -167,8 +167,7 @@ const SaleDetail = () => {
           {/* Mapa de ubicación */}
           <div className="w-full">
             <PropertyLocationMap 
-              lat={(propiedad.ubicacionExacta as any)?.latitude || propiedad.ubicacionExacta?.lat}
-              lng={(propiedad.ubicacionExacta as any)?.longitude || propiedad.ubicacionExacta?.lng}
+              ubicacionExacta={propiedad.ubicacionExacta}
             />
           </div>
 
