@@ -2,6 +2,7 @@ import { useParams } from "@tanstack/react-router";
 import { Toaster } from "@/shared/components/Sonner";
 import { ContactForm } from "./components/ContactForm";
 import PropertyImageGallery from "./components/PropertyImageGallery";
+import { PropertyLocationMap } from "./components/PropertyLocationMap";
 import { usePropiedadById } from "./hooks/usePropiedadById";
 
 const SaleDetail = () => {
@@ -78,12 +79,15 @@ const SaleDetail = () => {
         </div>
       </div>
 
-      {/* Contenido en columnas: información de la propiedad y formulario */}
+      {/* Contenido principal */}
       <div className="px-4 md:px-8 lg:px-16 pb-12">
-        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-16">
-          {/* Información de la propiedad */}
-          <div className="w-full lg:w-1/2 flex justify-center items-start">
-            <div className="w-full bg-white rounded-lg shadow-sm p-6">
+        <div className="w-full max-w-7xl mx-auto">
+          
+          {/* Contenido en columnas: información de la propiedad y formulario */}
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 mb-8">
+            {/* Información de la propiedad */}
+            <div className="w-full lg:w-1/2 flex justify-center items-start">
+              <div className="w-full bg-white rounded-lg shadow-sm p-6">
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 Propiedad en {propiedad.ubicacion.distrito}
               </h1>
@@ -151,13 +155,23 @@ const SaleDetail = () => {
             </div>
           </div>
 
-          {/* Formulario de contacto */}
-          <div className="w-full lg:w-1/2 flex justify-center items-start">
-            <ContactForm 
-              propertyId={propertyId} 
-              propertyTitle={`Propiedad en ${propiedad.ubicacion.distrito}, ${propiedad.ubicacion.canton}`} 
+            {/* Formulario de contacto */}
+            <div className="w-full lg:w-1/2 flex justify-center items-start">
+              <ContactForm 
+                propertyId={propertyId} 
+                propertyTitle={`Propiedad en ${propiedad.ubicacion.distrito}, ${propiedad.ubicacion.canton}`} 
+              />
+            </div>
+          </div>
+
+          {/* Mapa de ubicación */}
+          <div className="w-full">
+            <PropertyLocationMap 
+              lat={(propiedad.ubicacionExacta as any)?.latitude || propiedad.ubicacionExacta?.lat}
+              lng={(propiedad.ubicacionExacta as any)?.longitude || propiedad.ubicacionExacta?.lng}
             />
           </div>
+
         </div>
       </div>
       <Toaster />
