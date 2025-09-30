@@ -1,6 +1,7 @@
 import { useTitles } from "@/shared/hooks/useTitles";
 import { OrbitAnimation } from "./orbitAnimation/OrbitAnimation";
 import { platformsConfigMobile } from "./orbitAnimation/orbitConfigMobile";
+import { H2 } from "@/shared/components/Typography";
 
 
 export function PromotionsMobile() {
@@ -43,9 +44,9 @@ export function PromotionsMobile() {
     <section className="py-6 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Título optimizado para móvil */}
-        <h2 className="text-center text-lg font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4 px-2">
+        <H2 className="text-center mb-4">
           {items[3]?.titulo}
-        </h2>
+        </H2>
 
         {/* Contenido principal con animación orbital para móvil */}
         <div className="max-w-sm mx-auto">
