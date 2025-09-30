@@ -1,6 +1,6 @@
 // src/slices/aboutUs/sections/banner/BannerAboutUs.tsx
 import { Skeleton } from "@/shared/components/Skeleton";
-import { Button } from "@/shared/components/Button";
+import { Button } from "@/shared/components/button";
 import { H1, P } from "@/shared/components/Typography";
 import { FaChevronDown } from "react-icons/fa";
 import { useHero } from "@/shared/hooks/useHero";

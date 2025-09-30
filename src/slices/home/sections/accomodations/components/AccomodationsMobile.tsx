@@ -1,5 +1,5 @@
 // src/slices/accomodations/components/FeaturedMobile.tsx
-import { Button } from "../../../../../shared/components/Button"
+import { Button } from "../../../../../shared/components/button"
 import { Link } from "@tanstack/react-router"
 
 type Props = { hospedajes: any[] }

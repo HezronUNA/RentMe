@@ -2,7 +2,7 @@
 import { H2, H3, P, Small } from "@/shared/components/Typography";
 import { useModalidadesServicio } from ".";
 import type { ModalidadConServicios } from "./type";
-import { Button } from "@/shared/components/Button";
+import { Button } from "@/shared/components/button";
 import { Skeleton } from "@/shared/components/Skeleton";
 import { useNavigate } from "@tanstack/react-router";
 import { useTitles } from "@/shared/hooks/useTitles";
