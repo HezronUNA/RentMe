@@ -21,9 +21,10 @@ export function PropertiesGrid({
   // Estado de carga
   if (loading) {
     return (
-      <div className="relative w-full flex justify-center px-4">
-        <div className="max-w-[1700px] w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-2 pb-4">
+      <div className="w-full px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Mobile: 1 columna, Tablet: 2 columnas, Desktop: 3 columnas */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {Array.from({ length: 6 }).map((_, index) => (
               <PropertyCardSkeleton key={index} />
             ))}
@@ -36,8 +37,8 @@ export function PropertiesGrid({
   // Estado de error
   if (error) {
     return (
-      <div className="relative w-full flex justify-center px-4">
-        <div className="max-w-[1700px] w-full">
+      <div className="w-full px-4">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center py-8">
             <div className="text-red-500 text-lg font-medium mb-2">
               Error al cargar las propiedades
@@ -58,8 +59,8 @@ export function PropertiesGrid({
   // Estado vacío
   if (properties.length === 0) {
     return (
-      <div className="relative w-full flex justify-center px-4">
-        <div className="max-w-[1700px] w-full">
+      <div className="w-full px-4">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center py-8">
             <div className="text-gray-500 text-lg font-medium mb-2">
               {emptyMessage}
@@ -75,13 +76,12 @@ export function PropertiesGrid({
 
   // Grid de propiedades
   return (
-    <div className="relative w-full flex justify-center px-4">
-      <div className="max-w-[1700px] w-full">
-
-        {/* Grid de cards - 3 por fila */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-2 pb-4">
+    <div className="w-full px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Grid responsive: 1 col en mobile, 2 en tablet, 3 en desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 pb-4">
           {properties.map((property) => (
-            <div key={property.id} className="w-full max-w-[420px] min-w-[340px] mx-auto">
+            <div key={property.id} className="w-full">
               <PropertyCard
                 property={property}
                 onPropertyClick={onPropertyClick}
@@ -97,12 +97,12 @@ export function PropertiesGrid({
 // Componente Skeleton para el loading
 function PropertyCardSkeleton() {
   return (
-    <div className="w-full max-w-[420px] min-w-[340px] mx-auto">
+    <div className="w-full">
       <article className="bg-white rounded-xl overflow-hidden shadow-md border border-zinc-200 h-full">
         {/* Imagen skeleton */}
-        <Skeleton className="w-full h-56" />
+        <Skeleton className="w-full h-48 sm:h-52 lg:h-56" />
         
-        <div className="p-4 space-y-2">
+        <div className="p-3 sm:p-4 space-y-2">
           {/* Ubicación skeleton */}
           <Skeleton className="h-4 w-3/4 mx-auto" />
           

@@ -21,7 +21,7 @@ export default function MobileHeader({ nav }: Props) {
     <div className="md:hidden mx-auto max-w-screen-2xl px-4">
       <div className="h-16 flex items-center justify-between">
         <Link to="/" aria-label="Ir al inicio" className="flex items-center gap-2">
-          <img src={Logo} alt="Logo RentME" className="h-10 w-10 object-contain" />
+          <img src={Logo} alt="Logo RentME" className="h-16 w-16 sm:h-18 sm:w-18 object-cover" />
         </Link>
         <button
           type="button"
