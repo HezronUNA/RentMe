@@ -37,7 +37,7 @@ export default function PlansSection() {
       <div className="container mx-auto px-4">
         
         <div className="text-center mb-10">
-          <H2 className="text-3xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800">
+          <H2>
             SOLUCIONES INMOBILIARIAS INTEGRALES
           </H2>
           <P className="text-lg text-gray-600 max-w-3xl mx-auto">

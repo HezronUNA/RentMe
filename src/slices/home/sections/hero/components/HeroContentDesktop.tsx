@@ -22,7 +22,7 @@ const HeroContentDesktop: React.FC<Props> = React.memo(({ left, right }) => {
     >
       {/* Columna izquierda */}
       <div className="max-w-full md:max-w-[460px] px-2">
-        <H1 className="uppercase">{left.titulo}</H1>
+        <H1 className="uppercase" >{left.titulo}</H1>
 
         {left.subtitulo && (
           <P className="mt-3 text-lg lg:text-2xl">{left.subtitulo}</P>

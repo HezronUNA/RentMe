@@ -23,6 +23,7 @@ export default {
        fontFamily: {
         title: ["Inter", "sans-serif"],   // Para títulos
         body: ["Poppins", "sans-serif"],  // Para textos y subtítulos
+        'luxury': ['Playfair Display', 'serif'],
       },
     },
   },
