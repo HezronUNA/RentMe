@@ -1,6 +1,7 @@
 import { useHero } from "@/shared/hooks/useHero";
 import { SearchBox } from "./SearchBox";
 import type { FiltrosBusqueda } from "../../../hooks/usePropiedadesConFiltros";
+import { H1 } from "@/shared/components/Typography";
 
 interface SalesHeroProps {
   onApplyFilters?: (filters: FiltrosBusqueda) => void;
@@ -72,15 +73,9 @@ export function SalesHero({ onApplyFilters }: SalesHeroProps) {
       <div className="relative z-10 w-full px-4 pt-6 md:pt-8 overflow-visible">
         <div className="max-w-4xl mx-auto space-y-5 overflow-visible">
           <div className="space-y-2">
-            <h1 className="text-2xl lg:text-5xl font-bold text-white leading-tight uppercase tracking-wide text-center">
+            <H1>
               {heroData.titulo}
-            </h1>
-
-            {heroData.subtitulo && (
-              <p className="text-base lg:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto font-light text-center">
-                {heroData.subtitulo}
-              </p>
-            )}
+            </H1>
           </div>
 
           {/* Desktop Search Box */}
