@@ -3,7 +3,7 @@ import { Skeleton } from "@/shared/components/Skeleton";
 import { H2, H3, P } from "@/shared/components/Typography";
 import { Link } from "@tanstack/react-router";
 import { useModalidades } from "../../hooks/useWaysWork";
-import { Button } from "@/shared/components/Button";
+import { Button } from "../../../../shared/components/Button"
 
 export default function WaysWork() {
   const { data, isLoading, isError } = useModalidades();
