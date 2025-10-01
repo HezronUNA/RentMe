@@ -1,12 +1,12 @@
-export default function AboutUsPage() {
+import { AccommodationsHero, type AccommodationSearchFilters } from './sections/hero';
+
+export default function AccommodationsPage() {
+  const handleApplyFilters = (filters: AccommodationSearchFilters) => {
+    console.log('Filtros aplicados:', filters);
+    // Aquí puedes implementar la lógica para filtrar los alojamientos
+  };
+
   return (
-    <section>
-      <h1 className="text-3xl font-bold mb-4">Nuestros alojamientos</h1>
-      <p>
-        Ofrecemos una variedad de alojamientos que se adaptan a las necesidades de cada viajero.
-        Desde acogedoras cabañas en la montaña hasta lujosos apartamentos en la ciudad, tenemos
-        la opción perfecta para ti.
-      </p>
-    </section>
+    <AccommodationsHero onApplyFilters={handleApplyFilters} />
   )
 }
