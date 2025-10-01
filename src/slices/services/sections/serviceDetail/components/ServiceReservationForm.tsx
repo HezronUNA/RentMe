@@ -1,4 +1,4 @@
-import { Button } from "@/shared/components/Button";
+import { Button } from "@/shared/components/button";
 import { FcGoogle } from "react-icons/fc";
 import { Input } from "@/shared/components/Input";
 
@@ -109,8 +109,8 @@ export function ServiceReservationForm() {
           <Button
             type="submit"
             variant="green"
-            className="hover:bg-[#435349] hover:cursor-pointer w-full md:w-auto"
-            disabled={isPending}
+            className="hover:bg-[#435349] hover:cursor-not-allowed w-full md:w-auto"
+            disabled
           >
             {isPending ? "Enviando..." : "Solicitar"}
           </Button>

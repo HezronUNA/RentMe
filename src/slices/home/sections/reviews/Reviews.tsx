@@ -28,7 +28,7 @@ function EmptyCard() {
 }
 
 export default function ReviewsCarousel({
-  title = "Lo que dicen nuestros clientes",
+  title = "Nuestras Reseñas",
   hospedajeId = null,
   limit,
   className = "",

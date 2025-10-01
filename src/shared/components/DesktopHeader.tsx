@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router"
 import type { UseNavbar } from "@/shared/hooks/useNavbar"
-import Logo from "@/shared/assets/RentMe.jpg"
 import { Small } from "./Typography"
 
 type Props = {

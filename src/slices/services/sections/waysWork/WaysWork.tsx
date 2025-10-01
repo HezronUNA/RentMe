@@ -1,8 +1,8 @@
 
-import { H2, H3, P, Small } from "@/shared/components/Typography";
+import { H2, H4, P, Small } from "@/shared/components/Typography";
 import { useModalidadesServicio } from ".";
 import type { ModalidadConServicios } from "./type";
-import { Button } from "@/shared/components/Button";
+import { Button } from "@/shared/components/button";
 import { Skeleton } from "@/shared/components/Skeleton";
 import { useNavigate } from "@tanstack/react-router";
 import { useTitles } from "@/shared/hooks/useTitles";
@@ -97,9 +97,9 @@ function ModalidadCard({ modalidad, numero }: ModalidadCardProps) {
       </div>
 
       {/* Título */}
-      <H3 className="text-center text-xl font-semibold mb-6 text-gray-900 min-h-[3rem] flex items-center justify-center">
+      <H4 className="text-center mb-4">
         {modalidad.nombre}
-      </H3>
+      </H4>
 
       {/* Botón de acción */}
       <div className="flex justify-center mb-8">

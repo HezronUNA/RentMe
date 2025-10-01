@@ -1,9 +1,9 @@
 // src/slices/aboutUs/sections/waysWork/WaysWork.tsx
 import { Skeleton } from "@/shared/components/Skeleton";
-import { H2, H3, P } from "@/shared/components/Typography";
+import { H2, P } from "@/shared/components/Typography";
 import { Link } from "@tanstack/react-router";
 import { useModalidades } from "../../hooks/useWaysWork";
-import { Button } from "@/shared/components/Button";
+import { Button } from "../../../../shared/components/button"
 
 export default function WaysWork() {
   const { data, isLoading, isError } = useModalidades();
@@ -77,9 +77,9 @@ export default function WaysWork() {
                   <div className="w-12 h-12 rounded-full bg-[#52655B] text-white flex items-center justify-center font-bold text-lg mr-4">
                     {index + 1}
                   </div>
-                  <H3 className="text-xl font-semibold font-title text-gray-900">
+                  <P className="text-xl mb-5 font-semibold font-title text-gray-900">
                     {modalidad.titulo}
-                  </H3>
+                  </P>
                 </div>
 
                 {/* Lista de servicios */}

@@ -3,6 +3,7 @@ import { useIcons } from "@/shared/hooks/useIcons";
 import { buildWhatsAppHref, type Platform, type SocialEntry } from "@/shared/types/socialMedia";
 import { SOCIAL_CONFIG } from "../utils/socialMediaConfig";
 import { Link } from "@tanstack/react-router";
+import { H2 } from "./Typography";
 
 const WHATSAPP_PHONE = "50683888231";
 const FOLLOW_PLATFORMS: Platform[] = ["instagram", "facebook", "tiktok"];
@@ -57,9 +58,9 @@ export default function Footer() {
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
     <div className="grid lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:gap-x-6">
       <div className="lg:col-span-2">
-        <h3 className="text-4xl text-white font-semibold tracking-tight">
+        <H2 className="text-white">
           RENTME CR
-        </h3>
+        </H2>
         <p className="mt-4 max-w-prose text-white/80 text-sm leading-relaxed">
           Tu aliado confiable en la compra, venta y gestión de propiedades en Costa Rica.
           Convertimos tu visión inmobiliaria en una experiencia real, segura y personalizada.

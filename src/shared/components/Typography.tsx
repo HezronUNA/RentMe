@@ -5,7 +5,8 @@ import * as React from "react"
 export function H1({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h1
-      className={cn("scroll-m-20 text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight uppercase tracking-tight", className)}
+    style={{ fontFamily: 'Playfair Display, serif' }}
+      className={cn("scroll-m-20 text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-luxury font-light text-white leading-tight uppercase tracking-widest text-center drop-shadow-2xl", className)}
       {...props}
     />
   )
@@ -14,7 +15,8 @@ export function H1({ className, ...props }: React.HTMLAttributes<HTMLHeadingElem
 export function H2({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h2
-      className={cn("scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0", className)}
+    style={{ fontFamily: 'Playfair Display, serif' }}
+      className={cn("text-2xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4", className)}
       {...props}
     />
   )
@@ -23,7 +25,7 @@ export function H2({ className, ...props }: React.HTMLAttributes<HTMLHeadingElem
 export function H3({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn("scroll-m-20 text-2xl font-semibold tracking-tight", className)}
+      className={cn("text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight uppercase tracking-wide", className)}
       {...props}
     />
   )

@@ -1,6 +1,7 @@
 import { useTitles } from "@/shared/hooks/useTitles";
 import { OrbitAnimation, platformsConfig } from "./orbitAnimation";
 import { PromotionsMobile } from "./PromotionsMobile";
+import { H2 } from "@/shared/components/Typography";
 
 export function Promotions() {
   const { items, loading, error } = useTitles("");
@@ -67,9 +68,9 @@ export function Promotions() {
       {/* Desktop Version */}
       <section className="hidden md:block py-10 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="mt-8 text-center text-2xl md:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4">
+          <H2 className="mt-8 text-center mb-4">
             {items[3]?.titulo}
-          </h2>
+          </H2>
 
           <div className="max-w-4xl mx-auto">
             <OrbitAnimation
