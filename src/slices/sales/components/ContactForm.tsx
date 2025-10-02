@@ -27,7 +27,7 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
 
   if (isSubmitted) {
     return (
-      <div className="bg-white border border-zinc-200 rounded-xl shadow-lg p-6 text-center w-full max-w-xl mx-auto">
+      <div className="bg-white border border-zinc-200 rounded-xl shadow-md p-8 text-center w-full">
         <div className="mb-4">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,13 +47,9 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
 
   return (
     <form
-      className="bg-white border border-zinc-200 rounded-xl shadow-lg p-6 flex flex-col gap-4 w-full max-w-xl mx-auto"
+      className="bg-white border border-zinc-200 rounded-xl shadow-md p-7 md:p-8 flex flex-col gap-5 w-full"
       onSubmit={handleSubmit}
     >
-      <h2 className="text-xl font-semibold mb-2 text-center">
-        Agenda una cita con el propietario
-      </h2>
-      
       {/* Fila 1: Nombre completo y Email */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -114,7 +110,7 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
         <Button
           type="button"
           variant="white"
-          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-2 text-base hover:cursor-pointer font-medium shadow-sm hover:bg-gray-100"
+          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-3 text-base hover:cursor-pointer font-medium shadow-sm hover:bg-gray-100"
           onClick={handleGoogleLogin}
           disabled={googleLoading}
         >
@@ -132,7 +128,7 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
           <Button
             type="submit"
             variant="green"
-            className="hover:bg-[#435349] hover:cursor-not-allowed w-full md:w-auto"
+            className="hover:bg-[#435349] hover:cursor-not-allowed w-full md:w-auto py-3"
             disabled
           >
             {isPending ? (
@@ -145,7 +141,7 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
             )}
           </Button>
   
-            <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto"
+            <Button variant="white" className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto py-3"
             onClick={handleDelete}>
               Cancelar
             </Button>
