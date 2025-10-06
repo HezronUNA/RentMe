@@ -35,25 +35,25 @@ export default function SalesPage() {
                   <div className="flex flex-wrap gap-3">
                     {filtrosActivos.canton && (
                       <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium border border-white/30 backdrop-blur-sm">
-                        <span className="text-lg">📍</span>
+                        <span className="text-lg"></span>
                         <span>{filtrosActivos.canton}</span>
                       </span>
                     )}
                     {filtrosActivos.habitaciones && (
                       <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium border border-white/30 backdrop-blur-sm">
-                        <span className="text-lg">🛏️</span>
+                        <span className="text-lg"></span>
                         <span>{filtrosActivos.habitaciones} habitacion{filtrosActivos.habitaciones !== 1 ? 'es' : ''}</span>
                       </span>
                     )}
                     {filtrosActivos.baños && (
                       <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium border border-white/30 backdrop-blur-sm">
-                        <span className="text-lg">🚿</span>
+                        <span className="text-lg"></span>
                         <span>{filtrosActivos.baños} baño{filtrosActivos.baños !== 1 ? 's' : ''}</span>
                       </span>
                     )}
                     {(filtrosActivos.precioMin || filtrosActivos.precioMax) && (
                       <span className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium border border-white/30 backdrop-blur-sm">
-                        <span className="text-lg">💰</span>
+                        <span className="text-lg"></span>
                         <span>
                           ${filtrosActivos.precioMin?.toLocaleString() || '0'} - 
                           ${filtrosActivos.precioMax?.toLocaleString() || '∞'}

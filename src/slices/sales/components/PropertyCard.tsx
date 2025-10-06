@@ -16,19 +16,6 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
     }).format(price)
   }
 
-  const getEstadoBadgeColor = (estado: string) => {
-    switch (estado) {
-      case 'Disponible':
-        return 'bg-green-500'
-      case 'Reservada':
-        return 'bg-yellow-500'
-      case 'Vendida':
-        return 'bg-red-500'
-      default:
-        return 'bg-gray-500'
-    }
-  }
-
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -64,14 +51,6 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
             target.src = 'https://placehold.co/600x360'
           }}
         />
-        
-        {/* Badge de estado */}
-        <div className="absolute top-4 left-4">
-          <div className={`px-3 py-1 rounded-full text-white text-xs font-medium ${getEstadoBadgeColor(property.estado)}`}>
-            {property.estado}
-          </div>
-        </div>
-        
         {/* Contador de imágenes */}
         {property.imagenes && property.imagenes.length > 1 && (
           <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">
