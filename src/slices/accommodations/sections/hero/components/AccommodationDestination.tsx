@@ -127,9 +127,9 @@ export function AccommodationDestination({
                   handleToggleDropdown(e as any);
                 }
               }}
-              onFocus={() => {
+              onFocus={(e) => {
                 if (!isOpen && !isLoading) {
-                  handleToggleDropdown({} as any);
+                  handleToggleDropdown(e);
                 }
               }}
               disabled={isLoading}
