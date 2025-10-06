@@ -16,6 +16,7 @@ const SalesPage = lazy(() => import("../slices/sales/Page"))
 const ServicesPage = lazy(() => import("../slices/services/Page"))
 const ServiceDetailPage = lazy(() => import("../slices/services/ServiceDetailPage"))
 const SaleDetailPage = lazy(() => import("../slices/sales/SaleDetail"))
+const AccommodationDetailPage = lazy(() => import("../slices/accommodations/AccommodationDetail"))
 
 // Ruta raíz con layout
 const rootRoute = createRootRoute({
@@ -44,6 +45,12 @@ const alojamientosRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/alojamientos",
   component: AccommodationsPage,
+})
+
+const alojamientoDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/alojamientos/$alojamientoId",
+  component: AccommodationDetailPage
 })
 
 const ventasRoute = createRoute({
@@ -75,6 +82,7 @@ const routeTree = rootRoute.addChildren([
    homeRoute,
   nosotrosRoute,
   alojamientosRoute,
+  alojamientoDetailRoute,
   ventasRoute,
   ventaDetailRoute,
   serviciosRoute,

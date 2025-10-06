@@ -22,7 +22,7 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
     if (onAccommodationClick) {
       onAccommodationClick(accommodation.id)
     } else {
-      navigate({ to: `/hospedajes/${accommodation.id}` })
+      navigate({ to: `/alojamientos/${accommodation.id}` })
     }
   }
 
