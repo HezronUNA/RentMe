@@ -1,9 +1,10 @@
 import { useHero } from '@/shared/hooks/useHero';
 import { AccommodationSearchBox } from './components/AccommodationSearchBox';
 import type { AccommodationSearchFilters } from '../../hooks/useAccommodationSearch';
+import type { FiltrosBusquedaHospedajes } from '../../hooks/useHospedajesConFiltros';
 
 interface AccommodationsHeroProps {
-  onApplyFilters?: (filters: AccommodationSearchFilters) => void;
+  onApplyFilters?: (filters: FiltrosBusquedaHospedajes) => void;
 }
 
 export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) {
@@ -11,7 +12,20 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
 
   const handleSearchFilters = (filters: AccommodationSearchFilters) => {
     if (onApplyFilters) {
-      onApplyFilters(filters);
+      // Convertir AccommodationSearchFilters a FiltrosBusquedaHospedajes (similar a ventas)
+      const filtrosConvertidos: FiltrosBusquedaHospedajes = {}
+      
+      // Mapear destino -> canton (como en ventas)
+      if (filters.destino && filters.destino.trim() !== '') {
+        filtrosConvertidos.canton = filters.destino.trim()
+      }
+      
+      // Mapear huéspedes -> camas (lógica: necesitas al menos tantas camas como huéspedes)
+      if (filters.huespedes && filters.huespedes > 0) {
+        filtrosConvertidos.camas = filters.huespedes
+      }
+      
+      onApplyFilters(filtrosConvertidos);
     }
   };
 

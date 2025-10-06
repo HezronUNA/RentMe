@@ -1,6 +1,4 @@
 import { DestinationSection } from './DestinationSection';
-import { BedroomsSection } from './BedroomsSection';
-import { BathroomsSection } from './BathroomsSection';
 import { PriceSection } from './PriceSection';
 import { SearchButton } from './SearchButton';
 import { useSearchBox } from '../../../hooks/useSearchBox';
@@ -12,12 +10,8 @@ interface SearchBoxProps {
 
 export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
   const [
-    { price, precioMax, currency, ubicacion, habitaciones, baños },
+    { price, precioMax, currency, ubicacion},
     { 
-      decreaseHabitaciones,
-      increaseHabitaciones,
-      decreaseBaños,
-      increaseBaños,
       handlePriceChange, 
       handlePriceBlur,
       handlePriceMaxChange,
@@ -45,18 +39,6 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
           variant="desktop" 
           ubicacion={ubicacion}
           onUbicacionChange={handleUbicacionChange}
-        />
-        <BedroomsSection
-          variant="desktop"
-          habitaciones={habitaciones}
-          onDecrease={decreaseHabitaciones}
-          onIncrease={increaseHabitaciones}
-        />
-        <BathroomsSection
-          variant="desktop"
-          baños={baños}
-          onDecrease={decreaseBaños}
-          onIncrease={increaseBaños}
         />
         <PriceSection
           variant="desktop"
@@ -88,18 +70,6 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
         variant="mobile" 
         ubicacion={ubicacion}
         onUbicacionChange={handleUbicacionChange}
-      />
-      <BedroomsSection
-        variant="mobile"
-        habitaciones={habitaciones}
-        onDecrease={decreaseHabitaciones}
-        onIncrease={increaseHabitaciones}
-      />
-      <BathroomsSection
-        variant="mobile"
-        baños={baños}
-        onDecrease={decreaseBaños}
-        onIncrease={increaseBaños}
       />
       <PriceSection
         variant="mobile"
