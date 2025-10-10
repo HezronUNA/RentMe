@@ -13,8 +13,7 @@ const HeroContentMobile: React.FC<Props> = React.memo(({ left, right }) => {
       <div className="absolute inset-x-0 top-0 h-1/2 flex items-center justify-center px-4">
         <div
           className="
-            w-[92%] max-w-[360px] rounded-xl
-            bg-black/35 backdrop-blur-sm
+            w-[92%] max-w-[360px] rounded-xl border border-white/30
             p-4 shadow-md
             max-h-[88%] overflow-hidden
             text-white
@@ -49,7 +48,7 @@ const HeroContentMobile: React.FC<Props> = React.memo(({ left, right }) => {
         <div
           className="
             w-[92%] max-w-[360px] rounded-xl
-            bg-black/35 backdrop-blur-sm
+           border border-white/30
             p-4 shadow-md
             max-h-[88%] overflow-hidden
             text-white
