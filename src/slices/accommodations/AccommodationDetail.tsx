@@ -4,6 +4,7 @@ import { ReservationForm } from "./components/ReservationForm";
 import AccommodationImageGallery from "./components/AccommodationImageGallery";
 import { AccommodationLocationMap } from "./components/AccommodationLocationMap";
 import { useHospedajeById } from "./hooks/useAccommodationsById";
+import NearbyActivitiesCarousel from "./components/NearbyActivitiesCarousel";
 
 
 const AccommodationDetail = () => {
@@ -212,6 +213,7 @@ const AccommodationDetail = () => {
                   </div>
                 </div>
               </section>
+                <NearbyActivitiesCarousel hospedajeId={accommodationId} />
             </article>
 
             {/* Columna derecha: Formulario sticky */}
