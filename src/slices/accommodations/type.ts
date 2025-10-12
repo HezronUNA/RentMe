@@ -61,6 +61,15 @@ export interface Hospedaje {
   ubicacion: UbicacionHospedaje
 }
 
+
+export interface GoogleUserData {
+  uid: string
+  displayName: string
+  email: string
+  phoneNumber: string
+  photoURL: string
+}
+
 // Tipo para Firestore (sin el ID que se genera automáticamente)
 export interface HospedajeFirestore {
   nombre: string
@@ -116,33 +125,60 @@ export interface ReservaHospedaje {
 }
 
 // Tipo para Firestore (sin el ID que se genera automáticamente)
+// ...existing code...
+
+// Tipo para Firestore (sin el ID que se genera automáticamente)
 export interface ReservaHospedajeFirestore {
+  // Campos que veo en tu Firebase (campos principales)
+  email: string
+  fechaCheckIn: Date // timestamp
+  fechaCheckOut: Date // timestamp
   hospedajeId: string
   hospedajeNombre?: string
-  clienteNombre: string
-  clienteEmail: string
-  clienteTelefono: string
-  fechaCheckIn: Date
-  fechaCheckOut: Date
-  numeroHuespedes: number
   mensaje?: string
+  nombreCliente: string
+  numeroHuespedes: number
+  telefono: string
+  
+  // Campos adicionales para el sistema
   fechaCreacion: Date
   estado: EstadoReservaHospedaje
+  noches?: number
+  precioTotal?: number
+  
+  // Datos de Google (opcionales - solo si están presentes)
+  googleUserId?: string
+  googleUserData?: GoogleUserData
+  
+  // Campo de usuario opcional (solo si el usuario está autenticado)
   usuarioId?: string
-  precioTotal: number
-  noches: number
 }
 
+// ...resto del código...
 // Tipo para crear una nueva reserva (datos del formulario)
 export interface CrearReservaHospedaje {
+  // Campos principales que coinciden con Firebase
   hospedajeId: string
   hospedajeNombre?: string
-  nombre: string
   email: string
-  telefono: string
   fechaCheckIn: Date
   fechaCheckOut: Date
-  numeroHuespedes: number
   mensaje?: string
-  usuarioId?: string
+  nombreCliente: string // Se mapea desde 'nombre' del formulario
+  numeroHuespedes: number
+  telefono: string
+  
+  // Campos adicionales del formulario original (para mantener compatibilidad)
+  nombre: string // Se convertirá a nombreCliente
+  
+  // Datos de Google (opcionales)
+  googleUserId?: string
+  googleUserData?: GoogleUserData
+  usuarioId?: string // Agregar este campo opcional
+  
+  // Campos calculados (se agregarán automáticamente)
+  fechaCreacion?: Date
+  estado?: EstadoReservaHospedaje
+  noches?: number
+  precioTotal?: number
 }

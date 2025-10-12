@@ -5,13 +5,28 @@ import AccommodationImageGallery from "./components/AccommodationImageGallery";
 import { AccommodationLocationMap } from "./components/AccommodationLocationMap";
 import { useHospedajeById } from "./hooks/useAccommodationsById";
 import NearbyActivitiesCarousel from "./components/NearbyActivitiesCarousel";
-
+import type { CrearReservaHospedaje } from "./type";
+import { useCreateReserve } from "./hooks/useCreateReserve";
 
 const AccommodationDetail = () => {
   const params = useParams({ from: "/alojamientos/$alojamientoId" });
   const accommodationId = params.alojamientoId;
 
   const { hospedaje, loading, error } = useHospedajeById(accommodationId);
+
+    const { createReservation } = useCreateReserve({
+    pricePerNight: hospedaje?.precioNoche || 0
+  });
+
+  const handleCreateReservation = async (reservationData: CrearReservaHospedaje) => {
+    try {
+      const reservationId = await createReservation(reservationData);
+      console.log('Reserva creada exitosamente con ID:', reservationId);
+    } catch (error) {
+      console.error('Error en el proceso de reserva:', error);
+      throw error; // Re-lanzar para que el formulario lo maneje
+    }
+  };
 
   // Función para formatear precio
   const formatPrice = (price: number) => {
@@ -109,7 +124,7 @@ const AccommodationDetail = () => {
                   <span className="text-sm text-gray-600">por noche</span>
                   {hospedaje.destacado && (
                     <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-1 rounded-full">
-                      ⭐ Destacado
+                      Destacado
                     </span>
                   )}
                 </div>
@@ -213,7 +228,9 @@ const AccommodationDetail = () => {
                   </div>
                 </div>
               </section>
-                <NearbyActivitiesCarousel hospedajeId={accommodationId} />
+
+              {/* Actividades cercanas */}
+              <NearbyActivitiesCarousel hospedajeId={accommodationId} />
             </article>
 
             {/* Columna derecha: Formulario sticky */}
@@ -226,15 +243,13 @@ const AccommodationDetail = () => {
                 accommodationId={accommodationId}
                 accommodationName={hospedaje.nombre}
                 pricePerNight={hospedaje.precioNoche}
-                onSubmit={async (reservationData) => {
-                  // TODO: Implementar lógica de reserva
-                  console.log('Reserva enviada:', reservationData);
-                }}
+                maxGuests={hospedaje.camas}
+                onSubmit={handleCreateReservation}
               />
             </aside>
           </div>
 
-          {/* Mapa de ubicación (el sticky se detiene antes de este bloque) */}
+          {/* Mapa de ubicación */}
           <div className="w-full">
             <AccommodationLocationMap ubicacion={hospedaje.ubicacion} />
           </div>

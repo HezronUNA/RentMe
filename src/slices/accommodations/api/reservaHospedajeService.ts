@@ -2,20 +2,14 @@ import { db } from "@/services/firebase"
 import { 
   collection, 
   CollectionReference, 
-  addDoc, 
-  getDocs, 
-  query, 
-  where, 
-  orderBy
+  addDoc
 } from "firebase/firestore"
 import type { 
-  ReservaHospedaje, 
   ReservaHospedajeFirestore, 
-  CrearReservaHospedaje,
-  EstadoReservaHospedaje 
+  CrearReservaHospedaje
 } from "../type"
 
-const reservasCol = collection(db, "reservasHospedajes") as CollectionReference<ReservaHospedajeFirestore>
+const reservasCol = collection(db, "reservaHospedaje") as CollectionReference<ReservaHospedajeFirestore>
 
 // ✅ Crear una nueva reserva de hospedaje
 export async function crearReservaHospedaje(
@@ -30,87 +24,34 @@ export async function crearReservaHospedaje(
     const tiempoDiff = fechaCheckOut.getTime() - fechaCheckIn.getTime()
     const noches = Math.ceil(tiempoDiff / (1000 * 3600 * 24))
     
+    // Estructura que coincide exactamente con tu Firebase
     const nuevaReserva: ReservaHospedajeFirestore = {
-      hospedajeId: reservaData.hospedajeId,
-      hospedajeNombre: reservaData.hospedajeNombre,
-      clienteNombre: reservaData.nombre,
-      clienteEmail: reservaData.email,
-      clienteTelefono: reservaData.telefono,
+      email: reservaData.email,
       fechaCheckIn: fechaCheckIn,
       fechaCheckOut: fechaCheckOut,
+      hospedajeId: reservaData.hospedajeId,
+      hospedajeNombre: reservaData.hospedajeNombre,
+      mensaje: reservaData.mensaje || '',
+      nombreCliente: reservaData.nombre, // Mapear 'nombre' a 'nombreCliente'
       numeroHuespedes: reservaData.numeroHuespedes,
-      mensaje: reservaData.mensaje,
+      telefono: reservaData.telefono,
+      
+      // Campos adicionales
       fechaCreacion: new Date(),
       estado: "Pendiente",
-      usuarioId: reservaData.usuarioId,
+      noches: noches,
       precioTotal: precioNoche * noches,
-      noches: noches
+      
+      // Solo agregar campos opcionales si existen
+      ...(reservaData.googleUserId && { googleUserId: reservaData.googleUserId }),
+      ...(reservaData.googleUserData && { googleUserData: reservaData.googleUserData })
+      // Removido usuarioId porque no está definido en CrearReservaHospedaje
     }
 
     const docRef = await addDoc(reservasCol, nuevaReserva)
     return docRef.id
   } catch (error) {
     console.error("Error creando reserva de hospedaje:", error)
-    throw error
-  }
-}
-
-// ✅ Obtener reservas por hospedaje
-export async function getReservasByHospedaje(hospedajeId: string): Promise<ReservaHospedaje[]> {
-  try {
-    const reservasQuery = query(
-      reservasCol,
-      where("hospedajeId", "==", hospedajeId),
-      orderBy("fechaCreacion", "desc")
-    )
-
-    const snapshot = await getDocs(reservasQuery)
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as ReservaHospedaje))
-  } catch (error) {
-    console.error("Error obteniendo reservas por hospedaje:", error)
-    throw error
-  }
-}
-
-// ✅ Obtener reservas por usuario
-export async function getReservasByUsuario(usuarioId: string): Promise<ReservaHospedaje[]> {
-  try {
-    const reservasQuery = query(
-      reservasCol,
-      where("usuarioId", "==", usuarioId),
-      orderBy("fechaCreacion", "desc")
-    )
-
-    const snapshot = await getDocs(reservasQuery)
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as ReservaHospedaje))
-  } catch (error) {
-    console.error("Error obteniendo reservas por usuario:", error)
-    throw error
-  }
-}
-
-// ✅ Obtener reservas por estado
-export async function getReservasByEstado(estado: EstadoReservaHospedaje): Promise<ReservaHospedaje[]> {
-  try {
-    const reservasQuery = query(
-      reservasCol,
-      where("estado", "==", estado),
-      orderBy("fechaCreacion", "desc")
-    )
-
-    const snapshot = await getDocs(reservasQuery)
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as ReservaHospedaje))
-  } catch (error) {
-    console.error("Error obteniendo reservas por estado:", error)
     throw error
   }
 }
