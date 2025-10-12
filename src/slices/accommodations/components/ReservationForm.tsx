@@ -16,8 +16,7 @@ export function ReservationForm({
   accommodationId, 
   accommodationName, 
   pricePerNight,
-  maxGuests,
-  onSubmit 
+  maxGuests 
 }: ReservationFormProps) {
   const {
     form,
@@ -39,8 +38,7 @@ export function ReservationForm({
     accommodationId,
     accommodationName,
     pricePerNight,
-    maxGuests,
-    onSubmit
+    maxGuests
   })
 
   // Estado de éxito

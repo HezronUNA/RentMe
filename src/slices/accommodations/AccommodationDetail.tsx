@@ -6,6 +6,7 @@ import { AccommodationLocationMap } from "./components/AccommodationLocationMap"
 import { useHospedajeById } from "./hooks/useAccommodationsById";
 import NearbyActivitiesCarousel from "./components/NearbyActivitiesCarousel";
 import type { CrearReservaHospedaje } from "./type";
+import { useCreateReserve } from "./hooks/useCreateReserve";
 
 const AccommodationDetail = () => {
   const params = useParams({ from: "/alojamientos/$alojamientoId" });
@@ -13,22 +14,17 @@ const AccommodationDetail = () => {
 
   const { hospedaje, loading, error } = useHospedajeById(accommodationId);
 
-  // Función para manejar la creación de reservas
+    const { createReservation } = useCreateReserve({
+    pricePerNight: hospedaje?.precioNoche || 0
+  });
+
   const handleCreateReservation = async (reservationData: CrearReservaHospedaje) => {
     try {
-      // Aquí puedes agregar la lógica para enviar la reserva a tu backend/Firebase
-      console.log('Datos de la reserva:', reservationData);
-      
-      // Ejemplo de lo que podrías hacer:
-      // await createReservation(reservationData);
-      
-      // Por ahora, simularemos una respuesta exitosa
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Simular delay
-      
-      console.log('Reserva creada exitosamente');
+      const reservationId = await createReservation(reservationData);
+      console.log('Reserva creada exitosamente con ID:', reservationId);
     } catch (error) {
-      console.error('Error al crear la reserva:', error);
-      throw error; // Re-lanzar el error para que el formulario lo maneje
+      console.error('Error en el proceso de reserva:', error);
+      throw error; // Re-lanzar para que el formulario lo maneje
     }
   };
 
@@ -128,7 +124,7 @@ const AccommodationDetail = () => {
                   <span className="text-sm text-gray-600">por noche</span>
                   {hospedaje.destacado && (
                     <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-1 rounded-full">
-                      ⭐ Destacado
+                      Destacado
                     </span>
                   )}
                 </div>

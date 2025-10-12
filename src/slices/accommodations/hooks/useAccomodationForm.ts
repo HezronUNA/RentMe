@@ -3,13 +3,14 @@ import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { auth } from '@/services/firebase'
 import type { CrearReservaHospedaje } from '../type'
 import { toast } from 'sonner'
+import { crearReservaHospedaje } from '../api/reservaHospedajeService' // Agregar esta importación
 
 interface UseReservationFormProps {
   accommodationId: string
   accommodationName?: string
   pricePerNight: number
   maxGuests: number
-  onSubmit: (reservationData: CrearReservaHospedaje) => Promise<void>
+  // Remover onSubmit ya que ya no lo necesitamos
 }
 
 interface FormData {
@@ -26,8 +27,8 @@ export const useAccomodationForm = ({
   accommodationId, 
   accommodationName, 
   pricePerNight,
-  maxGuests,
-  onSubmit 
+  maxGuests
+  // Remover onSubmit del destructuring
 }: UseReservationFormProps) => {
   const [form, setForm] = useState<FormData>({
     nombre: '',
@@ -45,6 +46,9 @@ export const useAccomodationForm = ({
   const [googleLoading, setGoogleLoading] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [googleUser, setGoogleUser] = useState<any>(null)
+
+  // ... todas las funciones existentes permanecen igual ...
+  // calculateNights, calculateTotalPrice, formatPrice, getGuestOptions, etc.
 
   // Calcular número de noches
   const calculateNights = () => {
@@ -80,29 +84,24 @@ export const useAccomodationForm = ({
     return options
   }
 
+  // ... handleGoogleLogin, handleCancel, handleChange, validateForm permanecen igual ...
+
   // Manejar login con Google - AUTENTICACIÓN REAL
   const handleGoogleLogin = async () => {
     setGoogleLoading(true)
-    setErrors(prev => ({ ...prev, google: '' })) // Limpiar errores previos
+    setErrors(prev => ({ ...prev, google: '' }))
     
     try {
-      // Configurar el proveedor de Google
       const provider = new GoogleAuthProvider()
       provider.addScope('email')
       provider.addScope('profile')
-      
-      // Configuraciones adicionales del proveedor
       provider.setCustomParameters({
-        prompt: 'select_account' // Forzar selección de cuenta
+        prompt: 'select_account'
       })
 
-      // Realizar la autenticación con popup
       const result = await signInWithPopup(auth, provider)
       const userData = result.user
 
-      console.log('Usuario autenticado:', userData)
-
-      // Crear objeto de usuario normalizado
       const normalizedUser = {
         uid: userData.uid,
         displayName: userData.displayName || '',
@@ -114,15 +113,13 @@ export const useAccomodationForm = ({
       setGoogleUser(normalizedUser)
       setUser(normalizedUser)
 
-      // Prellenar formulario con datos de Google
       setForm(prev => ({
         ...prev,
         nombre: normalizedUser.displayName || '',
         email: normalizedUser.email || '',
-        telefono: normalizedUser.phoneNumber || prev.telefono // Mantener teléfono anterior si Google no lo tiene
+        telefono: normalizedUser.phoneNumber || prev.telefono
       }))
 
-      // Limpiar errores relacionados con los campos prellenados
       setErrors(prev => ({
         ...prev,
         nombre: normalizedUser.displayName ? '' : prev.nombre,
@@ -130,12 +127,14 @@ export const useAccomodationForm = ({
         google: ''
       }))
 
-      console.log('Formulario prellenado con datos de Google')
+      toast.success('¡Conectado con Google!', {
+        description: `Bienvenido ${normalizedUser.displayName || normalizedUser.email}`,
+        duration: 3000,
+      })
 
     } catch (error: any) {
       console.error('Error al iniciar sesión con Google:', error)
       
-      // Manejar diferentes tipos de errores
       let errorMessage = 'Error al conectar con Google'
       
       switch (error.code) {
@@ -159,6 +158,10 @@ export const useAccomodationForm = ({
       }
       
       setErrors(prev => ({ ...prev, google: errorMessage }))
+      toast.error('Error de autenticación', {
+        description: errorMessage,
+        duration: 4000,
+      })
     } finally {
       setGoogleLoading(false)
     }
@@ -179,15 +182,16 @@ export const useAccomodationForm = ({
     setUser(null)
     setGoogleUser(null)
     
-    // Opcional: cerrar sesión de Firebase también
-    // auth.signOut()
+    toast.info('Formulario limpiado', {
+      description: 'Todos los campos han sido reseteados',
+      duration: 2000,
+    })
   }
 
   // Manejar cambios en el formulario
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     
-    // Validación especial para número de huéspedes
     if (name === 'numeroHuespedes') {
       const numValue = parseInt(value)
       if (numValue > maxGuests) {
@@ -211,7 +215,6 @@ export const useAccomodationForm = ({
       [name]: name === 'numeroHuespedes' ? parseInt(value) : value
     }))
     
-    // Limpiar error cuando el usuario empiece a escribir
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }))
     }
@@ -221,7 +224,6 @@ export const useAccomodationForm = ({
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
-    // Validaciones básicas
     if (!form.nombre.trim()) newErrors.nombre = 'El nombre es requerido'
     if (!form.email.trim()) {
       newErrors.email = 'El email es requerido'
@@ -232,14 +234,12 @@ export const useAccomodationForm = ({
     if (!form.fechaCheckIn) newErrors.fechaCheckIn = 'La fecha de check-in es requerida'
     if (!form.fechaCheckOut) newErrors.fechaCheckOut = 'La fecha de check-out es requerida'
     
-    // Validación mejorada para número de huéspedes
     if (form.numeroHuespedes < 1) {
       newErrors.numeroHuespedes = 'Debe ser al menos 1 huésped'
     } else if (form.numeroHuespedes > maxGuests) {
       newErrors.numeroHuespedes = `El máximo de huéspedes permitido es ${maxGuests}`
     }
 
-    // Validar que la fecha de check-out sea después del check-in
     if (form.fechaCheckIn && form.fechaCheckOut) {
       const checkIn = new Date(form.fechaCheckIn)
       const checkOut = new Date(form.fechaCheckOut)
@@ -248,7 +248,6 @@ export const useAccomodationForm = ({
       }
     }
 
-    // Validar que las fechas sean futuras
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     
@@ -260,10 +259,8 @@ export const useAccomodationForm = ({
     return Object.keys(newErrors).length === 0
   }
 
-// ...existing code...
-
-  // Manejar envío del formulario
-   const handleSubmit = async (e: React.FormEvent) => {
+  // NUEVA FUNCIÓN: Manejar envío del formulario usando createReservation directamente
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
     if (!validateForm()) {
@@ -277,11 +274,12 @@ export const useAccomodationForm = ({
     setIsPending(true)
 
     // Toast de carga
-    const loadingToast = toast.loading('Enviando reserva...', {
-      description: 'Por favor espera mientras procesamos tu solicitud',
+    const loadingToast = toast.loading('Creando reserva...', {
+      description: 'Procesando tu solicitud de reserva',
     })
 
     try {
+      // Preparar datos de la reserva
       const reservationData: CrearReservaHospedaje = {
         hospedajeId: accommodationId,
         hospedajeNombre: accommodationName,
@@ -298,20 +296,34 @@ export const useAccomodationForm = ({
         })
       }
 
-      await onSubmit(reservationData)
+      // Crear la reserva directamente usando el servicio
+      console.log('Creando reserva en Firebase...', reservationData)
+      const newReservationId = await crearReservaHospedaje(reservationData, pricePerNight)
+      
+      console.log('Reserva creada con ID:', newReservationId)
 
       // Dismiss loading toast
       toast.dismiss(loadingToast)
 
       // Toast de éxito con estilo verde personalizado
-      toast.success('¡Reserva enviada exitosamente!', {
-        description: `Tu reserva para ${accommodationName} ha sido procesada. Te contactaremos pronto.`,
+      toast.success('¡Reserva creada exitosamente!', {
+        description: `Tu reserva ha sido registrada. ID: ${newReservationId}`,
         duration: 5000,
         style: {
-          backgroundColor: '#52655B', // Verde emerald-500
+          backgroundColor: '#52655B',
           color: 'white',
-          border: '1px solid #52655B', // Verde emerald-600 para el borde
-        }
+          border: '1px solid #52655B',
+        },
+        className: 'text-white',
+        action: {
+          label: 'Copiar ID',
+          onClick: () => {
+            navigator.clipboard.writeText(newReservationId)
+            toast.success('ID copiado al portapapeles', {
+              duration: 2000,
+            })
+          },
+        },
       })
 
       setIsSubmitted(true)
@@ -319,12 +331,12 @@ export const useAccomodationForm = ({
     } catch (error: any) {
       console.error('Error al crear la reserva:', error)
       
-      // Dismiss loading toast
       toast.dismiss(loadingToast)
       
-      // Toast de error
-      toast.error('Error al enviar la reserva', {
-        description: error.message || 'Hubo un problema al procesar tu reserva. Por favor intenta nuevamente.',
+      const errorMessage = error.message || 'Error al crear la reserva'
+      
+      toast.error('Error al crear la reserva', {
+        description: errorMessage,
         duration: 5000,
         action: {
           label: 'Reintentar',
@@ -379,7 +391,7 @@ export const useAccomodationForm = ({
     
     // Funciones
     handleChange,
-    handleSubmit,
+    handleSubmit, // Esta función ahora usa createReservation directamente
     handleGoogleLogin,
     handleCancel,
     resetForm,
