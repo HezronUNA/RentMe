@@ -5,13 +5,32 @@ import AccommodationImageGallery from "./components/AccommodationImageGallery";
 import { AccommodationLocationMap } from "./components/AccommodationLocationMap";
 import { useHospedajeById } from "./hooks/useAccommodationsById";
 import NearbyActivitiesCarousel from "./components/NearbyActivitiesCarousel";
-
+import type { CrearReservaHospedaje } from "./type";
 
 const AccommodationDetail = () => {
   const params = useParams({ from: "/alojamientos/$alojamientoId" });
   const accommodationId = params.alojamientoId;
 
   const { hospedaje, loading, error } = useHospedajeById(accommodationId);
+
+  // Función para manejar la creación de reservas
+  const handleCreateReservation = async (reservationData: CrearReservaHospedaje) => {
+    try {
+      // Aquí puedes agregar la lógica para enviar la reserva a tu backend/Firebase
+      console.log('Datos de la reserva:', reservationData);
+      
+      // Ejemplo de lo que podrías hacer:
+      // await createReservation(reservationData);
+      
+      // Por ahora, simularemos una respuesta exitosa
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simular delay
+      
+      console.log('Reserva creada exitosamente');
+    } catch (error) {
+      console.error('Error al crear la reserva:', error);
+      throw error; // Re-lanzar el error para que el formulario lo maneje
+    }
+  };
 
   // Función para formatear precio
   const formatPrice = (price: number) => {
@@ -213,7 +232,9 @@ const AccommodationDetail = () => {
                   </div>
                 </div>
               </section>
-                <NearbyActivitiesCarousel hospedajeId={accommodationId} />
+
+              {/* Actividades cercanas */}
+              <NearbyActivitiesCarousel hospedajeId={accommodationId} />
             </article>
 
             {/* Columna derecha: Formulario sticky */}
@@ -226,15 +247,13 @@ const AccommodationDetail = () => {
                 accommodationId={accommodationId}
                 accommodationName={hospedaje.nombre}
                 pricePerNight={hospedaje.precioNoche}
-                onSubmit={async (reservationData) => {
-                  // TODO: Implementar lógica de reserva
-                  console.log('Reserva enviada:', reservationData);
-                }}
+                maxGuests={hospedaje.camas}
+                onSubmit={handleCreateReservation}
               />
             </aside>
           </div>
 
-          {/* Mapa de ubicación (el sticky se detiene antes de este bloque) */}
+          {/* Mapa de ubicación */}
           <div className="w-full">
             <AccommodationLocationMap ubicacion={hospedaje.ubicacion} />
           </div>

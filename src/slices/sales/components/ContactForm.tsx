@@ -1,4 +1,4 @@
-import { Button } from '@/shared/components/button'
+import { Button } from '@/shared/components/Button'
 import { Input } from '@/shared/components/Input'
 import { FcGoogle } from "react-icons/fc"
 import { useContactFormLogic } from '../hooks/useContactFormLogic'

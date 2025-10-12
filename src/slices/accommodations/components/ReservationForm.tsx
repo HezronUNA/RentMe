@@ -1,12 +1,14 @@
-import { useState } from 'react'
-import { Button } from '@/shared/components/button'
+import { Button } from '@/shared/components/Button'
 import { Input } from '@/shared/components/Input'
+import { FcGoogle } from "react-icons/fc"
+import { useAccomodationForm } from '../hooks/useAccomodationForm'
 import type { CrearReservaHospedaje } from '../type'
 
 interface ReservationFormProps {
   accommodationId: string
   accommodationName?: string
   pricePerNight: number
+  maxGuests: number
   onSubmit: (reservationData: CrearReservaHospedaje) => Promise<void>
 }
 
@@ -14,123 +16,34 @@ export function ReservationForm({
   accommodationId, 
   accommodationName, 
   pricePerNight,
+  maxGuests,
   onSubmit 
 }: ReservationFormProps) {
-  const [form, setForm] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    fechaCheckIn: '',
-    fechaCheckOut: '',
-    numeroHuespedes: 1,
-    mensaje: ''
+  const {
+    form,
+    errors,
+    isPending,
+    isSubmitted,
+    googleLoading,
+    user,
+    googleUser,
+    nights,
+    totalPrice,
+    handleChange,
+    handleSubmit,
+    handleGoogleLogin,
+    handleCancel,
+    formatPrice,
+    getGuestOptions
+  } = useAccomodationForm({
+    accommodationId,
+    accommodationName,
+    pricePerNight,
+    maxGuests,
+    onSubmit
   })
 
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const [isPending, setIsPending] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const calculateTotalPrice = () => {
-    if (!form.fechaCheckIn || !form.fechaCheckOut) return 0
-    
-    const checkIn = new Date(form.fechaCheckIn)
-    const checkOut = new Date(form.fechaCheckOut)
-    const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))
-    
-    return nights > 0 ? nights * pricePerNight : 0
-  }
-
-  const calculateNights = () => {
-    if (!form.fechaCheckIn || !form.fechaCheckOut) return 0
-    
-    const checkIn = new Date(form.fechaCheckIn)
-    const checkOut = new Date(form.fechaCheckOut)
-    const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))
-    
-    return nights > 0 ? nights : 0
-  }
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-CR', {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price)
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setForm(prev => ({
-      ...prev,
-      [name]: name === 'numeroHuespedes' ? parseInt(value) : value
-    }))
-    
-    // Limpiar error cuando el usuario empiece a escribir
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }))
-    }
-  }
-
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {}
-
-    if (!form.nombre.trim()) newErrors.nombre = 'El nombre es requerido'
-    if (!form.email.trim()) newErrors.email = 'El email es requerido'
-    if (!form.telefono.trim()) newErrors.telefono = 'El teléfono es requerido'
-    if (!form.fechaCheckIn) newErrors.fechaCheckIn = 'La fecha de check-in es requerida'
-    if (!form.fechaCheckOut) newErrors.fechaCheckOut = 'La fecha de check-out es requerida'
-    if (form.numeroHuespedes < 1) newErrors.numeroHuespedes = 'Debe ser al menos 1 huésped'
-
-    // Validar que la fecha de check-out sea después del check-in
-    if (form.fechaCheckIn && form.fechaCheckOut) {
-      const checkIn = new Date(form.fechaCheckIn)
-      const checkOut = new Date(form.fechaCheckOut)
-      if (checkOut <= checkIn) {
-        newErrors.fechaCheckOut = 'La fecha de check-out debe ser después del check-in'
-      }
-    }
-
-    // Validar que las fechas sean futuras
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    
-    if (form.fechaCheckIn && new Date(form.fechaCheckIn) < today) {
-      newErrors.fechaCheckIn = 'La fecha de check-in debe ser hoy o en el futuro'
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (!validateForm()) return
-
-    setIsPending(true)
-
-    try {
-      const reservationData: CrearReservaHospedaje = {
-        hospedajeId: accommodationId,
-        hospedajeNombre: accommodationName,
-        nombre: form.nombre,
-        email: form.email,
-        telefono: form.telefono,
-        fechaCheckIn: new Date(form.fechaCheckIn),
-        fechaCheckOut: new Date(form.fechaCheckOut),
-        numeroHuespedes: form.numeroHuespedes,
-        mensaje: form.mensaje
-      }
-
-      await onSubmit(reservationData)
-      setIsSubmitted(true)
-    } catch (error) {
-      console.error('Error al crear la reserva:', error)
-      setErrors({ submit: 'Error al enviar la reserva. Intenta nuevamente.' })
-    } finally {
-      setIsPending(false)
-    }
-  }
-
+  // Estado de éxito
   if (isSubmitted) {
     return (
       <div className="bg-white border border-zinc-200 rounded-xl shadow-md p-8 text-center w-full">
@@ -147,22 +60,20 @@ export function ReservationForm({
             Gracias por tu reserva. Te contactaremos pronto para confirmar los detalles.
           </p>
           <div className="text-sm text-gray-500">
-            <p>Total: ₡{formatPrice(calculateTotalPrice())}</p>
-            <p>Noches: {calculateNights()}</p>
+            <p>Total: ₡{formatPrice(totalPrice)}</p>
+            <p>Noches: {nights}</p>
           </div>
         </div>
       </div>
     )
   }
 
-  const nights = calculateNights()
-  const totalPrice = calculateTotalPrice()
-
   return (
     <form
       className="bg-white border border-zinc-200 rounded-xl shadow-md p-7 md:p-8 flex flex-col gap-5 w-full"
       onSubmit={handleSubmit}
     >
+      {/* Header */}
       <div className="text-center mb-4">
         <h3 className="text-xl font-bold text-gray-900 mb-2">
           Reservar Hospedaje
@@ -170,62 +81,151 @@ export function ReservationForm({
         <p className="text-gray-600 text-sm">
           ₡{formatPrice(pricePerNight)} por noche
         </p>
+        <p className="text-gray-500 text-xs mt-1">
+          Máximo {maxGuests} {maxGuests === 1 ? 'huésped' : 'huéspedes'}
+        </p>
       </div>
 
       {/* Fechas */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
+          <label htmlFor="fechaCheckIn" className="block text-sm font-medium text-gray-700 mb-1">
+            Fecha de entrada
+          </label>
           <Input
+            id="fechaCheckIn"
             type="date"
             name="fechaCheckIn"
             value={form.fechaCheckIn}
             onChange={handleChange}
-            placeholder="Check-in"
             min={new Date().toISOString().split('T')[0]}
             className={errors.fechaCheckIn ? 'border-red-500' : ''}
           />
           {errors.fechaCheckIn && (
-            <p className="text-red-500 text-sm mt-1">{errors.fechaCheckIn}</p>
+            <p className="text-red-500 text-xs mt-1">{errors.fechaCheckIn}</p>
           )}
         </div>
 
         <div>
+          <label htmlFor="fechaCheckOut" className="block text-sm font-medium text-gray-700 mb-1">
+            Fecha de salida
+          </label>
           <Input
+            id="fechaCheckOut"
             type="date"
             name="fechaCheckOut"
             value={form.fechaCheckOut}
             onChange={handleChange}
-            placeholder="Check-out"
             min={form.fechaCheckIn || new Date().toISOString().split('T')[0]}
             className={errors.fechaCheckOut ? 'border-red-500' : ''}
           />
           {errors.fechaCheckOut && (
-            <p className="text-red-500 text-sm mt-1">{errors.fechaCheckOut}</p>
+            <p className="text-red-500 text-xs mt-1">{errors.fechaCheckOut}</p>
           )}
         </div>
       </div>
 
       {/* Número de huéspedes */}
       <div>
+        <label htmlFor="numeroHuespedes" className="block text-sm font-medium text-gray-700 mb-1">
+          Número de huéspedes
+        </label>
         <select
+          id="numeroHuespedes"
           name="numeroHuespedes"
           value={form.numeroHuespedes}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            errors.numeroHuespedes ? 'border-red-500' : 'border-gray-300'
+          }`}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
+          {getGuestOptions().map(num => (
             <option key={num} value={num}>
               {num} {num === 1 ? 'Huésped' : 'Huéspedes'}
             </option>
           ))}
         </select>
         {errors.numeroHuespedes && (
-          <p className="text-red-500 text-sm mt-1">{errors.numeroHuespedes}</p>
+          <p className="text-red-500 text-xs mt-1">{errors.numeroHuespedes}</p>
         )}
+        <p className="text-gray-500 text-xs mt-1">
+          Esta propiedad puede alojar hasta {maxGuests} {maxGuests === 1 ? 'persona' : 'personas'}
+        </p>
       </div>
+      {/* Datos personales */}
+      <div className="space-y-4">
+        <div>
+          <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-1">
+            Nombre completo
+          </label>
+          <Input
+            id="nombre"
+            type="text"
+            name="nombre"
+            value={form.nombre}
+            onChange={handleChange}
+            placeholder="Ejemplo: Juan Pérez Rodríguez"
+            maxLength={100}
+            className={errors.nombre ? 'border-red-500' : ''}
+          />
+          {errors.nombre && (
+            <p className="text-red-500 text-xs mt-1">{errors.nombre}</p>
+          )}
+        </div>
 
-      {/* Resumen de precio */}
-      {nights > 0 && (
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            Email
+          </label>
+          <Input
+            id="email"
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Ejemplo: juan@email.com"
+            maxLength={50}
+            className={errors.email ? 'border-red-500' : ''}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="telefono" className="block text-sm font-medium text-gray-700 mb-1">
+            Teléfono
+          </label>
+          <Input
+            id="telefono"
+            type="tel"
+            name="telefono"
+            value={form.telefono}
+            onChange={handleChange}
+            placeholder="Ejemplo: 8888-8888"
+            maxLength={15}
+            className={errors.telefono ? 'border-red-500' : ''}
+          />
+          {errors.telefono && (
+            <p className="text-red-500 text-xs mt-1">{errors.telefono}</p>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="mensaje" className="block text-sm font-medium text-gray-700 mb-1">
+            Mensaje adicional (opcional)
+          </label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            value={form.mensaje}
+            onChange={handleChange}
+            placeholder="Cualquier solicitud especial o pregunta..."
+            rows={3}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          />
+        </div>
+        {nights > 0 && (
         <div className="bg-gray-50 p-4 rounded-lg">
           <div className="flex justify-between text-sm text-gray-600 mb-2">
             <span>₡{formatPrice(pricePerNight)} x {nights} {nights === 1 ? 'noche' : 'noches'}</span>
@@ -237,67 +237,65 @@ export function ReservationForm({
           </div>
         </div>
       )}
-
-      {/* Datos personales */}
-      <div className="space-y-4">
-        <Input
-          type="text"
-          name="nombre"
-          value={form.nombre}
-          onChange={handleChange}
-          placeholder="Nombre completo"
-          className={errors.nombre ? 'border-red-500' : ''}
-        />
-        {errors.nombre && (
-          <p className="text-red-500 text-sm mt-1">{errors.nombre}</p>
-        )}
-
-        <Input
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-          placeholder="Correo electrónico"
-          className={errors.email ? 'border-red-500' : ''}
-        />
-        {errors.email && (
-          <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-        )}
-
-        <Input
-          type="tel"
-          name="telefono"
-          value={form.telefono}
-          onChange={handleChange}
-          placeholder="Teléfono"
-          className={errors.telefono ? 'border-red-500' : ''}
-        />
-        {errors.telefono && (
-          <p className="text-red-500 text-sm mt-1">{errors.telefono}</p>
-        )}
-
-        <textarea
-          name="mensaje"
-          value={form.mensaje}
-          onChange={handleChange}
-          placeholder="Mensaje adicional (opcional)"
-          rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-        />
       </div>
 
+      {/* Botones */}
+      <div className="flex flex-col gap-4 w-full">
+        {/* Botón de Google */}
+        <Button
+          type="button"
+          variant="white"
+          className="w-full border border-gray-300 flex items-center justify-center gap-2 py-3 text-base hover:cursor-pointer font-medium shadow-sm hover:bg-gray-100"
+          onClick={handleGoogleLogin}
+          disabled={googleLoading}
+        >
+          <FcGoogle size={22} />
+          {googleLoading 
+            ? "Cargando..." 
+            : user || googleUser 
+            ? "Cambiar cuenta de Google" 
+            : "Completar con Google"
+          }
+        </Button>
+
+        {/* Error de Google */}
+        {errors.google && (
+          <p className="text-red-500 text-xs text-center">{errors.google}</p>
+        )}
+
+        {/* Botones de acción */}
+        <div className="flex flex-col justify-end sm:flex-row gap-3">
+          <Button
+            type="submit"
+            variant="green"
+            className="hover:bg-[#435349] hover:cursor-pointer w-full md:w-auto py-3"
+            disabled={isPending || nights <= 0}
+          >
+            {isPending ? (
+              <div className="flex items-center justify-center gap-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                Enviando...
+              </div>
+            ) : (
+              'Reservar Ahora'
+            )}
+          </Button>
+
+          <Button 
+            type="button"
+            variant="white" 
+            className="hover:bg-gray-200 hover:cursor-pointer py-3"
+            onClick={handleCancel}
+          >
+            Cancelar
+          </Button>
+        </div>
+      </div>
+
+      {/* Error de envío */}
       {errors.submit && (
         <div className="text-red-500 text-sm text-center">{errors.submit}</div>
       )}
-
-      <Button
-        type="submit"
-        disabled={isPending || nights <= 0}
-        className="w-full"
-        variant="white"
-      >
-        {isPending ? 'Enviando...' : 'Reservar Ahora'}
-      </Button>
     </form>
   )
 }
