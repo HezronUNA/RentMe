@@ -81,6 +81,18 @@ export interface HospedajeFirestore {
   ubicacion: UbicacionHospedaje
 }
 
+export interface ActividadCercana {
+  id?: string;
+  nombre: string;
+  descripcion: string;
+  distanciaKm: number;
+  imagenes: string[];
+}
+
+export interface ActividadesCercanas {
+  [actividadId: string]: ActividadCercana;
+}
+
 // -------- Tipos para Reservas de Hospedajes --------
 
 export type EstadoReservaHospedaje = 'Pendiente' | 'Confirmada' | 'Cancelada' | 'Completada'
