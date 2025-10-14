@@ -15,8 +15,12 @@ export {
   getFechasOcupadas 
 } from './getHospedajesDisponibles'
 export {
-  crearReservaHospedaje,
-  getReservasByHospedaje,
-  getReservasByUsuario,
-  getReservasByEstado
+  crearReservaHospedaje
 } from './reservaHospedajeService'
+export {
+  getCalendarioHospedaje,
+  getFechasDisponibles,
+  getFechasEnRango,
+  isFechaDisponible,
+  getFechasDisponiblesCompleto
+} from './getCalendarioHospedaje'
