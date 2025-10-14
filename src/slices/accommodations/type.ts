@@ -14,6 +14,13 @@ export interface UbicacionHospedaje {
   lng: number
 }
 
+export interface CalendarDate {
+  fecha: string // Fecha en formato 'YYYY-MM-DD' (derivada del ID del documento)
+  disponible: boolean
+  precio?: number
+  notas?: string
+}
+
 // Tipo para GeoPoint de Firebase (por si se usa en el futuro)
 export interface FirebaseGeoPoint {
   latitude: number

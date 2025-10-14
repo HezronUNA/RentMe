@@ -2,6 +2,8 @@ import { Button } from '@/shared/components/Button'
 import { Input } from '@/shared/components/Input'
 import { FcGoogle } from "react-icons/fc"
 import { useAccomodationForm } from '../hooks/useAccomodationForm'
+import { useCalendar } from '../hooks/useCalendar'
+import { Calendar } from './Calendar'
 import type { CrearReservaHospedaje } from '../type'
 
 interface ReservationFormProps {
@@ -39,6 +41,11 @@ export function ReservationForm({
     accommodationName,
     pricePerNight,
     maxGuests
+  })
+
+  // Hook del calendario
+  const calendar = useCalendar({
+    hospedajeId: accommodationId
   })
 
   // Estado de éxito
@@ -82,6 +89,30 @@ export function ReservationForm({
         <p className="text-gray-500 text-xs mt-1">
           Máximo {maxGuests} {maxGuests === 1 ? 'huésped' : 'huéspedes'}
         </p>
+      </div>
+
+      {/* Calendario de disponibilidad */}
+      <div className="mb-6">
+        <h4 className="text-lg font-semibold text-gray-900 mb-3">
+          Selecciona tus fechas
+        </h4>
+        {calendar.isLoading ? (
+          <div className="flex justify-center items-center p-8 bg-gray-50 rounded-xl">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <span className="ml-3 text-gray-600">Cargando calendario...</span>
+          </div>
+        ) : calendar.error ? (
+          <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p className="text-red-600 text-sm">
+              Error al cargar el calendario: {calendar.error}
+            </p>
+          </div>
+        ) : (
+          <Calendar
+            availableDates={calendar.availableDates}
+            minDate={new Date().toISOString().split('T')[0]}
+          />
+        )}
       </div>
 
       {/* Fechas */}
