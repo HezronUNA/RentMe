@@ -211,18 +211,12 @@ const AccommodationDetail = () => {
                 </div>
                 <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                    <span className={`text-lg ${hospedaje.reglas?.mascotas ? 'text-green-600' : 'text-red-600'}`}>
-                      {hospedaje.reglas?.mascotas ? '🐕' : '🚫🐕'}
-                    </span>
-                    <span className="text-sm text-gray-700">
+                    <span className={`text-sm text-gray-700 ${hospedaje.reglas?.mascotas ? 'text-green-600' : 'text-red-600'}`}>
                       {hospedaje.reglas?.mascotas ? 'Se admiten mascotas' : 'No se admiten mascotas'}
                     </span>
                   </div>
                   <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                    <span className={`text-lg ${hospedaje.reglas?.fumado ? 'text-green-600' : 'text-red-600'}`}>
-                      {hospedaje.reglas?.fumado ? '🚬' : '🚫🚬'}
-                    </span>
-                    <span className="text-sm text-gray-700">
+                    <span className={`text-sm text-gray-700 ${hospedaje.reglas?.fumado ? 'text-green-600' : 'text-red-600'}`}>
                       {hospedaje.reglas?.fumado ? 'Se permite fumar' : 'No se permite fumar'}
                     </span>
                   </div>
