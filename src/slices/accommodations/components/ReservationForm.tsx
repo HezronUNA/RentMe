@@ -1,10 +1,10 @@
-import { Button } from '@/shared/components/Button'
 import { Input } from '@/shared/components/Input'
 import { FcGoogle } from "react-icons/fc"
 import { useAccomodationForm } from '../hooks/useAccomodationForm'
 import { useCalendar } from '../hooks/useCalendar'
 import { Calendar } from './Calendar'
 import type { CrearReservaHospedaje } from '../type'
+import { Button } from '@/shared/components/button'
 
 interface ReservationFormProps {
   accommodationId: string
