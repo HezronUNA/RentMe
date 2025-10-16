@@ -1,4 +1,4 @@
-import { H2, H3, P } from "@/shared/components/Typography";
+import { H2, H4, P } from "@/shared/components/Typography";
 import { useEffect, useState, useRef } from "react";
 import { useServiciosByModalidad } from "@/slices/services/hooks/useServiceByModality";
 
@@ -100,7 +100,7 @@ function ServicioCard({ servicio }: { servicio: Servicio }) {
         )}
       </div>
       <div className="p-6 w-full flex flex-col items-center">
-        <H3 className="text-lg font-semibold mb-2 text-center">{servicio.nombre}</H3>
+        <H4 className="text-black text-lg font-semibold mb-2 text-center">{servicio.nombre}</H4>
         <P className="text-gray-600 text-center">{servicio.descripcion}</P>
       </div>
     </div>

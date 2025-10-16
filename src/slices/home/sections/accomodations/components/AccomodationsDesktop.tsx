@@ -1,5 +1,5 @@
 // src/slices/home/sections/accomodations/components/AccomodationsDesktop.tsx
-import { Button } from "../../../../../shared/components/button"
+import { Button } from "../../../../../shared/components/Button"
 import { Link } from "@tanstack/react-router"
 import { Small } from "@/shared/components/Typography"
 import useEmblaCarousel from 'embla-carousel-react';

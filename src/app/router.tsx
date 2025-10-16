@@ -6,6 +6,7 @@ import {
   RouterProvider
 } from '@tanstack/react-router'
 import AppLayout from './Layout'
+import ScrollToTop from '@/shared/components/ScrollToTop'
 
 // Importación diferida (lazy) de las páginas
 const HomePage = lazy(() => import('../slices/home/Page'))
@@ -16,11 +17,13 @@ const SalesPage = lazy(() => import("../slices/sales/Page"))
 const ServicesPage = lazy(() => import("../slices/services/Page"))
 const ServiceDetailPage = lazy(() => import("../slices/services/ServiceDetailPage"))
 const SaleDetailPage = lazy(() => import("../slices/sales/SaleDetail"))
+const AccommodationDetailPage = lazy(() => import("../slices/accommodations/AccommodationDetail"))
 
 // Ruta raíz con layout
 const rootRoute = createRootRoute({
   component: () => (
     <Suspense fallback={<div>Cargando...</div>}>
+      <ScrollToTop />
       <AppLayout />
     </Suspense>
   ),
@@ -44,6 +47,12 @@ const alojamientosRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/alojamientos",
   component: AccommodationsPage,
+})
+
+const alojamientoDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/alojamientos/$alojamientoId",
+  component: AccommodationDetailPage
 })
 
 const ventasRoute = createRoute({
@@ -75,6 +84,7 @@ const routeTree = rootRoute.addChildren([
    homeRoute,
   nosotrosRoute,
   alojamientosRoute,
+  alojamientoDetailRoute,
   ventasRoute,
   ventaDetailRoute,
   serviciosRoute,
@@ -93,5 +103,7 @@ declare module '@tanstack/react-router' {
 
 // Proveedor del router
 export function AppRouterProvider() {
-  return <RouterProvider router={router} />
+  return (
+    <RouterProvider router={router} />
+  )
 }
