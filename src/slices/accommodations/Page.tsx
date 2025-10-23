@@ -94,6 +94,7 @@ export default function AccommodationsPage() {
           />
         </div>
       </div>
+   
     </section>
   )
 }
