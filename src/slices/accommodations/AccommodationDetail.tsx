@@ -7,6 +7,7 @@ import { useHospedajeById } from "./hooks/useAccommodationsById";
 import NearbyActivitiesCarousel from "./components/NearbyActivitiesCarousel";
 import type { CrearReservaHospedaje } from "./type";
 import { useCreateReserve } from "./hooks/useCreateReserve";
+import ReviewAccommodation from "./components/ReviewAccommodation";
 
 const AccommodationDetail = () => {
   const params = useParams({ from: "/alojamientos/$alojamientoId" });
@@ -250,6 +251,7 @@ const AccommodationDetail = () => {
         </div>
       </div>
       <Toaster />
+      <ReviewAccommodation />
     </section>
   );
 };
