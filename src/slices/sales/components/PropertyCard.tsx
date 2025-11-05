@@ -1,7 +1,8 @@
-import { Button } from "@/shared/components/button"
+import { Button } from "@/shared/components/Button"
 import { Small } from "@/shared/components/Typography"
 import type { PropiedadVenta } from "../type"
 import { useNavigate } from "@tanstack/react-router"
+import { MapPin, Bed, Home } from 'lucide-react'
 
 interface PropertyCardProps {
   property: PropiedadVenta
@@ -33,9 +34,9 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
   return (
     <article 
       className="
-        bg-white rounded-xl overflow-hidden shadow-md
+        rounded-xl overflow-hidden shadow-md
         border border-zinc-200 bg-gray-50 hover:bg-white hover:shadow-lg 
-        transition-all duration-300 hover:scale-[1.02]
+        bg-zinc-100 transition-all duration-300 hover:scale-[1.02]
         h-full cursor-pointer group
       "
       onClick={handleClick}
@@ -51,62 +52,75 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
             target.src = 'https://placehold.co/600x360'
           }}
         />
-        {/* Contador de imágenes */}
+
+        <div className="absolute top-3 right-3 z-30">
+          <div className="bg-white/95 text-[#52655B] px-4 py-2 rounded-lg text-lg font-semibold shadow-lg border border-zinc-100">
+            ₡{formatPrice(property.precio)}
+          </div>
+        </div>
+
+        {/* Overlay oscuro permanente para mejor legibilidad del título */}
+        <div className="absolute inset-0 bg-black/50 opacity-100 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+        {/* Título sobre la imagen, parte inferior centro */}
+        <div className="absolute left-0 right-0 bottom-4 flex justify-center pointer-events-none">
+          <div className=" px-4 py-2 rounded-md text-center max-w-[92%] pointer-events-auto">
+            <h3 className="text-white text-base md:text-lg font-semibold uppercase tracking-widest leading-6 line-clamp-2">
+              {`${property.ubicacion.distrito}, ${property.ubicacion.canton}`}
+            </h3>
+          </div>
+        </div>
+
         {property.imagenes && property.imagenes.length > 1 && (
-          <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">
+          <div className="absolute top-20 right-4 bg-black/60 text-white px-2 py-1 rounded text-xs">
             +{property.imagenes.length - 1} fotos
           </div>
         )}
-        
-        {/* Overlay sutil para mejor contraste del texto */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Info */}
       <div className="p-4 space-y-2">
-        {/* Ubicación */}
-        <h3 className="text-center text-base font-semibold uppercase tracking-widest text-zinc-900 group-hover:text-zinc-700 transition-colors duration-200">
-          {property.ubicacion.distrito}, {property.ubicacion.canton}
-        </h3>
-        
-        {/* Características */}
-        <p className="text-sm text-zinc-600 text-center">
-          {property.habitaciones} Habitaciones, {property.baños} Baños, {property.areaTerreno}m²
-        </p>
-        
-        {/* Amenidades destacadas */}
-        {property.amenidades && property.amenidades.length > 0 && (
-          <div className="flex justify-center">
-            <div className="flex flex-wrap gap-1 justify-center">
-              {property.amenidades.slice(0, 2).map((amenidad, index) => (
-                <span key={index} className="text-xs text-zinc-500 bg-zinc-100 px-2 py-1 rounded">
-                  {amenidad}
-                </span>
-              ))}
-              {property.amenidades.length > 2 && (
-                <span className="text-xs text-zinc-500 bg-zinc-100 px-2 py-1 rounded">
-                  +{property.amenidades.length - 2} más
-                </span>
-              )}
-            </div>
+        {/* Ubicación con icono */}
+        <div className="flex items-center gap-2">
+          <MapPin className="h-4 w-4 text-zinc-600" />
+          <p className="text-lg text-zinc-600 font-bold">{property.ubicacion.distrito}, {property.ubicacion.canton}</p>
+        </div>
+
+        {/* Características compactas */}
+        <div className="pt-2 grid grid-cols-3 gap-2 items-stretch">
+          <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
+            <Bed className="h-4 w-4 text-[#52655B]" />
+            <span className="text-[11px] text-zinc-600 mt-1">Habitac.</span>
+            <span className="text-sm font-medium text-zinc-900 mt-1">{property.habitaciones}</span>
           </div>
-        )}
+
+          <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#52655B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 12a9 9 0 1018 0v-3a3 3 0 00-3-3h-1" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 7v1m0 4v1m4-5v1m0 4v1" />
+            </svg>
+            <span className="text-[11px] text-zinc-600 mt-1">Baños</span>
+            <span className="text-sm font-medium text-zinc-900 mt-1">{property.baños}</span>
+          </div>
+
+          <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
+            <Home className="h-4 w-4 text-[#52655B]" />
+            <span className="text-[11px] text-zinc-600 mt-1">Terreno</span>
+            <span className="text-sm font-medium text-zinc-900 mt-1">{property.areaTerreno}m²</span>
+          </div>
+        </div>
         
-        {/* Precio */}
-        <p className="text-center text-lg font-medium text-zinc-900">
-          ₡{formatPrice(property.precio)}
-        </p>
-        
-        {/* Botón */}
+        {/* Botón centrado */}
         <div className="pt-2 flex justify-center">
           <Button 
-            variant="white" 
-            className="hover:bg-gray-100 hover:cursor-pointer transition-colors duration-200"
-            onClick={handleClick}
+            variant="green" 
+            className="hover:bg-[#435349] hover:cursor-pointer  transition-colors duration-200 max-w-[220px]"
+            onClick={(e) => { e.stopPropagation(); handleClick(); }}
           >
             <Small>Ver propiedad</Small>
           </Button>
         </div>
+        
       </div>
     </article>
   )
