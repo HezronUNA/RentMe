@@ -1,6 +1,6 @@
 // src/slices/home/sections/accomodations/components/AccomodationsDesktop.tsx
 import { Button } from "../../../../../shared/components/button"
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 import { Small } from "@/shared/components/Typography"
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoscroll from 'embla-carousel-auto-scroll';
