@@ -1,7 +1,3 @@
-
-
-
-
 export interface PlansType {
  id: string;
  image?: string

@@ -1,10 +1,11 @@
 // src/slices/accomodations/components/FeaturedMobile.tsx
-import { Button } from "../../../../../shared/components/button"
-import { Link } from "@tanstack/react-router"
+import { Button } from "../../../../../shared/components/Button"
+import { Link, useNavigate } from "@tanstack/react-router"
 
 type Props = { hospedajes: any[] }
 
 export default function AccomodationsMobile({ hospedajes }: Props) {
+  const navigate = useNavigate()
   return (
     <>
       <div className="relative">
@@ -18,7 +19,7 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
         >
           <style>{`div::-webkit-scrollbar { display: none; }`}</style>
 
-          <div className="flex gap-12 w-max">
+          <div className="flex gap-12 w-max" >
             {hospedajes.map((h) => {
               const img =
                 (h.imagenes && h.imagenes[0]) ||
@@ -28,6 +29,7 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
               return (
                 <article
                   key={h.id}
+                  onClick={() => navigate({ to: `/alojamientos/${h.id}` })}
                   className="
                     snap-center shrink-0
                     w-[82vw] max-w-sm
@@ -57,7 +59,12 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
                     </p>
 
                     <div className="pt-2 flex justify-center">
-                      <Button variant="white">Ver propiedad</Button>
+                      <Button
+                        variant="white"
+                        onClick={(e) => { e.stopPropagation(); navigate({ to: `/alojamientos/${h.id}` }) }}
+                      >
+                        Ver propiedad
+                      </Button>
                     </div>
                   </div>
                 </article>

@@ -1,3 +1,4 @@
+import { Button } from "@/shared/components/Button"
 import { H2, P, Small } from "@/shared/components/Typography"
 import usePlans from "@/slices/home/hooks/usePlans"
 import { Link } from "@tanstack/react-router"
@@ -44,35 +45,35 @@ export default function PlansSection() {
             Asesoría personalizada en gestión, venta y compra de propiedades en Costa Rica.
           </P>
         </div>
-        <div className="grid grid-cols-4 gap-1">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
           {PlanesGestion.map((plan, index) => {
 
             const getCardSize = (index: number) => {
+              // Use responsive col-span: on small screens every card is full width (col-span-1)
+              // on sm+ screens we apply the designed layout. Heights are smaller on mobile.
               const layout = [
-                "col-span-2 h-64", // Primera: rectangular (2 columnas)
-                "col-span-1 h-64", // Segunda: cuadrada (1 columna)
-                "col-span-1 h-64", // Tercera: cuadrada (1 columna)
-                "col-span-1 h-64", // Cuarta: cuadrada (1 columna) 
-                "col-span-1 h-64", // Quinta: cuadrada (1 columna)
-                "col-span-2 h-64", // Sexta: rectangular (2 columnas)
+                "sm:col-span-2 col-span-1 h-48 sm:h-64", // Primera: rectangular (2 columnas en sm+)
+                "col-span-1 h-48 sm:h-64", // Segunda: cuadrada
+                "col-span-1 h-48 sm:h-64", // Tercera
+                "col-span-1 h-48 sm:h-64", // Cuarta
+                "col-span-1 h-48 sm:h-64", // Quinta
+                "sm:col-span-2 col-span-1 h-48 sm:h-64", // Sexta: rectangular en sm+
               ]
-              return layout[index] || "col-span-1 h-64" // Fallback para más elementos
+              return layout[index] || "col-span-1 h-48 sm:h-64"
             }
 
-            // Determine text size based on card dimensions
+            // Determine text size based on card dimensions (slightly smaller on mobile)
             const getTextSize = (index: number) => {
-              // Rectangular cards (wider) get slightly larger text
               if (index === 0 || index === 5) {
-                return "text-xl md:text-2xl"
+                return "text-lg sm:text-xl md:text-2xl"
               }
-              // Square cards get smaller text
-              return "text-lg md:text-xl"
+              return "text-base sm:text-lg md:text-xl"
             }
 
             return (
               <div 
                 key={`${plan.id}-${index}`}
-                className={`group relative overflow-hidden border border-gray-200/50 hover:border-gray-300 transition-all duration-300 ${getCardSize(index)}`}
+                className={`group relative overflow-hidden border border-gray-200/50 rounded-lg hover:border-gray-300 transition-all duration-300 ${getCardSize(index)}`}
               >
                 {/* Background image - not affected by hover */}
                 <div 
@@ -82,20 +83,20 @@ export default function PlansSection() {
                   }}
                 ></div>
 
-             
-                <div className="absolute inset-0 bg-black opacity-30 group-hover:opacity-70 transition-opacity duration-700"></div>
+                {/* Overlay: visible by default on small screens, hidden on sm+ until hover */}
+                <div className="absolute inset-0 bg-black opacity-50 sm:opacity-30 sm:group-hover:opacity-70 transition-opacity duration-700"></div>
 
-              
-                <div className="absolute inset-0 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-1000 px-4">
+                {/* Text: visible on small screens (no hover), hidden on sm+ until hover */}
+                <div className="absolute inset-0 flex flex-col justify-center items-center text-white opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 px-4">
                   <P className={`${getTextSize(index)} text-sm sm:text-2xl text-center mb-4 uppercase`}>
                     {plan.title || 'Servicio'}
                   </P>
                   <Link to="/servicios">
-                  <button className="border border-white rounded-md px-6 py-2 text-sm hover:bg-white hover:cursor-pointer hover:text-gray-800 transition-all duration-300">
+                  <Button variant="whiteBorder" className="px-6 py-2 hover:bg-white hover:cursor-pointer transition-all duration-300">
                    <Small>
                     {plan.textbutton || "Ver mas"}
                    </Small>
-                  </button>
+                  </Button>
                   </Link>
                 </div>
               </div>

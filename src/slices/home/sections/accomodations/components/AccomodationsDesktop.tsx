@@ -1,13 +1,11 @@
 // src/slices/home/sections/accomodations/components/AccomodationsDesktop.tsx
 import { Button } from "../../../../../shared/components/Button"
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 import { Small } from "@/shared/components/Typography"
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoscroll from 'embla-carousel-auto-scroll';
 
-
 type Props = { hospedajes: any[] };
-
 
 export default function AccomodationsDesktop({ hospedajes }: Props) {
   // Configuración de Embla Carousel con auto-scroll
@@ -29,6 +27,7 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
 
   // Duplicar hospedajes para mejor efecto infinito visual
   const duplicatedHospedajes = [...hospedajes, ...hospedajes];
+  const navigate = useNavigate()
 
   return (
     <>
@@ -46,7 +45,9 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                   key={`${h.id}-${index}`}
                   className="embla__slide flex-[0_0_auto] w-[34vw] max-w-[420px] min-w-[340px]"
                 >
-                  <article className="
+                  <article
+                    onClick={() => navigate({ to: `/alojamientos/${h.id}` })}
+                    className="
                     bg-white rounded-xl overflow-hidden shadow-md
                     border border-zinc-200 bg-gray-50 hover:bg-white hover:shadow-lg 
                     transition-all duration-300 hover:scale-[1.02]
@@ -78,9 +79,10 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                         {h.precioNoche?.toLocaleString?.("es-CR") ?? h.precioNoche}₡ por noche
                       </p>
                       <div className="pt-2 flex justify-center">
-                        <Button 
-                          variant="white" 
-                          className="hover:bg-gray-100 hover:cursor-pointer transition-colors duration-200 "
+                        <Button
+                          variant="white"
+                          className="hover:bg-gray-100 hover:cursor-pointer transition-colors duration-200"
+                          onClick={(e) => { e.stopPropagation(); navigate({ to: `/alojamientos/${h.id}` }) }}
                         >
                           <Small>Ver propiedad</Small>
                         </Button>
