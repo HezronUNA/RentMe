@@ -1,4 +1,4 @@
-import { Button } from "@/shared/components/Button"
+import { Button } from "@/shared/components/button"
 import { H2, P, Small } from "@/shared/components/Typography"
 import usePlans from "@/slices/home/hooks/usePlans"
 import { Link } from "@tanstack/react-router"

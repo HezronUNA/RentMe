@@ -1,4 +1,4 @@
-import { Button } from "@/shared/components/Button"
+import { Button } from "@/shared/components/button"
 import { Small } from "@/shared/components/Typography"
 import type { PropiedadVenta } from "../type"
 import { useNavigate } from "@tanstack/react-router"
