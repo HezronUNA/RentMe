@@ -86,7 +86,7 @@ export default function PhotograpyPage() {
               />
 
               {/* badge abajo-izquierda */}
-              <div className="absolute -left-4 -bottom-4 bg-white rounded-lg px-4 py-3 shadow-md flex items-center gap-3">
+              <div className="absolute justify-center items-center md:-left-4 -bottom-4 bg-white rounded-lg px-4 py-3 shadow-md flex items-center gap-3">
                 <div className="bg-[#52655B] rounded-full p-2">
                   <Camera className="h-5 w-5 text-white" />
                 </div>
