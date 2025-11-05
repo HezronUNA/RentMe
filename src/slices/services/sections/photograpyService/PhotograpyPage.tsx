@@ -3,7 +3,7 @@ import { Camera, Video, Edit3, Image as ImageIcon } from 'lucide-react'
 import type { PhotographyService, PhotographyItem } from './type'
 import { useTitles } from '@/shared/hooks/useTitles'
 import { usePhotographyServices } from '../../hooks/usePhotograpy'
-import { Button } from '@/shared/components/Button'
+import { Button } from '@/shared/components/button'
 import { H2, P } from '@/shared/components/Typography'
 
 function ServiceIcon({ name }: { name?: string }) {
