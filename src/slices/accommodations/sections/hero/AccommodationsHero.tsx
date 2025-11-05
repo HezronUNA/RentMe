@@ -106,6 +106,7 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
           </div>
         </div>
       </div>
+    
     </section>
   );
 }
