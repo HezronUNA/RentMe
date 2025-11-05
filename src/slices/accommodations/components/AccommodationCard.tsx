@@ -1,4 +1,4 @@
-import { Button } from "@/shared/components/Button"
+import { Button } from "@/shared/components/button"
 import { Small } from "@/shared/components/Typography"
 import type { MouseEvent } from 'react'
 import type { Hospedaje } from "../type"
