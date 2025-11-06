@@ -128,8 +128,8 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
           <Button
             type="submit"
             variant="green"
-            className="hover:bg-[#435349] hover:cursor-not-allowed w-full md:w-auto py-3"
-            disabled
+            className="hover:bg-[#435349] hover:cursor-pointer w-full md:w-auto py-3"
+           
           >
             {isPending ? (
               <div className="flex items-center justify-center gap-2">

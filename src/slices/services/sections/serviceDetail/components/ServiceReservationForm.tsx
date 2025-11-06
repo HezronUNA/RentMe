@@ -109,8 +109,8 @@ export function ServiceReservationForm() {
           <Button
             type="submit"
             variant="green"
-            className="hover:bg-[#435349] hover:cursor-not-allowed w-full md:w-auto"
-            disabled
+            className="hover:bg-[#435349] hover:cursor-pointer w-full md:w-auto"
+         
           >
             {isPending ? "Enviando..." : "Solicitar"}
           </Button>
