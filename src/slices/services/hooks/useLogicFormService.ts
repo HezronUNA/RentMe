@@ -41,8 +41,8 @@ export function useLogicFormService() {
 		if (isSuccess) {
 			toast.success("¡Solicitud enviada correctamente!", {
 				style: {
-					background: "#22c55e",
-					border: "1px solid #22c55e",
+					background: "#52655B",
+					border: "1px solid #52655B",
 					color: "white",
 				},
 			});
