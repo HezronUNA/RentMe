@@ -79,8 +79,8 @@ export function Promotions() {
                 items[3]?.imagen ? (
                   <img 
                     src={items[3].imagen} 
-                    alt="Costa Rica RentME" 
-                    className="mx-auto max-w-xs md:max-w-md h-auto"
+                    alt="Costa Rica DMR Rentals" 
+                    className="mx-auto max-w-[200px] md:max-w-[250px] h-auto"
                   />
                 ) : (
                   <div className="h-32 bg-gray-300 rounded w-full max-w-xs"></div>
