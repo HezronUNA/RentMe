@@ -59,7 +59,7 @@ export default function Footer() {
     <div className="grid lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:gap-x-6">
       <div className="lg:col-span-2">
         <H2 className="text-white">
-          RENTME CR
+          DMR Rentals
         </H2>
         <p className="mt-4 max-w-prose text-white/80 text-sm leading-relaxed">
           Tu aliado confiable en la compra, venta y gestión de propiedades en Costa Rica.
@@ -231,7 +231,7 @@ export default function Footer() {
     </div>
     <div className="flex flex-col items-center justify-center text-center">
       <p className="text-sm text-white/80 mb-1 font-medium">
-        © 2025 RentME CR. Todos los derechos reservados.
+        © 2025 DMR Rentals. Todos los derechos reservados.
       </p>
       <p className="text-xs font-semibold text-[#94a593]">
         Desarrollado por ChocoTec
