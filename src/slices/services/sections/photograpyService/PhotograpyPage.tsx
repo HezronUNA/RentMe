@@ -51,7 +51,7 @@ export default function PhotograpyPage() {
             <div className="max-w-[640px] md:ml-auto justify-start mr-2">
             <p className="text-sm text-zinc-700 leading-relaxed mb-6">
               {service?.descripcion ??
-                'En Rent Me CR ofrecemos servicios de fotografía, video y reels profesionales para resaltar los mejores ángulos de tu alojamiento. Nuestro contenido visual aumenta la visibilidad en plataformas como Airbnb, Booking y redes sociales, atrayendo más huéspedes y generando confianza.'}
+                'En DMR Rentals ofrecemos servicios de fotografía, video y reels profesionales para resaltar los mejores ángulos de tu alojamiento. Nuestro contenido visual aumenta la visibilidad en plataformas como Airbnb, Booking y redes sociales, atrayendo más huéspedes y generando confianza.'}
             </p>
 
             <ul className="space-y-4">
