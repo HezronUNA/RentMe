@@ -4,11 +4,11 @@ import { type OrbitItemConfig } from './OrbitAnimation';
 
 // URLs de tus redes/plataformas
 const urls = {
-  booking: "https://www.booking.com/user/rentmecr", // Cambia por el enlace real de RentMe
-  airbnb: "https://www.airbnb.com/users/show/RENTME_ID", // Cambia por el enlace real de RentMe
-  facebook: "https://www.facebook.com/rentmecr",
-  instagram: "https://www.instagram.com/rentmecr",
-  tiktok: "https://www.tiktok.com/@rentmecr"
+  booking: "https://www.booking.com/user/rentmecr",
+  airbnb: "https://www.airbnb.co.cr/users/profile/1468597946957938779?previous_page_name=PdpHomeMarketplace",
+  facebook: "https://www.facebook.com/share/1Jw4WEW697/",
+  instagram: "https://www.instagram.com/dmr_rentals?igsh=eXBzNXFmYmR6OWU5",
+  tiktok: "https://www.tiktok.com/@dmrrentalscr?_r=1&_t=ZM-91VWp63bAzL"
 };
 
 export const platformsConfig: OrbitItemConfig[] = [

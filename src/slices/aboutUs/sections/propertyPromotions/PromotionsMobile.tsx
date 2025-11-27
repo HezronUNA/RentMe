@@ -56,11 +56,11 @@ export function PromotionsMobile() {
               items[3]?.imagen ? (
                 <img 
                   src={items[3].imagen} 
-                  alt="Costa Rica RentME" 
-                  className="max-w-[160px] h-auto rounded-lg" // Cambiado de 120px a 160px
+                  alt="Costa Rica DMR Rentals" 
+                  className="max-w-[120px] h-auto rounded-lg"
                 />
               ) : (
-                <div className="h-28 bg-gray-300 rounded w-[160px]"></div> // Cambiado de h-20 y w-120px a h-28 y w-160px
+                <div className="h-20 bg-gray-300 rounded w-[120px]"></div>
               )
             }
             className="mb-4"

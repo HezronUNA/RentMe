@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router"
 import type { UseNavbar } from "@/shared/hooks/useNavbar"
-import Logo from "@/shared/assets/RentMe.jpg"
+
+const Logo = "https://i.ibb.co/fGdD3rxd/Chat-GPT-Image-18-nov-2025-02-02-38-p-m.png"
 
 type Props = {
   nav: UseNavbar
@@ -21,7 +22,7 @@ export default function MobileHeader({ nav }: Props) {
     <div className="md:hidden mx-auto max-w-screen-2xl px-4">
       <div className="h-16 flex items-center justify-between">
         <Link to="/" aria-label="Ir al inicio" className="flex items-center gap-2">
-          <img src={Logo} alt="Logo RentME" className="h-16 w-16 sm:h-18 sm:w-18 object-cover" />
+          <img src={Logo} alt="Logo DMR Rentals" className="h-16 w-16 sm:h-18 sm:w-18 object-cover" />
         </Link>
         <button
           type="button"
