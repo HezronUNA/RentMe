@@ -298,7 +298,6 @@ export function ReservationForm({
             type="submit"
             variant="green"
             className="hover:bg-[#435349] hover:cursor-pointer w-full md:w-auto py-3"
-            disabled
           >
             {isPending ? (
               <div className="flex items-center justify-center gap-2">
