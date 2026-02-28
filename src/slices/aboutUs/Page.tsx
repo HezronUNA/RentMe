@@ -1,17 +1,14 @@
-import BannerAboutUs from "./sections/banner";
-import OurObjetiveSection from "./sections/ourObjetive";
+import BannerAboutUs from "./sections/BannerAboutUs";
+import OurObjetiveSection from "./sections/OurObjetive";
 import { Promotions } from "./sections/propertyPromotions/promotion";
-import WaysWork from "./sections/waysWork/WaysWork";
-import WhatWeDo from "./sections/whatWeDo/WhatWeDo";
-
+import WhatWeDo from "./sections/WhatWeDo";
 
 export default function AboutUsPage() {
   return (
     <>
        <BannerAboutUs />
-       <WhatWeDo/>
+       <WhatWeDo />
        <Promotions />
-       <WaysWork />
       <OurObjetiveSection />
     </>
   ) 
