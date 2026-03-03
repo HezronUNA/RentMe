@@ -1,7 +1,8 @@
 // src/slices/aboutUs/sections/waysWork/WaysWork.tsx
-import { H2, P } from "@/shared/components/Typography";
+
+import { Button } from "@/components/ui/button";
+import { H2, P } from "@/components/ui/Typography";
 import { Link } from "@tanstack/react-router";
-import { Button } from "@/shared/components/button";
 
 export default function WaysWork() {
   // Datos estáticos de modalidades
@@ -99,3 +100,4 @@ export default function WaysWork() {
     </section>
   );
 }
+

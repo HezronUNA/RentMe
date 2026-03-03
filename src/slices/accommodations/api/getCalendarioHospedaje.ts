@@ -195,3 +195,4 @@ export async function getFechasDisponiblesCompleto(
     throw new Error('No se pudo obtener las fechas disponibles')
   }
 }
+

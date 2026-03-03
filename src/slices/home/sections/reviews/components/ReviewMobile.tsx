@@ -43,3 +43,5 @@ function getInitials(name: string) {
     .map((w) => w[0]?.toUpperCase())
     .join("");
 }
+
+

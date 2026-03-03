@@ -26,3 +26,5 @@ export function useGetAccomodationHighlights() {
 }
 
 export default useGetAccomodationHighlights
+
+

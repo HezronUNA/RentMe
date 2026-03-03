@@ -36,3 +36,4 @@ export function ServiceCard({ item }: ServiceCardProps) {
     </div>
   );
 }
+

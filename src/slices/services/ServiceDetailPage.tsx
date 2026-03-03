@@ -2,7 +2,7 @@ import { useParams } from "@tanstack/react-router";
 import CarouselService from "./sections/serviceDetail/components/CarouselService";
 import Hero from "./sections/serviceDetail/components/Hero";
 import { ServiceReservationForm } from "./sections/serviceDetail/components/ServiceReservationForm";
-import { Toaster } from "@/shared/components/Sonner";
+import { Toaster } from "@/components/ui/Sonner";
 
 const ServiceDetailPage = () => {
   const params = useParams({ from: "/servicios/$modalidadId" });
@@ -33,3 +33,5 @@ const ServiceDetailPage = () => {
 };
 
 export default ServiceDetailPage;
+
+

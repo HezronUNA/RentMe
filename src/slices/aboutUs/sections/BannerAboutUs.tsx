@@ -1,6 +1,7 @@
 // src/slices/aboutUs/sections/banner/BannerAboutUs.tsx
-import { Button } from "@/shared/components/button";
-import { H1, P } from "@/shared/components/Typography";
+
+import { Button } from "@/components/ui/button";
+import { H1, P } from "@/components/ui/Typography";
 import { FaChevronDown } from "react-icons/fa";
 
 export default function BannerAboutUs() {
@@ -55,3 +56,4 @@ export default function BannerAboutUs() {
     </section>
   );
 }
+

@@ -59,3 +59,4 @@ export const useNearbyActivities = (hospedajeId: string) => {
 
   return { actividades, loading, error };
 };
+

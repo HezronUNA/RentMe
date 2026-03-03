@@ -30,3 +30,4 @@ export async function getPropiedadesByPrecio(precioMin: number, precioMax: numbe
   // Ordenar por precio en el cliente
   return propiedades.sort((a, b) => a.precio - b.precio)
 }
+

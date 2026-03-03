@@ -15,3 +15,5 @@ export async function getVentasServicios(): Promise<VentaServicio[]> {
     throw error;
   }
 }
+
+

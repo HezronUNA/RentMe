@@ -1,5 +1,6 @@
-import { useTitles } from "@/shared/hooks/useTitles";
-import { H1 } from "@/shared/components/Typography";
+import { H1 } from "@/components/ui/Typography";
+import { useTitles } from "@/hooks/useTitles";
+
 
 export default function CleaningServiceHero() {
   const { items, loading, error } = useTitles("4");
@@ -36,3 +37,4 @@ export default function CleaningServiceHero() {
     </div>
   );
 }
+

@@ -22,3 +22,4 @@ export async function getPropiedadesByPrecioAlternative(precioMin: number, preci
   // Ordenar en el cliente
   return propiedades.sort((a, b) => a.precio - b.precio)
 }
+

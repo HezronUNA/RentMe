@@ -7,3 +7,4 @@ export function usePostReservaServicio() {
     mutationFn: (data: ReservaServicio) => postReservaServicio(data),
   });
 }
+

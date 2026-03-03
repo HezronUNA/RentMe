@@ -402,3 +402,4 @@ export const useAccomodationForm = ({
     isFormValid: nights > 0 && Object.keys(errors).length === 0,
   }
 }
+

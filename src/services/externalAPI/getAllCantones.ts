@@ -1,4 +1,4 @@
-import type { Canton } from "@/shared/types/places";
+import type { Canton } from "@/types/places";
 import { getProvincias } from "./getProvincias";
 
 // Define la URL base de la API de lugares
@@ -88,3 +88,4 @@ export const getAllCantones = async (): Promise<Canton[]> => {
     throw error;
   }
 };
+

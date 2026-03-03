@@ -102,3 +102,5 @@ export function useReviewsCarousel(hospedajeId?: string | null, limit?: number) 
     handleTransitionEnd,
   };
 }
+
+

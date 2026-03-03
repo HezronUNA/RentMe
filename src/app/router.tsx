@@ -6,7 +6,7 @@ import {
   RouterProvider
 } from '@tanstack/react-router'
 import AppLayout from './Layout'
-import ScrollToTop from '@/shared/components/ScrollToTop'
+import ScrollToTop from '@/components/ui/ScrollToTop'
 
 // Importación diferida (lazy) de las páginas
 const HomePage = lazy(() => import('../slices/home/Page'))
@@ -107,3 +107,5 @@ export function AppRouterProvider() {
     <RouterProvider router={router} />
   )
 }
+
+

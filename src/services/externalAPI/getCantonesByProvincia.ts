@@ -1,4 +1,4 @@
-import type { Canton } from "@/shared/types/places";
+import type { Canton } from "@/types/places";
 
 const URL_API_PLACES = import.meta.env.VITE_URL_API_PLACES || 'https://api-geo-cr.vercel.app';
 
@@ -28,3 +28,4 @@ export const getCantonesByProvincia = async (provinciaId: number): Promise<Canto
     throw error;
   }
 };
+

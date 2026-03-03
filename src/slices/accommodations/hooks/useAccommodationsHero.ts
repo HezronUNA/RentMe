@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getHeroItems } from "../../../shared/api/getHero";
 import type { HeroItem } from "../../../slices/home/sections/hero/type";
+import { getHeroItems } from "@/api/getHero";
 
 export const accommodationsHeroKeys = {
   all: ["accommodations", "hero"] as const,
@@ -32,3 +32,4 @@ export function useAccommodationsHero() {
     selectedDocumentId,
   };
 }
+

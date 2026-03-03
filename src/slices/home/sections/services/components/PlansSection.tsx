@@ -1,5 +1,6 @@
-import { Button } from "@/shared/components/button"
-import { H2, P, Small } from "@/shared/components/Typography"
+
+import { Button } from "@/components/ui/button"
+import { H2, P, Small } from "@/components/ui/Typography"
 import usePlans from "@/slices/home/hooks/usePlans"
 import { Link } from "@tanstack/react-router"
 
@@ -107,3 +108,4 @@ export default function PlansSection() {
     </section>
   )
 }
+

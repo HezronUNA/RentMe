@@ -14,3 +14,4 @@ export async function getPropiedadById(id: string): Promise<PropiedadVenta | nul
     ...(docSnap.data() as PropiedadVentaFirestore)
   }
 }
+

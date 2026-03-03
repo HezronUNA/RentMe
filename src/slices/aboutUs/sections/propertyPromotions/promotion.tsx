@@ -1,7 +1,7 @@
+import { H2 } from "@/components/ui/Typography";
 import { OrbitAnimation } from "./orbitAnimation/OrbitAnimation";
 import { platformsConfig } from "./orbitAnimation/orbitConfig";
 import { PromotionsMobile } from "./PromotionsMobile";
-import { H2 } from "@/shared/components/Typography";
 
 export function Promotions() {
   return (
@@ -43,3 +43,4 @@ export function Promotions() {
     </>
   );
 }
+

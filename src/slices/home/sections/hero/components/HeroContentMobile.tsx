@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from '@tanstack/react-router'
-import { Button } from '../../../../../shared/components/button'
 import type { HeroItem } from '../type'
-import { H1, P } from '@/shared/components/Typography'
+import { Button } from '@/components/ui/button';
+import { H1, P } from '@/components/ui/Typography';
+
 
 type Props = { left: HeroItem; right: HeroItem }
 
@@ -77,3 +78,5 @@ const HeroContentMobile: React.FC<Props> = React.memo(({ left, right }) => {
 })
 
 export default HeroContentMobile
+
+

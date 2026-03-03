@@ -1,5 +1,4 @@
 import { useParams } from "@tanstack/react-router";
-import { Toaster } from "@/shared/components/Sonner";
 import { ReservationForm } from "./components/ReservationForm";
 import AccommodationImageGallery from "./components/AccommodationImageGallery";
 import { AccommodationLocationMap } from "./components/AccommodationLocationMap";
@@ -8,6 +7,7 @@ import NearbyActivitiesCarousel from "./components/NearbyActivitiesCarousel";
 import type { CrearReservaHospedaje } from "./type";
 import { useCreateReserve } from "./hooks/useCreateReserve";
 import ReviewAccommodation from "./components/ReviewAccommodation";
+import { Toaster } from "sonner";
 
 const AccommodationDetail = () => {
   const params = useParams({ from: "/alojamientos/$alojamientoId" });
@@ -257,3 +257,4 @@ const AccommodationDetail = () => {
 };
 
 export default AccommodationDetail;
+

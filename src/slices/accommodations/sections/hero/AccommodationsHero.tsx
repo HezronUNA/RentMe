@@ -1,7 +1,8 @@
-import { useHero } from '@/shared/hooks/useHero';
+
 import { AccommodationSearchBox } from './components/AccommodationSearchBox';
 import type { AccommodationSearchFilters } from '../../hooks/useAccommodationSearch';
 import type { FiltrosBusquedaHospedajes } from '../../hooks/useHospedajesConFiltros';
+import { useHero } from '@/hooks/useHero';
 
 interface AccommodationsHeroProps {
   onApplyFilters?: (filters: FiltrosBusquedaHospedajes) => void;
@@ -110,3 +111,4 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
     </section>
   );
 }
+

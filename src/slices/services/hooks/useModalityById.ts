@@ -23,3 +23,4 @@ console.log("modalidadSnap.data():", modalidadSnap.data());
     staleTime: 1000 * 60 * 5,
   });
 }
+

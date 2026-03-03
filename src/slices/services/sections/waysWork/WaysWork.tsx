@@ -1,11 +1,10 @@
-
-import { H2, H4, P, Small } from "@/shared/components/Typography";
+import { useTitles } from "@/hooks/useTitles";
 import { useModalidadesServicio } from ".";
 import type { ModalidadConServicios } from "./type";
-import { Button } from "@/shared/components/button";
-import { Skeleton } from "@/shared/components/Skeleton";
 import { useNavigate } from "@tanstack/react-router";
-import { useTitles } from "@/shared/hooks/useTitles";
+import { Skeleton } from "@/components/ui/Skeleton";
+import { H2, H4, P, Small } from "@/components/ui/Typography";
+import { Button } from "@/components/ui/button";
 
 
 export default function ModalidadesServicio() {
@@ -192,3 +191,5 @@ function ModalidadCard({ modalidad, numero }: ModalidadCardProps) {
     </div>
   );
 }
+
+

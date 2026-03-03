@@ -12,3 +12,5 @@ export async function getAccomodations(): Promise<HospedajeDestacado[]> {
     ...(doc.data() as Omit<HospedajeDestacado, "id">),
   }))
 }
+
+

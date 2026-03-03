@@ -27,3 +27,4 @@ export function onPhotographyServiceSnapshot(id: string, cb: (data: PhotographyS
     cb({ id: snap.id, ...(snap.data() as PhotographyService) })
   })
 }
+

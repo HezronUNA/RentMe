@@ -58,3 +58,5 @@ export async function switchGoogleAccount() {
 export function onAuthChanged(cb: (user: User | null) => void) {
   return onAuthStateChanged(auth, cb)
 }
+
+

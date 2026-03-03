@@ -1,8 +1,8 @@
 import ReviewDesktop from "./components/ReviewDesktop"
 import ReviewMobile from "./components/ReviewMobile"
 import { useReviewsCarousel } from "../../hooks/useReviewsCarousel"
-import { Skeleton } from "@/shared/components/Skeleton"
-import { H2 } from "@/shared/components/Typography"
+import { H2 } from "@/components/ui/Typography"
+import { Skeleton } from "@/components/ui/Skeleton"
 
 type Props = {
   title?: string
@@ -176,3 +176,4 @@ export default function ReviewsCarousel({
     </section>
   )
 }
+

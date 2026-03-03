@@ -1,10 +1,11 @@
-import { Input } from '@/shared/components/Input'
+
 import { FcGoogle } from "react-icons/fc"
 import { useAccomodationForm } from '../hooks/useAccomodationForm'
 import { useCalendar } from '../hooks/useCalendar'
 import { Calendar } from './Calendar'
 import type { CrearReservaHospedaje } from '../type'
-import { Button } from '@/shared/components/button'
+import { Input } from "@/components/ui/Input"
+import { Button } from "@/components/ui/button"
 
 interface ReservationFormProps {
   accommodationId: string
@@ -327,3 +328,4 @@ export function ReservationForm({
     </form>
   )
 }
+

@@ -124,3 +124,4 @@ export async function getFechasOcupadas(hospedajeId: string): Promise<{ checkIn:
     throw error
   }
 }
+

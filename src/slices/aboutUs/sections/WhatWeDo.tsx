@@ -1,7 +1,7 @@
 // src/slices/aboutUs/sections/whatWeDo/WhatWeDo.tsx
 import { useEffect, useRef } from "react";
-import { H2, H3, P } from "@/shared/components/Typography";
 import { Home, Building2, KeyRound, ClipboardCheck, MessageCircleHeart, Star } from "lucide-react";
+import { H2, H3, P } from "@/components/ui/Typography";
 
 export default function WhatWeDo() {
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -203,3 +203,5 @@ export default function WhatWeDo() {
     </section>
   );
 }
+
+

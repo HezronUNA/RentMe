@@ -22,3 +22,4 @@ export async function getHospedajeById(id: string): Promise<Hospedaje | null> {
     throw error
   }
 }
+

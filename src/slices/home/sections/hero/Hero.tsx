@@ -1,9 +1,10 @@
-import { Skeleton } from '@/shared/components/Skeleton'
-import { useHero } from '../../../../shared/hooks/useHero'
+
+import { useHero } from '@/hooks/useHero'
 import HeroBackground from './components/HeroBackground'
 import HeroContentDesktop from './components/HeroContentDesktop'
 import HeroContentMobile from './components/HeroContentMobile'
 import type { HeroItem } from './type'
+import { Skeleton } from '@/components/ui/Skeleton'
 
 export default function Hero() {
   const { items, loading, error } = useHero("")
@@ -46,3 +47,5 @@ export default function Hero() {
     </section>
   )
 }
+
+

@@ -1,8 +1,8 @@
 // src/slices/services/sections/salesService/SalesService.tsx
+import { H2, P } from "@/components/ui/Typography";
 import { useSalesServices } from "../../hooks/useSalesServices";
 import { useServiceTitle } from "../../hooks/useServiceTitle";
 import { MarqueeRow } from "./components";
-import { H2, P } from "@/shared/components/Typography";
 
 export default function ServiciosMarquee() {
   const { topRowItems, bottomRowItems, loading: servicesLoading, error: servicesError, retry: retryServices } = useSalesServices();
@@ -83,3 +83,5 @@ export default function ServiciosMarquee() {
     </section>
   );
 }
+
+

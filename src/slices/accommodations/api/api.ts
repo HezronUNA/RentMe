@@ -24,3 +24,4 @@ export {
   isFechaDisponible,
   getFechasDisponiblesCompleto
 } from './getCalendarioHospedaje'
+

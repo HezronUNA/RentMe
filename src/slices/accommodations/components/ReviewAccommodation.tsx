@@ -1,12 +1,12 @@
 
 
 
+import { Skeleton } from "@/components/ui/Skeleton";
+import { H2 } from "@/components/ui/Typography";
 import { useReviewsCarousel } from "@/slices/home/hooks/useReviewsCarousel";
 // Reutiliza los componentes de la sección de reviews del Home para mantener diseño (rutas con alias @)
 import ReviewDesktop from "@/slices/home/sections/reviews/components/ReviewDesktop";
 import ReviewMobile from "@/slices/home/sections/reviews/components/ReviewMobile";
-import { Skeleton } from "@/shared/components/Skeleton";
-import { H2 } from "@/shared/components/Typography";
 import type { Review } from "@/slices/home/sections/reviews/type";
 
 type Props = {
@@ -195,3 +195,4 @@ export default function ReviewAccommodation({
 		</section>
 	);
 }
+

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from '@tanstack/react-router'
-import { Button } from '../../../../../shared/components/button'
 import type { HeroItem } from '../type'
-import { H1, P, Small } from '@/shared/components/Typography'
+import { H1, P, Small } from '@/components/ui/Typography'
+import { Button } from '@/components/ui/button'
 
 type Props = {
   left: HeroItem
@@ -68,3 +68,5 @@ const HeroContentDesktop: React.FC<Props> = React.memo(({ left, right }) => {
 })
 
 export default HeroContentDesktop
+
+

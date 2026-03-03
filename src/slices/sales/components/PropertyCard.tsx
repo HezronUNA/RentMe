@@ -1,8 +1,9 @@
-import { Button } from "@/shared/components/button"
-import { Small } from "@/shared/components/Typography"
+
+import { Button } from "@/components/ui/button"
 import type { PropiedadVenta } from "../type"
 import { useNavigate } from "@tanstack/react-router"
 import { MapPin, Bed, Home } from 'lucide-react'
+import { Small } from "@/components/ui/Typography"
 
 interface PropertyCardProps {
   property: PropiedadVenta
@@ -125,3 +126,4 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
     </article>
   )
 }
+

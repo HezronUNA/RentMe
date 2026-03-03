@@ -11,3 +11,4 @@ export async function getPropiedadesVenta(): Promise<PropiedadVenta[]> {
     ...(doc.data() as PropiedadVentaFirestore)
   }))
 }
+

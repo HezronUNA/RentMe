@@ -2,3 +2,4 @@
 export { PropertyCard } from './PropertyCard'
 export { PropertiesGrid } from './PropertiesGrid'
 export { default as PropertyImageGallery } from './PropertyImageGallery'
+

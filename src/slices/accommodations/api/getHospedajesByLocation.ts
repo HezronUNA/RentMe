@@ -106,3 +106,4 @@ export async function searchHospedajes(searchText: string): Promise<Hospedaje[]>
         throw error
     }
 }
+

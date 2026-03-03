@@ -21,3 +21,4 @@ export async function getHospedajes(): Promise<Hospedaje[]> {
     throw error
   }
 }
+

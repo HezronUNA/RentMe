@@ -10,3 +10,4 @@ export async function postReservaServicio(data: ReservaServicio) {
     throw error;
   }
 }
+

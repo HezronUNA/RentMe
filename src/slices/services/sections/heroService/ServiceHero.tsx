@@ -1,6 +1,6 @@
+import { H1 } from "@/components/ui/Typography"
+import { useHero } from "@/hooks/useHero"
 
-import { H1 } from "@/shared/components/Typography"
-import { useHero } from "@/shared/hooks/useHero"
 
 
   export function ServiceHero() {
@@ -76,3 +76,4 @@ import { useHero } from "@/shared/hooks/useHero"
     </section>
   )
 }
+

@@ -2,3 +2,4 @@
 export { useAccommodationSearch, type AccommodationSearchFilters } from './useAccommodationSearch'
 export { useAccommodationsHero } from './useAccommodationsHero'
 export { useHospedajesConFiltros, type FiltrosBusquedaHospedajes } from './useHospedajesConFiltros'
+

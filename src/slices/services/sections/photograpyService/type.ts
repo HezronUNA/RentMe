@@ -10,3 +10,4 @@ export interface PhotographyService {
   imagen?: string
   items?: PhotographyItem[]
 }
+

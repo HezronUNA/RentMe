@@ -118,3 +118,4 @@ export const platformsConfig: OrbitItemConfig[] = [
     )
   }
 ];
+

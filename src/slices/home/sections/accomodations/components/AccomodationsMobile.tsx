@@ -1,5 +1,6 @@
 // src/slices/accomodations/components/FeaturedMobile.tsx
-import { Button } from "../../../../../shared/components/button"
+
+import { Button } from "@/components/ui/button"
 import { Link, useNavigate } from "@tanstack/react-router"
 
 type Props = { hospedajes: any[] }
@@ -82,3 +83,5 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
     </>
   )
 }
+
+

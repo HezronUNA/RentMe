@@ -16,3 +16,4 @@ export async function getPropiedadesByUbicacion(canton: string): Promise<Propied
     ...(doc.data() as PropiedadVentaFirestore)
   }))
 }
+

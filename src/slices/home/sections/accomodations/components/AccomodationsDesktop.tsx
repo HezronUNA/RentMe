@@ -1,9 +1,9 @@
 // src/slices/home/sections/accomodations/components/AccomodationsDesktop.tsx
-import { Button } from "../../../../../shared/components/button"
 import { Link, useNavigate } from "@tanstack/react-router"
-import { Small } from "@/shared/components/Typography"
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoscroll from 'embla-carousel-auto-scroll';
+import { Button } from "@/components/ui/button";
+import { Small } from "@/components/ui/Typography";
 
 type Props = { hospedajes: any[] };
 
@@ -105,3 +105,4 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
     </>
   );
 }
+

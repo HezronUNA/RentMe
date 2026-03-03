@@ -9,3 +9,4 @@ export async function getModalidadesServicio(): Promise<ModalidadServicio[]> {
     ...doc.data()
   })) as ModalidadServicio[];
 }
+

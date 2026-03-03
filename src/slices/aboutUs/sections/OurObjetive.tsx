@@ -1,4 +1,4 @@
-import { H2, P } from "@/shared/components/Typography";
+import { H2, P } from "@/components/ui/Typography";
 
 export default function OurObjetiveSection() {
   return (
@@ -24,3 +24,5 @@ export default function OurObjetiveSection() {
     </section>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import type { Provincia } from "@/shared/types/places";
+import type { Provincia } from "@/types/places";
 
 const URL_API_PLACES = import.meta.env.URL_API_PLACES;
 
@@ -33,3 +33,4 @@ export const getProvincias = async (): Promise<Provincia[]> => {
     throw error;
   }
 };
+

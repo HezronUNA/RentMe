@@ -1,7 +1,8 @@
-import { Button } from '@/shared/components/button'
-import { Input } from '@/shared/components/Input'
+
 import { FcGoogle } from "react-icons/fc"
 import { useContactFormLogic } from '../hooks/useContactFormLogic'
+import { Input } from "@/components/ui/Input"
+import { Button } from "@/components/ui/button"
 
 interface ContactFormProps {
   propertyId: string
@@ -151,3 +152,4 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
     </form>
   )
 }
+

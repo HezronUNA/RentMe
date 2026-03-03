@@ -12,3 +12,4 @@ export async function getPropiedadesByEstado(estado: EstadoPropiedad): Promise<P
     ...(doc.data() as PropiedadVentaFirestore)
   }))
 }
+

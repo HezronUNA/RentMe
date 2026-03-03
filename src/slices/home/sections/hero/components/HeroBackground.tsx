@@ -47,3 +47,4 @@ const HeroBackground: React.FC<Props> = React.memo(({ left, right }) => {
 })
 
 export default HeroBackground
+

@@ -45,3 +45,4 @@ export function usePhotographyService(id?: string | null, options?: UsePhotograp
 
   return query
 }
+

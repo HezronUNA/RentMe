@@ -1,6 +1,6 @@
+import { H2 } from "@/components/ui/Typography";
 import { OrbitAnimation } from "./orbitAnimation/OrbitAnimation";
 import { platformsConfigMobile } from "./orbitAnimation/orbitConfigMobile";
-import { H2 } from "@/shared/components/Typography";
 
 export function PromotionsMobile() {
   return (
@@ -37,3 +37,4 @@ export function PromotionsMobile() {
     </section>
   );
 }
+

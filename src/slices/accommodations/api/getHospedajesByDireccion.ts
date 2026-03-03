@@ -135,3 +135,4 @@ function getRelevanceScore(hospedaje: Hospedaje, searchLower: string): number {
   
   return score
 }
+

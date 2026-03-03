@@ -1,7 +1,8 @@
 // src/slices/services/hooks/useServiceTitle.ts
+import { getTitles } from "@/api/getTitles";
+import type { titles } from "@/types/titles";
 import { useEffect, useState } from "react";
-import { getTitles } from "../../../shared/api/getTitles";
-import type { titles } from "../../../shared/types/titles";
+
 
 // El getTitles ya devuelve objetos con id
 export type ServiceTitle = titles & { id: string };
@@ -64,3 +65,4 @@ export function useServiceTitle() {
     hasTitle: !!title,
   };
 }
+

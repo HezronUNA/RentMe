@@ -1,4 +1,4 @@
-import { H2, H4, P } from "@/shared/components/Typography";
+import { H2, H4, P } from "@/components/ui/Typography";
 import { useEffect, useState, useRef } from "react";
 import { useServiciosByModalidad } from "@/slices/services/hooks/useServiceByModality";
 
@@ -106,3 +106,5 @@ function ServicioCard({ servicio }: { servicio: Servicio }) {
     </div>
   );
 }
+
+

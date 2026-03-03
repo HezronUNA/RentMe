@@ -61,3 +61,4 @@ export async function getHospedajesDestacados(): Promise<Hospedaje[]> {
     throw error
   }
 }
+

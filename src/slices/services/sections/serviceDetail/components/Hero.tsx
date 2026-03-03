@@ -1,7 +1,8 @@
 // src/slices/aboutUs/sections/banner/BannerAboutUs.tsx
-import { Skeleton } from "@/shared/components/Skeleton";
-import { H1, P } from "@/shared/components/Typography";
-import { useHero } from "@/shared/hooks/useHero";
+
+import { Skeleton } from "@/components/ui/Skeleton";
+import { H1, P } from "@/components/ui/Typography";
+import { useHero } from "@/hooks/useHero";
 
 export default function BannerAboutUs() {
   const { items, error, loading } = useHero("");
@@ -76,3 +77,4 @@ export default function BannerAboutUs() {
     </section>
   );
 }
+

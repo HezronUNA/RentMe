@@ -75,3 +75,4 @@ export const useGoogleMap = ({ ubicacionExacta, zoom = 16 }: UseGoogleMapProps):
     apiKey
   };
 };
+

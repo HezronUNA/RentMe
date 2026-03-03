@@ -1,7 +1,9 @@
-import { useHero } from "@/shared/hooks/useHero";
+
 import { SearchBox } from "./SearchBox";
 import type { FiltrosBusqueda } from "../../../hooks/usePropiedadesConFiltros";
-import { H1 } from "@/shared/components/Typography";
+import { useHero } from "@/hooks/useHero";
+import { H1 } from "@/components/ui/Typography";
+
 
 interface SalesHeroProps {
   onApplyFilters?: (filters: FiltrosBusqueda) => void;
@@ -92,3 +94,5 @@ export function SalesHero({ onApplyFilters }: SalesHeroProps) {
     </section>
   );
 }
+
+

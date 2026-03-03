@@ -1,9 +1,10 @@
 
-import { Skeleton } from "@/shared/components/Skeleton"
+
+import { Skeleton } from "@/components/ui/Skeleton"
 import useGetAccomodationHighlights from "../../hooks/useAccomodationHighligths"
 import AccomodationsDesktop from "./components/AccomodationsDesktop"
 import AccomodationsMobile from "./components/AccomodationsMobile"
-import { H2 } from "@/shared/components/Typography"
+import { H2 } from "@/components/ui/Typography"
 
 export default function Accomodations() {
   const { hospedajes, loading } = useGetAccomodationHighlights()
@@ -61,3 +62,5 @@ export default function Accomodations() {
     </section>
   )
 }
+
+
