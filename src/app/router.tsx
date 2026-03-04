@@ -10,7 +10,7 @@ import ScrollToTop from '@/components/ui/ScrollToTop'
 
 // Importación diferida (lazy) de las páginas
 const HomePage = lazy(() => import('../slices/home/Page'))
-const AboutUsPage = lazy(() => import('../slices/aboutUs/Page'))
+const AboutUsPage = lazy(() => import('../pages/AboutUsPage'))
 const NotFoundPage = lazy(() => import('../app/NotFoundPage'))
 const AccommodationsPage = lazy(() => import("../slices/accommodations/Page"))
 const SalesPage = lazy(() => import("../slices/sales/Page"))

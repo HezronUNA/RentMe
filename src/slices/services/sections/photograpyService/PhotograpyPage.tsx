@@ -2,7 +2,6 @@
 import { Camera, Video, Edit3, Image as ImageIcon } from 'lucide-react'
 import type { PhotographyService, PhotographyItem } from './type'
 import { usePhotographyServices } from '../../hooks/usePhotograpy'
-import { useTitles } from '@/hooks/useTitles'
 import { H2, P } from '@/components/ui/Typography'
 import { Button } from '@/components/ui/button'
 
@@ -23,8 +22,11 @@ function ServiceIcon({ name }: { name?: string }) {
 }
 
 export default function PhotograpyPage() {
-  // titles hook (se pasa el slug/coleccion; ajusta si tu hook usa otro param)
-  const { items: titles } = useTitles('8')
+  // Contenido estático del título
+  const titleData = {
+    titulo: 'FOTOGRAFÍA Y VIDEO PROFESIONAL',
+    descripcion: 'Potenciamos la imagen de tu propiedad con contenido visual de alta calidad.'
+  };
 
   const { data: services } = usePhotographyServices()
   const service: PhotographyService | undefined = services && services.length > 0 ? services[0] : undefined
@@ -42,8 +44,8 @@ export default function PhotograpyPage() {
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8">
-          <H2>{titles[6]?.titulo}</H2>
-          <P className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">{titles[6]?.descripcion}</P>
+          <H2>{titleData.titulo}</H2>
+          <P className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">{titleData.descripcion}</P>
         </div>
 
   <div className="grid grid-cols-1 md:grid-cols-[50%_40%] gap-8 justify-center items-center">

@@ -3,6 +3,8 @@ export interface HeroItem {
   titulo: string
   subtitulo?: string
   textoBoton?: string
+  seccion?: string
+  link?: string
   imagen?: string
 }
 
