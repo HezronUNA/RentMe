@@ -6,10 +6,10 @@
  */
 
 // Cliente principal
-export { supabase, supabaseAdmin } from './client'
+export { supabase, supabaseAdmin } from '@/api/supabase/client'
 
 // Configuración
-export { supabaseConfig } from './config'
+export { supabaseConfig } from '@/api/supabase/config'
 
 // Servicios de autenticación
 export {
@@ -23,9 +23,10 @@ export {
   onAuthStateChanged,
   resetPassword,
   updatePassword,
-} from './auth'
+} from '@/api/supabase/auth'
 
 // Servicios de datos
 export {
   getHospedajesDestacados,
-} from '../../services/hospedajes.service'
+} from '@/services/hospedajes.service'
+
