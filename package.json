@@ -13,6 +13,7 @@
     "@googlemaps/js-api-loader": "^2.0.0",
     "@googlemaps/react-wrapper": "^1.2.0",
     "@radix-ui/react-slot": "^1.2.3",
+    "@supabase/supabase-js": "^2.98.0",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-query": "^5.85.5",
