@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase"
+import { db } from "@/api/firebase"
 import { collection, CollectionReference, getDocs, query, where } from "firebase/firestore"
 import type { EstadoPropiedad, PropiedadVenta, PropiedadVentaFirestore } from "../type"
 
@@ -12,3 +12,4 @@ export async function getPropiedadesByEstado(estado: EstadoPropiedad): Promise<P
     ...(doc.data() as PropiedadVentaFirestore)
   }))
 }
+

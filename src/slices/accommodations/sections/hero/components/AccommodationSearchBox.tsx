@@ -90,3 +90,4 @@ export function AccommodationSearchBox({ variant, onSearchFilters }: Accommodati
     </div>
   );
 }
+

@@ -25,3 +25,4 @@ export interface ModalidadConServicios {
   serviciosAdicionalesData: (string | Servicio)[];
   serviciosIncluidosData: (string | Servicio)[];
 }
+

@@ -1,4 +1,4 @@
-import { useDestinationLogic } from '@/shared/hooks/useDestinationLogic';
+import { useDestinationLogic } from "@/hooks/useDestinationLogic";
 
 interface DestinationSectionProps {
   variant: 'desktop' | 'mobile';
@@ -200,3 +200,4 @@ export function DestinationSection({ variant, ubicacion, onUbicacionChange }: De
     </div>
   );
 }
+

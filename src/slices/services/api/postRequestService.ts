@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase";
+import { db } from "@/api/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import type { ReservaServicio } from "../sections/serviceDetail/type";
 
@@ -10,3 +10,4 @@ export async function postReservaServicio(data: ReservaServicio) {
     throw error;
   }
 }
+

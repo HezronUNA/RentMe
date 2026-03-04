@@ -11,3 +11,4 @@ export { usePropiedadesConFiltros, type FiltrosBusqueda } from './usePropiedades
 
 // Re-exportar las query keys para uso avanzado
 export { propiedadesQueryKeys } from './queryKeys'
+

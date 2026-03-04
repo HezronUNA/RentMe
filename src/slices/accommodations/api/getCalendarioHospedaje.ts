@@ -1,5 +1,5 @@
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
-import { db } from '@/services/firebase'
+import { db } from '@/api/firebase'
 import type { CalendarDate } from '../type'
 
 /**
@@ -195,3 +195,4 @@ export async function getFechasDisponiblesCompleto(
     throw new Error('No se pudo obtener las fechas disponibles')
   }
 }
+

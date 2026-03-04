@@ -231,3 +231,4 @@ export default function PropertyImageGallery({ images, alt = "Foto de la propied
     </div>
   );
 }
+

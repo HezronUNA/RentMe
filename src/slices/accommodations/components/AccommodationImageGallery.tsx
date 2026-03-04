@@ -231,3 +231,4 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
     </div>
   );
 }
+

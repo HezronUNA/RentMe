@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase"
+import { db } from "@/api/firebase"
 import { collection, CollectionReference, getDocs, query, where } from "firebase/firestore"
 import type { PropiedadVenta, PropiedadVentaFirestore } from "../type"
 
@@ -16,3 +16,4 @@ export async function getPropiedadesByUbicacion(canton: string): Promise<Propied
     ...(doc.data() as PropiedadVentaFirestore)
   }))
 }
+

@@ -1,5 +1,5 @@
+import { useAllCantones } from '@/hooks/useAllCantones';
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { useAllCantones } from '@/shared/hooks/useAllCantones';
 
 export interface UseDestinationLogicProps {
   ubicacion: string;
@@ -117,3 +117,4 @@ export function useDestinationLogic({ ubicacion, onUbicacionChange }: UseDestina
     isCantonSelected,
   };
 }
+

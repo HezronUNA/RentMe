@@ -55,3 +55,4 @@ export function usePropiedadesByPrecio(precioMin: number | null, precioMax: numb
     isValidRange
   }
 }
+

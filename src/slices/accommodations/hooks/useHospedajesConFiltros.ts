@@ -169,3 +169,4 @@ export const crearFiltrosDesdeSearchBox = (filtrosSearchBox: any): FiltrosBusque
 
   return filtros
 }
+

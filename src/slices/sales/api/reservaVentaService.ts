@@ -3,7 +3,7 @@ import {
   addDoc, 
   Timestamp
 } from 'firebase/firestore'
-import { db } from '@/services/firebase'
+import { db } from '@/api/firebase'
 import type { 
   ReservaVentaFirestore, 
   CrearReservaVenta 
@@ -61,3 +61,4 @@ export async function crearReservaVenta(data: CrearReservaVenta): Promise<string
     throw new Error('Error al crear la reserva de venta')
   }
 }
+

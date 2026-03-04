@@ -1,9 +1,9 @@
 import { useParams } from "@tanstack/react-router";
-import { Toaster } from "@/shared/components/Sonner";
 import { ContactForm } from "./components/ContactForm";
 import PropertyImageGallery from "./components/PropertyImageGallery";
 import { PropertyLocationMap } from "./components/PropertyLocationMap";
 import { usePropiedadById } from "./hooks/usePropiedadById";
+import { Toaster } from "@/components/ui/Sonner";
 
 const SaleDetail = () => {
   const params = useParams({ from: "/ventas/$ventaId" });
@@ -221,3 +221,4 @@ const SaleDetail = () => {
 };
 
 export default SaleDetail;
+

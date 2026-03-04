@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase"
+import { db } from "@/api/firebase"
 import { doc, getDoc } from "firebase/firestore"
 import type { PropiedadVenta, PropiedadVentaFirestore } from "../type"
 
@@ -14,3 +14,4 @@ export async function getPropiedadById(id: string): Promise<PropiedadVenta | nul
     ...(docSnap.data() as PropiedadVentaFirestore)
   }
 }
+

@@ -30,3 +30,4 @@ export function AccommodationSearchButton({ variant, onClick }: AccommodationSea
     </button>
   );
 }
+

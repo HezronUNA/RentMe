@@ -5,3 +5,4 @@ export type ReservaServicio = {
   telefono: string;
   detalle: string;
 };
+

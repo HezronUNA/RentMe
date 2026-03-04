@@ -1,6 +1,6 @@
 import { PropertyCard } from './PropertyCard'
-import { Skeleton } from '@/shared/components/Skeleton'
 import type { PropiedadVenta } from '../type'
+import { Skeleton } from '@/components/ui/Skeleton'
 
 interface PropertiesGridProps {
   properties: PropiedadVenta[]
@@ -131,3 +131,4 @@ function PropertyCardSkeleton() {
     </div>
   )
 }
+

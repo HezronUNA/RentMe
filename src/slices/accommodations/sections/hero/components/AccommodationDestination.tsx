@@ -1,5 +1,5 @@
+import { useDestinationLogic } from "@/hooks/useDestinationLogic";
 
-import { useDestinationLogic } from '@/shared/hooks/useDestinationLogic';
 
 interface AccommodationDestinationProps {
   variant: 'desktop' | 'mobile';
@@ -211,3 +211,4 @@ export function AccommodationDestination({
     </div>
   );
 }
+

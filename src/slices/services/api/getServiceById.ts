@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase";
+import { db } from "@/api/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import type { Servicio } from "./getServicios";
 
@@ -15,3 +15,4 @@ export async function getServicioById(id: string): Promise<Servicio | null> {
   
   return null;
 }
+

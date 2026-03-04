@@ -1,16 +1,19 @@
-
-import { H2, H4, P, Small } from "@/shared/components/Typography";
 import { useModalidadesServicio } from ".";
 import type { ModalidadConServicios } from "./type";
-import { Button } from "@/shared/components/button";
-import { Skeleton } from "@/shared/components/Skeleton";
 import { useNavigate } from "@tanstack/react-router";
-import { useTitles } from "@/shared/hooks/useTitles";
+import { Skeleton } from "@/components/ui/Skeleton";
+import { H2, H4, P, Small } from "@/components/ui/Typography";
+import { Button } from "@/components/ui/button";
 
 
 export default function ModalidadesServicio() {
   const { modalidades, loading, error } = useModalidadesServicio();
-  const {items} = useTitles("5")
+  
+  // Contenido estático del título
+  const titleData = {
+    titulo: 'NUESTRAS MODALIDADES DE TRABAJO',
+    descripcion: 'Desde una colaboración como coanfitrión en Airbnb, hasta una administración completa, te ofrecemos soluciones flexibles, efectivas y enfocadas en maximizar la rentabilidad de tu propiedad sin que tengas que preocuparte por nada.'
+  };
 
   if (loading) {
     return (
@@ -61,10 +64,10 @@ export default function ModalidadesServicio() {
   return (
     <section className="w-full py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <H2 className="text-center text-3xl md:text-4xl font-title uppercase mb-4">{items[4]?.titulo}
+        <H2 className="text-center text-3xl md:text-4xl font-title uppercase mb-4">{titleData.titulo}
         </H2>
         <P className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          {items[4]?.descripcion}
+          {titleData.descripcion}
         </P>
         <div className="grid lg:grid-cols-3 gap-8">
           {modalidades.map((modalidad, index) => (
@@ -192,3 +195,5 @@ function ModalidadCard({ modalidad, numero }: ModalidadCardProps) {
     </div>
   );
 }
+
+

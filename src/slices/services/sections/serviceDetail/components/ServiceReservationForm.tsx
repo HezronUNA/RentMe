@@ -1,8 +1,8 @@
-import { Button } from "@/shared/components/button";
-import { FcGoogle } from "react-icons/fc";
-import { Input } from "@/shared/components/Input";
 
+import { FcGoogle } from "react-icons/fc";
 import { useLogicFormService } from "@/slices/services/hooks/useLogicFormService";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/button";
 
 export function ServiceReservationForm() {
   const {
@@ -123,3 +123,4 @@ export function ServiceReservationForm() {
     </form>
   );
 }
+
