@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-import { auth } from '@/services/firebase'
+import { auth } from '@/api/firebase'
 import type { CrearReservaHospedaje } from '../type'
 import { toast } from 'sonner'
 import { crearReservaHospedaje } from '../api/reservaHospedajeService' // Agregar esta importación

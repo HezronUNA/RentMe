@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase";
+import { db } from "@/api/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import type { ModalidadServicio } from "../sections/waysWork/type";
 

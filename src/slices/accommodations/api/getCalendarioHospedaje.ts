@@ -1,5 +1,5 @@
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
-import { db } from '@/services/firebase'
+import { db } from '@/api/firebase'
 import type { CalendarDate } from '../type'
 
 /**

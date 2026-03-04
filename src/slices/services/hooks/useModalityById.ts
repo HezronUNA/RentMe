@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/services/firebase";
+import { db } from "@/api/firebase";
 
 export function useModalityById(modalidadId: string) {
  

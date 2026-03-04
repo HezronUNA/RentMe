@@ -2,7 +2,7 @@
  * Servicio para hospedajes destacados desde Supabase
  */
 import type { HospedajeDestacado } from '@/types/AccomodationsHighlights'
-import { supabase } from './client'
+import { supabase } from '../api/supabase/client'
 
 /**
  * Obtiene los hospedajes destacados desde Supabase

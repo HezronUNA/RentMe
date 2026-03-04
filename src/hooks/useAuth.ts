@@ -1,4 +1,4 @@
-import { firebaseApp } from "@/services/firebase";
+import { firebaseApp } from "@/api/firebase";
 import { getAuth, onAuthStateChanged, type User } from "firebase/auth";
 import { useEffect, useState } from "react";
 

@@ -28,4 +28,4 @@ export {
 // Servicios de datos
 export {
   getHospedajesDestacados,
-} from './hospedajes.service'
+} from '../../services/hospedajes.service'

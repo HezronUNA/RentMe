@@ -1,6 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import type { Servicio } from "./getServicios";
-import { db } from "@/services/firebase";
+import { db } from "@/api/firebase";
 
 export async function getServicios(): Promise<Servicio[]> {
   const snapshot = await getDocs(collection(db, "servicios"));

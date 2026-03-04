@@ -1,4 +1,4 @@
-import { getAllCantonesSimple } from "@/services/externalAPI/getAllCantonesSimple";
+import { getAllCantonesSimple } from "@/api/externalAPI/getAllCantonesSimple";
 import { useQuery } from "@tanstack/react-query";
 
 export const costaRicaQueryKeys = {

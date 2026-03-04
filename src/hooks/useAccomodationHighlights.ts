@@ -2,7 +2,7 @@
  * Hook para obtener hospedajes destacados desde Supabase
  */
 import { useQuery } from '@tanstack/react-query'
-import { getHospedajesDestacados } from '@/services/supabase/hospedajes.service'
+import { getHospedajesDestacados } from '@/services/hospedajes.service'
 import type { HospedajeDestacado } from '@/types/AccomodationsHighlights'
 
 export const hospedajesKeys = {

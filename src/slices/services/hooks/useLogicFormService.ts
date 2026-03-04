@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { type User } from "firebase/auth";
-import { signInWithGoogle, switchGoogleAccount } from "@/services/firebase/auth";
+import { signInWithGoogle, switchGoogleAccount } from "@/api/firebase/auth";
 import { usePostReservaServicio } from "@/slices/services/hooks/usePostRequestService";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";

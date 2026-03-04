@@ -1,5 +1,5 @@
 import { collection, doc, getDoc, getDocs, onSnapshot } from 'firebase/firestore'
-import { db } from '@/services/firebase'
+import { db } from '@/api/firebase'
 import type { PhotographyService } from '../sections/photograpyService/type'
 
 const COLLECTION = 'fotografia'

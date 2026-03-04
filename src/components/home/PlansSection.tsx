@@ -7,39 +7,39 @@ import { Link } from "@tanstack/react-router"
 const PLANES_GESTION = [
   {
     id: '1',
-    title: 'Gestión de Alquileres',
+    title: 'Gestión de Alojamientos',
     textbutton: 'Ver más',
     image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80'
   },
   {
     id: '2',
-    title: 'Venta de Propiedades',
+    title: 'Limpieza Profesional',
     textbutton: 'Ver más',
-    image: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&q=80'
+    image: 'https://i.ibb.co/kVn27zV1/service-5.jpg'
   },
   {
     id: '3',
-    title: 'Compra de Propiedades',
+    title: 'Asesoría Fiscal Airbnb',
     textbutton: 'Ver más',
     image: 'https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800&q=80'
   },
   {
     id: '4',
-    title: 'Asesoría Legal',
+    title: 'Servicios Facturables',
     textbutton: 'Ver más',
     image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80'
   },
   {
     id: '5',
-    title: 'Administración',
+    title: 'Promoción y Venta/Alquiler',
     textbutton: 'Ver más',
     image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80'
   },
   {
     id: '6',
-    title: 'Servicios Adicionales',
+    title: 'Fotografía & Video',
     textbutton: 'Ver más',
-    image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80'
+    image: 'https://res.cloudinary.com/dmq5jbp3z/image/upload/v1762383404/photo-1751107996106-ab89608a49b7_fakdgp.jpg'
   }
 ]
 

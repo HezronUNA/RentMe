@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { User } from 'firebase/auth'
-import { onAuthChanged, signInWithGoogle, signOut, switchGoogleAccount } from '../services/firebase/auth'
+import { onAuthChanged, signInWithGoogle, signOut, switchGoogleAccount } from '../api/firebase/auth'
 
 type AuthCtx = {
   user: User | null
