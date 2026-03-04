@@ -1,5 +1,3 @@
-// src/slices/accomodations/components/FeaturedMobile.tsx
-
 import { Button } from "@/components/ui/button"
 import { Link, useNavigate } from "@tanstack/react-router"
 

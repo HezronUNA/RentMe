@@ -1,4 +1,3 @@
-// src/slices/home/sections/accomodations/components/AccomodationsDesktop.tsx
 import { Link, useNavigate } from "@tanstack/react-router"
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoscroll from 'embla-carousel-auto-scroll';

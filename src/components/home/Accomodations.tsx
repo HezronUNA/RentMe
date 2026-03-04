@@ -1,11 +1,15 @@
+import AccomodationsDesktop from "@/components/home/AccomodationsDesktop"
+import AccomodationsMobile from "@/components/home/AccomodationsMobile"
 import { Skeleton } from "@/components/ui/Skeleton"
-import useAccomodationHighlights from "../../hooks/useAccomodationHighlights"
 import { H2 } from "@/components/ui/Typography"
-import AccomodationsMobile from "./AccomodationsMobile"
-import AccomodationsDesktop from "./AccomodationsDesktop"
+import useAccomodationHighlights from "@/hooks/useAccomodationHighlights"
+
+
+
 
 export default function Accomodations() {
-  const { hospedajes, loading } = useAccomodationHighlights()
+
+const { hospedajes, loading } = useAccomodationHighlights()
 
   if (loading) {
     return (
