@@ -1,12 +1,12 @@
 
-import HeroBackground from './components/HeroBackground'
-import HeroContentDesktop from './components/HeroContentDesktop'
-import HeroContentMobile from './components/HeroContentMobile'
-import type { HeroItem } from './type'
+
+import HeroBackground from './HeroBackground'
+import HeroContentDesktop from './HeroContentDesktop'
+import HeroContentMobile from './HeroContentMobile'
 
 export default function Hero() {
   // Contenido estático de los heroes
-  const left: HeroItem = {
+  const left = {
     id: '0',
     titulo: 'HUÉSPEDES',
     subtitulo: 'Estancias que se sienten como en casa',
@@ -16,7 +16,7 @@ export default function Hero() {
     textoBoton: 'Ver más'
   }
 
-  const right: HeroItem = {
+  const right = {
     id: '1',
     titulo: 'PROPIETARIOS',
     subtitulo: 'Tu propiedad, nuestro compromiso',

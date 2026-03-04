@@ -1,51 +1,111 @@
-import ReviewDesktop from "./components/ReviewDesktop"
-import ReviewMobile from "./components/ReviewMobile"
-import { useReviewsCarousel } from "../../hooks/useReviewsCarousel"
+import { useEffect, useRef, useState } from "react"
+import ReviewDesktop from "./ReviewDesktop"
+import ReviewMobile from "./ReviewMobile"
 import { H2 } from "@/components/ui/Typography"
-import { Skeleton } from "@/components/ui/Skeleton"
+
+// Reseñas estáticas de ejemplo - Exportadas para reutilizar en otros componentes
+export const STATIC_REVIEWS = [
+  {
+    id: '1',
+    nombreHuesped: 'María González',
+    correo: 'maria@ejemplo.com',
+    calificacion: 5,
+    mensaje: 'Excelente servicio, la propiedad estaba impecable y la atención fue de primera. Definitivamente volveremos.',
+    fecha: new Date('2024-01-15'),
+    estado: 'aprobado',
+    hospedajeId: null
+  },
+  {
+    id: '2',
+    nombreHuesped: 'Carlos Ramírez',
+    correo: 'carlos@ejemplo.com',
+    calificacion: 5,
+    mensaje: 'Muy buena experiencia, la ubicación es perfecta y las instalaciones superaron nuestras expectativas.',
+    fecha: new Date('2024-02-20'),
+    estado: 'aprobado',
+    hospedajeId: null
+  },
+  {
+    id: '3',
+    nombreHuesped: 'Ana Vargas',
+    correo: 'ana@ejemplo.com',
+    calificacion: 4,
+    mensaje: 'Gran servicio y atención al cliente. La casa era hermosa y cómoda para toda la familia.',
+    fecha: new Date('2024-03-10'),
+    estado: 'aprobado',
+    hospedajeId: null
+  }
+]
 
 type Props = {
   title?: string
-  hospedajeId?: string | null
-  limit?: number
   className?: string
-}
-
-function EmptyCard() {
-  return (
-    <div className="min-w-full max-w-full flex-shrink-0 p-4">
-      {/* Versión móvil */}
-      <div className="md:hidden mx-auto w-full max-w-[760px] bg-white rounded-2xl p-6 text-neutral-600 text-sm text-center shadow-[0_4px_16px_rgba(0,0,0,0.15)] border border-gray-100">
-        Aún no hay reseñas para mostrar.
-      </div>
-      
-      {/* Versión desktop */}
-      <div className="hidden md:block mx-auto w-full max-w-[760px] bg-white rounded-2xl p-10 text-neutral-600 text-sm text-center">
-        Aún no hay reseñas para mostrar.
-      </div>
-    </div>
-  )
 }
 
 export default function ReviewsCarousel({
   title = "Nuestras Reseñas",
-  hospedajeId = null,
-  limit,
   className = "",
 }: Props) {
-  const { 
-    items, 
-    loading, 
-    currentIndex,
-    isTransitioning,
-    count,
-    canNav,
-    nextSlide,
-    prevSlide,
-    onTouchStart,
-    onTouchEnd,
-    handleTransitionEnd
-  } = useReviewsCarousel(hospedajeId, limit)
+  const [currentIndex, setCurrentIndex] = useState(1)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const originalItems = STATIC_REVIEWS
+  const count = originalItems.length
+  const canNav = count > 1
+
+  // Create array with cloned elements for infinite effect
+  const items = canNav
+    ? [originalItems[count - 1], ...originalItems, originalItems[0]]
+    : originalItems
+
+  const moveToSlide = (index: number, smooth = true) => {
+    if (!canNav) return
+    setIsTransitioning(smooth)
+    setCurrentIndex(index)
+  }
+
+  const handleTransitionEnd = () => {
+    setIsTransitioning(false)
+    if (currentIndex >= count + 1) {
+      moveToSlide(1, false)
+    } else if (currentIndex === 0) {
+      moveToSlide(count, false)
+    }
+  }
+
+  const nextSlide = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    moveToSlide(currentIndex + 1)
+  }
+
+  const prevSlide = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    moveToSlide(currentIndex - 1)
+  }
+
+  // Touch handling
+  const startX = useRef<number | null>(null)
+  const onTouchStart = (e: React.TouchEvent) => {
+    startX.current = e.touches[0].clientX
+  }
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (startX.current == null) return
+    const dx = e.changedTouches[0].clientX - startX.current
+    if (Math.abs(dx) > 30 && canNav) {
+      if (dx < 0) nextSlide()
+      else prevSlide()
+    }
+    startX.current = null
+  }
+
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [])
 
   return (
     <section className={`w-full text-center mx-auto flex flex-col items-center justify-center ${className}`}>
@@ -69,38 +129,20 @@ export default function ReviewsCarousel({
                 onTouchEnd={onTouchEnd}
                 onTransitionEnd={handleTransitionEnd}
               >
-                {loading ? (
-                  <div className="min-w-full max-w-full flex-shrink-0">
-                    <div className="mx-auto w-full max-w-[760px] bg-neutral-100 rounded-2xl p-10">
-                      <div className="flex items-start gap-4">
-                        <Skeleton className="w-16 h-16 rounded-full" />
-                        <div className="flex-1 space-y-3">
-                          <Skeleton className="h-4 w-10/12" />
-                          <Skeleton className="h-4 w-9/12" />
-                          <Skeleton className="h-4 w-7/12" />
-                          <Skeleton className="h-4 w-5/12 mt-4" />
-                        </div>
-                      </div>
+                {items.map((r) => (
+                  <div
+                    key={r.id}
+                    className="min-w-full max-w-full flex-shrink-0 flex items-center justify-center p-4"
+                  >
+                    <div className="md:hidden p-4 bg-white rounded-[18px] flex flex-col justify-center items-center w-full max-w-[640px] shadow-[0_4px_16px_rgba(0,0,0,0.15)] border border-gray-100">
+                      <ReviewMobile review={r} />
+                    </div>
+                    
+                    <div className="hidden md:flex p-8 bg-white rounded-[18px] flex-col justify-center items-center w-full max-w-[640px]">
+                      <ReviewDesktop review={r} />
                     </div>
                   </div>
-                ) : count === 0 ? (
-                  <EmptyCard />
-                ) : (
-                  items.map((r) => (
-                    <div
-                      key={r.id}
-                      className="min-w-full max-w-full flex-shrink-0 flex items-center justify-center p-4"
-                    >
-                      <div className="md:hidden p-4 bg-white rounded-[18px] flex flex-col justify-center items-center w-full max-w-[640px] shadow-[0_4px_16px_rgba(0,0,0,0.15)] border border-gray-100">
-                        <ReviewMobile review={r} />
-                      </div>
-                      
-                      <div className="hidden md:flex p-8 bg-white rounded-[18px] flex-col justify-center items-center w-full max-w-[640px]">
-                        <ReviewDesktop review={r} />
-                      </div>
-                    </div>
-                  ))
-                )}
+                ))}
               </div>
             </div>
           </div>

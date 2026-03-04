@@ -1,13 +1,11 @@
-
-
 import { Skeleton } from "@/components/ui/Skeleton"
-import useGetAccomodationHighlights from "../../hooks/useAccomodationHighligths"
-import AccomodationsDesktop from "./components/AccomodationsDesktop"
-import AccomodationsMobile from "./components/AccomodationsMobile"
+import useAccomodationHighlights from "../../hooks/useAccomodationHighlights"
 import { H2 } from "@/components/ui/Typography"
+import AccomodationsMobile from "./AccomodationsMobile"
+import AccomodationsDesktop from "./AccomodationsDesktop"
 
 export default function Accomodations() {
-  const { hospedajes, loading } = useGetAccomodationHighlights()
+  const { hospedajes, loading } = useAccomodationHighlights()
 
   if (loading) {
     return (
@@ -62,5 +60,3 @@ export default function Accomodations() {
     </section>
   )
 }
-
-

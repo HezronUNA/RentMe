@@ -1,5 +1,5 @@
 import React from 'react'
-import type { HeroItem } from '../type';
+import type { HeroItem } from '../../slices/home/sections/hero/type';
 
 type Props = { left: HeroItem; right: HeroItem }
 

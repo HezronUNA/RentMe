@@ -24,3 +24,8 @@ export {
   resetPassword,
   updatePassword,
 } from './auth'
+
+// Servicios de datos
+export {
+  getHospedajesDestacados,
+} from './hospedajes.service'

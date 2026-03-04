@@ -1,39 +1,49 @@
 
 import { Button } from "@/components/ui/button"
 import { H2, P, Small } from "@/components/ui/Typography"
-import usePlans from "@/slices/home/hooks/usePlans"
 import { Link } from "@tanstack/react-router"
 
+// Contenido estático de planes de gestión
+const PLANES_GESTION = [
+  {
+    id: '1',
+    title: 'Gestión de Alquileres',
+    textbutton: 'Ver más',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80'
+  },
+  {
+    id: '2',
+    title: 'Venta de Propiedades',
+    textbutton: 'Ver más',
+    image: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&q=80'
+  },
+  {
+    id: '3',
+    title: 'Compra de Propiedades',
+    textbutton: 'Ver más',
+    image: 'https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800&q=80'
+  },
+  {
+    id: '4',
+    title: 'Asesoría Legal',
+    textbutton: 'Ver más',
+    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80'
+  },
+  {
+    id: '5',
+    title: 'Administración',
+    textbutton: 'Ver más',
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80'
+  },
+  {
+    id: '6',
+    title: 'Servicios Adicionales',
+    textbutton: 'Ver más',
+    image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80'
+  }
+]
+
 export default function PlansSection() {
-  const { PlanesGestion, loading, error } = usePlans()
-
-  if (loading) {
-    return (
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <div className="animate-pulse">
-              <div className="h-8 bg-gray-300 rounded w-1/2 mx-auto mb-4"></div>
-              <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  if (error) {
-    return (
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center text-red-500">
-            Error al cargar los planes de gestión
-          </div>
-        </div>
-      </section>
-    )
-  }
-
   return (
     <section className="py-10 bg-white">
       <div className="container mx-auto px-4">
@@ -47,7 +57,7 @@ export default function PlansSection() {
           </P>
         </div>
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
-          {PlanesGestion.map((plan, index) => {
+          {PLANES_GESTION.map((plan, index) => {
 
             const getCardSize = (index: number) => {
               // Use responsive col-span: on small screens every card is full width (col-span-1)

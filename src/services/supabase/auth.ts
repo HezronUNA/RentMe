@@ -6,7 +6,7 @@
  */
 
 import { supabase } from './client'
-import type { User, Session, AuthError } from '@supabase/supabase-js'
+import type { User, Session } from '@supabase/supabase-js'
 
 /**
  * Registrar intento de login en la tabla de auditoría

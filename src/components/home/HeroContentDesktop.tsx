@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from '@tanstack/react-router'
-import type { HeroItem } from '../type'
+import type { HeroItem } from '../../slices/home/sections/hero/type'
 import { H1, P, Small } from '@/components/ui/Typography'
 import { Button } from '@/components/ui/button'
 

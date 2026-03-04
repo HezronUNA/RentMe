@@ -8,6 +8,7 @@ import type { CrearReservaHospedaje } from "./type";
 import { useCreateReserve } from "./hooks/useCreateReserve";
 import ReviewAccommodation from "./components/ReviewAccommodation";
 import { Toaster } from "sonner";
+import { Button } from "@/components/ui/button";
 
 const AccommodationDetail = () => {
   const params = useParams({ from: "/alojamientos/$alojamientoId" });
@@ -67,12 +68,12 @@ const AccommodationDetail = () => {
             <p className="text-gray-600 mb-6">
               {error || "El hospedaje que buscas no existe o ha sido removido."}
             </p>
-            <button
+            <Button
               onClick={() => window.history.back()}
-              className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              variant={"green"}
             >
               Volver atrás
-            </button>
+            </Button>
           </div>
         </div>
       </section>

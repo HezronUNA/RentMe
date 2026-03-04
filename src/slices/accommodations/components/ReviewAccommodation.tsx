@@ -1,13 +1,13 @@
 
 
 
-import { Skeleton } from "@/components/ui/Skeleton";
+import { useEffect, useRef, useState } from "react";
 import { H2 } from "@/components/ui/Typography";
-import { useReviewsCarousel } from "@/slices/home/hooks/useReviewsCarousel";
 // Reutiliza los componentes de la sección de reviews del Home para mantener diseño (rutas con alias @)
-import ReviewDesktop from "@/slices/home/sections/reviews/components/ReviewDesktop";
-import ReviewMobile from "@/slices/home/sections/reviews/components/ReviewMobile";
-import type { Review } from "@/slices/home/sections/reviews/type";
+import ReviewDesktop from "@/components/home/ReviewDesktop";
+import ReviewMobile from "@/components/home/ReviewMobile";
+import { STATIC_REVIEWS } from "@/components/home/Reviews";
+import type { Review } from "@/types/Reviews";
 
 type Props = {
 	title?: string;
@@ -38,19 +38,73 @@ export default function ReviewAccommodation({
 	limit,
 	className = "",
 }: Props) {
-	const {
-		items,
-		loading,
-		currentIndex,
-		isTransitioning,
-		count,
-		canNav,
-		nextSlide,
-		prevSlide,
-		onTouchStart,
-		onTouchEnd,
-		handleTransitionEnd,
-	} = useReviewsCarousel(hospedajeId ?? undefined, limit);
+	const [currentIndex, setCurrentIndex] = useState(1);
+	const [isTransitioning, setIsTransitioning] = useState(false);
+	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+	// Filtrar reseñas por hospedajeId si se proporciona
+	let filteredReviews = STATIC_REVIEWS;
+	if (hospedajeId !== null) {
+		filteredReviews = STATIC_REVIEWS.filter(r => r.hospedajeId === hospedajeId);
+	}
+
+	// Aplicar límite si se especifica
+	const originalItems = limit ? filteredReviews.slice(0, limit) : filteredReviews;
+	const count = originalItems.length;
+	const canNav = count > 1;
+
+	// Create array with cloned elements for infinite effect
+	const items = canNav
+		? [originalItems[count - 1], ...originalItems, originalItems[0]]
+		: originalItems;
+
+	const moveToSlide = (index: number, smooth = true) => {
+		if (!canNav) return;
+		setIsTransitioning(smooth);
+		setCurrentIndex(index);
+	};
+
+	const handleTransitionEnd = () => {
+		setIsTransitioning(false);
+		if (currentIndex >= count + 1) {
+			moveToSlide(1, false);
+		} else if (currentIndex === 0) {
+			moveToSlide(count, false);
+		}
+	};
+
+	const nextSlide = () => {
+		if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		moveToSlide(currentIndex + 1);
+	};
+
+	const prevSlide = () => {
+		if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		moveToSlide(currentIndex - 1);
+	};
+
+	// Touch handling
+	const startX = useRef<number | null>(null);
+	const onTouchStart = (e: React.TouchEvent) => {
+		startX.current = e.touches[0].clientX;
+	};
+
+	const onTouchEnd = (e: React.TouchEvent) => {
+		if (startX.current == null) return;
+		const dx = e.changedTouches[0].clientX - startX.current;
+		if (Math.abs(dx) > 30 && canNav) {
+			if (dx < 0) nextSlide();
+			else prevSlide();
+		}
+		startX.current = null;
+	};
+
+	// Cleanup
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		};
+	}, []);
 
 	return (
 		<section
@@ -81,21 +135,7 @@ export default function ReviewAccommodation({
 								onTouchEnd={onTouchEnd}
 								onTransitionEnd={handleTransitionEnd}
 							>
-								{loading ? (
-									<div className="min-w-full max-w-full flex-shrink-0">
-										<div className="mx-auto w-full max-w-[760px] bg-neutral-100 rounded-2xl p-10">
-											<div className="flex items-start gap-4">
-												<Skeleton className="w-16 h-16 rounded-full" />
-												<div className="flex-1 space-y-3">
-													<Skeleton className="h-4 w-10/12" />
-													<Skeleton className="h-4 w-9/12" />
-													<Skeleton className="h-4 w-7/12" />
-													<Skeleton className="h-4 w-5/12 mt-4" />
-												</div>
-											</div>
-										</div>
-									</div>
-								) : count === 0 ? (
+								{count === 0 ? (
 									<EmptyCard />
 								) : (
 									items.map((r: Review) => (

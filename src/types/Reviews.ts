@@ -1,5 +1,3 @@
-// src/features/reviews/models/review.ts
-
 export interface Review {
   id: string;
   calificacion: number;

@@ -1,4 +1,4 @@
-import type { Review } from "../type";
+import type { Review } from "@/types/Reviews";
 
 export default function ReviewDesktop({ review }: { review: Review }) {
   return (
