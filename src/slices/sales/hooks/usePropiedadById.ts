@@ -35,3 +35,4 @@ export function usePropiedadById(id: string | null) {
     exists: query.data !== null && query.data !== undefined
   }
 }
+

@@ -1,4 +1,4 @@
-import { db } from '@/services/firebase'
+import { db } from '@/api/firebase'
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 
 // Tipo para un servicio individual
@@ -79,3 +79,4 @@ export const getAllServicios = async (): Promise<Servicio[]> => {
     return []
   }
 }
+

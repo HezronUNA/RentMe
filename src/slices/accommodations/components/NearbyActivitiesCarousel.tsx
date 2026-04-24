@@ -174,3 +174,4 @@ const NearbyActivitiesCarousel: React.FC<NearbyActivitiesCarouselProps> = ({
 };
 
 export default NearbyActivitiesCarousel;
+

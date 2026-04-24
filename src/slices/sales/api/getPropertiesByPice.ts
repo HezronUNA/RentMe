@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase"
+import { db } from "@/api/firebase"
 import { collection, CollectionReference, getDocs, query, where } from "firebase/firestore"
 import type { PropiedadVenta, PropiedadVentaFirestore } from "../type"
 
@@ -30,3 +30,4 @@ export async function getPropiedadesByPrecio(precioMin: number, precioMax: numbe
   // Ordenar por precio en el cliente
   return propiedades.sort((a, b) => a.precio - b.precio)
 }
+

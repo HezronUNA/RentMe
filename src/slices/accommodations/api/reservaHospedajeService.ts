@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase"
+import { db } from "@/api/firebase"
 import { 
   collection, 
   CollectionReference, 
@@ -55,3 +55,4 @@ export async function crearReservaHospedaje(
     throw error
   }
 }
+

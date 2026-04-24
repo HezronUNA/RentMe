@@ -30,3 +30,5 @@ export function SearchButton({ variant, onClick }: SearchButtonProps) {
     </button>
   );
 }
+
+

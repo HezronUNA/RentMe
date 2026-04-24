@@ -2,7 +2,7 @@ import React from 'react';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import { useGoogleMap } from '../hooks/useGoogleMap';
 import type { UbicacionExacta, FirebaseGeoPoint } from '../type';
-import { H3, H4, P } from '@/shared/components/Typography';
+import { H3, H4, P } from '@/components/ui/Typography';
 
 interface PropertyLocationMapProps {
   ubicacionExacta?: UbicacionExacta | FirebaseGeoPoint | any;
@@ -125,3 +125,4 @@ export const PropertyLocationMap: React.FC<PropertyLocationMapProps> = ({ ubicac
 };
 
 export default PropertyLocationMap;
+

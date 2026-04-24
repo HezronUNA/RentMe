@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc } from 'firebase/firestore';
 import type { ActividadCercana } from '../type';
-import { db } from '@/services/firebase';
+import { db } from '@/api/firebase';
 
 export const useNearbyActivities = (hospedajeId: string) => {
   const [actividades, setActividades] = useState<ActividadCercana[]>([]);
@@ -59,3 +59,4 @@ export const useNearbyActivities = (hospedajeId: string) => {
 
   return { actividades, loading, error };
 };
+

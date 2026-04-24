@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase"
+import { db } from "@/api/firebase"
 import { collection, CollectionReference, getDocs } from "firebase/firestore"
 import type { Hospedaje, HospedajeFirestore } from "../type"
 
@@ -21,3 +21,4 @@ export async function getHospedajes(): Promise<Hospedaje[]> {
     throw error
   }
 }
+

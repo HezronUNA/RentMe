@@ -26,3 +26,4 @@ export function usePropiedadesVenta() {
     isEmpty: !query.data || query.data.length === 0
   }
 }
+

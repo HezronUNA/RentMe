@@ -74,3 +74,4 @@ export const useAccommodationMap = ({ ubicacion, zoom = 16 }: UseAccommodationMa
     apiKey
   };
 };
+

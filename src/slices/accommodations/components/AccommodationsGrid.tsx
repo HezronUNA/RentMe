@@ -1,6 +1,6 @@
 import { AccommodationCard } from './AccommodationCard'
-import { Skeleton } from '@/shared/components/Skeleton'
 import type { Hospedaje } from '../type'
+import { Skeleton } from '@/components/ui/Skeleton'
 
 interface AccommodationsGridProps {
   accommodations: Hospedaje[]
@@ -136,3 +136,4 @@ function AccommodationCardSkeleton() {
     </div>
   )
 }
+

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/services/firebase";
+import { db } from "@/api/firebase";
 
 export function useModalityById(modalidadId: string) {
  
@@ -23,3 +23,4 @@ console.log("modalidadSnap.data():", modalidadSnap.data());
     staleTime: 1000 * 60 * 5,
   });
 }
+

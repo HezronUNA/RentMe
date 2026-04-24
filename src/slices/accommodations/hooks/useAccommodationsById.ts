@@ -18,3 +18,4 @@ export function useHospedajeById(hospedajeId: string) {
     isStale: query.isStale
   }
 }
+

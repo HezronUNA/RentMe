@@ -27,3 +27,4 @@ export { useSearchBox } from './useSearchBox'
 
 // También exportar desde el archivo principal para compatibilidad
 export * from './hook'
+

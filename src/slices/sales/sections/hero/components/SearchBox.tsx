@@ -85,3 +85,5 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
     </div>
   );
 }
+
+

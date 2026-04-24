@@ -2,7 +2,7 @@ import React from 'react';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import { useAccommodationMap } from '../hooks/useAccommodationMap';
 import type { UbicacionHospedaje } from '../type';
-import { H3, H4, P } from '@/shared/components/Typography';
+import { H3, H4, P } from '@/components/ui/Typography';
 
 interface AccommodationLocationMapProps {
   ubicacion?: UbicacionHospedaje;
@@ -124,3 +124,4 @@ export const AccommodationLocationMap: React.FC<AccommodationLocationMapProps> =
 };
 
 export default AccommodationLocationMap;
+

@@ -26,3 +26,4 @@ export const propiedadesQueryKeys = {
   // Con filtros múltiples
   filtered: (filters: Record<string, any>) => [...propiedadesQueryKeys.all, 'filtered', filters] as const,
 }
+

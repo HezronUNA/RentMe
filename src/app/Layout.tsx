@@ -1,7 +1,7 @@
 import { Outlet } from '@tanstack/react-router'
-import Header from '../shared/components/Header'
-import Footer from '../shared/components/Footer'
-import SocialBar from '@/shared/components/SocialBar'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+import SocialBar from '@/components/layout/SocialBar'
 
 const Layout = () => {
   return (
@@ -22,3 +22,4 @@ const Layout = () => {
 }
 
 export default Layout
+
