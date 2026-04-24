@@ -4,9 +4,6 @@ import { Skeleton } from "@/components/ui/Skeleton"
 import { H2 } from "@/components/ui/Typography"
 import useAccomodationHighlights from "@/hooks/useAccomodationHighlights"
 
-
-
-
 export default function Accomodations() {
 
 const { hospedajes, loading } = useAccomodationHighlights()
