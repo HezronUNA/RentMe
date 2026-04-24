@@ -6,8 +6,7 @@ import { supabase } from '../api/supabase/client'
 
 /**
  * Obtiene los hospedajes destacados desde Supabase
- * Por ahora trae los primeros 6 hospedajes activos
- * TODO: Agregar campo 'destacado' a la tabla hospedajes para filtrar específicamente
+ * Usa el esquema actual (columna `imagenes` en la tabla `hospedajes`)
  */
 export async function getHospedajesDestacados(): Promise<HospedajeDestacado[]> {
   try {
@@ -21,13 +20,10 @@ export async function getHospedajesDestacados(): Promise<HospedajeDestacado[]> {
         banos,
         camas,
         ubicacion,
-        hospedaje_imagenes (
-          url,
-          orden,
-          es_principal
-        )
+        imagenes
       `)
       .eq('activo', true)
+      .eq('destacado', true)
       .order('creado_en', { ascending: false })
       .limit(6)
 
@@ -44,9 +40,9 @@ export async function getHospedajesDestacados(): Promise<HospedajeDestacado[]> {
       cuartos: hospedaje.cuartos || 0,
       baños: hospedaje.banos || 0,
       camas: hospedaje.camas || 0,
-      Imagenes: (hospedaje.hospedaje_imagenes || [])
-        .sort((a: any, b: any) => (a.orden || 0) - (b.orden || 0))
-        .map((img: any) => img.url),
+      Imagenes: Array.isArray(hospedaje.imagenes)
+        ? hospedaje.imagenes.filter((img): img is string => typeof img === 'string')
+        : [],
       ubicacion: {
         direccion: hospedaje.ubicacion || 'Sin ubicación',
       },
