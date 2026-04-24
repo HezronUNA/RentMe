@@ -147,6 +147,15 @@ export default function Footer() {
               Ventas
             </Link>
           </li>
+          <li>
+            <Link
+              href="/terminos-y-condiciones"
+              to="/terminos-y-condiciones"
+              className="inline-flex items-center rounded-md px-3 py-1.5 text-sm hover:bg-[#94a593]/20 hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#94a593]"
+            >
+              Términos y condiciones
+            </Link>
+          </li>
         </ul>
       </nav>
 
