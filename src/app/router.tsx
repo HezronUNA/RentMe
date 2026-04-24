@@ -11,6 +11,7 @@ import ScrollToTop from '@/components/ui/ScrollToTop'
 // Importación diferida (lazy) de las páginas
 const HomePage = lazy(() => import('../pages/Index'))
 const AboutUsPage = lazy(() => import('../pages/AboutUsPage'))
+const TermsAndConditionsPage = lazy(() => import('../pages/TermsAndConditionsPage'))
 const NotFoundPage = lazy(() => import('../app/NotFoundPage'))
 const AccommodationsPage = lazy(() => import("../slices/accommodations/Page"))
 const SalesPage = lazy(() => import("../slices/sales/Page"))
@@ -41,6 +42,12 @@ const nosotrosRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/nosotros',
   component: AboutUsPage
+})
+
+const termsAndConditionsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/terminos-y-condiciones',
+  component: TermsAndConditionsPage
 })
 
 const alojamientosRoute = createRoute({
@@ -83,6 +90,7 @@ const serviceDetailRoute = createRoute({
 const routeTree = rootRoute.addChildren([
    homeRoute,
   nosotrosRoute,
+  termsAndConditionsRoute,
   alojamientosRoute,
   alojamientoDetailRoute,
   ventasRoute,
