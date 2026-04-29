@@ -1,11 +1,9 @@
-// src/slices/services/sections/salesService/components/MarqueeRow.tsx
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import type { ServiceItem } from "../../../hooks/useSalesServices";
 import { ServiceCard } from "./ServiceCard";
 
 interface MarqueeRowProps {
-  items: ServiceItem[];
+  items: any[];
   direction?: "left" | "right";
   speed?: number;
   gap?: number;
@@ -51,4 +49,3 @@ export function MarqueeRow({
     </div>
   );
 }
-
