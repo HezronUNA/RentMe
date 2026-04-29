@@ -1,4 +1,3 @@
-// src/slices/services/sections/salesService/components/ServiceCard.tsx
 import type { JSX } from "react";
 import {
   MapPin,
@@ -7,7 +6,6 @@ import {
   Camera,
   CalendarDays,
 } from "lucide-react";
-import type { ServiceItem } from "../../../hooks/useSalesServices";
 
 const IconByName: Record<string, JSX.Element> = {
   pin: <MapPin className="h-6 w-6" />,
@@ -21,7 +19,7 @@ const IconByName: Record<string, JSX.Element> = {
 };
 
 interface ServiceCardProps {
-  item: ServiceItem;
+  item: any;
 }
 
 export function ServiceCard({ item }: ServiceCardProps) {
@@ -36,4 +34,3 @@ export function ServiceCard({ item }: ServiceCardProps) {
     </div>
   );
 }
-

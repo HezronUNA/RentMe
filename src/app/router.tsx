@@ -15,8 +15,7 @@ const TermsAndConditionsPage = lazy(() => import('../pages/TermsAndConditionsPag
 const NotFoundPage = lazy(() => import('../app/NotFoundPage'))
 const AccommodationsPage = lazy(() => import("../slices/accommodations/Page"))
 const SalesPage = lazy(() => import("../slices/sales/Page"))
-const ServicesPage = lazy(() => import("../slices/services/Page"))
-const ServiceDetailPage = lazy(() => import("../slices/services/ServiceDetailPage"))
+const ServicesPage = lazy(() => import("../pages/ServicesPage"))
 const SaleDetailPage = lazy(() => import("../slices/sales/SaleDetail"))
 const AccommodationDetailPage = lazy(() => import("../slices/accommodations/AccommodationDetail"))
 
@@ -80,12 +79,6 @@ const serviciosRoute = createRoute({
   component: ServicesPage,
 })
 
-const serviceDetailRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/servicios/$modalidadId",
-  component: ServiceDetailPage,
-})
-
 // Árbol de rutas
 const routeTree = rootRoute.addChildren([
    homeRoute,
@@ -95,8 +88,7 @@ const routeTree = rootRoute.addChildren([
   alojamientoDetailRoute,
   ventasRoute,
   ventaDetailRoute,
-  serviciosRoute,
-  serviceDetailRoute
+  serviciosRoute
 ])
 
 // Configuración del router
