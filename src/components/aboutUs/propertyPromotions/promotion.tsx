@@ -2,8 +2,16 @@ import { H2 } from "@/components/ui/Typography";
 import { OrbitAnimation } from "./orbitAnimation/OrbitAnimation";
 import { platformsConfig } from "./orbitAnimation/orbitConfig";
 import { PromotionsMobile } from "./PromotionsMobile";
+import { useNavigate } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 
 export function Promotions() {
+  const navigate = useNavigate();
+
+  const handleContactClick = () => {
+    navigate({ to: "/reservar-servicio" });
+  };
+
   return (
     <>
       {/* Desktop Version */}
@@ -28,9 +36,15 @@ export function Promotions() {
             />
             
             <div className="text-center max-w-2xl mx-auto mt-1">
-              <p className="text-gray-600 leading-relaxed">
-              En DMR Rentals impulsamos la visibilidad de tu propiedad a través de canales estratégicos como Airbnb, Booking y nuestras redes sociales (Instagram, Facebook y TikTok).  Nos encargamos de gestionar cada perfil con contenido atractivo, atención constante y enfoque profesional, logrando así atraer más reservas, mejorar la reputación en línea y fidelizar a tus huéspedes.
+              <p className="text-gray-600 leading-relaxed mb-6">
+              En DMR Rentals impulsamos la visibilidad de tu propiedad a través de canales estratégicos como Airbnb, Booking y nuestras redes sociales (Instagram, Facebook y TikTok).  Nos encargamos de gestionar cada perfil con contenido atractivo, atención constante y enfoque profesional, logrando así atraer más reservas, mejorar la reputación en línea y fidelizar a tus huéspedes.
               </p>
+              <Button
+                onClick={handleContactClick}
+                className="bg-[#52655B] hover:bg-[#3d4a42] text-white px-8 py-3 rounded-lg font-semibold shadow-md transition-all duration-200 hover:shadow-lg"
+              >
+                Más información
+              </Button>
             </div>
           </div>
         </div>
