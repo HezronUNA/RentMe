@@ -40,7 +40,7 @@ const ITEMS = [
   },
 ];
 
-function IconPlaceholder({ name }: { name?: string }) {
+function IconPlaceholder({ }: { name?: string }) {
   // Usar un SVG simple consistente con el resto del proyecto
   return (
     <div className="w-12 h-12 rounded-lg bg-[#d9dbd9] flex items-center justify-center">
