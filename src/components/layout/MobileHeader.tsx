@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router"
+import { useEffect, useState } from "react"
 import type { UseNavbar } from "@/hooks/useNavbar"
 
 const Logo = "https://i.ibb.co/fGdD3rxd/Chat-GPT-Image-18-nov-2025-02-02-38-p-m.png"
@@ -11,126 +12,198 @@ export default function MobileHeader({ nav }: Props) {
   const {
     open,
     setOpen,
-    openDropMobile,
-    setOpenDropMobile,
-    isAlojaSectionActive,
-    getLinkClass,
-    isActive,
   } = nav
 
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  // Deshabilitar scroll cuando el navbar está abierto
+  useEffect(() => {
+    if (open) {
+      setIsAnimating(true)
+      document.body.style.overflow = "hidden"
+    } else {
+      const timer = setTimeout(() => {
+        setIsAnimating(false)
+      }, 400)
+      document.body.style.overflow = "unset"
+      return () => clearTimeout(timer)
+    }
+  }, [open])
+
   return (
-    <div className="md:hidden mx-auto max-w-screen-2xl px-4">
-      <div className="h-16 flex items-center justify-between">
-        <Link to="/" aria-label="Ir al inicio" className="flex items-center gap-2">
-          <img src={Logo} alt="Logo DMR Rentals" className="h-16 w-16 sm:h-18 sm:w-18 object-cover" />
-        </Link>
-        <button
-          type="button"
-          aria-label="Abrir menú"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="p-2 rounded-md hover:bg-neutral-100"
-        >
-          <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
-            <path
-              d={open ? "M6 18L18 6M6 6l12 12" : "M3 6h18M3 12h18M3 18h18"}
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
-      </div>
-
-      {/* Menú móvil con submenú */}
-      <div className={`overflow-hidden transition-[max-height] duration-300 ${open ? "max-h-96" : "max-h-0"}`}>
-        <nav className="flex flex-col gap-1 pb-4">
-          <Link to="/ventas" className={getLinkClass("/ventas") + " px-2 py-2 text-base"}>
-            VENTAS
+    <div className="md:hidden w-full">
+      {/* Header con logo y hamburguesa */}
+      <div className="mx-auto max-w-screen-2xl px-4">
+        <div className="h-16 flex items-center justify-between">
+          <Link to="/" aria-label="Ir al inicio" onClick={() => setOpen(false)}>
+            <img src={Logo} alt="Logo RentMe" className="h-14 w-14 object-contain" />
           </Link>
-
-          {/* Alojamientos expandible */}
-          <div className="px-2 pt-2">
-            <button
-              type="button"
-              className={(isAlojaSectionActive ? nav.classes.activeLink : nav.classes.inactiveLink) + " text-base flex items-center justify-between w-full py-2"}
-              aria-haspopup="menu"
-              aria-expanded={openDropMobile}
-              onClick={() => setOpenDropMobile((v) => !v)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  setOpenDropMobile((v) => !v)
-                }
+          <button
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="p-2 rounded-lg hover:bg-[#52655B]/10 transition-all duration-300 group"
+          >
+            <svg 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              className="h-7 w-7 text-[#52655B] transition-all duration-500"
+              style={{
+                transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
               }}
             >
-              <span>ALOJAMIENTOS</span>
-              <svg
-                className={`w-4 h-4 transition-all duration-300 ${openDropMobile ? "rotate-180" : "rotate-0"} ${
-                  isAlojaSectionActive ? "text-[#52655B]" : "text-black"
-                }`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-                aria-hidden
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-
-            <div className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${openDropMobile ? "max-h-32" : "max-h-0"}`}>
-              <div className="mt-1 ml-3 border-l pl-3 space-y-1 py-2">
-                <Link
-                  to="/alojamientos"
-                  className={getLinkClass("/alojamientos") + " flex items-center gap-2 py-2 text-base hover:text-[#52655B] transition-colors"}
-                >
-                  <svg
-                    className={`w-4 h-4 transition-colors duration-200 ${isActive("/alojamientos") ? "text-[#52655B]" : "text-gray-400"}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
+              {!open ? (
+                // Hamburguesa
+                <>
+                  <path
+                    d="M3 6h18"
                     stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  <span>Huésped</span>
-                </Link>
-
-                <Link
-                  to="/servicios"
-                  onClick={() => nav.setIsServiciosFromAlojamientos(true)}
-                  className={(isActive("/servicios") && nav.isServiciosFromAlojamientos ? nav.classes.activeLink : nav.classes.inactiveLink) + " flex items-center gap-2 py-2 text-base hover:text-[#52655B] transition-colors"}
-                >
-                  <svg
-                    className={`w-4 h-4 transition-colors duration-200 ${
-                      isActive("/servicios") && nav.isServiciosFromAlojamientos ? "text-[#52655B]" : "text-gray-400"
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className="transition-all duration-500 origin-center"
+                    style={{
+                      transform: open ? 'translateY(6px) rotate(45deg)' : 'translateY(0) rotate(0deg)',
+                    }}
+                  />
+                  <path
+                    d="M3 12h18"
                     stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                  </svg>
-                  <span>Propietario</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <Link to="/nosotros" className={getLinkClass("/nosotros") + " px-2 py-2 text-base"}>
-            SOBRE NOSOTROS
-          </Link>
-          <Link
-            to="/servicios"
-            onClick={() => nav.setIsServiciosFromAlojamientos(false)}
-            className={(isActive("/servicios") && !nav.isServiciosFromAlojamientos ? nav.classes.activeLink : nav.classes.inactiveLink) + " px-2 py-2 text-base"}
-          >
-            SERVICIOS
-          </Link>
-        </nav>
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className={`transition-all duration-500 ${open ? 'opacity-0' : 'opacity-100'}`}
+                  />
+                  <path
+                    d="M3 18h18"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className="transition-all duration-500 origin-center"
+                    style={{
+                      transform: open ? 'translateY(-6px) rotate(-45deg)' : 'translateY(0) rotate(0deg)',
+                    }}
+                  />
+                </>
+              ) : (
+                // X
+                <>
+                  <path
+                    d="M6 18L18 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className="transition-all duration-500"
+                  />
+                  <path
+                    d="M6 6l12 12"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className="transition-all duration-500"
+                  />
+                </>
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
+
+      {/* Menú móvil fullscreen */}
+      {isAnimating && (
+        <div 
+          className={`fixed inset-0 top-16 z-40 lumiflex-background ${
+            open 
+              ? "navbar-enter" 
+              : "navbar-exit"
+          } backdrop-blur-md pointer-events-none`}
+          style={{
+            background: `
+              radial-gradient(circle at 15% 40%, rgba(107, 127, 111, 0.55) 0%, transparent 45%),
+              radial-gradient(circle at 85% 80%, rgba(61, 77, 68, 0.45) 0%, transparent 50%),
+              radial-gradient(circle at 50% 15%, rgba(82, 101, 91, 0.5) 0%, transparent 45%),
+              radial-gradient(circle at 75% 25%, rgba(79, 90, 84, 0.4) 0%, transparent 40%),
+              radial-gradient(circle at 25% 75%, rgba(100, 115, 105, 0.45) 0%, transparent 45%),
+              linear-gradient(135deg, rgba(245, 245, 245, 0.95) 0%, rgba(250, 250, 248, 0.98) 100%)
+            `
+          }}
+        >
+          <nav className="h-full flex flex-col items-center justify-center gap-2 pb-20 pointer-events-auto">
+            {/* TOURS */}
+            <div className="menu-item flex flex-col items-center gap-2">
+              <Link
+                to="/tours"
+                onClick={() => setOpen(false)}
+                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+              >
+                TOURS
+              </Link>
+              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
+            </div>
+
+            {/* VENTAS */}
+            <div className="menu-item flex flex-col items-center gap-2">
+              <Link
+                to="/ventas"
+                onClick={() => setOpen(false)}
+                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+              >
+                VENTAS
+              </Link>
+              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
+            </div>
+
+            {/* ALOJAMIENTOS */}
+            <div className="menu-item flex flex-col items-center gap-2">
+              <Link
+                to="/alojamientos"
+                onClick={() => setOpen(false)}
+                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+              >
+                ALOJAMIENTOS
+              </Link>
+              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
+            </div>
+
+            {/* SOBRE NOSOTROS */}
+            <div className="menu-item flex flex-col items-center gap-2">
+              <Link
+                to="/nosotros"
+                onClick={() => setOpen(false)}
+                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+              >
+                SOBRE NOSOTROS
+              </Link>
+              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
+            </div>
+
+            {/* SERVICIOS */}
+            <div className="menu-item flex flex-col items-center gap-2">
+              <Link
+                to="/servicios"
+                onClick={() => {
+                  nav.setIsServiciosFromAlojamientos(false)
+                  setOpen(false)
+                }}
+                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+              >
+                SERVICIOS
+              </Link>
+              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
+            </div>
+
+            {/* ADMINISTRACIÓN */}
+            <div className="menu-item flex flex-col items-center gap-2">
+              <Link
+                to="/administracion"
+                onClick={() => setOpen(false)}
+                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+              >
+                ADMINISTRACIÓN
+              </Link>
+            </div>
+          </nav>
+        </div>
+      )}
     </div>
   )
 }

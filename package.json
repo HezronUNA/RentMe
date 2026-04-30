@@ -35,6 +35,7 @@
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.7.1",
     "sonner": "^2.0.7",
+    "supabase": "^2.95.6",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11"
   },
