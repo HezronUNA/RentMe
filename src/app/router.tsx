@@ -16,6 +16,7 @@ const NotFoundPage = lazy(() => import('../app/NotFoundPage'))
 const AccommodationsPage = lazy(() => import("../slices/accommodations/Page"))
 const SalesPage = lazy(() => import("../slices/sales/Page"))
 const ServicesPage = lazy(() => import("../pages/ServicesPage"))
+const ServiceReservationPage = lazy(() => import("../pages/ServiceReservationPage"))
 const SaleDetailPage = lazy(() => import("../slices/sales/SaleDetail"))
 const AccommodationDetailPage = lazy(() => import("../slices/accommodations/AccommodationDetail"))
 
@@ -79,6 +80,12 @@ const serviciosRoute = createRoute({
   component: ServicesPage,
 })
 
+const reservarServicioRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/reservar-servicio",
+  component: ServiceReservationPage,
+})
+
 // Árbol de rutas
 const routeTree = rootRoute.addChildren([
    homeRoute,
@@ -88,7 +95,8 @@ const routeTree = rootRoute.addChildren([
   alojamientoDetailRoute,
   ventasRoute,
   ventaDetailRoute,
-  serviciosRoute
+  serviciosRoute,
+  reservarServicioRoute
 ])
 
 // Configuración del router

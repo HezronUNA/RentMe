@@ -1,5 +1,6 @@
 import { H2, P } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 
 // Datos estáticos de ejemplo — títulos y descripciones que aparecen en las cards
 const ITEMS = [
@@ -92,7 +93,11 @@ export default function SalesService() {
         </div>
 
         <div className="mt-8 flex justify-center">
-          <Button className="hover:cursor-pointer hover:bg-[#435349]" variant="green" size="lg">Contactar Ahora</Button>
+          <Button asChild className="hover:cursor-pointer hover:bg-[#435349]" variant="green" size="lg">
+            <Link to="/reservar-servicio" search={{ servicio: "Venta de propiedades" }}>
+              Contactar Ahora
+            </Link>
+          </Button>
         </div>
     </section>
   );
