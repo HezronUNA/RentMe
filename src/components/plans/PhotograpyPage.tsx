@@ -1,6 +1,7 @@
 import { Camera, Video, Edit3, Image as ImageIcon } from 'lucide-react'
 import { H2, P } from '@/components/ui/Typography'
 import { Button } from '@/components/ui/button'
+import { Link } from '@tanstack/react-router'
 
 function ServiceIcon({ name }: { name?: string }) {
   switch ((name || '').toLowerCase()) {
@@ -66,8 +67,10 @@ export default function PhotograpyPage() {
               </ul>
 
               <div className="mt-8 flex justify-center md:justify-start gap-3">
-                <Button variant="green" size="lg" className='hover:cursor-pointer hover:bg-[#435349]'>
-                  Solicitar servicio
+                <Button asChild variant="green" size="lg" className='hover:cursor-pointer hover:bg-[#435349]'>
+                  <Link to="/reservar-servicio" search={{ servicio: "Fotografia y video profesional" }}>
+                    Solicitar servicio
+                  </Link>
                 </Button>
               </div>
             </div>

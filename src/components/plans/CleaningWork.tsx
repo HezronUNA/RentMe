@@ -1,6 +1,7 @@
 import { H1 } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/button";
 import { Sparkles, CheckCircle2, Users } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export default function CleaningServiceHero() {
   const heroData = {
@@ -63,7 +64,11 @@ export default function CleaningServiceHero() {
             </div>
 
             <div className="flex flex-wrap flex justify-center sm:justify-start gap-4 pt-2">
-              <Button className="px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:cursor-pointer hover:bg-[#435349]" variant="green" size="lg">Solicitar servicio</Button>
+              <Button asChild className="px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:cursor-pointer hover:bg-[#435349]" variant="green" size="lg">
+                <Link to="/reservar-servicio" search={{ servicio: "Limpieza profesional" }}>
+                  Solicitar servicio
+                </Link>
+              </Button>
             </div>
           </div>
 
