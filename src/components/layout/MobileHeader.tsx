@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
+import { useIcons } from "@/app/context/useIcons"
+import { SOCIAL_CONFIG, buildWhatsAppHref } from "@/utils/socialMediaConfig"
 import type { UseNavbar } from "@/hooks/useNavbar"
 
 const Logo = "https://i.ibb.co/fGdD3rxd/Chat-GPT-Image-18-nov-2025-02-02-38-p-m.png"
@@ -9,6 +11,7 @@ type Props = {
 }
 
 export default function MobileHeader({ nav }: Props) {
+  const Icons = useIcons()
   const {
     open,
     setOpen,
@@ -30,10 +33,16 @@ export default function MobileHeader({ nav }: Props) {
     }
   }, [open])
 
+  const hrefFromEntry = (entry: any) => {
+    return entry.platform === "whatsapp"
+      ? buildWhatsAppHref(entry.phone || "", entry.message)
+      : entry.url || "#"
+  }
+
   return (
-    <div className="md:hidden w-full">
+    <div className="md:hidden w-full relative">
       {/* Header con logo y hamburguesa */}
-      <div className="mx-auto max-w-screen-2xl px-4">
+      <div className="mx-auto max-w-screen-2xl px-4 relative z-50">
         <div className="h-16 flex items-center justify-between">
           <Link to="/" aria-label="Ir al inicio" onClick={() => setOpen(false)}>
             <img src={Logo} alt="Logo RentMe" className="h-14 w-14 object-contain" />
@@ -49,43 +58,9 @@ export default function MobileHeader({ nav }: Props) {
               viewBox="0 0 24 24" 
               fill="none" 
               className="h-7 w-7 text-[#52655B] transition-all duration-500"
-              style={{
-                transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
-              }}
             >
-              {!open ? (
-                // Hamburguesa
-                <>
-                  <path
-                    d="M3 6h18"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    className="transition-all duration-500 origin-center"
-                    style={{
-                      transform: open ? 'translateY(6px) rotate(45deg)' : 'translateY(0) rotate(0deg)',
-                    }}
-                  />
-                  <path
-                    d="M3 12h18"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    className={`transition-all duration-500 ${open ? 'opacity-0' : 'opacity-100'}`}
-                  />
-                  <path
-                    d="M3 18h18"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    className="transition-all duration-500 origin-center"
-                    style={{
-                      transform: open ? 'translateY(-6px) rotate(-45deg)' : 'translateY(0) rotate(0deg)',
-                    }}
-                  />
-                </>
-              ) : (
-                // X
+              {open ? (
+                // X cuando está abierto
                 <>
                   <path
                     d="M6 18L18 6"
@@ -102,6 +77,31 @@ export default function MobileHeader({ nav }: Props) {
                     className="transition-all duration-500"
                   />
                 </>
+              ) : (
+                // Hamburguesa cuando está cerrado
+                <>
+                  <path
+                    d="M3 6h18"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className="transition-all duration-500"
+                  />
+                  <path
+                    d="M3 12h18"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className="transition-all duration-500"
+                  />
+                  <path
+                    d="M3 18h18"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    className="transition-all duration-500"
+                  />
+                </>
               )}
             </svg>
           </button>
@@ -111,97 +111,119 @@ export default function MobileHeader({ nav }: Props) {
       {/* Menú móvil fullscreen */}
       {isAnimating && (
         <div 
-          className={`fixed inset-0 top-16 z-40 lumiflex-background ${
+          className={`fixed inset-0 z-40 ${
             open 
               ? "navbar-enter" 
               : "navbar-exit"
-          } backdrop-blur-md pointer-events-none`}
+          } pointer-events-auto`}
           style={{
-            background: `
-              radial-gradient(circle at 15% 40%, rgba(107, 127, 111, 0.55) 0%, transparent 45%),
-              radial-gradient(circle at 85% 80%, rgba(61, 77, 68, 0.45) 0%, transparent 50%),
-              radial-gradient(circle at 50% 15%, rgba(82, 101, 91, 0.5) 0%, transparent 45%),
-              radial-gradient(circle at 75% 25%, rgba(79, 90, 84, 0.4) 0%, transparent 40%),
-              radial-gradient(circle at 25% 75%, rgba(100, 115, 105, 0.45) 0%, transparent 45%),
-              linear-gradient(135deg, rgba(245, 245, 245, 0.95) 0%, rgba(250, 250, 248, 0.98) 100%)
-            `
+            background: 'linear-gradient(135deg, rgba(245, 245, 245, 0.98) 0%, rgba(235, 235, 238, 0.99) 100%)'
           }}
+          onClick={() => setOpen(false)}
         >
-          <nav className="h-full flex flex-col items-center justify-center gap-2 pb-20 pointer-events-auto">
-            {/* TOURS */}
-            <div className="menu-item flex flex-col items-center gap-2">
-              <Link
-                to="/tours"
-                onClick={() => setOpen(false)}
-                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
-              >
-                TOURS
-              </Link>
-              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
+          <div className="absolute inset-0" onClick={(e) => e.stopPropagation()}>
+          <nav className="h-full flex flex-col items-center justify-between gap-2 pt-32 pb-12 px-8 overflow-y-auto">
+            {/* Items del menú */}
+            <div className="flex flex-col items-center gap-4 flex-1 w-full">
+              {/* TOURS */}
+              <div className="menu-item flex flex-col items-center gap-2 w-full">
+                <Link
+                  to="/tours"
+                  onClick={() => setOpen(false)}
+                  className="text-2xl font-semibold text-black hover:text-black/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+                >
+                  TOURS
+                </Link>
+                <div className="w-32 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent shadow-sm"></div>
+              </div>
+
+              {/* VENTAS */}
+              <div className="menu-item flex flex-col items-center gap-2 w-full">
+                <Link
+                  to="/ventas"
+                  onClick={() => setOpen(false)}
+                  className="text-2xl font-semibold text-black hover:text-black/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+                >
+                  VENTAS
+                </Link>
+                <div className="w-32 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent shadow-sm"></div>
+              </div>
+
+              {/* ALOJAMIENTOS */}
+              <div className="menu-item flex flex-col items-center gap-2 w-full">
+                <Link
+                  to="/alojamientos"
+                  onClick={() => setOpen(false)}
+                  className="text-2xl font-semibold text-black hover:text-black/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+                >
+                  ALOJAMIENTOS
+                </Link>
+                <div className="w-32 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent shadow-sm"></div>
+              </div>
+
+              {/* SOBRE NOSOTROS */}
+              <div className="menu-item flex flex-col items-center gap-2 w-full">
+                <Link
+                  to="/nosotros"
+                  onClick={() => setOpen(false)}
+                  className="text-2xl font-semibold text-black hover:text-black/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+                >
+                  SOBRE NOSOTROS
+                </Link>
+                <div className="w-32 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent shadow-sm"></div>
+              </div>
+
+              {/* SERVICIOS */}
+              <div className="menu-item flex flex-col items-center gap-2 w-full">
+                <Link
+                  to="/servicios"
+                  onClick={() => {
+                    nav.setIsServiciosFromAlojamientos(false)
+                    setOpen(false)
+                  }}
+                  className="text-2xl font-semibold text-black hover:text-black/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+                >
+                  SERVICIOS
+                </Link>
+                <div className="w-32 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent shadow-sm"></div>
+              </div>
+
+              {/* ADMINISTRACIÓN */}
+              <div className="menu-item flex flex-col items-center gap-2">
+                <Link
+                  to="/administracion"
+                  onClick={() => setOpen(false)}
+                  className="text-2xl font-semibold text-black hover:text-black/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+                >
+                  ADMINISTRACIÓN
+                </Link>
+              </div>
             </div>
 
-            {/* VENTAS */}
-            <div className="menu-item flex flex-col items-center gap-2">
-              <Link
-                to="/ventas"
-                onClick={() => setOpen(false)}
-                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
-              >
-                VENTAS
-              </Link>
-              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
-            </div>
+            {/* Redes sociales */}
+            <div className="flex justify-center gap-6 w-full items-center">
+              {SOCIAL_CONFIG.map((social) => {
+                const Icon = Icons[social.platform as keyof typeof Icons]
+                const href = hrefFromEntry(social)
+                const label = social.label ?? social.platform
 
-            {/* ALOJAMIENTOS */}
-            <div className="menu-item flex flex-col items-center gap-2">
-              <Link
-                to="/alojamientos"
-                onClick={() => setOpen(false)}
-                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
-              >
-                ALOJAMIENTOS
-              </Link>
-              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
-            </div>
-
-            {/* SOBRE NOSOTROS */}
-            <div className="menu-item flex flex-col items-center gap-2">
-              <Link
-                to="/nosotros"
-                onClick={() => setOpen(false)}
-                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
-              >
-                SOBRE NOSOTROS
-              </Link>
-              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
-            </div>
-
-            {/* SERVICIOS */}
-            <div className="menu-item flex flex-col items-center gap-2">
-              <Link
-                to="/servicios"
-                onClick={() => {
-                  nav.setIsServiciosFromAlojamientos(false)
-                  setOpen(false)
-                }}
-                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
-              >
-                SERVICIOS
-              </Link>
-              <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-sm"></div>
-            </div>
-
-            {/* ADMINISTRACIÓN */}
-            <div className="menu-item flex flex-col items-center gap-2">
-              <Link
-                to="/administracion"
-                onClick={() => setOpen(false)}
-                className="text-2xl font-semibold text-white hover:text-white/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
-              >
-                ADMINISTRACIÓN
-              </Link>
+                return (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    title={label}
+                    className="text-black hover:text-black/70 transition-all duration-300 hover:scale-110 active:scale-95"
+                  >
+                    <Icon size={24} />
+                  </a>
+                )
+              })}
             </div>
           </nav>
+          </div>
         </div>
       )}
     </div>
