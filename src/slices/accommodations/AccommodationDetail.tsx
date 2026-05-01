@@ -114,11 +114,6 @@ const AccommodationDetail = () => {
                     ₡{formatPrice(hospedaje.precio_noche)}
                   </p>
                   <span className="text-sm text-gray-600">por noche</span>
-                  {hospedaje.destacado && (
-                    <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-1 rounded-full">
-                      Destacado
-                    </span>
-                  )}
                 </div>
               </section>
 
