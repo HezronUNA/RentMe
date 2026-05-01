@@ -121,6 +121,7 @@ export interface HospedajeRow {
   destacado?: boolean | null
   latitud?: number | null
   longitud?: number | null
+  google_maps_url?: string | null
   imagenes?: string[] // ARRAY de URLs de la BD
   creado_en?: string
   actualizado_en?: string | null
@@ -264,6 +265,7 @@ export interface HospedajeFrontend {
   destacado?: boolean | null
   latitud?: number | null
   longitud?: number | null
+  googleMapsUrl?: string | null
   imagenes?: string[]
   creadoEn?: string
   actualizadoEn?: string | null

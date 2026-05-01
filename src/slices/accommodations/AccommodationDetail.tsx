@@ -1,7 +1,7 @@
 import { useParams } from "@tanstack/react-router";
 import { ReservationForm } from "./components/ReservationForm";
 import AccommodationImageGallery from "./components/AccommodationImageGallery";
-import { AccommodationLocationMap } from "./components/AccommodationLocationMap";
+import AccommodationLocationMap from "./components/AccommodationLocationMap.tsx";
 import { useHospedajeDetail } from "./hooks/useHospedajeDetail";
 import { useHospedajeReglas } from "./hooks/useHospedajeReglas";
 import { useHospedajeServicios } from "./hooks/useHospedajeServicios";
@@ -237,22 +237,9 @@ const AccommodationDetail = () => {
           </div>
 
           {/* Mapa de ubicación */}
-          {hospedaje.latitud && hospedaje.longitud ? (
-            <div className="w-full">
-              <AccommodationLocationMap
-                ubicacion={{
-                  lat: hospedaje.latitud as number,
-                  lng: hospedaje.longitud as number
-                }}
-              />
-            </div>
-          ) : (
-            <div className="bg-amber-50 border-l-4 border-amber-400 rounded-r-lg p-6">
-              <p className="text-amber-700 text-sm">
-                📍 Ubicación no disponible en este momento
-              </p>
-            </div>
-          )}
+          <div className="w-full">
+            <AccommodationLocationMap googleMapsUrl={hospedaje.google_maps_url} />
+          </div>
         </div>
       </div>
       <Toaster />

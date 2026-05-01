@@ -1,9 +1,9 @@
 import { AccommodationCard } from './AccommodationCard'
-import type { Hospedaje } from '../model/accomodationType'
+import type { HospedajeFrontend } from '../model/accomodationType'
 import { Skeleton } from '@/components/ui/Skeleton'
 
 interface AccommodationsGridProps {
-  accommodations: Hospedaje[]
+  accommodations: HospedajeFrontend[]
   loading?: boolean
   error?: string | null
   onAccommodationClick?: (id: string) => void
