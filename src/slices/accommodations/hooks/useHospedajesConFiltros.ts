@@ -1,9 +1,9 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import type { Hospedaje } from '../type'
-import { getHospedajes } from '../api/getHospedajes'
+import type { Hospedaje } from '../model/accomodationType'
 import { getHospedajesByPrice } from '../api/getHospedajesByPrice'
 import { searchHospedajes } from '../api/getHospedajesByLocation'
+import getHospedajes from '../api/getHospedajes'
 
 export interface FiltrosBusquedaHospedajes {
   canton?: string
@@ -56,10 +56,15 @@ export function useHospedajesConFiltros() {
     enabled,
     staleTime: 3 * 60 * 1000, // 3 minutos
     refetchOnWindowFocus: false,
-    select: (data: Hospedaje[]) => {
-      // Aplicar filtros adicionales que no están cubiertos por las APIs
-      let resultado = data || []
+    select: (data: any[]) => {
+      // Mapear fields desde BD al formato esperado por el frontend
+      let resultado: Hospedaje[] = (data || []).map((row: any) => ({
+        ...row,
+        precioNoche: Number(row.precio_noche || 0),
+        baños: row.banos || 0,
+      }))
 
+      // Aplicar filtros adicionales
       if (filtrosActivos.cuartos !== undefined && filtrosActivos.cuartos > 0) {
         resultado = resultado.filter(h => h.cuartos >= filtrosActivos.cuartos!)
       }
@@ -69,20 +74,19 @@ export function useHospedajesConFiltros() {
       }
 
       if (filtrosActivos.baños !== undefined && filtrosActivos.baños > 0) {
-        resultado = resultado.filter(h => h.baños >= filtrosActivos.baños!)
+        resultado = resultado.filter(h => (h as any).baños >= filtrosActivos.baños!)
       }
 
-      // Si se aplicaron filtros de precio pero no se usó la API de precio
-      if (
-        (filtrosActivos.precioMin !== undefined || filtrosActivos.precioMax !== undefined) &&
-        filtrosActivos.canton
-      ) {
-        if (filtrosActivos.precioMin !== undefined) {
-          resultado = resultado.filter(h => h.precioNoche >= filtrosActivos.precioMin!)
-        }
-        if (filtrosActivos.precioMax !== undefined) {
-          resultado = resultado.filter(h => h.precioNoche <= filtrosActivos.precioMax!)
-        }
+      if (filtrosActivos.canton) {
+        resultado = resultado.filter(h => (h.ubicacion || '').toLowerCase().includes(filtrosActivos.canton!.toLowerCase()))
+      }
+
+      if (filtrosActivos.precioMin !== undefined) {
+        resultado = resultado.filter(h => h.precioNoche >= filtrosActivos.precioMin!)
+      }
+
+      if (filtrosActivos.precioMax !== undefined) {
+        resultado = resultado.filter(h => h.precioNoche <= filtrosActivos.precioMax!)
       }
 
       return resultado

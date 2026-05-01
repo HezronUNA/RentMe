@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { auth } from '@/api/firebase'
-import type { CrearReservaHospedaje } from '../type'
+import type { CrearReservaHospedaje } from '../model/accomodationType'
 import { toast } from 'sonner'
 import { crearReservaHospedaje } from '../api/reservaHospedajeService' // Agregar esta importación
 
@@ -298,7 +298,7 @@ export const useAccomodationForm = ({
 
       // Crear la reserva directamente usando el servicio
       console.log('Creando reserva en Firebase...', reservationData)
-      const newReservationId = await crearReservaHospedaje(reservationData, pricePerNight)
+      const newReservationId = await crearReservaHospedaje(reservationData)
       
       console.log('Reserva creada con ID:', newReservationId)
 
