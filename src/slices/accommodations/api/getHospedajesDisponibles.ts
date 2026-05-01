@@ -1,6 +1,6 @@
 import { db } from "@/api/firebase"
 import { collection, CollectionReference, getDocs, query, where, orderBy } from "firebase/firestore"
-import type { Hospedaje, HospedajeFirestore, ReservaHospedajeFirestore } from "../type"
+import type { Hospedaje, HospedajeFirestore, ReservaHospedajeFirestore } from "../model/accomodationType"
 
 const hospedajesCol = collection(db, "hospedaje") as CollectionReference<HospedajeFirestore>
 const reservasCol = collection(db, "reservasHospedajes") as CollectionReference<ReservaHospedajeFirestore>

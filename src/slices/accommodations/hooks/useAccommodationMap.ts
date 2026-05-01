@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { UbicacionHospedaje } from '../type';
+import type { UbicacionHospedaje } from '../model/accomodationType';
 
 interface UseAccommodationMapProps {
   ubicacion?: UbicacionHospedaje;

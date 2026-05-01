@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import type { Hospedaje } from '../type'
+import type { Hospedaje } from '../model/accomodationType'
 import { getHospedajesByPrice } from '../api/getHospedajesByPrice'
 import { searchHospedajes } from '../api/getHospedajesByLocation'
 import getHospedajes from '../api/getHospedajes'

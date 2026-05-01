@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { crearReservaHospedaje } from '../api/reservaHospedajeService'
-import type { CrearReservaHospedaje } from '../type'
+import type { CrearReservaHospedaje } from '../model/accomodationType'
 
 interface UseCreateReservationProps {
   pricePerNight: number

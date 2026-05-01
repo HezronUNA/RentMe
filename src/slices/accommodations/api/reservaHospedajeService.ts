@@ -7,7 +7,7 @@ import {
 import type { 
   ReservaHospedajeFirestore, 
   CrearReservaHospedaje
-} from "../type"
+} from "../model/accomodationType"
 
 const reservasCol = collection(db, "reservaHospedaje") as CollectionReference<ReservaHospedajeFirestore>
 

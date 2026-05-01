@@ -1,7 +1,7 @@
 import React from 'react';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import { useAccommodationMap } from '../hooks/useAccommodationMap';
-import type { UbicacionHospedaje } from '../type';
+import type { UbicacionHospedaje } from '../model/accomodationType';
 import { H3, H4, P } from '@/components/ui/Typography';
 
 interface AccommodationLocationMapProps {

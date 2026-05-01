@@ -1,5 +1,5 @@
 import { AccommodationCard } from './AccommodationCard'
-import type { Hospedaje } from '../type'
+import type { Hospedaje } from '../model/accomodationType'
 import { Skeleton } from '@/components/ui/Skeleton'
 
 interface AccommodationsGridProps {

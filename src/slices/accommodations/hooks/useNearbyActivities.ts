@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs, doc } from 'firebase/firestore';
-import type { ActividadCercana } from '../type';
+import type { ActividadCercana } from '../model/accomodationType';
 import { db } from '@/api/firebase';
 
 export const useNearbyActivities = (hospedajeId: string) => {

@@ -1,9 +1,9 @@
 import { supabase } from '@/api/supabase/client'
-import type { Hospedaje } from '@/slices/accommodations/type'
+import type { HospedajeFrontend } from '../model/accomodationType'
 
 export class HospedajesService {
   /** Obtener todos los hospedajes activos - imagenes y ubicacion están en la misma tabla */
-  static async getAll(): Promise<Hospedaje[]> {
+  static async getAll(): Promise<HospedajeFrontend[]> {
     try {
       const { data, error } = await supabase
         .from('hospedajes')
@@ -14,7 +14,7 @@ export class HospedajesService {
       if (error) throw error
 
       // La tabla ya contiene imagenes (ARRAY) y ubicacion directamente
-      return (data || []) as unknown as Hospedaje[]
+      return (data || []) as unknown as HospedajeFrontend[]
     } catch (err: any) {
       console.error('Error in HospedajesService.getAll():', err)
       throw err
@@ -22,7 +22,7 @@ export class HospedajesService {
   }
 
   /** Obtener hospedaje por ID - imagenes y ubicacion en la misma tabla */
-  static async getById(id: string): Promise<Hospedaje | null> {
+  static async getById(id: string): Promise<HospedajeFrontend | null> {
     try {
       const { data, error } = await supabase
         .from('hospedajes')
@@ -35,7 +35,7 @@ export class HospedajesService {
         throw error
       }
 
-      return data as unknown as Hospedaje
+      return data as unknown as HospedajeFrontend
     } catch (err: any) {
       console.error('Error in HospedajesService.getById():', err)
       throw err
@@ -44,8 +44,8 @@ export class HospedajesService {
 }
 
 // Funciones wrapper para uso directo (React Query compatible)
-export const getHospedajes = (): Promise<Hospedaje[]> => HospedajesService.getAll()
+export const getHospedajes = (): Promise<HospedajeFrontend[]> => HospedajesService.getAll()
 
-export const getHospedajeById = (id: string): Promise<Hospedaje | null> => HospedajesService.getById(id)
+export const getHospedajeById = (id: string): Promise<HospedajeFrontend | null> => HospedajesService.getById(id)
 
 export default getHospedajes

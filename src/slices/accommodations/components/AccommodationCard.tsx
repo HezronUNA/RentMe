@@ -1,6 +1,6 @@
 
 import type { MouseEvent } from 'react'
-import type { Hospedaje } from "../type"
+import type { Hospedaje } from "../model/accomodationType"
 import { useNavigate } from "@tanstack/react-router"
 import { MapPin, Bed, Home } from 'lucide-react'
 import { Small } from '@/components/ui/Typography'
