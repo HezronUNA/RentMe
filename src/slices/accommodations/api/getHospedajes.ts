@@ -1,24 +1,51 @@
-import { db } from "@/api/firebase"
-import { collection, CollectionReference, getDocs } from "firebase/firestore"
-import type { Hospedaje, HospedajeFirestore } from "../type"
+import { supabase } from '@/api/supabase/client'
+import type { HospedajeFrontend } from '../model/accomodationType'
 
-const hospedajesCol = collection(db, "hospedaje") as CollectionReference<HospedajeFirestore>
+export class HospedajesService {
+  /** Obtener todos los hospedajes activos - imagenes y ubicacion están en la misma tabla */
+  static async getAll(): Promise<HospedajeFrontend[]> {
+    try {
+      const { data, error } = await supabase
+        .from('hospedajes')
+        .select('*')
+        .eq('activo', true)
+        .order('creado_en', { ascending: false })
 
-export async function getHospedajes(): Promise<Hospedaje[]> {
-  try {
-    const snapshot = await getDocs(hospedajesCol)
-    return snapshot.docs.map(doc => {
-      const data = doc.data()
-      return {
-        id: doc.id,
-        ...data,
-        // Normalizamos las imágenes para manejar ambos casos (mayúscula/minúscula)
-        imagenes: data.imagenes || data.Imagenes || []
-      } as Hospedaje
-    })
-  } catch (error) {
-    console.error("Error obteniendo hospedajes:", error)
-    throw error
+      if (error) throw error
+
+      // La tabla ya contiene imagenes (ARRAY) y ubicacion directamente
+      return (data || []) as unknown as HospedajeFrontend[]
+    } catch (err: any) {
+      console.error('Error in HospedajesService.getAll():', err)
+      throw err
+    }
+  }
+
+  /** Obtener hospedaje por ID - imagenes y ubicacion en la misma tabla */
+  static async getById(id: string): Promise<HospedajeFrontend | null> {
+    try {
+      const { data, error } = await supabase
+        .from('hospedajes')
+        .select('*')
+        .eq('id', id)
+        .single()
+
+      if (error) {
+        if ((error as any).code === 'PGRST116') return null
+        throw error
+      }
+
+      return data as unknown as HospedajeFrontend
+    } catch (err: any) {
+      console.error('Error in HospedajesService.getById():', err)
+      throw err
+    }
   }
 }
 
+// Funciones wrapper para uso directo (React Query compatible)
+export const getHospedajes = (): Promise<HospedajeFrontend[]> => HospedajesService.getAll()
+
+export const getHospedajeById = (id: string): Promise<HospedajeFrontend | null> => HospedajesService.getById(id)
+
+export default getHospedajes

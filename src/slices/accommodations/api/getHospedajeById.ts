@@ -1,22 +1,35 @@
-import { db } from "@/api/firebase"
-import { doc, getDoc } from "firebase/firestore"
-import type { Hospedaje, HospedajeFirestore } from "../type"
+import { supabase } from "@/api/supabase"
+import type { HospedajeCompleto } from "../model/accomodationType"
 
-// ✅ Obtener un hospedaje específico por ID
-export async function getHospedajeById(id: string): Promise<Hospedaje | null> {
+/**
+ * Obtener un hospedaje específico por ID desde Supabase
+ * Incluye: información básica y tipo
+ *
+ * @param id - UUID del hospedaje
+ * @returns HospedajeCompleto o null si no existe
+ */
+export async function getHospedajeById(id: string): Promise<HospedajeCompleto | null> {
   try {
-    const docRef = doc(db, "hospedaje", id)
-    const docSnap = await getDoc(docRef)
-    
-    if (!docSnap.exists()) return null
-    
-    const data = docSnap.data() as HospedajeFirestore
-    return {
-      id: docSnap.id,
-      ...data,
-      // Normalizamos las imágenes para manejar ambos casos (mayúscula/minúscula)
-      imagenes: data.imagenes || data.Imagenes || []
-    } as Hospedaje
+    const { data, error } = await supabase
+      .from("hospedajes")
+      .select(
+        `
+        *,
+        tipo:tipo_hospedaje(*)
+      `
+      )
+      .eq("id", id)
+      .single()
+
+    if (error) {
+      if (error.code === "PGRST116") {
+        // No rows found
+        return null
+      }
+      throw error
+    }
+
+    return data as HospedajeCompleto
   } catch (error) {
     console.error("Error obteniendo hospedaje por ID:", error)
     throw error

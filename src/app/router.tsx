@@ -12,6 +12,8 @@ import ScrollToTop from '@/components/ui/ScrollToTop'
 const HomePage = lazy(() => import('../pages/Index'))
 const AboutUsPage = lazy(() => import('../pages/AboutUsPage'))
 const TermsAndConditionsPage = lazy(() => import('../pages/TermsAndConditionsPage'))
+const ToursPage = lazy(() => import('../pages/ToursPage'))
+const AdminPage = lazy(() => import('../pages/AdminPage'))
 const NotFoundPage = lazy(() => import('../app/NotFoundPage'))
 const AccommodationsPage = lazy(() => import("../slices/accommodations/Page"))
 const SalesPage = lazy(() => import("../slices/sales/Page"))
@@ -80,6 +82,18 @@ const serviciosRoute = createRoute({
   component: ServicesPage,
 })
 
+const toursRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/tours",
+  component: ToursPage,
+})
+        
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/administracion",
+  component: AdminPage,
+  })
+  
 const reservarServicioRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/reservar-servicio",
@@ -88,14 +102,16 @@ const reservarServicioRoute = createRoute({
 
 // Árbol de rutas
 const routeTree = rootRoute.addChildren([
-   homeRoute,
+  homeRoute,
   nosotrosRoute,
   termsAndConditionsRoute,
+  toursRoute,
   alojamientosRoute,
   alojamientoDetailRoute,
   ventasRoute,
   ventaDetailRoute,
   serviciosRoute,
+  adminRoute,
   reservarServicioRoute
 ])
 

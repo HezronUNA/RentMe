@@ -1,40 +1,65 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { crearReservaHospedaje } from '../api/reservaHospedajeService'
-import type { CrearReservaHospedaje } from '../type'
+import type { CrearReservaHospedaje } from '../model/accomodationType'
+import { buildWhatsAppHref, SOCIAL_CONFIG } from '@/utils/socialMediaConfig'
 
 interface UseCreateReservationProps {
-  pricePerNight: number
+  accommodationName?: string
 }
 
-export const useCreateReserve = ({ pricePerNight }: UseCreateReservationProps) => {
+function buildWhatsappMessage(reservationData: CrearReservaHospedaje, accommodationName?: string) {
+  const checkIn = typeof reservationData.fechaCheckIn === 'string'
+    ? reservationData.fechaCheckIn
+    : reservationData.fechaCheckIn.toISOString().split('T')[0]
+
+  const checkOut = typeof reservationData.fechaCheckOut === 'string'
+    ? reservationData.fechaCheckOut
+    : reservationData.fechaCheckOut.toISOString().split('T')[0]
+
+  return [
+    'Hola, quiero reservar este hospedaje.',
+    '',
+    accommodationName ? `Hospedaje: ${accommodationName}` : null,
+    `Nombre: ${reservationData.nombre}`,
+    `Correo: ${reservationData.email}`,
+    `Teléfono: ${reservationData.telefono}`,
+    `Huéspedes: ${reservationData.numeroHuespedes}`,
+    `Check-in: ${checkIn}`,
+    `Check-out: ${checkOut}`,
+    reservationData.mensaje ? `Mensaje: ${reservationData.mensaje}` : null,
+  ]
+    .filter(Boolean)
+    .join('\n')
+}
+
+export const useCreateReserve = ({ accommodationName }: UseCreateReservationProps = {}) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [reservationId, setReservationId] = useState<string | null>(null)
+
+  const whatsappPhone =
+    SOCIAL_CONFIG.find((entry) => entry.platform === 'whatsapp')?.phone ?? '50683888231'
 
   const createReservation = async (reservationData: CrearReservaHospedaje) => {
     setIsLoading(true)
     setError(null)
 
-    // Toast de carga
     const loadingToast = toast.loading('Creando reserva...', {
       description: 'Procesando tu solicitud de reserva',
     })
 
     try {
-      // Crear la reserva en Firebase
-      console.log('Creando reserva en Firebase...', reservationData)
-      const newReservationId = await crearReservaHospedaje(reservationData, pricePerNight)
-      
-      console.log('Reserva creada con ID:', newReservationId)
+      const newReservationId = await crearReservaHospedaje(reservationData)
       setReservationId(newReservationId)
 
-      // Dismiss loading toast
+      const whatsappMessage = buildWhatsappMessage(reservationData, accommodationName)
+      const whatsappLink = buildWhatsAppHref(whatsappPhone, whatsappMessage)
+
       toast.dismiss(loadingToast)
 
-      // Toast de éxito
       toast.success('¡Reserva creada exitosamente!', {
-        description: `Tu solicitud de reserva ha sido registrada`,
+        description: 'Tu solicitud fue registrada y se abrirá WhatsApp para continuar.',
         duration: 5000,
         style: {
           backgroundColor: '#10B981',
@@ -53,14 +78,15 @@ export const useCreateReserve = ({ pricePerNight }: UseCreateReservationProps) =
         },
       })
 
-      return newReservationId
+      window.open(whatsappLink, '_blank', 'noopener,noreferrer')
 
-    } catch (err: any) {
+      return newReservationId
+    } catch (err) {
       console.error('Error creando reserva:', err)
-      
+
       toast.dismiss(loadingToast)
-      
-      const errorMessage = err.message || 'Error al crear la reserva'
+
+      const errorMessage = err instanceof Error ? err.message : 'Error al crear la reserva'
       setError(errorMessage)
 
       toast.error('Error al crear la reserva', {
@@ -89,7 +115,7 @@ export const useCreateReserve = ({ pricePerNight }: UseCreateReservationProps) =
     isLoading,
     error,
     reservationId,
-    resetState
+    resetState,
   }
 }
 

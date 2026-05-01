@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { AccommodationDestination } from './AccommodationDestination';
-import { AccommodationDates } from './AccommodationDates';
-import { AccommodationGuests } from './AccommodationGuests';
+import { AccommodationGuests } from './AccommodationRooms';
 import { AccommodationSearchButton } from './AccommodationSearchButton';
-import { useAccommodationSearch, type AccommodationSearchFilters } from '../../../hooks/useAccommodationSearch';
+
+export interface AccommodationSearchFilters {
+  destino: string;
+  cuartos: number;
+}
 
 interface AccommodationSearchBoxProps {
   variant: 'desktop' | 'mobile';
@@ -10,27 +14,26 @@ interface AccommodationSearchBoxProps {
 }
 
 export function AccommodationSearchBox({ variant, onSearchFilters }: AccommodationSearchBoxProps) {
-  const [
-    { destino, entrada, salida, huespedes },
-    { 
-      handleDestinoChange,
-      handleEntradaChange,
-      handleSalidaChange,
-      increaseHuespedes,
-      decreaseHuespedes,
-      getFiltrosActuales
-    }
-  ] = useAccommodationSearch();
+  const [destino, setDestino] = useState('');
+  const [cuartos, setCuartos] = useState(0);
 
   const handleSearchClick = () => {
-    const filtros = getFiltrosActuales();
+    const filtros: AccommodationSearchFilters = {
+      destino,
+      cuartos,
+    };
     
-    // Llamar la función de callback si existe
     if (onSearchFilters) {
       onSearchFilters(filtros);
     }
-    
-    console.log('Filtros de búsqueda:', filtros);
+  };
+
+  const increaseHuespedes = () => {
+    setCuartos((prev) => prev + 1);
+  };
+
+  const decreaseHuespedes = () => {
+    setCuartos((prev) => Math.max(0, prev - 1));
   };
 
   if (variant === 'desktop') {
@@ -39,18 +42,11 @@ export function AccommodationSearchBox({ variant, onSearchFilters }: Accommodati
         <AccommodationDestination 
           variant="desktop" 
           destino={destino}
-          onDestinoChange={handleDestinoChange}
-        />
-        <AccommodationDates
-          variant="desktop"
-          entrada={entrada}
-          salida={salida}
-          onEntradaChange={handleEntradaChange}
-          onSalidaChange={handleSalidaChange}
+          onDestinoChange={setDestino}
         />
         <AccommodationGuests
           variant="desktop"
-          huespedes={huespedes}
+          cuartos={cuartos}
           onDecrease={decreaseHuespedes}
           onIncrease={increaseHuespedes}
         />
@@ -72,18 +68,11 @@ export function AccommodationSearchBox({ variant, onSearchFilters }: Accommodati
       <AccommodationDestination 
         variant="mobile" 
         destino={destino}
-        onDestinoChange={handleDestinoChange}
-      />
-      <AccommodationDates
-        variant="mobile"
-        entrada={entrada}
-        salida={salida}
-        onEntradaChange={handleEntradaChange}
-        onSalidaChange={handleSalidaChange}
+        onDestinoChange={setDestino}
       />
       <AccommodationGuests
         variant="mobile"
-        huespedes={huespedes}
+        cuartos={cuartos}
         onDecrease={decreaseHuespedes}
         onIncrease={increaseHuespedes}
       />

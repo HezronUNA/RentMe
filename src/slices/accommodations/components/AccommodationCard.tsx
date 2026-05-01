@@ -1,13 +1,13 @@
 
 import type { MouseEvent } from 'react'
-import type { Hospedaje } from "../type"
+import type { HospedajeFrontend } from "../model/accomodationType"
 import { useNavigate } from "@tanstack/react-router"
 import { MapPin, Bed, Home } from 'lucide-react'
 import { Small } from '@/components/ui/Typography'
 import { Button } from '@/components/ui/button'
 
 interface AccommodationCardProps {
-  accommodation: Hospedaje
+  accommodation: HospedajeFrontend
   onAccommodationClick?: (id: string) => void
 }
 
@@ -29,9 +29,13 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
     }
   }
 
-  const img = accommodation.imagenes && accommodation.imagenes.length > 0 
-    ? accommodation.imagenes[0] 
-    : "https://placehold.co/600x360"
+  const img = (() => {
+    if (!accommodation.imagenes || accommodation.imagenes.length === 0) return 'https://placehold.co/600x360'
+    // imagenes es un array de strings (URLs)
+    const primeraImagen = accommodation.imagenes[0]
+    if (typeof primeraImagen === 'string' && primeraImagen.length > 0) return primeraImagen
+    return 'https://placehold.co/600x360'
+  })()
 
   return (
     <article 
@@ -82,7 +86,7 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
         {/* Ubicación con icono */}
         <div className="flex items-center  gap-2">
           <MapPin className="h-4 w-4 text-zinc-600" />
-          <p className="text-lg text-zinc-600 font-bold">{accommodation.ubicacion.direccion}</p>
+          <p className="text-lg text-zinc-600 font-bold">{accommodation.ubicacion}</p>
         </div>
 
         {/* Características compactas */}
@@ -99,7 +103,7 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 7v1m0 4v1m4-5v1m0 4v1" />
             </svg>
             <span className="text-[11px] text-zinc-600 mt-1">Baños</span>
-            <span className="text-sm font-medium text-zinc-900 mt-1">{accommodation.baños}</span>
+            <span className="text-sm font-medium text-zinc-900 mt-1">{(accommodation as any).baños}</span>
           </div>
 
           <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
