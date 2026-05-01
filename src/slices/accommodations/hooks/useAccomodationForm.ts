@@ -298,7 +298,7 @@ export const useAccomodationForm = ({
 
       // Crear la reserva directamente usando el servicio
       console.log('Creando reserva en Firebase...', reservationData)
-      const newReservationId = await crearReservaHospedaje(reservationData, pricePerNight)
+      const newReservationId = await crearReservaHospedaje(reservationData)
       
       console.log('Reserva creada con ID:', newReservationId)
 

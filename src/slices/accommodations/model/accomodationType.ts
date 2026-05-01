@@ -26,6 +26,72 @@ export interface ReglaDB {
   descripcion?: string | null
 }
 
+export interface ReservaHospedajeDB {
+  id: string
+  hospedaje_id: string
+  nombre_cliente: string
+  telefono: string
+  correo: string
+  cantidad_huespedes: number
+  fecha_inicio: string
+  fecha_fin: string
+  estado?: 'pendiente' | 'confirmada' | 'cancelada'
+  creado_en?: string
+}
+
+export interface ReservaHospedajeInsert {
+  id?: string
+  hospedaje_id: string
+  nombre_cliente: string
+  telefono: string
+  correo: string
+  cantidad_huespedes: number
+  fecha_inicio: string
+  fecha_fin: string
+  estado?: 'pendiente' | 'confirmada' | 'cancelada'
+  creado_en?: string
+}
+
+export interface ReservaHospedajeUpdate {
+  hospedaje_id?: string
+  nombre_cliente?: string
+  telefono?: string
+  correo?: string
+  cantidad_huespedes?: number
+  fecha_inicio?: string
+  fecha_fin?: string
+  estado?: 'pendiente' | 'confirmada' | 'cancelada'
+}
+
+export interface ReservaHospedajeFrontend {
+  id: string
+  hospedajeId: string
+  nombreCliente: string
+  telefono: string
+  correo: string
+  cantidadHuespedes: number
+  fechaInicio: string
+  fechaFin: string
+  estado?: 'pendiente' | 'confirmada' | 'cancelada'
+  creadoEn?: string
+}
+
+export interface CrearReservaHospedaje {
+  hospedajeId: string
+  hospedajeNombre?: string
+  nombre: string
+  email: string
+  telefono: string
+  fechaCheckIn: string | Date
+  fechaCheckOut: string | Date
+  numeroHuespedes: number
+  mensaje?: string
+  googleUserId?: string
+  googleUserData?: unknown
+}
+
+export type ReservaHospedajeFirestore = ReservaHospedajeDB
+
 
 
 export interface ReseniaDB {

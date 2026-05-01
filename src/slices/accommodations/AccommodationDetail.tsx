@@ -5,7 +5,6 @@ import { AccommodationLocationMap } from "./components/AccommodationLocationMap"
 import { useHospedajeDetail } from "./hooks/useHospedajeDetail";
 import { useHospedajeReglas } from "./hooks/useHospedajeReglas";
 import { useHospedajeServicios } from "./hooks/useHospedajeServicios";
-import NearbyActivitiesCarousel from "./components/NearbyActivitiesCarousel";
 import ReviewAccommodation from "./components/ReviewAccommodation";
 import { Toaster } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -220,9 +219,6 @@ const AccommodationDetail = () => {
                   </div>
                 </section>
               )}
-
-              {/* Actividades cercanas */}
-              <NearbyActivitiesCarousel hospedajeId={accommodationId} />
             </article>
 
             {/* Columna derecha: Formulario sticky */}
