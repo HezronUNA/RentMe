@@ -1,17 +1,25 @@
-import { db } from "@/api/firebase"
-import { doc, getDoc } from "firebase/firestore"
-import type { PropiedadVenta, PropiedadVentaFirestore } from "../type"
+import { supabase } from "@/api/supabase/client"
+import type { PropiedadVenta } from "../type"
+import { mapSupabasePropiedad, obtenerAmenidadesPorPropiedades } from "./supabaseMapper"
 
 // ✅ Obtener una propiedad específica por ID
 export async function getPropiedadById(id: string): Promise<PropiedadVenta | null> {
-  const docRef = doc(db, "propiedadesVenta", id)
-  const docSnap = await getDoc(docRef)
-  
-  if (!docSnap.exists()) return null
-  
-  return {
-    id: docSnap.id,
-    ...(docSnap.data() as PropiedadVentaFirestore)
+  const { data, error } = await supabase
+    .from("propiedades_venta")
+    .select("*")
+    .eq("id", id)
+    .single()
+
+  if (error) {
+    if (error.code === "PGRST116") return null
+    throw error
   }
+
+  const amenidadesMap = await obtenerAmenidadesPorPropiedades([data.id])
+
+  return mapSupabasePropiedad({
+    ...data,
+    propiedad_amenidades: amenidadesMap[data.id] || [],
+  })
 }
 

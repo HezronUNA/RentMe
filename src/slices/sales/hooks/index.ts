@@ -10,6 +10,10 @@ export { usePropiedadesConFiltros, type FiltrosBusqueda } from './usePropiedades
 // Hook para la galería de imágenes
 export { usePropertyImageGallery } from './usePropertyImageGallery'
 
+// Hooks para crear reservas y contacto
+export { useCreatePropertyReserve } from './useCreatePropertyReserve'
+export { useContactFormLogic } from './useContactFormLogic'
+
 // Hooks para mutations (crear, actualizar, eliminar)
 export { 
   useCreatePropiedad, 
