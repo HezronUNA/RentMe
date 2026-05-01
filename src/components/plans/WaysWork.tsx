@@ -1,5 +1,6 @@
 import { H2, H4, P, Small } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 
 // Datos estáticos de las modalidades
 const MODALIDADES = [
@@ -91,11 +92,13 @@ function ModalidadCard({ modalidad, numero }: ModalidadCardProps) {
 
       <div className="flex justify-center mb-8">
         <Button
+          asChild
           variant="green"
           className="px-8 hover:cursor-pointer hover:bg-[#435349]"
-          onClick={() => {}}
         >
-          <Small className="font-medium">{modalidad.textBoton || 'Reservar'}</Small>
+          <Link to="/reservar-servicio" search={{ servicio: modalidad.nombre }}>
+            <Small className="font-medium">{modalidad.textBoton || 'Reservar'}</Small>
+          </Link>
         </Button>
       </div>
 
