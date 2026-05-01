@@ -1,6 +1,6 @@
 
 import { AccommodationSearchBox } from './components/AccommodationSearchBox';
-import type { AccommodationSearchFilters } from '../../hooks/useAccommodationSearch';
+import type { AccommodationSearchFilters } from './components/AccommodationSearchBox';
 import type { FiltrosBusquedaHospedajes } from '../../hooks/useHospedajesConFiltros';
 
 interface AccommodationsHeroProps {
@@ -22,12 +22,11 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
       if (filters.destino && filters.destino.trim() !== '') {
         filtrosConvertidos.canton = filters.destino.trim()
       }
-      
-      // Mapear huéspedes -> camas (lógica: necesitas al menos tantas camas como huéspedes)
-      if (filters.huespedes && filters.huespedes > 0) {
-        filtrosConvertidos.camas = filters.huespedes
+
+      if (filters.cuartos && filters.cuartos > 0) {
+        filtrosConvertidos.cuartos = filters.cuartos
       }
-      
+
       onApplyFilters(filtrosConvertidos);
     }
   };
