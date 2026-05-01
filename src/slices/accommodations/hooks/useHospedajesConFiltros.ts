@@ -1,17 +1,13 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import type { Hospedaje } from '../model/accomodationType'
-import { getHospedajesByPrice } from '../api/getHospedajesByPrice'
-import { searchHospedajes } from '../api/getHospedajesByLocation'
-import getHospedajes from '../api/getHospedajes'
+import type { HospedajeFrontend } from '../model/accomodationType'
+import { getHospedajesDisponibles } from '../api/getHospedajesDisponibles'
 
 export interface FiltrosBusquedaHospedajes {
   canton?: string
   precioMin?: number
   precioMax?: number
   cuartos?: number
-  camas?: number
-  baños?: number
 }
 
 /**
@@ -24,28 +20,13 @@ export function useHospedajesConFiltros() {
 
   // Determinar la función y query key basada en los filtros (igual que ventas)
   const { queryKey, queryFn, enabled } = useMemo(() => {
-    // Si hay filtros de precio válidos
-    if (filtrosActivos.precioMin !== undefined && filtrosActivos.precioMax !== undefined) {
-      return {
-        queryKey: ['hospedajes', 'filtered', { type: 'precio', ...filtrosActivos }],
-        queryFn: () => getHospedajesByPrice(filtrosActivos.precioMin!, filtrosActivos.precioMax!),
-        enabled: true
-      }
-    }
-    
-    // Si hay filtro de ubicación (canton)
-    if (filtrosActivos.canton) {
-      return {
-        queryKey: ['hospedajes', 'filtered', { type: 'ubicacion', ...filtrosActivos }],
-        queryFn: () => searchHospedajes(filtrosActivos.canton!),
-        enabled: true
-      }
-    }
-    
-    // Si no hay filtros específicos de API
     return {
       queryKey: ['hospedajes', 'filtered', { type: 'all', ...filtrosActivos }],
-      queryFn: getHospedajes,
+      queryFn: () => getHospedajesDisponibles({
+        ubicacion: filtrosActivos.canton,
+        precioMin: filtrosActivos.precioMin,
+        precioMax: filtrosActivos.precioMax,
+      }),
       enabled: true
     }
   }, [filtrosActivos])
@@ -56,37 +37,11 @@ export function useHospedajesConFiltros() {
     enabled,
     staleTime: 3 * 60 * 1000, // 3 minutos
     refetchOnWindowFocus: false,
-    select: (data: any[]) => {
-      // Mapear fields desde BD al formato esperado por el frontend
-      let resultado: Hospedaje[] = (data || []).map((row: any) => ({
-        ...row,
-        precioNoche: Number(row.precio_noche || 0),
-        baños: row.banos || 0,
-      }))
+    select: (data: HospedajeFrontend[] | null) => {
+      let resultado = data || []
 
-      // Aplicar filtros adicionales
-      if (filtrosActivos.cuartos !== undefined && filtrosActivos.cuartos > 0) {
-        resultado = resultado.filter(h => h.cuartos >= filtrosActivos.cuartos!)
-      }
-
-      if (filtrosActivos.camas !== undefined && filtrosActivos.camas > 0) {
-        resultado = resultado.filter(h => h.camas >= filtrosActivos.camas!)
-      }
-
-      if (filtrosActivos.baños !== undefined && filtrosActivos.baños > 0) {
-        resultado = resultado.filter(h => (h as any).baños >= filtrosActivos.baños!)
-      }
-
-      if (filtrosActivos.canton) {
-        resultado = resultado.filter(h => (h.ubicacion || '').toLowerCase().includes(filtrosActivos.canton!.toLowerCase()))
-      }
-
-      if (filtrosActivos.precioMin !== undefined) {
-        resultado = resultado.filter(h => h.precioNoche >= filtrosActivos.precioMin!)
-      }
-
-      if (filtrosActivos.precioMax !== undefined) {
-        resultado = resultado.filter(h => h.precioNoche <= filtrosActivos.precioMax!)
+      if (typeof filtrosActivos.cuartos === 'number' && filtrosActivos.cuartos > 0) {
+        resultado = resultado.filter((hospedaje) => hospedaje.cuartos >= filtrosActivos.cuartos!)
       }
 
       return resultado
@@ -117,7 +72,7 @@ export function useHospedajesConFiltros() {
     return {
       total,
       destacados,
-      promedioPrecio: total > 0 ? Math.round(hospedajes.reduce((sum: number, h: Hospedaje) => sum + h.precioNoche, 0) / total) : 0
+      promedioPrecio: total > 0 ? Math.round(hospedajes.reduce((sum: number, h: HospedajeFrontend) => sum + h.precioNoche, 0) / total) : 0
     }
   }, [query.data])
 
@@ -154,10 +109,6 @@ export const crearFiltrosDesdeSearchBox = (filtrosSearchBox: any): FiltrosBusque
 
   if (filtrosSearchBox.cuartos && filtrosSearchBox.cuartos > 0) {
     filtros.cuartos = filtrosSearchBox.cuartos
-  }
-
-  if (filtrosSearchBox.baños && filtrosSearchBox.baños > 0) {
-    filtros.baños = filtrosSearchBox.baños
   }
 
   const precioMinNum = parseFloat(filtrosSearchBox.price)

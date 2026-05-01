@@ -1,126 +1,60 @@
-import { db } from "@/api/firebase"
-import { collection, CollectionReference, getDocs, query, where, orderBy } from "firebase/firestore"
-import type { Hospedaje, HospedajeFirestore, ReservaHospedajeFirestore } from "../model/accomodationType"
+import { supabase } from '@/api/supabase/client'
+import type { HospedajeFrontend } from '../model/accomodationType'
 
-const hospedajesCol = collection(db, "hospedaje") as CollectionReference<HospedajeFirestore>
-const reservasCol = collection(db, "reservasHospedajes") as CollectionReference<ReservaHospedajeFirestore>
+export interface FiltroHospedajeSupabase {
+  ubicacion?: string
+  precioMin?: number
+  precioMax?: number
+}
 
-// ✅ Obtener hospedajes disponibles en un rango de fechas
+// Obtener hospedajes activos desde Supabase filtrando solo por ubicación y precio
 export async function getHospedajesDisponibles(
-  fechaCheckIn: Date,
-  fechaCheckOut: Date,
-  numeroHuespedes?: number
-): Promise<Hospedaje[]> {
+  filtros: FiltroHospedajeSupabase = {}
+): Promise<HospedajeFrontend[]> {
   try {
-    // 1. Obtener todas las reservas confirmadas que se superponen con las fechas solicitadas
-    const reservasQuery = query(
-      reservasCol,
-      where("estado", "==", "Confirmada")
-    )
-    
-    const reservasSnapshot = await getDocs(reservasQuery)
-    const reservasConflictivas = reservasSnapshot.docs
-      .map(doc => doc.data())
-      .filter(reserva => {
-        const checkInReserva = reserva.fechaCheckIn instanceof Date ? reserva.fechaCheckIn : new Date(reserva.fechaCheckIn)
-        const checkOutReserva = reserva.fechaCheckOut instanceof Date ? reserva.fechaCheckOut : new Date(reserva.fechaCheckOut)
-        
-        // Verificar si hay superposición de fechas
-        return (
-          (fechaCheckIn >= checkInReserva && fechaCheckIn < checkOutReserva) ||
-          (fechaCheckOut > checkInReserva && fechaCheckOut <= checkOutReserva) ||
-          (fechaCheckIn <= checkInReserva && fechaCheckOut >= checkOutReserva)
-        )
-      })
+    let query = supabase
+      .from('hospedajes')
+      .select('*')
+      .eq('activo', true)
+      .order('precio_noche', { ascending: true })
 
-    // 2. Obtener IDs de hospedajes ocupados
-    const hospedajesOcupados = new Set(reservasConflictivas.map(reserva => reserva.hospedajeId))
-
-    // 3. Obtener todos los hospedajes
-    let hospedajesQuery = query(hospedajesCol, orderBy("precioNoche", "asc"))
-    
-    // Filtrar por número de huéspedes si se especifica
-    if (numeroHuespedes !== undefined) {
-      hospedajesQuery = query(hospedajesQuery, where("camas", ">=", numeroHuespedes))
+    if (filtros.ubicacion?.trim()) {
+      query = query.ilike('ubicacion', `%${filtros.ubicacion.trim()}%`)
     }
 
-    const hospedajesSnapshot = await getDocs(hospedajesQuery)
-    
-    // 4. Filtrar hospedajes disponibles (no ocupados)
-    const hospedajesDisponibles = hospedajesSnapshot.docs
-      .map(doc => {
-        const data = doc.data()
-        return {
-          id: doc.id,
-          ...data,
-          imagenes: data.imagenes || data.Imagenes || []
-        } as Hospedaje
-      })
-      .filter(hospedaje => !hospedajesOcupados.has(hospedaje.id))
+    if (typeof filtros.precioMin === 'number') {
+      query = query.gte('precio_noche', filtros.precioMin)
+    }
 
-    return hospedajesDisponibles
+    if (typeof filtros.precioMax === 'number') {
+      query = query.lte('precio_noche', filtros.precioMax)
+    }
+
+    const { data, error } = await query
+
+    if (error) throw error
+
+    return (data || []).map((row) => ({
+      id: row.id,
+      nombre: row.nombre,
+      descripcion: row.descripcion,
+      cuartos: row.cuartos ?? 0,
+      banos: row.banos ?? 0,
+      camas: row.camas ?? 0,
+      tipoHospedajeId: row.tipo_hospedaje_id ?? null,
+      ubicacion: row.ubicacion ?? null,
+      precioNoche: Number(row.precio_noche ?? 0),
+      activo: row.activo ?? true,
+      destacado: row.destacado ?? null,
+      latitud: row.latitud ?? null,
+      longitud: row.longitud ?? null,
+      googleMapsUrl: row.google_maps_url ?? null,
+      imagenes: row.imagenes ?? [],
+      creadoEn: row.creado_en,
+      actualizadoEn: row.actualizado_en ?? null,
+    }))
   } catch (error) {
-    console.error("Error obteniendo hospedajes disponibles:", error)
-    throw error
-  }
-}
-
-// ✅ Verificar si un hospedaje específico está disponible en fechas dadas
-export async function isHospedajeDisponible(
-  hospedajeId: string,
-  fechaCheckIn: Date,
-  fechaCheckOut: Date
-): Promise<boolean> {
-  try {
-    const reservasQuery = query(
-      reservasCol,
-      where("hospedajeId", "==", hospedajeId),
-      where("estado", "==", "Confirmada")
-    )
-    
-    const reservasSnapshot = await getDocs(reservasQuery)
-    
-    // Verificar si alguna reserva se superpone con las fechas solicitadas
-    const hayConflicto = reservasSnapshot.docs.some(doc => {
-      const reserva = doc.data()
-      const checkInReserva = reserva.fechaCheckIn instanceof Date ? reserva.fechaCheckIn : new Date(reserva.fechaCheckIn)
-      const checkOutReserva = reserva.fechaCheckOut instanceof Date ? reserva.fechaCheckOut : new Date(reserva.fechaCheckOut)
-      
-      return (
-        (fechaCheckIn >= checkInReserva && fechaCheckIn < checkOutReserva) ||
-        (fechaCheckOut > checkInReserva && fechaCheckOut <= checkOutReserva) ||
-        (fechaCheckIn <= checkInReserva && fechaCheckOut >= checkOutReserva)
-      )
-    })
-
-    return !hayConflicto
-  } catch (error) {
-    console.error("Error verificando disponibilidad del hospedaje:", error)
-    throw error
-  }
-}
-
-// ✅ Obtener fechas ocupadas para un hospedaje específico
-export async function getFechasOcupadas(hospedajeId: string): Promise<{ checkIn: Date; checkOut: Date }[]> {
-  try {
-    const reservasQuery = query(
-      reservasCol,
-      where("hospedajeId", "==", hospedajeId),
-      where("estado", "in", ["Confirmada", "Pendiente"]),
-      orderBy("fechaCheckIn", "asc")
-    )
-    
-    const reservasSnapshot = await getDocs(reservasQuery)
-    
-    return reservasSnapshot.docs.map(doc => {
-      const reserva = doc.data()
-      return {
-        checkIn: reserva.fechaCheckIn instanceof Date ? reserva.fechaCheckIn : new Date(reserva.fechaCheckIn),
-        checkOut: reserva.fechaCheckOut instanceof Date ? reserva.fechaCheckOut : new Date(reserva.fechaCheckOut)
-      }
-    })
-  } catch (error) {
-    console.error("Error obteniendo fechas ocupadas:", error)
+    console.error('Error obteniendo hospedajes desde Supabase:', error)
     throw error
   }
 }

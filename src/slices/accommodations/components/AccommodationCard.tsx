@@ -1,13 +1,13 @@
 
 import type { MouseEvent } from 'react'
-import type { Hospedaje } from "../model/accomodationType"
+import type { HospedajeFrontend } from "../model/accomodationType"
 import { useNavigate } from "@tanstack/react-router"
 import { MapPin, Bed, Home } from 'lucide-react'
 import { Small } from '@/components/ui/Typography'
 import { Button } from '@/components/ui/button'
 
 interface AccommodationCardProps {
-  accommodation: Hospedaje
+  accommodation: HospedajeFrontend
   onAccommodationClick?: (id: string) => void
 }
 
