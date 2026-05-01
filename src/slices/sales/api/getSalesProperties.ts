@@ -1,14 +1,26 @@
-import { db } from "@/api/firebase"
-import { collection, CollectionReference, getDocs } from "firebase/firestore"
-import type { PropiedadVenta, PropiedadVentaFirestore } from "../type"
-
-const propiedadesVentaCol = collection(db, "propiedadesVenta") as CollectionReference<PropiedadVentaFirestore>
+import { supabase } from "@/api/supabase/client"
+import type { PropiedadVenta } from "../type"
+import { mapSupabasePropiedad, obtenerAmenidadesPorPropiedades } from "./supabaseMapper"
 
 export async function getPropiedadesVenta(): Promise<PropiedadVenta[]> {
-  const snapshot = await getDocs(propiedadesVentaCol)
-  return snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...(doc.data() as PropiedadVentaFirestore)
-  }))
+  const { data, error } = await supabase
+    .from("propiedades_venta")
+    .select("*")
+    .eq("activo", true)
+    .order("creado_en", { ascending: false })
+
+  if (error) {
+    throw error
+  }
+
+  const propiedadIds = (data || []).map((propiedad) => propiedad.id)
+  const amenidadesMap = await obtenerAmenidadesPorPropiedades(propiedadIds)
+
+  return (data || []).map((row) =>
+    mapSupabasePropiedad({
+      ...row,
+      propiedad_amenidades: amenidadesMap[row.id] || [],
+    }),
+  )
 }
 

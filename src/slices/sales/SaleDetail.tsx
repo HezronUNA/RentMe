@@ -70,7 +70,7 @@ const SaleDetail = () => {
         <div className="w-full max-w-7xl mx-auto">
           <PropertyImageGallery
             images={propiedad.imagenes}
-            alt={`Propiedad en ${propiedad.ubicacion.distrito}, ${propiedad.ubicacion.canton}`}
+            alt={`Propiedad en ${propiedad.ubicacion.distrito}`}
           />
         </div>
       </div>
@@ -85,7 +85,7 @@ const SaleDetail = () => {
             <article className="w-full">
               <header className="mb-6 md:mb-8">
                 <h1 className="text-3xl md:text-4xl font-bold text-[#52655B] leading-tight">
-                  {propiedad.ubicacion.distrito}, {propiedad.ubicacion.canton}
+                  {propiedad.ubicacion.distrito}
                 </h1>
               </header>
 
@@ -104,18 +104,6 @@ const SaleDetail = () => {
                   <p className="text-3xl font-extrabold text-[#52655B] leading-none">
                     ₡{formatPrice(propiedad.precio)}
                   </p>
-                  <span className="inline-flex items-center gap-2 text-sm text-gray-700">
-                    <span
-                      className={`inline-block h-2.5 w-2.5 rounded-full ${
-                        propiedad.estado === "Disponible"
-                          ? "bg-green-500"
-                          : propiedad.estado === "Reservada"
-                          ? "bg-yellow-500"
-                          : "bg-red-500"
-                      }`}
-                    />
-                    {propiedad.estado}
-                  </span>
                 </div>
               </section>
 
@@ -127,8 +115,6 @@ const SaleDetail = () => {
                   <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Detalles de la propiedad</h3>
                 </div>
               </div>
-
-              
 
               {/* Características principales - estilo minimal con tabla sin bordes redondeados */}
               <section className="mt-4">
@@ -204,7 +190,7 @@ const SaleDetail = () => {
               <p className="text-sm text-[#52655B] mb-4">Completa el formulario para coordinar tu visita.</p>
               <ContactForm
                 propertyId={propertyId}
-                propertyTitle={`Propiedad en ${propiedad.ubicacion.distrito}, ${propiedad.ubicacion.canton}`}
+                propertyTitle={`Propiedad en ${propiedad.ubicacion.canton}`}
               />
             </aside>
           </div>
