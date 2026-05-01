@@ -67,7 +67,7 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
         <div className="absolute left-0 right-0 bottom-4 flex justify-center pointer-events-none">
           <div className=" px-4 py-2 rounded-md text-center max-w-[92%] pointer-events-auto">
             <h3 className="text-white text-base md:text-lg font-semibold uppercase tracking-widest leading-6 line-clamp-2">
-              {`${property.ubicacion.distrito}, ${property.ubicacion.canton}`}
+              {`${property.ubicacion.distrito}`}
             </h3>
           </div>
         </div>
@@ -84,7 +84,7 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
         {/* Ubicación con icono */}
         <div className="flex items-center gap-2">
           <MapPin className="h-4 w-4 text-zinc-600" />
-          <p className="text-lg text-zinc-600 font-bold">{property.ubicacion.distrito}, {property.ubicacion.canton}</p>
+          <p className="text-lg text-zinc-600 font-bold">{property.ubicacion.distrito}</p>
         </div>
 
         {/* Características compactas */}

@@ -1,25 +1,29 @@
-import { db } from "@/api/firebase"
-import { collection, CollectionReference, getDocs, query, where } from "firebase/firestore"
-import type { PropiedadVenta, PropiedadVentaFirestore } from "../type"
-
-const propiedadesVentaCol = collection(db, "propiedadesVenta") as CollectionReference<PropiedadVentaFirestore>
+import { supabase } from "@/api/supabase/client"
+import type { PropiedadVenta } from "../type"
+import { mapSupabasePropiedad, obtenerAmenidadesPorPropiedades } from "./supabaseMapper"
 
 export async function getPropiedadesByPrecioAlternative(precioMin: number, precioMax: number): Promise<PropiedadVenta[]> {
-  // Query sin orderBy para evitar índice compuesto
-  const q = query(
-    propiedadesVentaCol,
-    where("estado", "==", "Disponible"),
-    where("precio", ">=", precioMin),
-    where("precio", "<=", precioMax)
-  )
-  
-  const snapshot = await getDocs(q)
-  const propiedades = snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...(doc.data() as PropiedadVentaFirestore)
-  }))
+  const { data, error } = await supabase
+    .from("propiedades_venta")
+    .select("*")
+    .eq("activo", true)
+    .eq("estado", "disponible")
+    .gte("precio", precioMin)
+    .lte("precio", precioMax)
+    .order("precio", { ascending: true })
 
-  // Ordenar en el cliente
-  return propiedades.sort((a, b) => a.precio - b.precio)
+  if (error) {
+    throw error
+  }
+
+  const propiedadIds = (data || []).map((propiedad) => propiedad.id)
+  const amenidadesMap = await obtenerAmenidadesPorPropiedades(propiedadIds)
+
+  return (data || []).map((row) =>
+    mapSupabasePropiedad({
+      ...row,
+      propiedad_amenidades: amenidadesMap[row.id] || [],
+    }),
+  )
 }
 
