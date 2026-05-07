@@ -34,7 +34,7 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
 
   if (variant === 'desktop') {
     return (
-      <div className="w-[1400px] bg-neutral-50 rounded-lg inline-flex items-stretch shadow-lg p-2">
+      <div className="w-full max-w-6xl bg-white rounded-full inline-flex items-stretch shadow-[0_8px_28px_rgba(0,0,0,0.12)] p-2 border border-zinc-200/80">
         <DestinationSection 
           variant="desktop" 
           ubicacion={ubicacion}
@@ -58,8 +58,8 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
 
   // Versión Mobile
   return (
-    <div className="w-[95%] max-w-2xl mx-auto bg-neutral-50 rounded-lg shadow-lg p-2 overflow-visible">
-      <div className="flex justify-between items-center px-6 py-4 border-b border-zinc-200 mx-2">
+    <div className="w-[95%] max-w-2xl mx-auto bg-white rounded-3xl shadow-[0_8px_28px_rgba(0,0,0,0.12)] border border-zinc-200/80 p-3 overflow-visible">
+      <div className="flex justify-between items-center px-4 py-3 border-b border-zinc-200/80">
         <div className="text-zinc-600 text-lg font-medium tracking-wide">
           Buscar Propiedades
         </div>

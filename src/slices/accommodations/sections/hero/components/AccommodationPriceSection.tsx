@@ -1,4 +1,4 @@
-interface PriceSectionProps {
+interface AccommodationPriceSectionProps {
   variant: 'desktop' | 'mobile';
   price: string;
   precioMax: string;
@@ -10,32 +10,32 @@ interface PriceSectionProps {
   onCurrencyToggle: () => void;
 }
 
-export function PriceSection({ 
-  variant, 
-  price, 
+export function AccommodationPriceSection({
+  variant,
+  price,
   precioMax,
-  currency, 
-  onPriceChange, 
+  currency,
+  onPriceChange,
   onPriceBlur,
   onPriceMaxChange,
   onPriceMaxBlur,
-  onCurrencyToggle 
-}: PriceSectionProps) {
+  onCurrencyToggle,
+}: AccommodationPriceSectionProps) {
   if (variant === 'desktop') {
     return (
       <div className="w-[360px] px-6 py-3 flex flex-col justify-center border-r border-zinc-200">
         <div className="text-zinc-700 text-xs font-semibold tracking-wide text-left mb-2 uppercase">
-          Rango de Precio
+          Rango de precio
         </div>
-        
+
         <div className="grid grid-cols-2 gap-2">
-          {/* Precio Mínimo */}
           <div className="relative">
             <span className="text-zinc-500 text-[11px] font-medium block mb-1">Desde</span>
             <div className="relative">
               <button
                 onClick={onCurrencyToggle}
                 className="absolute left-2 top-[58%] -translate-y-1/2 text-zinc-500 font-medium hover:text-zinc-700 transition-colors px-1"
+                type="button"
               >
                 {currency === 'USD' ? '$' : '₡'}
               </button>
@@ -50,13 +50,13 @@ export function PriceSection({
             </div>
           </div>
 
-          {/* Precio Máximo */}
           <div className="relative">
             <span className="text-zinc-500 text-[11px] font-medium block mb-1">Hasta</span>
             <div className="relative">
               <button
                 onClick={onCurrencyToggle}
                 className="absolute left-2 top-[58%] -translate-y-1/2 text-zinc-500 font-medium hover:text-zinc-700 transition-colors px-1"
+                type="button"
               >
                 {currency === 'USD' ? '$' : '₡'}
               </button>
@@ -78,17 +78,17 @@ export function PriceSection({
   return (
     <div className="px-4 py-4 border-b border-zinc-200/80">
       <div className="text-zinc-700 text-xs font-semibold tracking-wide mb-2 uppercase">
-        Rango de Precio
+        Rango de precio
       </div>
-      
+
       <div className="grid grid-cols-2 gap-2">
-        {/* Precio Mínimo - Mobile */}
         <div>
-          <label className="text-zinc-600 text-xs font-medium mb-1 block">Desde</label>
+          <label className="text-zinc-500 text-[11px] font-medium mb-1 block">Desde</label>
           <div className="relative">
             <button
               onClick={onCurrencyToggle}
               className="absolute left-3 top-[58%] -translate-y-1/2 text-zinc-500 text-sm font-medium hover:text-zinc-700 transition-colors px-1"
+              type="button"
             >
               {currency === 'USD' ? '$' : '₡'}
             </button>
@@ -103,13 +103,13 @@ export function PriceSection({
           </div>
         </div>
 
-        {/* Precio Máximo - Mobile */}
         <div>
-          <label className="text-zinc-600 text-xs font-medium mb-1 block">Hasta</label>
+          <label className="text-zinc-500 text-[11px] font-medium mb-1 block">Hasta</label>
           <div className="relative">
             <button
               onClick={onCurrencyToggle}
               className="absolute left-3 top-[58%] -translate-y-1/2 text-zinc-500 text-sm font-medium hover:text-zinc-700 transition-colors px-1"
+              type="button"
             >
               {currency === 'USD' ? '$' : '₡'}
             </button>
@@ -127,5 +127,4 @@ export function PriceSection({
     </div>
   );
 }
-
 

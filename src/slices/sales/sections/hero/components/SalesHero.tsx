@@ -35,7 +35,7 @@ export function SalesHero({ onApplyFilters }: SalesHeroProps) {
       {heroData.imagen && <div className="absolute inset-0 bg-black/60" />}
 
       <div className="relative z-10 w-full px-4 pt-6 md:pt-8 overflow-visible">
-        <div className="max-w-4xl mx-auto space-y-5 overflow-visible">
+        <div className="max-w-7xl mx-auto space-y-5 overflow-visible">
           <div className="space-y-2">
             <H1>
               {heroData.titulo}
