@@ -1,4 +1,4 @@
-interface PriceSectionProps {
+interface AccommodationPriceSectionProps {
   variant: 'desktop' | 'mobile';
   price: string;
   precioMax: string;
@@ -19,7 +19,7 @@ function ColonesMark({ className = 'left-2.5' }: { className?: string }) {
   );
 }
 
-export function PriceSection({
+export function AccommodationPriceSection({
   variant,
   price,
   precioMax,
@@ -27,12 +27,12 @@ export function PriceSection({
   onPriceBlur,
   onPriceMaxChange,
   onPriceMaxBlur,
-}: PriceSectionProps) {
+}: AccommodationPriceSectionProps) {
   if (variant === 'desktop') {
     return (
       <div className="w-[360px] px-6 py-3 flex flex-col justify-center border-r border-zinc-200">
         <div className="text-zinc-700 text-xs font-semibold tracking-wide text-left mb-2 uppercase">
-          Rango de Precio
+          Rango de precio
         </div>
 
         <div className="grid grid-cols-2 gap-2">
@@ -72,7 +72,7 @@ export function PriceSection({
   return (
     <div className="px-4 py-3.5">
       <p className="text-xs font-semibold text-neutral-900">Rango de precio</p>
-      <p className="mt-0.5 text-xs text-neutral-500">Precios en colones costarricenses</p>
+      <p className="mt-0.5 text-xs text-neutral-500">Por noche, en colones costarricenses</p>
       <div className="mt-3 grid grid-cols-2 gap-3">
         <div>
           <label className="mb-1.5 block text-[11px] font-medium text-neutral-500">Mínimo</label>
