@@ -6,6 +6,7 @@ import { H3, H4, P } from '@/components/ui/Typography';
 
 interface PropertyLocationMapProps {
   ubicacionExacta?: UbicacionExacta | FirebaseGeoPoint | any;
+  direccion?: string;
 }
 
 // Componente simple del mapa que usa el hook
@@ -92,8 +93,31 @@ const render = (status: Status): React.ReactElement => {
 };
 
 // Componente principal refactorizado y limpio
-export const PropertyLocationMap: React.FC<PropertyLocationMapProps> = ({ ubicacionExacta }) => {
+export const PropertyLocationMap: React.FC<PropertyLocationMapProps> = ({ ubicacionExacta, direccion }) => {
   const { isValidCoordinates, coordinates, apiKey } = useGoogleMap({ ubicacionExacta, zoom: 16 });
+  const embedByAddress =
+    typeof direccion === 'string' && direccion.trim().length > 0
+      ? `https://www.google.com/maps?q=${encodeURIComponent(direccion.trim())}&output=embed`
+      : null
+
+  // Fallback like accommodations: if there are no coordinates but an address exists, render iframe map.
+  if ((!isValidCoordinates || !coordinates) && embedByAddress) {
+    return (
+      <div>
+        <MapTitle />
+        <div className="w-full h-[500px] rounded-lg overflow-hidden border shadow-sm bg-gray-100">
+          <iframe
+            title="Ubicación de la propiedad"
+            src={embedByAddress}
+            className="w-full h-full border-0"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    )
+  }
 
   // Si no hay coordenadas válidas, mostrar mensaje de error
   if (!isValidCoordinates || !coordinates) {

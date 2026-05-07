@@ -52,6 +52,7 @@ export interface PropiedadVenta {
   precio: number
   amenidades: string[]
   ubicacion: Ubicacion
+  ubicacionTexto?: string
   ubicacionExacta: FirebaseGeoPoint
   imagenes: string[]
   asesorResponsable: AsesorResponsable
