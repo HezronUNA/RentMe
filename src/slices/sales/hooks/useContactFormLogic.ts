@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { useCreatePropertyReserve } from "./useCreatePropertyReserve";
+import { sanitizeForStorage } from '@/utils/sanitize'
 
 function validateEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -17,7 +18,6 @@ interface ContactFormErrors {
   nombre: string;
   email: string;
   telefono: string;
-  mensaje: string;
 }
 
 export function useContactFormLogic(propertyId: string, propertyTitle?: string) {
@@ -36,7 +36,6 @@ export function useContactFormLogic(propertyId: string, propertyTitle?: string) 
     nombre: "",
     email: "",
     telefono: "",
-    mensaje: "",
   });
 
   const handleDelete = () => {
@@ -50,7 +49,6 @@ export function useContactFormLogic(propertyId: string, propertyTitle?: string) 
       nombre: "",
       email: "",
       telefono: "",
-      mensaje: "",
     });
   };
 
@@ -73,7 +71,6 @@ export function useContactFormLogic(propertyId: string, propertyTitle?: string) 
       nombre: "",
       email: "",
       telefono: "",
-      mensaje: "",
     };
 
     if (!form.nombre.trim()) {
@@ -115,18 +112,28 @@ export function useContactFormLogic(propertyId: string, propertyTitle?: string) 
     try {
       await createReservation({
         propiedadId: propertyId,
-        nombre: form.nombre.trim(),
-        email: form.email.trim(),
-        telefono: form.telefono.trim(),
-        mensaje: form.mensaje.trim() || undefined,
+        nombre: sanitizeForStorage(form.nombre) ?? '',
+        email: sanitizeForStorage(form.email) ?? '',
+        telefono: sanitizeForStorage(form.telefono) ?? '',
+        mensaje: sanitizeForStorage(form.mensaje) ?? undefined,
       });
       
       setIsSubmitted(true);
       
     } catch (error: any) {
       console.error('Error submitting form:', error);
-      toast.error("Error al enviar el formulario", {
-        description: "Por favor intenta nuevamente.",
+      
+      let errorMsg = "Por favor intenta nuevamente.";
+      let title = "Error al enviar el formulario";
+      
+      if (error?.message && typeof error.message === 'string' && error.message.includes('rate_limit_exceeded')) {
+        title = "⏱️ Límite de solicitudes";
+        errorMsg = "Demasiadas solicitudes. Por favor espera un minuto antes de intentar de nuevo.";
+      }
+      
+      toast.error(title, {
+        description: errorMsg,
+        duration: 6000,
       });
     }
   };
@@ -142,7 +149,6 @@ export function useContactFormLogic(propertyId: string, propertyTitle?: string) 
       nombre: "",
       email: "",
       telefono: "",
-      mensaje: "",
     });
     setIsSubmitted(false);
   };

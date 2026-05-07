@@ -17,6 +17,7 @@ type AmenidadRelacion = {
 type SupabasePropiedadRow = Partial<
   PropiedadVenta & {
     id: string
+    banos?: number | null
     area_terreno?: number | null
     ano_construccion?: number | null
     ubicacion?: unknown
@@ -33,6 +34,13 @@ type SupabasePropiedadRow = Partial<
 type SupabaseReservaRow = Partial<
   ReservaVenta & {
     propiedad_venta_id?: string
+    propiedad_titulo?: string | null
+    cliente_nombre?: string | null
+    cliente_email?: string | null
+    cliente_telefono?: string | null
+    fecha_reserva?: string | null
+    fecha_creacion?: string | null
+    asesor_asignado?: string | null
     usuario_id?: string | null
     notas?: string | null
     creado_en?: string | null
@@ -137,17 +145,23 @@ function normalizeAsesorResponsable(value: unknown): { email: string } {
 }
 
 export function mapSupabasePropiedad(row: SupabasePropiedadRow): PropiedadVenta {
+  const ubicacionTexto =
+    typeof row.ubicacion_exacta === "string" && row.ubicacion_exacta.trim().length > 0
+      ? row.ubicacion_exacta.trim()
+      : undefined
+
   return {
     id: row.id ?? "",
     descripcion: row.descripcion ?? "",
     habitaciones: row.habitaciones ?? 0,
-    baños: row.baños ?? 0,
+    baños: Number(row.banos ?? row.baños ?? 0),
     areaTerreno: Number(row.area_terreno ?? row.areaTerreno ?? 0),
     estado: normalizeEstado(row.estado),
     añoConstruccion: row.ano_construccion ?? row.añoConstruccion ?? undefined,
     precio: Number(row.precio ?? 0),
     amenidades: normalizeAmenidades(row.propiedad_amenidades),
     ubicacion: normalizeUbicacion(row.ubicacion),
+    ubicacionTexto,
     ubicacionExacta: normalizeUbicacionExacta(row),
     imagenes: normalizeImages(row.imagenes),
     asesorResponsable: normalizeAsesorResponsable(row.asesor_responsable),
@@ -192,30 +206,30 @@ export function mapSupabaseReserva(row: SupabaseReservaRow): ReservaVenta {
     propiedadId: row.propiedadId ?? row.propiedad_venta_id ?? "",
     propiedadTitulo:
       // support camelCase or snake_case column names
-      (row as any).propiedadTitulo ?? (row as any).propiedad_titulo ?? undefined,
+      row.propiedadTitulo ?? row.propiedad_titulo ?? undefined,
     clienteNombre:
-      (row as any).clienteNombre ?? (row as any).cliente_nombre ?? "",
+      row.clienteNombre ?? row.cliente_nombre ?? "",
     clienteEmail:
-      (row as any).clienteEmail ?? (row as any).cliente_email ?? "",
+      row.clienteEmail ?? row.cliente_email ?? "",
     clienteTelefono:
-      (row as any).clienteTelefono ?? (row as any).cliente_telefono ?? "",
-    mensaje: (row as any).mensaje ?? (row as any).mensaje ?? undefined,
+      row.clienteTelefono ?? row.cliente_telefono ?? "",
+    mensaje: row.mensaje ?? undefined,
     fechaReserva:
-      (row as any).fechaReserva
-        ? new Date((row as any).fechaReserva)
-        : (row as any).fecha_reserva
-        ? new Date((row as any).fecha_reserva)
+      row.fechaReserva
+        ? new Date(row.fechaReserva)
+        : row.fecha_reserva
+        ? new Date(row.fecha_reserva)
         : new Date(),
     fechaCreacion:
-      (row as any).fechaCreacion
-        ? new Date((row as any).fechaCreacion)
-        : (row as any).fecha_creacion
-        ? new Date((row as any).fecha_creacion)
+      row.fechaCreacion
+        ? new Date(row.fechaCreacion)
+        : row.fecha_creacion
+        ? new Date(row.fecha_creacion)
         : new Date(),
     estado: row.estado ?? "Pendiente",
     usuarioId: row.usuarioId ?? row.usuario_id ?? undefined,
     asesorAsignado:
-      (row as any).asesorAsignado ?? (row as any).asesor_asignado ?? undefined,
+      row.asesorAsignado ?? row.asesor_asignado ?? undefined,
   }
 }
 

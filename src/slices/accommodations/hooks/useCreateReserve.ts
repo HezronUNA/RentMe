@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { crearReservaHospedaje } from '../api/reservaHospedajeService'
+import { sanitizeForStorage } from '@/utils/sanitize'
 import type { CrearReservaHospedaje } from '../model/accomodationType'
 import { buildWhatsAppHref, SOCIAL_CONFIG } from '@/utils/socialMediaConfig'
 
@@ -50,7 +51,16 @@ export const useCreateReserve = ({ accommodationName }: UseCreateReservationProp
     })
 
     try {
-      const newReservationId = await crearReservaHospedaje(reservationData)
+      // Sanitize reservation data before sending
+      const safeData = {
+        ...reservationData,
+        nombre: sanitizeForStorage((reservationData as any).nombre) ?? undefined,
+        email: sanitizeForStorage((reservationData as any).email) ?? undefined,
+        telefono: sanitizeForStorage((reservationData as any).telefono) ?? undefined,
+        mensaje: sanitizeForStorage((reservationData as any).mensaje) ?? undefined,
+      }
+
+      const newReservationId = await crearReservaHospedaje(safeData as any)
       setReservationId(newReservationId)
 
       const whatsappMessage = buildWhatsappMessage(reservationData, accommodationName)
@@ -86,13 +96,20 @@ export const useCreateReserve = ({ accommodationName }: UseCreateReservationProp
 
       toast.dismiss(loadingToast)
 
-      const errorMessage = err instanceof Error ? err.message : 'Error al crear la reserva'
+      let errorMessage = err instanceof Error ? err.message : 'Error al crear la reserva'
+      let isRateLimit = false
+
+      if (typeof errorMessage === 'string' && errorMessage.includes('rate_limit_exceeded')) {
+        isRateLimit = true
+        errorMessage = 'Demasiadas solicitudes. Por favor espera un minuto antes de intentar de nuevo.'
+      }
+
       setError(errorMessage)
 
-      toast.error('Error al crear la reserva', {
+      toast.error(isRateLimit ? '⏱️ Límite de solicitudes' : 'Error al crear la reserva', {
         description: errorMessage,
-        duration: 5000,
-        action: {
+        duration: isRateLimit ? 6000 : 5000,
+        action: isRateLimit ? undefined : {
           label: 'Reintentar',
           onClick: () => createReservation(reservationData),
         },

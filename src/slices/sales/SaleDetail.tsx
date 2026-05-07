@@ -197,7 +197,10 @@ const SaleDetail = () => {
 
           {/* Mapa de ubicación (el sticky se detiene antes de este bloque) */}
           <div className="w-full">
-            <PropertyLocationMap ubicacionExacta={propiedad.ubicacionExacta} />
+            <PropertyLocationMap
+              ubicacionExacta={propiedad.ubicacionExacta}
+              direccion={propiedad.ubicacionTexto}
+            />
           </div>
         </div>
       </div>

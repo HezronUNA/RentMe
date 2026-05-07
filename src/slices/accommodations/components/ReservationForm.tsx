@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Input } from "@/components/ui/Input"
 import { Button } from "@/components/ui/button"
 import { useCreateReserve } from "../hooks/useCreateReserve"
+import { toast } from 'sonner'
 
 interface ReservationFormProps {
   accommodationId: string
@@ -43,6 +44,23 @@ export function ReservationForm({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    // Basic client-side validation
+    if (!form.fechaCheckIn || !form.fechaCheckOut) {
+      toast.error('Seleccione fecha de entrada y salida')
+      return
+    }
+
+    const start = new Date(form.fechaCheckIn)
+    const end = new Date(form.fechaCheckOut)
+    if (start >= end) {
+      toast.error('La fecha de salida debe ser posterior a la de entrada')
+      return
+    }
+
+    if (Number(form.numeroHuespedes) > maxGuests) {
+      toast.error('El número de huéspedes supera el máximo permitido')
+      return
+    }
 
     await createReservation({
       hospedajeId: accommodationId,
