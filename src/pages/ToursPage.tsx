@@ -1,10 +1,20 @@
+import Hero from '@/components/Tours/Hero'
+import Intro from '@/components/Tours/Intro'
+import Categories from '@/components/Tours/Categories'
+import FeaturedTours from '@/components/Tours/FeaturedTours'
+import Transfers from '@/components/Tours/Transfers'
+import CTAFinal from '@/components/Tours/CTAFinal'
+
 export default function ToursPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#52655B]/5 to-transparent">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-[#52655B] mb-4">Tours</h1>
-        <p className="text-gray-600 text-lg">Página de Tours - Por implementar</p>
-      </div>
+    <div className="w-full">
+      {/* Tours Components */}
+      <Hero />
+      <Intro />
+      <Categories />
+      <FeaturedTours />
+      <Transfers />
+      <CTAFinal />
     </div>
   )
 }
