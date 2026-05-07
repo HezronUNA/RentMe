@@ -53,7 +53,7 @@ export default function Footer() {
   return (
  <footer
   className="
-    relative bg-[#52655B] text-white border-t border-[#52655B] mt-8"
+    relative bg-[#52655B] text-white border-t border-[#52655B] mt-0"
 >
   <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
     <div className="grid lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:gap-x-6">
