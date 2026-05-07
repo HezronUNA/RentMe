@@ -4,7 +4,6 @@ import type { FiltrosBusqueda } from './usePropiedadesConFiltros';
 interface SearchBoxState {
   guests: number;
   price: string;
-  currency: 'USD' | 'CRC';
   ubicacion: string;
   habitaciones: number;
   baños: number;
@@ -23,7 +22,6 @@ interface SearchBoxActions {
   handlePriceMaxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handlePriceMaxBlur: () => void;
   handleUbicacionChange: (ubicacion: string) => void;
-  toggleCurrency: () => void;
   getFiltrosActuales: () => FiltrosBusqueda;
 }
 
@@ -31,7 +29,6 @@ export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
   const [guests, setGuests] = useState(0);
   const [price, setPrice] = useState('');
   const [precioMax, setPrecioMax] = useState('');
-  const [currency, setCurrency] = useState<'USD' | 'CRC'>('USD');
   const [ubicacion, setUbicacion] = useState('');
   const [habitaciones, setHabitaciones] = useState(0);
   const [baños, setBaños] = useState(0);
@@ -104,10 +101,6 @@ export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
     setUbicacion(nuevaUbicacion);
   };
 
-  const toggleCurrency = () => {
-    setCurrency(prev => prev === 'USD' ? 'CRC' : 'USD');
-  };
-
   const getFiltrosActuales = (): FiltrosBusqueda => {
     const filtros: FiltrosBusqueda = {};
 
@@ -143,7 +136,6 @@ export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
       guests,
       price,
       precioMax,
-      currency,
       ubicacion,
       habitaciones,
       baños,
@@ -161,7 +153,6 @@ export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
       handlePriceMaxChange,
       handlePriceMaxBlur,
       handleUbicacionChange,
-      toggleCurrency,
       getFiltrosActuales
     },
   ];
