@@ -15,7 +15,6 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
     handleChange,
     handleSubmit,
     isPending,
-    handleDelete,
     isSubmitted,
     error,
   } = useContactFormLogic(propertyId, propertyTitle)
@@ -114,36 +113,17 @@ export function ContactForm({ propertyId, propertyTitle }: ContactFormProps) {
           rows={4}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#52655B] resize-none"
         />
-        {errors.mensaje && <p className="text-red-600 text-xs mt-1">{errors.mensaje}</p>}
         <p className="text-xs text-gray-500 mt-1">{form.mensaje.length}/500 caracteres</p>
       </div>
 
-      {/* Botones de acción */}
-      <div className="flex flex-col md:flex-row justify-end gap-4 w-full pt-4">
-        <Button
-          type="button"
-          variant="white"
-          className="hover:bg-gray-200 hover:cursor-pointer w-full md:w-auto py-3"
-          onClick={handleDelete}
-        >
-          Cancelar
-        </Button>
-        <Button
-          type="submit"
-          variant="green"
-          className="hover:bg-[#435349] hover:cursor-pointer w-full md:w-auto py-3"
-          disabled={isPending}
-        >
-          {isPending ? (
-            <div className="flex items-center justify-center gap-2">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-              Enviando...
-            </div>
-          ) : (
-            'Enviar'
-          )}
-        </Button>
-      </div>
+      <Button
+        type="submit"
+        variant="green"
+        className="hover:bg-[#435349] py-3"
+        disabled={isPending}
+      >
+        {isPending ? "Enviando..." : "Enviar"}
+      </Button>
 
       {error && <p className="text-red-600 mt-2">Error: {String(error)}</p>}
     </form>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { crearReservaVenta } from '../api/reservaVentaService'
+import { sanitizeForStorage } from '@/utils/sanitize'
 import { buildWhatsAppHref, SOCIAL_CONFIG } from '@/utils/socialMediaConfig'
 
 interface UseCreatePropertyReserveProps {
@@ -13,6 +14,23 @@ interface PropertyReserveData {
   email: string
   telefono: string
   mensaje?: string
+}
+
+const SALES_RATE_LIMIT_WINDOW_MS = 60_000
+
+function getSalesCooldownKey(email: string, telefono: string, propiedadId: string) {
+  return `sales-reserve-last-send:${propiedadId}:${email.toLowerCase()}:${telefono}`
+}
+
+function getRemainingCooldownMs(key: string) {
+  const lastSentAtRaw = localStorage.getItem(key)
+  if (!lastSentAtRaw) return 0
+
+  const lastSentAt = Number(lastSentAtRaw)
+  if (!Number.isFinite(lastSentAt)) return 0
+
+  const elapsed = Date.now() - lastSentAt
+  return Math.max(0, SALES_RATE_LIMIT_WINDOW_MS - elapsed)
 }
 
 function buildWhatsappMessage(data: PropertyReserveData, propertyTitle?: string) {
@@ -38,6 +56,22 @@ export const useCreatePropertyReserve = ({ propertyTitle }: UseCreatePropertyRes
     SOCIAL_CONFIG.find((entry) => entry.platform === 'whatsapp')?.phone ?? '50683888231'
 
   const createReservation = async (data: PropertyReserveData) => {
+    const email = sanitizeForStorage(data.email) ?? ''
+    const telefono = sanitizeForStorage(data.telefono) ?? ''
+    const cooldownKey = getSalesCooldownKey(email, telefono, data.propiedadId)
+    const remainingCooldownMs = getRemainingCooldownMs(cooldownKey)
+
+    if (remainingCooldownMs > 0) {
+      const remainingSeconds = Math.ceil(remainingCooldownMs / 1000)
+      const message = `Debes esperar ${remainingSeconds} segundos antes de volver a enviar.`
+      setError(message)
+      toast.error('⏱️ Límite de solicitudes', {
+        description: message,
+        duration: 5000,
+      })
+      throw new Error('rate_limit_exceeded: client_cooldown_active')
+    }
+
     setIsLoading(true)
     setError(null)
 
@@ -47,15 +81,19 @@ export const useCreatePropertyReserve = ({ propertyTitle }: UseCreatePropertyRes
 
     try {
       // Guardar la reserva usando el servicio
-      const reservaId = await crearReservaVenta({
+      const safePayload = {
         propiedadId: data.propiedadId,
         propiedadTitulo: propertyTitle,
-        nombre: data.nombre,
-        email: data.email,
-        telefono: data.telefono,
-        mensaje: data.mensaje,
+        nombre: sanitizeForStorage(data.nombre) ?? '',
+        email,
+        telefono,
+        mensaje: sanitizeForStorage(data.mensaje) ?? null,
         usuarioId: undefined,
-      })
+      }
+
+      const reservaId = await crearReservaVenta(safePayload as any)
+
+      localStorage.setItem(cooldownKey, Date.now().toString())
 
       setReservationId(reservaId)
 
@@ -93,13 +131,20 @@ export const useCreatePropertyReserve = ({ propertyTitle }: UseCreatePropertyRes
 
       toast.dismiss(loadingToast)
 
-      const errorMessage = err instanceof Error ? err.message : 'Error al crear la reserva'
+      let errorMessage = err instanceof Error ? err.message : 'Error al crear la reserva'
+      let isRateLimit = false
+
+      if (typeof errorMessage === 'string' && errorMessage.includes('rate_limit_exceeded')) {
+        isRateLimit = true
+        errorMessage = 'Demasiadas solicitudes. Por favor espera un minuto antes de intentar de nuevo.'
+      }
+
       setError(errorMessage)
 
-      toast.error('Error al crear la reserva', {
+      toast.error(isRateLimit ? '⏱️ Límite de solicitudes' : 'Error al crear la reserva', {
         description: errorMessage,
-        duration: 5000,
-        action: {
+        duration: isRateLimit ? 6000 : 5000,
+        action: isRateLimit ? undefined : {
           label: 'Reintentar',
           onClick: () => createReservation(data),
         },
