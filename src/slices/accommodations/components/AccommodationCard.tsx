@@ -2,8 +2,8 @@
 import type { MouseEvent } from 'react'
 import type { HospedajeFrontend } from "../model/accomodationType"
 import { useNavigate } from "@tanstack/react-router"
-import { MapPin, Bed, Home } from 'lucide-react'
-import { Small } from '@/components/ui/Typography'
+import { Bed, Home } from 'lucide-react'
+import { P, Small } from '@/components/ui/Typography'
 import { Button } from '@/components/ui/button'
 
 interface AccommodationCardProps {
@@ -20,6 +20,18 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
   }
 
   const navigate = useNavigate()
+
+  const truncate = (text?: string, max = 120) => {
+    if (!text) return ""
+    return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text
+  }
+
+  const truncateWords = (text?: string | null, maxWords = 2) => {
+    if (!text) return 'Alojamiento'
+    const words = text.trim().split(/\s+/)
+    const out = words.slice(0, maxWords).join(' ')
+    return words.length > maxWords ? `${out}…` : out
+  }
 
   const handleClick = () => {
     if (onAccommodationClick) {
@@ -39,91 +51,80 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
 
   return (
     <article 
-      className="
-        rounded-xl overflow-hidden shadow-md
-        border border-zinc-200 bg-gray-50 hover:bg-white hover:shadow-lg 
-        bg-zinc-100 transition-all duration-300 hover:scale-[1.02]
-        h-full cursor-pointer group
-      "
+      className="group h-full cursor-pointer overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(82,101,91,0.14)]"
       onClick={handleClick}
     >
       {/* Imagen */}
-      <div className="relative h-56 group overflow-hidden">
+      <div className="relative h-40 overflow-hidden bg-gradient-to-br from-[#52655B]/10 to-[#52655B]/5 sm:h-44">
         <img
           src={img}
           alt={accommodation.nombre}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute top-3 right-3 z-30">
-          <div className="bg-white/95 text-[#52655B] px-4 py-2 rounded-lg text-lg font-semibold shadow-lg border border-zinc-100">
-            ₡{formatPrice(accommodation.precioNoche)}
-            <span className="text-xs font-normal"> /noche</span>
-          </div>
-        </div>
-  <div className="absolute inset-0 bg-black/50 opacity-100 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#2f3a35]/65 via-[#2f3a35]/15 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
 
-        {/* Contenido encima de la imagen: título y badges */}
-        {/* Contenido encima de la imagen: título en la parte inferior, centrado */}
-        <div className="absolute left-0 right-0 bottom-4 flex justify-center pointer-events-none">
-          <div className=" px-4 py-2 rounded-md text-center max-w-[92%] pointer-events-auto">
-            <h3 className="text-white text-base md:text-lg font-semibold uppercase tracking-widest leading-6 line-clamp-2">
-              {accommodation.nombre}
-            </h3>
-          </div>
+        <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white backdrop-blur-sm sm:text-[11px]">
+          {truncateWords(accommodation.ubicacion)}
         </div>
 
-        {accommodation.imagenes && accommodation.imagenes.length > 1 && (
-          <div className="absolute top-20 right-4 bg-black/60 text-white px-2 py-1 rounded text-xs">
-            +{accommodation.imagenes.length - 1} fotos
-          </div>
-        )}
+        <div className="absolute right-4 top-4 rounded-full border border-white/25 bg-white/95 px-4 py-1.5 text-sm sm:text-base font-bold text-[#52655B] shadow-lg">
+          ₡{formatPrice(accommodation.precioNoche)}
+        </div>
+
+        {/* Nombre en la imagen removido: el título permanece en la parte blanca del card */}
       </div>
 
       {/* Info */}
-      <div className="p-4 space-y-2">
-        {/* Nota: el título y la ubicación ahora están sobre la imagen */}
-
-        {/* Ubicación con icono */}
-        <div className="flex items-center  gap-2">
-          <MapPin className="h-4 w-4 text-zinc-600" />
-          <p className="text-lg text-zinc-600 font-bold">{accommodation.ubicacion}</p>
-        </div>
-
-        {/* Características compactas */}
-        <div className="pt-2 grid grid-cols-3 gap-2 items-stretch">
-          <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
-            <Bed className="h-4 w-4 text-[#52655B]" />
-            <span className="text-[11px] text-zinc-600 mt-1">Camas</span>
-            <span className="text-sm font-medium text-zinc-900 mt-1">{accommodation.camas}</span>
-          </div>
-
-          <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#52655B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 12a9 9 0 1018 0v-3a3 3 0 00-3-3h-1" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 7v1m0 4v1m4-5v1m0 4v1" />
-            </svg>
-            <span className="text-[11px] text-zinc-600 mt-1">Baños</span>
-            <span className="text-sm font-medium text-zinc-900 mt-1">{(accommodation as any).baños}</span>
-          </div>
-
-          <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
-            <Home className="h-4 w-4 text-[#52655B]" />
-            <span className="text-[11px] text-zinc-600 mt-1">Habitac.</span>
-            <span className="text-sm font-medium text-zinc-900 mt-1">{accommodation.cuartos}</span>
+      <div className="p-4 sm:p-5">
+        <div className="mb-2 flex items-start justify-between gap-3">
+          <h3 className="text-sm font-semibold leading-5 text-[#2f3a35] transition-colors duration-500 group-hover:text-[#52655B] sm:text-base">
+            {accommodation.nombre}
+          </h3>
+          <div className="shrink-0 rounded-full border border-[#52655B]/10 bg-[#52655B]/5 px-2.5 py-1">
+            <span className="block h-2.5 w-2.5 rounded-full bg-emerald-500" />
           </div>
         </div>
-        
-        {/* Botón centrado */}
-        <div className="pt-2 flex justify-center">
+
+        <P className="line-clamp-2 mb-4 text-left text-xs leading-5 text-gray-600 transition-colors duration-500 group-hover:text-gray-700 sm:text-sm">
+          {truncate(accommodation.descripcion ?? undefined, 120)}
+        </P>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div className="w-full sm:flex-1 flex min-w-0 items-center justify-start gap-2 text-[11px] font-semibold text-gray-600 overflow-x-auto sm:overflow-visible sm:justify-start sm:text-sm sm:flex-wrap">
+            <span className="flex-shrink-0 rounded-full border border-[#52655B]/10 bg-[#52655B]/5 px-2 py-0.5 sm:px-3 sm:py-1 inline-flex items-center gap-1.5 text-[11px] sm:text-[13px]">
+              <Bed className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#52655B]" />
+              {accommodation.camas} Camas
+            </span>
+            <span className="flex-shrink-0 rounded-full border border-[#52655B]/10 bg-[#52655B]/5 px-2 py-0.5 sm:px-3 sm:py-1 inline-flex items-center gap-1.5 text-[11px] sm:text-[13px]">
+              <Home className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#52655B]" />
+              {accommodation.cuartos} Hab.
+            </span>
+            <span className="flex-shrink-0 rounded-full border border-[#52655B]/10 bg-[#52655B]/5 px-2 py-0.5 sm:px-3 sm:py-1 inline-flex items-center gap-1.5 text-[11px] sm:text-[13px]">
+              <span className="h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full border border-[#52655B] text-[10px] leading-3 text-center text-[#52655B]">B</span>
+              {accommodation.banos} Baños
+            </span>
+          </div>
+
+          <div className="w-full sm:hidden flex justify-end">
+            <Button
+              variant="white"
+              className="shrink-0 inline-flex items-center gap-2 rounded-full border border-[#52655B]/20 bg-white px-4 py-2.5 text-xs font-semibold text-[#52655B] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#52655B]/40 hover:bg-[#52655B]/5"
+              onClick={(e: MouseEvent) => { e.stopPropagation(); handleClick(); }}
+            >
+              <Small>Ver hospedaje</Small>
+              <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+            </Button>
+          </div>
+
           <Button
-            variant="green"
-            className="hover:bg-[#435349] hover:cursor-pointer  transition-colors duration-200 max-w-[220px]"
+            variant="white"
+            className="hidden sm:inline-flex shrink-0 items-center gap-2 rounded-full border border-[#52655B]/20 bg-white px-4 py-2.5 text-xs font-semibold text-[#52655B] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#52655B]/40 hover:bg-[#52655B]/5"
             onClick={(e: MouseEvent) => { e.stopPropagation(); handleClick(); }}
           >
             <Small>Ver hospedaje</Small>
+            <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
           </Button>
         </div>
-        
       </div>
     </article>
   )

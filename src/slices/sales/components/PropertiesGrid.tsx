@@ -17,12 +17,11 @@ export function PropertiesGrid({
   onPropertyClick,
   emptyMessage = "No se encontraron propiedades" 
 }: PropertiesGridProps) {
-  
   // Estado de carga
   if (loading) {
     return (
-      <div className="w-full px-4">
-        <div className="max-w-7xl mx-auto">
+      <div className="relative w-full px-4 py-8">
+        <div className="relative z-10 max-w-7xl mx-auto">
           {/* Mobile: 1 columna, Tablet: 2 columnas, Desktop: 3 columnas */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {Array.from({ length: 6 }).map((_, index) => (
@@ -37,16 +36,16 @@ export function PropertiesGrid({
   // Estado de error
   if (error) {
     return (
-      <div className="w-full px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center py-8">
+      <div className="relative w-full px-4 py-8">
+        <div className="relative z-10 max-w-7xl mx-auto">
+          <div className="text-center py-8 rounded-[2rem] border border-[#52655B]/15 bg-white/85 shadow-[0_20px_50px_rgba(82,101,91,0.08)] backdrop-blur-sm">
             <div className="text-red-500 text-lg font-medium mb-2">
               Error al cargar las propiedades
             </div>
             <p className="text-gray-600">{error}</p>
             <button 
               onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="mt-4 inline-flex items-center rounded-full border border-[#52655B] bg-[#52655B] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_28px_rgba(82,101,91,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#3f4f47]"
             >
               Intentar nuevamente
             </button>
@@ -59,9 +58,9 @@ export function PropertiesGrid({
   // Estado vacío
   if (properties.length === 0) {
     return (
-      <div className="w-full px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center py-8">
+      <div className="relative w-full px-4 py-8">
+        <div className="relative z-10 max-w-7xl mx-auto">
+          <div className="text-center py-10 rounded-[2rem] border border-[#52655B]/15 bg-white/85 shadow-[0_20px_50px_rgba(82,101,91,0.08)] backdrop-blur-sm">
             <div className="text-gray-500 text-lg font-medium mb-2">
               {emptyMessage}
             </div>
@@ -76,8 +75,8 @@ export function PropertiesGrid({
 
   // Grid de propiedades
   return (
-    <div className="w-full px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="relative w-full px-4 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Grid responsive: 1 col en mobile, 2 en tablet, 3 en desktop */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 pb-4">
           {properties.map((property) => (

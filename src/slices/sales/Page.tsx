@@ -23,8 +23,14 @@ export default function SalesPage() {
       <SalesHero onApplyFilters={handleApplyFilters} />
       
       {/* Content Section */}
-      <div>
-        <div className="container mx-auto px-4 py-16 pb-4">
+      <div className="relative overflow-hidden bg-white">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute left-[-15rem] top-16 h-[42rem] w-[42rem] rounded-full bg-[#e7eee9]/75 blur-[110px]" />
+          <div className="absolute right-[-14rem] bottom-[-10rem] h-[46rem] w-[46rem] rounded-full bg-[#f1e8dc]/80 blur-[120px]" />
+          <div className="absolute left-[-8rem] bottom-[6rem] h-[24rem] w-[24rem] rounded-full bg-[#dbe9e2]/45 blur-[90px]" />
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 py-16 pb-4">
           
           {/* Filtros activos indicator */}
           {tieneFiltrosActivos && (
@@ -74,11 +80,6 @@ export default function SalesPage() {
               </div>
             </div>
           )}
-          {/* Decorative Blobs */}
-          <div className="absolute top-1/4 -right-32 w-96 h-96 bg-[#52655B]/8 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-1/3 -left-40 w-80 h-80 bg-[#52655B]/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-[#52655B]/6 rounded-full blur-3xl pointer-events-none" />
-          
           {/* Properties Grid */}
           <PropertiesGrid
             properties={propiedades}
