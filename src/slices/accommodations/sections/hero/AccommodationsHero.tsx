@@ -27,6 +27,17 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
         filtrosConvertidos.cuartos = filters.cuartos
       }
 
+      const precioMinNum = parseFloat(filters.price)
+      const precioMaxNum = parseFloat(filters.precioMax)
+
+      if (!isNaN(precioMinNum) && precioMinNum > 0) {
+        filtrosConvertidos.precioMin = precioMinNum
+      }
+
+      if (!isNaN(precioMaxNum) && precioMaxNum > 0) {
+        filtrosConvertidos.precioMax = precioMaxNum
+      }
+
       onApplyFilters(filtrosConvertidos);
     }
   };
@@ -46,7 +57,7 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
       {heroData.imagen && <div className="absolute inset-0 bg-black/60" />}
 
       <div className="relative z-10 w-full px-4 pt-6 md:pt-8 overflow-visible">
-        <div className="max-w-4xl mx-auto space-y-5 overflow-visible">
+        <div className="max-w-7xl mx-auto space-y-5 overflow-visible">
           <div className="space-y-2">
             <h1 className="text-2xl lg:text-5xl font-bold text-white leading-tight uppercase tracking-wide text-center">
              EXPLORÁ NUESTROS ALOJAMIENTOS
