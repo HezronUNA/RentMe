@@ -1,7 +1,9 @@
 import { H2, P } from "@/components/ui/Typography";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export default function Plan2() {
+  const navigate = useNavigate();
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
@@ -98,6 +100,7 @@ export default function Plan2() {
               <div className="mt-8 flex items-center gap-3">
                 <button
                   type="button"
+                  onClick={() => navigate({ to: "/reservar-plan" })}
                   className="inline-flex items-center gap-2 rounded-lg border border-[#d0d7d3] bg-[#f0f4f2] px-3 py-2 text-xs font-medium text-[#52655B] transition-all duration-300 hover:border-[#c3cbc7] hover:bg-[#e8ede8]"
                 >
                   Consultar este plan
@@ -154,6 +157,7 @@ export default function Plan2() {
 
                 <button
                   type="button"
+                  onClick={() => navigate({ to: "/reservar-plan" })}
                   className="mt-2 inline-flex items-center gap-2 rounded-lg border border-[#d7ddda] bg-white px-3 py-2 text-xs font-medium text-[#52655B] transition-all duration-300 hover:border-[#c3cbc7] hover:bg-[#f7f8f7]"
                 >
                   Ver detalle
