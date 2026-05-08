@@ -10,8 +10,8 @@ export default function PlansReservationPage() {
       <div className="mx-auto grid max-w-7xl gap-6 px-4 md:grid-cols-2 md:items-start md:gap-8 md:px-8">
         <aside className="rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_18px_45px_rgba(82,101,91,0.12)] md:col-start-1">
           <p className="mb-5 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#52655B]">
-            <span className="h-px w-10 bg-[#52655B]" />
-            Solicitar servicio
+            <span className="h-px w-10 bg-[#52655B]"/>
+            Solicitar plan
           </p>
 
           <h1 className="text-4xl font-semibold leading-tight text-[#0f2545] sm:text-5xl">
@@ -21,7 +21,7 @@ export default function PlansReservationPage() {
           </h1>
 
           <p className="mt-5 max-w-md text-lg text-slate-600">
-            Estas a un paso de reservar con Rent Me. Completá el formulario y te contactamos por
+            Estas a un paso de reservar con DMR Rentals. Completá el formulario y te contactamos por
             WhatsApp.
           </p>
 
