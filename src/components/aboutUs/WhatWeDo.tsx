@@ -188,7 +188,7 @@ export default function WhatWeDo() {
                 </div>
 
                 <div className="space-y-2">
-                  <H3 className="text-zinc-700 text-lg font-medium">
+                  <H3 className="">
                     {card.title}
                   </H3>
                   <P className="text-zinc-900 text-sm leading-relaxed">
