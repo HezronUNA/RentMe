@@ -2,6 +2,8 @@ import { useMemo, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { buildWhatsAppHref, SOCIAL_CONFIG } from "@/utils/socialMediaConfig";
 import { createReservaServicio } from "@/services/reservasServicios.service";
+import { sanitizeForStorage } from "@/utils/sanitize";
+import { toast } from "sonner";
 
 export type ReservationFormData = {
   nombre: string;
@@ -29,6 +31,23 @@ const DEFAULT_PLANS = [
   "Promoción en mis plataformas",
   "Administración Total",
 ];
+
+const SERVICE_RATE_LIMIT_WINDOW_MS = 60_000;
+
+function getServiceCooldownKey(email: string, telefono: string) {
+  return `service-reserve-last-send:${email.toLowerCase()}:${telefono}`;
+}
+
+function getRemainingCooldownMs(key: string) {
+  const lastSentAtRaw = localStorage.getItem(key);
+  if (!lastSentAtRaw) return 0;
+
+  const lastSentAt = Number(lastSentAtRaw);
+  if (!Number.isFinite(lastSentAt)) return 0;
+
+  const elapsed = Date.now() - lastSentAt;
+  return Math.max(0, SERVICE_RATE_LIMIT_WINDOW_MS - elapsed);
+}
 
 function buildWhatsappMessage(formData: ReservationFormData) {
   return [
@@ -81,13 +100,41 @@ export function useServiceReservationForm() {
     try {
       setIsSubmitting(true);
 
-      await createReservaServicio({
-        nombre: formData.nombre,
-        correo: formData.correo,
-        telefono: formData.telefono,
-        servicio: formData.servicio,
-        mensaje: formData.mensaje,
-      });
+      // Sanitize form data before sending
+      const safeData = {
+        nombre: sanitizeForStorage(formData.nombre) ?? "",
+        correo: sanitizeForStorage(formData.correo) ?? "",
+        telefono: sanitizeForStorage(formData.telefono) ?? "",
+        servicio: sanitizeForStorage(formData.servicio) ?? "",
+        mensaje: sanitizeForStorage(formData.mensaje) ?? "",
+      };
+
+      const cooldownKey = getServiceCooldownKey(safeData.correo, safeData.telefono);
+      const remainingCooldownMs = getRemainingCooldownMs(cooldownKey);
+
+      if (remainingCooldownMs > 0) {
+        const remainingSeconds = Math.ceil(remainingCooldownMs / 1000);
+        const rateLimitMessage = `Debes esperar ${remainingSeconds} segundos antes de volver a enviar.`;
+        setErrorMessage(rateLimitMessage);
+        toast.error("⏱️ Límite de solicitudes", {
+          description: rateLimitMessage,
+          duration: 5000,
+        });
+        return;
+      }
+
+      const nowTs = Date.now();
+      localStorage.setItem(cooldownKey, nowTs.toString());
+
+      try {
+        await createReservaServicio(safeData);
+      } catch (error) {
+        const isRateLimitError = error instanceof Error && error.message.includes("rate_limit_exceeded");
+        if (!isRateLimitError) {
+          localStorage.removeItem(cooldownKey);
+        }
+        throw error;
+      }
 
       const whatsappMessage = buildWhatsappMessage(formData);
       const whatsappLink = buildWhatsAppHref(whatsappPhone, whatsappMessage);
@@ -99,7 +146,21 @@ export function useServiceReservationForm() {
       });
     } catch (error) {
       console.error("Error creando reserva de servicio:", error);
-      setErrorMessage("No pudimos enviar tu solicitud. Intentá de nuevo en unos minutos.");
+
+      let errorMessage = error instanceof Error ? error.message : "No pudimos enviar tu solicitud. Intentá de nuevo en unos minutos.";
+      let isRateLimit = false;
+
+      if (typeof errorMessage === "string" && errorMessage.includes("rate_limit_exceeded")) {
+        isRateLimit = true;
+        errorMessage = "Demasiadas solicitudes. Por favor espera un minuto antes de intentar de nuevo.";
+      }
+
+      setErrorMessage(errorMessage);
+
+      toast.error(isRateLimit ? "⏱️ Límite de solicitudes" : "Error al enviar solicitud", {
+        description: errorMessage,
+        duration: isRateLimit ? 6000 : 5000,
+      });
     } finally {
       setIsSubmitting(false);
     }
