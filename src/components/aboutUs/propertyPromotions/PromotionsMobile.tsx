@@ -83,9 +83,9 @@ export function PromotionsMobile() {
 
         {/* CTA Section */}
         <div className="text-center mb-6">
-          <h3 className="text-lg md:text-xl font-bold text-zinc-900 mb-3">
+          <H2 className="mb-3">
             ¿Listo para impulsar tu propiedad?
-          </h3>
+          </H2>
           <p className="text-zinc-600 text-sm mb-6">
             Contacta con nosotros hoy y descubre cómo podemos ayudarte.
           </p>

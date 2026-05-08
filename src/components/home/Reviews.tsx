@@ -48,7 +48,7 @@ export default function ReviewsCarousel({
 }: Props) {
   const [currentIndex, setCurrentIndex] = useState(1)
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const originalItems = STATIC_REVIEWS
   const count = originalItems.length
@@ -109,7 +109,7 @@ export default function ReviewsCarousel({
 
   return (
     <section className={`w-full text-center mx-auto flex flex-col items-center justify-center ${className}`}>
-      <H2 className="text-2xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4">
+      <H2 className="mb-8">
         {title}
       </H2>
 

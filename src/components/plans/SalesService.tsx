@@ -65,7 +65,7 @@ export default function SalesService() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16">
       <div className="text-center mb-10">
-        <H2 className="text-3xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800">
+        <H2 className="sm:max-w-3xl mx-auto">
           ¿Querés vender tu propiedad? Nosotros te ayudamos.
         </H2>
 
