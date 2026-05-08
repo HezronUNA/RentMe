@@ -10,31 +10,46 @@ const { hospedajes, loading } = useAccomodationHighlights()
 
   if (loading) {
     return (
-      <section className="w-full flex flex-col items-center gap-8 py-10 px-4">
-        <H2 className="text-center text-2xl md:text-4xl font-title uppercase">
-          Alojamientos Disponibles
-        </H2>
+      <section className="relative w-full overflow-hidden flex flex-col items-center gap-8 py-10 px-4">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute left-[-7rem] top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/45 blur-3xl" />
+          <div className="absolute right-[-10rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/52 blur-3xl" />
+        </div>
 
-        {/* Mobile Skeleton */}
-        <div className="block md:hidden w-full overflow-x-auto">
-          <div className="flex gap-4 snap-x snap-mandatory px-2">
-            {Array.from({ length: 3 }).map((_, i) => (
+        <div className="relative z-10 flex w-full flex-col items-center gap-8">
+          <div className="text-center space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#52655B]">
+              Alojamientos recomendados
+            </p>
+            <H2 className="max-w-2xl mx-auto text-2xl md:text-4xl font-title uppercase">
+              Alojamientos Disponibles
+            </H2>
+            <p className="max-w-2xl mx-auto text-sm text-gray-600 md:text-base">
+              Selección de hospedajes destacados para que encuentres tu próxima estadía con facilidad.
+            </p>
+          </div>
+
+          {/* Mobile Skeleton */}
+          <div className="block md:hidden w-full overflow-x-auto">
+            <div className="flex gap-4 snap-x snap-mandatory px-2">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Skeleton
+                  key={i}
+                  className="min-w-[280px] h-[220px] rounded-xl snap-center"
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop Skeleton */}
+          <div className="hidden md:grid md:grid-cols-3 gap-6 w-full">
+            {Array.from({ length: 6 }).map((_, i) => (
               <Skeleton
                 key={i}
-                className="min-w-[280px] h-[220px] rounded-xl snap-center"
+                className="w-full h-[220px] rounded-xl"
               />
             ))}
           </div>
-        </div>
-
-        {/* Desktop Skeleton */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6 w-full">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton
-              key={i}
-              className="w-full h-[220px] rounded-xl"
-            />
-          ))}
         </div>
       </section>
     )
@@ -44,19 +59,34 @@ const { hospedajes, loading } = useAccomodationHighlights()
     return <div className="py-10 text-center">Sin propiedades destacadas.</div>
 
   return (
-    <section className="w-full flex flex-col items-center gap-8 py-10 px-4">
-      <H2 className="text-center">
-        Alojamientos Disponibles
-      </H2>
-
-      {/* Mobile */}
-      <div className="block md:hidden w-full">
-        <AccomodationsMobile hospedajes={hospedajes} />
+    <section className="relative w-full overflow-hidden flex flex-col items-center gap-8 py-10 px-4">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-7rem] top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/45 blur-3xl" />
+        <div className="absolute right-[-10rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/52 blur-3xl" />
       </div>
 
-      {/* Desktop */}
-      <div className="hidden md:block w-full">
-        <AccomodationsDesktop hospedajes={hospedajes} />
+      <div className="relative z-10 flex w-full flex-col items-center gap-8">
+        <div className="text-center space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#52655B]">
+            Alojamientos recomendados
+          </p>
+          <H2 className="max-w-2xl mx-auto">
+            Alojamientos Disponibles
+          </H2>
+          <p className="max-w-2xl mx-auto text-sm text-gray-600 md:text-base">
+            Selección de hospedajes destacados para que encuentres tu próxima estadía con facilidad.
+          </p>
+        </div>
+
+        {/* Mobile */}
+        <div className="block md:hidden w-full">
+          <AccomodationsMobile hospedajes={hospedajes} />
+        </div>
+
+        {/* Desktop */}
+        <div className="hidden md:block w-full">
+          <AccomodationsDesktop hospedajes={hospedajes} />
+        </div>
       </div>
     </section>
   )
