@@ -72,16 +72,18 @@ export default function PlansSection() {
     return () => observer.disconnect();
   }, []);
 
+  // En móvil: todas las cards iguales (col-span-1, h-44)
+  // En sm+: layout asimétrico original
   const getCardSize = (index: number) => {
     const layout = [
-      "sm:col-span-2 col-span-1 h-60 sm:h-80",
-      "col-span-1 h-60 sm:h-80",
-      "col-span-1 h-60 sm:h-80",
-      "col-span-1 h-60 sm:h-80",
-      "col-span-1 h-60 sm:h-80",
-      "sm:col-span-2 col-span-1 h-60 sm:h-80",
+      "col-span-1 h-44 sm:col-span-2 sm:h-80",
+      "col-span-1 h-44 sm:col-span-1 sm:h-80",
+      "col-span-1 h-44 sm:col-span-1 sm:h-80",
+      "col-span-1 h-44 sm:col-span-1 sm:h-80",
+      "col-span-1 h-44 sm:col-span-1 sm:h-80",
+      "col-span-1 h-44 sm:col-span-2 sm:h-80",
     ]
-    return layout[index] || "col-span-1 h-60 sm:h-80"
+    return layout[index] || "col-span-1 h-44 sm:h-80"
   }
 
   return (
@@ -106,17 +108,17 @@ export default function PlansSection() {
           </P>
         </div>
 
-        {/* Grid */}
+        {/* Grid — 2 cols en móvil, 4 en desktop */}
         <div
           ref={containerRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
         >
           {PLANES_GESTION.map((plan, index) => (
             <Link to="/servicios" key={`${plan.id}-${index}`} className={getCardSize(index)}>
               <article
                 data-reveal="true"
                 data-index={index}
-                className={`group relative h-full cursor-pointer overflow-hidden rounded-[1.5rem] bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 ${
+                className={`group relative h-full cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_8px_20px_rgba(82,101,91,0.08)] transition-all duration-700 ${
                   visibleCards[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 } hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]`}
                 style={{ transitionDelay: visibleCards[index] ? `${index * 90}ms` : "0ms" }}
@@ -130,22 +132,23 @@ export default function PlansSection() {
                 />
 
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2f3a35]/82 via-[#2f3a35]/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2f3a35]/85 via-[#2f3a35]/30 to-transparent" />
 
                 {/* Content */}
-                <div className="relative flex h-full flex-col justify-end p-5 md:p-7">
-                  <h3 className="text-base font-semibold leading-6 text-white md:text-lg">
+                <div className="relative flex h-full flex-col justify-end p-3 sm:p-5 md:p-7">
+                  <h3 className="text-xs font-semibold leading-4 text-white sm:text-base sm:leading-6 md:text-lg">
                     {plan.title}
                   </h3>
 
-                  <P className="mt-3 max-w-sm text-xs leading-5 text-white/78 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
+                  <P className="mt-1.5 sm:mt-3 max-w-sm text-[10px] sm:text-xs leading-4 sm:leading-5 text-white/78 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
                     Accede a nuestros servicios profesionales
                   </P>
-                  <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-white opacity-100 sm:opacity-0 sm:transition-all sm:duration-500 sm:translate-y-2 sm:group-hover:translate-y-0 sm:group-hover:opacity-100">
-                    <span className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-white">
+
+                  <div className="mt-2 sm:mt-4 flex items-center gap-1.5 sm:gap-2 text-sm font-semibold text-white opacity-100 sm:opacity-0 sm:transition-all sm:duration-500 sm:translate-y-2 sm:group-hover:translate-y-0 sm:group-hover:opacity-100">
+                    <span className="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-[10px] sm:px-4 sm:py-2 sm:text-xs font-semibold text-white">
                       {plan.textbutton}
                     </span>
-                    <span className="text-xs font-medium text-white/80 transition-transform duration-300 group-hover:translate-x-1">
+                    <span className="text-[10px] sm:text-xs font-medium text-white/80 transition-transform duration-300 group-hover:translate-x-1">
                       →
                     </span>
                   </div>

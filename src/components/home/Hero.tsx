@@ -1,170 +1,168 @@
-
-
 import { Link } from '@tanstack/react-router'
-import { Button } from '@/components/ui/button'
-import { H1, P, Small } from '@/components/ui/Typography'
+import { H1 } from '@/components/ui/Typography'
 
 export default function Hero() {
-  // Contenido estático del hero
   const leftHero = {
-    titulo: 'HUÉSPEDES',
-    subtitulo: 'Estancias que se sienten como en casa',
-    imagen: 'https://i.ibb.co/KxHH5GvT/Vacation-Homes.jpg',
+    badge: 'Para huéspedes',
+    titulo1: 'Estancias',
+    titulo2: 'como en casa',
+    subtitulo: 'Alojamientos seleccionados con atención al detalle para que tu estadía sea perfecta.',
+    imagen: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=85',
     link: '/alojamientos',
-    textoBoton: 'Ver más'
+    textoBoton: 'Ver alojamientos',
   }
 
   const rightHero = {
-    titulo: 'PROPIETARIOS',
-    subtitulo: 'Tu propiedad, nuestro compromiso',
-    imagen: 'https://i.ibb.co/N60Wpphj/hero-2.jpg',
+    badge: 'Para propietarios',
+    titulo1: 'Tu propiedad,',
+    titulo2: 'nuestro cuidado',
+    subtitulo: 'Gestionamos tu inmueble con profesionalismo y transparencia.',
+    imagen: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200&q=85',
     link: '/servicios',
-    textoBoton: 'Ver más'
+    textoBoton: 'Ver servicios',
   }
+
+  const stats = [
+    { num: '+10', label: 'Propiedades' },
+    { num: '★',  label: 'Calificación' },
+    { num: '100%', label: 'Satisfacción' },
+    { num: 'CR',  label: 'Costa Rica'  },
+  ]
+
+  const btnClass =
+    'inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-2.5 text-xs font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20 md:px-6 md:py-3 md:text-sm'
+
+  const badgeClass =
+    'inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/80 backdrop-blur-sm'
 
   return (
     <section className="relative text-white">
-      <div className="relative h-[55vh] min-h-[420px] md:h-[65vh] lg:h-[640px] overflow-hidden">
-        
-        {/* ========== BACKGROUND ========== */}
-        <div className="absolute inset-0">
-          {/* MOBILE: dos mitades verticales */}
-          <div className="absolute inset-x-0 top-0 h-1/2 md:hidden">
-            <img 
-              src={leftHero.imagen} 
-              alt={leftHero.titulo} 
-              className="h-full w-full object-cover" 
-            />
-            <div className="absolute inset-0 bg-black/40" />
-          </div>
-          
-          <div className="absolute inset-x-0 bottom-0 h-1/2 md:hidden">
-            <img 
-              src={rightHero.imagen} 
-              alt={rightHero.titulo} 
-              className="h-full w-full object-cover" 
-            />
-            <div className="absolute inset-0 bg-black/40" />
-          </div>
 
-          {/* DESKTOP: triángulos diagonales */}
-          <div className="hidden md:block absolute inset-0">
-            <img
-              src={leftHero.imagen}
-              alt={leftHero.titulo}
-              className="absolute inset-0 h-full w-full object-cover [clip-path:polygon(0_0,55%_0,45%_100%,0_100%)]"
-            />
-            <div className="absolute inset-0 bg-black/40 [clip-path:polygon(0_0,55%_0,45%_100%,0_100%)]" />
-            
-            <img
-              src={rightHero.imagen}
-              alt={rightHero.titulo}
-              className="absolute inset-0 h-full w-full object-cover [clip-path:polygon(55%_0,100%_0,100%_100%,45%_100%)]"
-            />
-            <div className="absolute inset-0 bg-black/40 [clip-path:polygon(55%_0,100%_0,100%_100%,45%_100%)]" />
-          </div>
-
-          {/* Gradiente global */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-black/5 to-black/10" />
-        </div>
-
-        {/* ========== CONTENT MOBILE ========== */}
-        <div className="relative z-10 md:hidden h-full">
-          {/* Bloque superior (HUÉSPEDES) */}
-          <div className="absolute inset-x-0 top-0 h-1/2 flex items-center justify-center px-4">
-            <div
-              className="w-[92%] max-w-[360px] rounded-xl border border-white/30 p-4 shadow-md max-h-[88%] overflow-hidden text-white"
-              aria-label={`Información para ${leftHero.titulo.toLowerCase()}`}
-            >
-              <H1 className="uppercase text-[clamp(22px,6.8vw,30px)] leading-none tracking-[0.08em] text-center">
-                {leftHero.titulo}
+      {/* ════════════════ MOBILE ════════════════ */}
+      <div className="md:hidden">
+        {/* Panel Huéspedes */}
+        <div className="relative h-[52vh] min-h-[300px] overflow-hidden">
+          <img src={leftHero.imagen} alt={leftHero.badge} className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
+          <div className="relative flex h-full flex-col justify-between px-5 py-6">
+            <div className={badgeClass}>{leftHero.badge}</div>
+            <div>
+              <H1 className="text-white leading-tight tracking-tight">
+                {leftHero.titulo1}<br />{leftHero.titulo2}
               </H1>
-
-              <P className="mt-3 text-[12px] leading-5 text-center text-white/90 max-h-24 overflow-hidden">
-                {leftHero.subtitulo}
-              </P>
-
-              <div className="mt-4 flex justify-center">
-                <Link to={leftHero.link} aria-label={`Ver ${leftHero.titulo.toLowerCase()}`}>
-                  <Button variant="white">
-                    {leftHero.textoBoton}
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Bloque inferior (PROPIETARIOS) */}
-          <div className="absolute inset-x-0 bottom-0 h-1/2 flex items-center justify-center px-4">
-            <div
-              className="w-[92%] max-w-[360px] rounded-xl border border-white/30 p-4 shadow-md max-h-[88%] overflow-hidden text-white"
-              aria-label={`Información para ${rightHero.titulo.toLowerCase()}`}
-            >
-              <H1 className="uppercase text-[clamp(22px,6.8vw,30px)] leading-none tracking-[0.08em] text-center">
-                {rightHero.titulo}
-              </H1>
-
-              <P className="mt-3 text-[12px] leading-5 text-center text-white/90 max-h-24 overflow-hidden">
-                {rightHero.subtitulo}
-              </P>
-
-              <div className="mt-4 flex justify-center">
-                <Link to={rightHero.link} aria-label={`Ver ${rightHero.titulo.toLowerCase()}`}>
-                  <Button variant="white">
-                    {rightHero.textoBoton}
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ========== CONTENT DESKTOP ========== */}
-        <div className="relative z-10 hidden md:grid h-full min-h-[480px] w-full max-w-screen-xl mx-auto grid-cols-2 place-items-center gap-8 px-4 md:px-8 text-center">
-          
-          {/* Columna izquierda (HUÉSPEDES) */}
-          <div className="max-w-full md:max-w-[460px] px-2">
-            <H1 className="uppercase text-4xl lg:text-6xl tracking-[0.12em] leading-none">{leftHero.titulo}</H1>
-
-            <P className="mt-4 text-base leading-7 text-white/88 lg:text-xl">
-              {leftHero.subtitulo}
-            </P>
-
-            <div className="mt-6">
+              <p className="mt-3 max-w-[260px] text-xs leading-5 text-white/70">{leftHero.subtitulo}</p>
               <Link to={leftHero.link}>
-                <Button
-                  variant="white"
-                   >
-                  <Small>{leftHero.textoBoton}</Small>
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {/* Columna derecha (PROPIETARIOS) */}
-          <div className="max-w-full md:max-w-[460px] px-2">
-            <H1 className="uppercase text-4xl lg:text-6xl tracking-[0.12em] leading-none">{rightHero.titulo}</H1>
-
-            <P className="mt-4 text-base leading-7 text-white/88 lg:text-xl">
-              {rightHero.subtitulo}
-            </P>
-
-            <div className="mt-6">
-              <Link to={rightHero.link}>
-                <Button
-                  variant="white"
-                >
-                  <Small>{rightHero.textoBoton}</Small>
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </Button>
+                <button className={`mt-4 ${btnClass}`}>{leftHero.textoBoton} →</button>
               </Link>
             </div>
           </div>
         </div>
 
+        {/* Panel Propietarios */}
+        <div className="relative h-[52vh] min-h-[300px] overflow-hidden">
+          <img src={rightHero.imagen} alt={rightHero.badge} className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
+          <div className="relative flex h-full flex-col justify-between px-5 py-6">
+            <div className={badgeClass}>{rightHero.badge}</div>
+            <div>
+              <H1 className="text-white leading-tight tracking-tight">
+                {rightHero.titulo1}<br />{rightHero.titulo2}
+              </H1>
+              <p className="mt-3 max-w-[260px] text-xs leading-5 text-white/70">{rightHero.subtitulo}</p>
+              <Link to={rightHero.link}>
+                <button className={`mt-4 ${btnClass}`}>{rightHero.textoBoton} →</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats móvil */}
+        <div className="grid grid-cols-4 border-t border-white/10 bg-[#2f3a35]">
+          {stats.map((s, i) => (
+            <div key={i} className="flex flex-col items-center justify-center px-1 py-3 text-center">
+              <p className="text-sm font-bold text-white">{s.num}</p>
+              <p className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.1em] text-white/50 leading-tight">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ════════════════ DESKTOP ════════════════ */}
+      <div className="relative hidden h-[70vh] overflow-hidden md:block lg:h-[680px]">
+
+        {/* Backgrounds */}
+        <div className="absolute inset-0 grid grid-cols-2">
+          <div className="relative overflow-hidden group">
+            <img src={leftHero.imagen} alt={leftHero.badge} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#2f3a35]/85 via-[#2f3a35]/45 to-transparent" />
+          </div>
+          <div className="relative overflow-hidden group">
+            <img src={rightHero.imagen} alt={rightHero.badge} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-l from-[#2f3a35]/85 via-[#2f3a35]/45 to-transparent" />
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="pointer-events-none absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-white/15" />
+        <div className="absolute left-1/2 top-1/2 z-20 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm">
+          <span className="text-[9px] font-bold uppercase tracking-widest text-white/90">DMR</span>
+        </div>
+
+        {/* Brand */}
+        <div className="absolute left-1/2 top-6 z-20 -translate-x-1/2">
+          <p className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.4em] text-white/60">DMR Rentals</p>
+        </div>
+
+        {/* Vignette */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-[#2f3a35]/70 to-transparent" />
+
+        {/* Content */}
+        <div className="absolute inset-0 z-10 grid grid-cols-2">
+
+          {/* LEFT */}
+          <div className="flex flex-col p-8 lg:p-12">
+            <div className={`${badgeClass} mt-1`}>{leftHero.badge}</div>
+            <div className="mt-auto flex flex-col">
+              <H1 className="text-white leading-tight tracking-tight">
+                {leftHero.titulo1}<br />{leftHero.titulo2}
+              </H1>
+              <p className="mt-6 max-w-[280px] text-sm leading-6 text-white/70">{leftHero.subtitulo}</p>
+              <Link to={leftHero.link}>
+                <button className={`mt-5 mb-16 lg:mb-20 ${btnClass}`}>{leftHero.textoBoton} →</button>
+              </Link>
+            </div>
+          </div>
+
+          {/* RIGHT — titulo arriba del bloque, subtitulo+boton al fondo */}
+          <div className="flex flex-col items-end p-8 pr-20 text-right lg:p-12 lg:pr-24">
+            <div className={`${badgeClass} mt-1`}>{rightHero.badge}</div>
+
+            {/* Título pegado al centro-superior del bloque */}
+            <div className="mt-auto w-full flex flex-col items-end">
+              <H1 className="text-white leading-tight tracking-tight">
+                {rightHero.titulo1}<br />{rightHero.titulo2}
+              </H1>
+            </div>
+
+            {/* Subtítulo y botón pegados al fondo */}
+            <div className="flex flex-col items-end">
+              <p className="max-w-[260px] text-sm leading-6 text-white/70">{rightHero.subtitulo}</p>
+              <Link to={rightHero.link}>
+                <button className={`mt-5 mb-16 lg:mb-20 ${btnClass}`}>{rightHero.textoBoton} →</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats bar */}
+        <div className="absolute inset-x-0 bottom-0 z-20 grid grid-cols-4">
+          {stats.map((s, i) => (
+            <div key={i} className="flex flex-col items-center justify-center border-t border-white/15 bg-white/[0.07] px-4 py-3 text-center backdrop-blur-sm">
+              <p className="text-lg font-bold text-white md:text-xl">{s.num}</p>
+              <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/55 md:text-[10px]">{s.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
