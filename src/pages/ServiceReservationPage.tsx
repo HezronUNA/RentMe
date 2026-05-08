@@ -21,7 +21,7 @@ export default function ServiceReservationPage() {
           </h1>
 
           <p className="mt-5 max-w-md text-lg text-slate-600">
-            Estas a un paso de reservar con Rent Me. Completá el formulario y te contactamos por
+            Estas a un paso de reservar con DMR Rentals. Completá el formulario y te contactamos por
             WhatsApp.
           </p>
 
