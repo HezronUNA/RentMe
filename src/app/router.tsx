@@ -21,6 +21,7 @@ const ServicesPage = lazy(() => import("../pages/ServicesPage"))
 const ServiceReservationPage = lazy(() => import("../pages/ServiceReservationPage"))
 const SaleDetailPage = lazy(() => import("../slices/sales/SaleDetail"))
 const AccommodationDetailPage = lazy(() => import("../slices/accommodations/AccommodationDetail"))
+const PlansReservationPage = lazy(() => import("../pages/PlansReservationPage"))
 
 // Ruta raíz con layout
 const rootRoute = createRootRoute({
@@ -100,6 +101,12 @@ const reservarServicioRoute = createRoute({
   component: ServiceReservationPage,
 })
 
+const reservarPlanRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/reservar-plan",
+  component: PlansReservationPage,
+})
+
 // Árbol de rutas
 const routeTree = rootRoute.addChildren([
   homeRoute,
@@ -112,10 +119,12 @@ const routeTree = rootRoute.addChildren([
   ventaDetailRoute,
   serviciosRoute,
   adminRoute,
-  reservarServicioRoute
+  reservarServicioRoute,
+  reservarPlanRoute
 ])
 
 // Configuración del router
+// eslint-disable-next-line react-refresh/only-export-components
 export const router = createRouter({ routeTree })
 
 // Tipado opcional
