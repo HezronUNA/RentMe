@@ -1,3 +1,4 @@
+
 # AGENTS.md - RentMe Platform
 
 ## 📋 INFORMACIÓN DEL PROYECTO

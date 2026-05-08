@@ -1,9 +1,8 @@
-
-import { Button } from "@/components/ui/button"
 import type { PropiedadVenta } from "../type"
 import { useNavigate } from "@tanstack/react-router"
-import { MapPin, Bed, Home } from 'lucide-react'
+import {  Bed, Home, } from 'lucide-react'
 import { Small } from "@/components/ui/Typography"
+
 
 interface PropertyCardProps {
   property: PropiedadVenta
@@ -33,95 +32,80 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
     : "https://placehold.co/600x360"
 
   return (
-    <article 
-      className="
-        rounded-xl overflow-hidden shadow-md
-        border border-zinc-200 bg-gray-50 hover:bg-white hover:shadow-lg 
-        bg-zinc-100 transition-all duration-300 hover:scale-[1.02]
-        h-full cursor-pointer group
-      "
+    <article
+      className="group rounded-2xl bg-white overflow-hidden cursor-pointer shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(82,101,91,0.14)]"
       onClick={handleClick}
     >
       {/* Imagen */}
-      <div className="relative h-56 group overflow-hidden">
+      <div className="relative h-40 overflow-hidden bg-gradient-to-br from-[#52655B]/10 to-[#52655B]/5">
         <img
           src={img}
           alt={`Propiedad en ${property.ubicacion.canton}`}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
           onError={(e) => {
             const target = e.target as HTMLImageElement
             target.src = 'https://placehold.co/600x360'
           }}
         />
 
-        <div className="absolute top-3 right-3 z-30">
-          <div className="bg-white/95 text-[#52655B] px-4 py-2 rounded-lg text-lg font-semibold shadow-lg border border-zinc-100">
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#2f3a35]/65 via-[#2f3a35]/15 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
+
+        {/* Pill tipo (esquina superior izquierda) */}
+        <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-white backdrop-blur-sm">
+          {property.ubicacion.canton}
+        </div>
+      </div>
+
+      {/* Cuerpo */}
+      <div className="p-4">
+        {/* Título + Precio */}
+        <div className="mb-2 flex items-start justify-between gap-3">
+          <h3 className="text-sm font-semibold leading-5 text-[#2f3a35] transition-colors duration-500 group-hover:text-[#52655B]">
+            {property.ubicacion.distrito}
+          </h3>
+          <div className="shrink-0 rounded-full border border-[#52655B]/10 bg-[#52655B]/5 px-2.5 py-1 text-xs font-semibold text-[#52655B]">
             ₡{formatPrice(property.precio)}
           </div>
         </div>
 
-        {/* Overlay oscuro permanente para mejor legibilidad del título */}
-        <div className="absolute inset-0 bg-black/50 opacity-100 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-        {/* Título sobre la imagen, parte inferior centro */}
-        <div className="absolute left-0 right-0 bottom-4 flex justify-center pointer-events-none">
-          <div className=" px-4 py-2 rounded-md text-center max-w-[92%] pointer-events-auto">
-            <h3 className="text-white text-base md:text-lg font-semibold uppercase tracking-widest leading-6 line-clamp-2">
-              {`${property.ubicacion.distrito}`}
-            </h3>
-          </div>
-        </div>
-
-        {property.imagenes && property.imagenes.length > 1 && (
-          <div className="absolute top-20 right-4 bg-black/60 text-white px-2 py-1 rounded text-xs">
-            +{property.imagenes.length - 1} fotos
-          </div>
-        )}
-      </div>
-
-      {/* Info */}
-      <div className="p-4 space-y-2">
-        {/* Ubicación con icono */}
-        <div className="flex items-center gap-2">
-          <MapPin className="h-4 w-4 text-zinc-600" />
-          <p className="text-lg text-zinc-600 font-bold">{property.ubicacion.distrito}</p>
-        </div>
-
-        {/* Características compactas */}
-        <div className="pt-2 grid grid-cols-3 gap-2 items-stretch">
-          <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
-            <Bed className="h-4 w-4 text-[#52655B]" />
-            <span className="text-[11px] text-zinc-600 mt-1">Habitac.</span>
-            <span className="text-sm font-medium text-zinc-900 mt-1">{property.habitaciones}</span>
+        {/* Características compactas (inline) */}
+        <div className="mt-2 flex items-center gap-3 text-xs text-gray-500">
+          <div className="flex items-center gap-1">
+            <Bed className="h-3.5 w-3.5 text-[#52655B]" />
+            <span className="font-medium text-[#2f3a35]">{property.habitaciones}</span>
+            <span className="ml-1 text-gray-400">hab</span>
           </div>
 
-          <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#52655B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-[#52655B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 12a9 9 0 1018 0v-3a3 3 0 00-3-3h-1" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 7v1m0 4v1m4-5v1m0 4v1" />
             </svg>
-            <span className="text-[11px] text-zinc-600 mt-1">Baños</span>
-            <span className="text-sm font-medium text-zinc-900 mt-1">{property.baños}</span>
+            <span className="font-medium text-[#2f3a35]">{property.baños}</span>
+            <span className="ml-1 text-gray-400">baños</span>
           </div>
 
-          <div className="bg-zinc-50 rounded-lg border border-zinc-200 px-2 py-2 text-center flex flex-col items-center justify-center">
-            <Home className="h-4 w-4 text-[#52655B]" />
-            <span className="text-[11px] text-zinc-600 mt-1">Terreno</span>
-            <span className="text-sm font-medium text-zinc-900 mt-1">{property.areaTerreno}m²</span>
+          <div className="flex items-center gap-1">
+            <Home className="h-3.5 w-3.5 text-[#52655B]" />
+            <span className="font-medium text-[#2f3a35]">{property.areaTerreno}m²</span>
+            <span className="ml-1 text-gray-400">terreno</span>
           </div>
         </div>
-        
-        {/* Botón centrado */}
-        <div className="pt-2 flex justify-center">
-          <Button 
-            variant="green" 
-            className="hover:bg-[#435349] hover:cursor-pointer  transition-colors duration-200 max-w-[220px]"
-            onClick={(e) => { e.stopPropagation(); handleClick(); }}
-          >
-            <Small>Ver propiedad</Small>
-          </Button>
-        </div>
-        
+
+        {/* Footer */}
+        <div className="mt-4 flex items-center justify-end gap-3">
+           <button
+             onClick={(e) => {
+               e.stopPropagation()
+               handleClick()
+             }}
+             className="inline-flex items-center gap-2 rounded-lg border border-[#52655B]/20 bg-white px-3 py-2 text-xs font-medium text-[#52655B] transition-all duration-300 hover:border-[#52655B]/40 hover:bg-[#52655B]/5"
+           >
+             <Small>Ver propiedad</Small>
+             <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+           </button>
+         </div>
       </div>
     </article>
   )

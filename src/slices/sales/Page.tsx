@@ -74,7 +74,11 @@ export default function SalesPage() {
               </div>
             </div>
           )}
-
+          {/* Decorative Blobs */}
+          <div className="absolute top-1/4 -right-32 w-96 h-96 bg-[#52655B]/8 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-1/3 -left-40 w-80 h-80 bg-[#52655B]/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-[#52655B]/6 rounded-full blur-3xl pointer-events-none" />
+          
           {/* Properties Grid */}
           <PropertiesGrid
             properties={propiedades}
