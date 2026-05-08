@@ -1,6 +1,20 @@
 import { H2, P } from "@/components/ui/Typography";
+import { useEffect, useState } from "react";
 
 export default function Plan2() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+
+    const updateMatches = () => setIsDesktop(mediaQuery.matches);
+
+    updateMatches();
+    mediaQuery.addEventListener("change", updateMatches);
+
+    return () => mediaQuery.removeEventListener("change", updateMatches);
+  }, []);
+
   return (
     <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24">
       <div className="absolute inset-0 bg-white" />
@@ -11,17 +25,17 @@ export default function Plan2() {
       </div>
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="mb-8 space-y-2 md:mb-10">
+        <div className="mb-8 space-y-2 text-center md:mb-10 md:text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#52655B]">
             Modalidades · Plan 02
           </p>
-          <H2 className="max-w-2xl text-2xl leading-tight tracking-normal text-[#2f3a35] md:text-3xl">
+          <H2 className="mx-auto max-w-2xl text-2xl leading-tight tracking-normal text-[#2f3a35] md:mx-0 md:text-3xl">
             Promoción en mis plataformas
           </H2>
-          <P className="max-w-2xl text-sm text-gray-600 md:hidden">
+          <P className="mx-auto max-w-2xl text-sm text-gray-600 md:mx-0 md:hidden">
             Más alcance fuera de Airbnb con respaldo directo.
           </P>
-          <P className="hidden max-w-2xl text-sm text-gray-600 md:block md:text-base">
+          <P className="mx-auto hidden max-w-2xl text-sm text-gray-600 md:mx-0 md:block md:text-base">
             Para propietarios que buscan mayor alcance y presencia fuera de Airbnb, con respaldo directo.
           </P>
         </div>
@@ -87,9 +101,7 @@ export default function Plan2() {
                   className="inline-flex items-center gap-2 rounded-lg border border-[#d0d7d3] bg-[#f0f4f2] px-3 py-2 text-xs font-medium text-[#52655B] transition-all duration-300 hover:border-[#c3cbc7] hover:bg-[#e8ede8]"
                 >
                   Consultar este plan
-                  <span className="transition-transform duration-300 group-hover:translate-x-0.5">
-                    →
-                  </span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
                 </button>
 
                 <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#7a807d]">
@@ -102,54 +114,53 @@ export default function Plan2() {
           <aside className="group relative overflow-hidden rounded-3xl border border-[#e1e3e1] bg-[#fafafa]/92 p-6 shadow-[0_18px_45px_rgba(82,101,91,0.05)] transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(82,101,91,0.08)] backdrop-blur-sm md:p-8">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(82,101,91,0.04),transparent_38%),radial-gradient(circle_at_bottom_left,rgba(226,231,229,0.55),transparent_44%)]" />
 
-            <div className="relative space-y-5">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#52655B]">
-                  Lo que incluye
-                </p>
-                <p className="mt-3 text-sm leading-6 text-gray-600 md:hidden">
+            <details className="group relative md:open:shadow-none" open={isDesktop}>
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-center text-xs font-semibold uppercase tracking-[0.35em] text-[#52655B] md:cursor-default md:justify-start md:text-left md:tracking-[0.28em]">
+                <span className="w-full md:w-auto">Lo que incluye</span>
+                <span className="text-sm leading-none text-[#97a09b] transition-transform duration-300 group-open:rotate-180 md:hidden">⌄</span>
+              </summary>
+
+              <div className="mt-4 space-y-5 md:mt-0">
+                <p className="text-sm leading-6 text-gray-600 md:hidden">
                   Gestión y promoción para crecer tu visibilidad.
                 </p>
-                <p className="mt-3 hidden text-sm leading-6 text-gray-600 md:block">
+                <p className="hidden text-sm leading-6 text-gray-600 md:block">
                   Un plan completo que combina gestión profesional con promoción activa en múltiples canales para maximizar tu visibilidad.
                 </p>
-              </div>
 
-              <div className="grid gap-3">
-                {[
-                  "Gestión integral de propiedades",
-                  "Promoción multi-plataforma",
-                  "Soporte de clientes directos",
-                  "Supervisión de presencia online",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-[#e1e3e1] bg-white/85 px-4 py-3 text-sm font-medium text-[#2f3a35] shadow-[0_8px_20px_rgba(82,101,91,0.03)]"
-                  >
-                    {item}
+                <div className="grid gap-3">
+                  <div className="rounded-2xl border border-[#e1e3e1] bg-white/85 px-4 py-3 text-sm font-medium text-[#2f3a35] shadow-[0_8px_20px_rgba(82,101,91,0.03)]">
+                    Gestión integral de propiedades
                   </div>
-                ))}
-              </div>
+                  <div className="rounded-2xl border border-[#e1e3e1] bg-white/85 px-4 py-3 text-sm font-medium text-[#2f3a35] shadow-[0_8px_20px_rgba(82,101,91,0.03)]">
+                    Promoción multi-plataforma
+                  </div>
+                  <div className="rounded-2xl border border-[#e1e3e1] bg-white/85 px-4 py-3 text-sm font-medium text-[#2f3a35] shadow-[0_8px_20px_rgba(82,101,91,0.03)]">
+                    Soporte de clientes directos
+                  </div>
+                  <div className="rounded-2xl border border-[#e1e3e1] bg-white/85 px-4 py-3 text-sm font-medium text-[#2f3a35] shadow-[0_8px_20px_rgba(82,101,91,0.03)]">
+                    Supervisión de presencia online
+                  </div>
+                </div>
 
-              <div className="rounded-3xl bg-[#fbfbfb] p-5 text-[#2f3a35] shadow-[0_12px_30px_rgba(82,101,91,0.03)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#97a09b]">
-                  Ideal para
-                </p>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
-                  Propietarios con presencia en múltiples plataformas que buscan mayor visibilidad y alcance de mercado.
-                </p>
-              </div>
+                <div className="rounded-3xl bg-[#fbfbfb] p-5 text-[#2f3a35] shadow-[0_12px_30px_rgba(82,101,91,0.03)] md:rounded-none md:bg-transparent md:p-0 md:shadow-none">
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#97a09b]">
+                    Ideal para
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-gray-600">
+                    Propietarios con presencia en múltiples plataformas que buscan mayor visibilidad y alcance de mercado.
+                  </p>
+                </div>
 
-              <button
-                type="button" 
-                className="mt-6 inline-flex items-center gap-2 rounded-lg border border-[#d0d7d3] bg-[#f0f4f2] px-3 py-2 text-xs font-medium text-[#52655B] transition-all duration-300 hover:border-[#c3cbc7] hover:bg-[#e8ede8]"
-              >
-                Ver detalle
-                <span className="transition-transform duration-300 group-hover:translate-x-0.5">
-                  →
-                </span>
-              </button>
-            </div>
+                <button
+                  type="button"
+                  className="mt-2 inline-flex items-center gap-2 rounded-lg border border-[#d7ddda] bg-white px-3 py-2 text-xs font-medium text-[#52655B] transition-all duration-300 hover:border-[#c3cbc7] hover:bg-[#f7f8f7]"
+                >
+                  Ver detalle
+                  <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+                </button>
+              </div>
+            </details>
           </aside>
         </div>
       </div>

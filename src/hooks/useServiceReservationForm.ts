@@ -24,6 +24,11 @@ const DEFAULT_SERVICES = [
   "Fotografia y video profesional",
   "Venta de propiedades",
 ];
+const DEFAULT_PLANS = [
+  "Coanfitrión en Airbnb",
+  "Promoción en mis plataformas",
+  "Administración Total",
+];
 
 function buildWhatsappMessage(formData: ReservationFormData) {
   return [
@@ -107,5 +112,6 @@ export function useServiceReservationForm() {
     onFieldChange,
     handleSubmit,
     availableServices: DEFAULT_SERVICES,
+    availablePlans: DEFAULT_PLANS
   };
 }
