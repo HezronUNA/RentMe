@@ -67,12 +67,21 @@ export default function WhatWeDo() {
   }, [mobileCards.length]);
 
   return (
-    <section id="about-us-content" className="mx-auto max-w-6xl px-4 py-16">
+    <section id="about-us-content" className="relative overflow-hidden bg-white">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[8%] top-28 h-[22rem] w-[22rem] rounded-full bg-[#e7eee9]/45 blur-[80px] md:left-[4%] md:top-24 md:h-[32rem] md:w-[32rem] md:bg-[#e7eee9]/75 md:blur-[105px]" />
+        <div className="absolute right-[-3rem] bottom-20 h-[24rem] w-[24rem] rounded-full bg-[#f1e8dc]/50 blur-[85px] md:right-[-6rem] md:bottom-28 md:h-[34rem] md:w-[34rem] md:bg-[#f1e8dc]/80 md:blur-[110px]" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-16">
       {/* Versión Desktop */}
       <div className="hidden md:block">
         {/* Encabezado */}
         <div className="text-center mb-12">
-          <H2 className="sm:max-w-3xl mx-auto">
+          <p className="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#52655B]/80 font-semibold">
+            Gestion Integral Inmobiliaria
+          </p>
+          <H2 className="sm:max-w-3xl mx-auto mt-3">
             Lo Que Hacemos
           </H2>
           <P className="mt-4 text-base sm:text-lg text-zinc-700 leading-relaxed">
@@ -157,13 +166,16 @@ export default function WhatWeDo() {
       </div>
 
       {/* Versión Mobile con Carrusel Autoplay */}
-      <div className="md:hidden px-4 py-12">
+      <div className="md:hidden py-10">
         <div className="text-center mb-8">
-          <H2 >
-            ¿Quiénes somos?
+          <p className="text-[10px] uppercase tracking-[0.28em] text-[#52655B]/80 font-semibold">
+            Gestion Integral Inmobiliaria
+          </p>
+          <H2 className="mt-3 mx-auto max-w-xs">
+            Lo Que Hacemos
           </H2>
-          <P className="mt-3 text-sm text-zinc-700 leading-relaxed">
-            Somos un equipo especializado en la administración integral y promoción de alojamientos turísticos en Costa Rica. Nuestro enfoque es convertir cada propiedad en una experiencia inolvidable para el huésped, y una operación sin estrés para el propietario.
+          <P className="mt-3 text-sm text-zinc-700 leading-relaxed max-w-md mx-auto">
+            Ofrecemos soluciones integrales para quienes buscan comprar, vender o alquilar propiedades en Costa Rica.
           </P>
         </div>
 
@@ -199,6 +211,7 @@ export default function WhatWeDo() {
             );
           })}
         </div>
+      </div>
       </div>
     </section>
   );
