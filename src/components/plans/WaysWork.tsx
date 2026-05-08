@@ -50,7 +50,7 @@ const MODALIDADES = [
 
 export default function ModalidadesServicio() {
   const titleData = {
-    titulo: 'NUESTRAS MODALIDADES DE TRABAJO',
+    titulo: 'Nuestras Modalidades de Trabajo',
     descripcion:
       'Desde una colaboración como coanfitrión en Airbnb, hasta una administración completa, te ofrecemos soluciones flexibles, efectivas y enfocadas en maximizar la rentabilidad de tu propiedad sin que tengas que preocuparte por nada.',
   };
@@ -58,7 +58,7 @@ export default function ModalidadesServicio() {
   return (
     <section className="w-full py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <H2 className="text-center text-3xl md:text-4xl font-title uppercase mb-4">
+        <H2 className="sm:max-w-7xl text-center mb-4">
           {titleData.titulo}
         </H2>
         <P className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">

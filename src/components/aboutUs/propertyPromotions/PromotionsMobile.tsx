@@ -1,4 +1,4 @@
-import { H2 } from "@/components/ui/Typography";
+import { H2, H3 } from "@/components/ui/Typography";
 import { OrbitAnimation } from "./orbitAnimation/OrbitAnimation";
 import { platformsConfigMobile } from "./orbitAnimation/orbitConfigMobile";
 import { useNavigate } from "@tanstack/react-router";
@@ -69,9 +69,9 @@ export function PromotionsMobile() {
                   <IconComponent className="w-5 h-5 text-[#52655B]" />
                 </div>
 
-                <h3 className="text-lg font-bold text-zinc-900 mb-2">
+                <H3>
                   {benefit.title}
-                </h3>
+                </H3>
 
                 <p className="text-xs text-zinc-600 leading-relaxed">
                   {benefit.description}
@@ -83,9 +83,9 @@ export function PromotionsMobile() {
 
         {/* CTA Section */}
         <div className="text-center mb-6">
-          <h3 className="text-lg md:text-xl font-bold text-zinc-900 mb-3">
+          <H2 className="mb-3">
             ¿Listo para impulsar tu propiedad?
-          </h3>
+          </H2>
           <p className="text-zinc-600 text-sm mb-6">
             Contacta con nosotros hoy y descubre cómo podemos ayudarte.
           </p>

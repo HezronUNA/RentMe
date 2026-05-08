@@ -72,7 +72,7 @@ export default function WhatWeDo() {
       <div className="hidden md:block">
         {/* Encabezado */}
         <div className="text-center mb-12">
-          <H2 className="text-3xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800">
+          <H2 className="sm:max-w-3xl mx-auto">
             Lo Que Hacemos
           </H2>
           <P className="mt-4 text-base sm:text-lg text-zinc-700 leading-relaxed">
@@ -159,7 +159,7 @@ export default function WhatWeDo() {
       {/* Versión Mobile con Carrusel Autoplay */}
       <div className="md:hidden px-4 py-12">
         <div className="text-center mb-8">
-          <H2 className="text-2xl font-semibold tracking-[0.14em] uppercase text-zinc-800">
+          <H2 >
             ¿Quiénes somos?
           </H2>
           <P className="mt-3 text-sm text-zinc-700 leading-relaxed">
@@ -188,7 +188,7 @@ export default function WhatWeDo() {
                 </div>
 
                 <div className="space-y-2">
-                  <H3 className="text-zinc-700 text-lg font-medium">
+                  <H3 className="">
                     {card.title}
                   </H3>
                   <P className="text-zinc-900 text-sm leading-relaxed">

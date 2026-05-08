@@ -16,7 +16,7 @@ export function H2({ className, ...props }: React.HTMLAttributes<HTMLHeadingElem
   return (
     <h2
     style={{ fontFamily: 'Playfair Display, serif' }}
-      className={cn("text-2xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4", className)}
+      className={cn("max-w-xl text-[#2f3a35] normal-case tracking-normal leading-tight text-2xl md:text-3xl lg:text-4xl", className)}
       {...props}
     />
   )
@@ -25,7 +25,7 @@ export function H2({ className, ...props }: React.HTMLAttributes<HTMLHeadingElem
 export function H3({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn("text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight uppercase tracking-wide", className)}
+      className={cn("text-zinc-700 text-lg font-medium", className)}
       {...props}
     />
   )
@@ -48,7 +48,7 @@ export function P({ className, ...props }: React.HTMLAttributes<HTMLParagraphEle
 
 export function Blockquote({ className, ...props }: React.HTMLAttributes<HTMLQuoteElement>) {
   return (
-    <blockquote className={cn("mt-6 border-l-2 pl-6 italic", className)} {...props} />
+    <blockquote className={cn("text-lg md:text-xl leading-8 text-gray-700", className)} {...props} />
   )
 }
 
