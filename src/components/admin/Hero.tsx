@@ -7,7 +7,7 @@ export default function AdminHero() {
 
   return (
     <section className="relative text-white">
-      <div className="relative h-[48vh] min-h-[360px] md:h-[52vh] lg:h-[460px] overflow-hidden">
+      <div className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-center bg-cover"
@@ -15,7 +15,7 @@ export default function AdminHero() {
         />
 
         {/* overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#52655B]/10 to-transparent" />
 
         <div className="relative z-10 flex h-full items-center justify-center px-4 md:px-10">

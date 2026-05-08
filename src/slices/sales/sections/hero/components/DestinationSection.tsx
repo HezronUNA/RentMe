@@ -137,7 +137,7 @@ export function DestinationSection({ variant, ubicacion, onUbicacionChange }: De
             </div>
             {isOpen && (
               <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-[9999] bg-white border border-zinc-200 rounded-2xl shadow-xl overflow-hidden">
-                <div className="max-h-64 overflow-y-auto">{renderDropdownContent()}</div>
+                <div className="max-h-42 overflow-y-auto">{renderDropdownContent()}</div>
               </div>
             )}
           </div>
@@ -194,7 +194,7 @@ export function DestinationSection({ variant, ubicacion, onUbicacionChange }: De
               autoFocus
             />
           </div>
-          <div className="max-h-[min(50vh,280px)] overflow-y-auto overscroll-contain">{renderDropdownContent()}</div>
+          <div className="max-h-[min(40vh,220px)] overflow-y-auto overscroll-contain">{renderDropdownContent()}</div>
         </div>
       )}
     </div>

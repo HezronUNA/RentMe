@@ -10,7 +10,7 @@ export function ServiceHero() {
 
   return (
     <section
-      className="relative py-20 min-h-[50vh] flex items-center overflow-hidden"
+      className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center"
       style={{
         backgroundImage: heroData.imagen
           ? `url(${heroData.imagen})`
