@@ -1,4 +1,4 @@
-import { H2 } from "@/components/ui/Typography";
+import { H2, H3 } from "@/components/ui/Typography";
 import { OrbitAnimation } from "./orbitAnimation/OrbitAnimation";
 import { platformsConfig } from "./orbitAnimation/orbitConfig";
 import { PromotionsMobile } from "./PromotionsMobile";
@@ -78,9 +78,9 @@ export function Promotions() {
                     <IconComponent className="w-6 h-6 text-[#52655B]" />
                   </div>
 
-                  <h3 className="text-xl font-bold text-zinc-900 mb-3">
+                  <H3>
                     {benefit.title}
-                  </h3>
+                  </H3>
 
                   <p className="text-sm text-zinc-600 leading-relaxed">
                     {benefit.description}
