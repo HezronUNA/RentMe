@@ -86,7 +86,7 @@ export default function Hero() {
 
               <div className="mt-4 flex justify-center">
                 <Link to={leftHero.link} aria-label={`Ver ${leftHero.titulo.toLowerCase()}`}>
-                  <Button variant="whiteBorder" className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-5 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f4f1eb] hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]">
+                  <Button variant="white">
                     {leftHero.textoBoton}
                     <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </Button>
@@ -111,7 +111,7 @@ export default function Hero() {
 
               <div className="mt-4 flex justify-center">
                 <Link to={rightHero.link} aria-label={`Ver ${rightHero.titulo.toLowerCase()}`}>
-                  <Button variant="whiteBorder" className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-5 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f4f1eb] hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]">
+                  <Button variant="white">
                     {rightHero.textoBoton}
                     <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </Button>
@@ -135,9 +135,8 @@ export default function Hero() {
             <div className="mt-6">
               <Link to={leftHero.link}>
                 <Button
-                  variant="whiteBorder"
-                  className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-6 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f4f1eb] hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]"
-                >
+                  variant="white"
+                   >
                   <Small>{leftHero.textoBoton}</Small>
                   <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </Button>
@@ -156,8 +155,7 @@ export default function Hero() {
             <div className="mt-6">
               <Link to={rightHero.link}>
                 <Button
-                  variant="whiteBorder"
-                  className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-6 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f4f1eb] hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]"
+                  variant="white"
                 >
                   <Small>{rightHero.textoBoton}</Small>
                   <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
