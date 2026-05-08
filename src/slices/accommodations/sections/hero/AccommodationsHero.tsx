@@ -2,6 +2,7 @@
 import { AccommodationSearchBox } from './components/AccommodationSearchBox';
 import type { AccommodationSearchFilters } from './components/AccommodationSearchBox';
 import type { FiltrosBusquedaHospedajes } from '../../hooks/useHospedajesConFiltros';
+import { H1 } from '@/components/ui/Typography';
 
 interface AccommodationsHeroProps {
   onApplyFilters?: (filters: FiltrosBusquedaHospedajes) => void;
@@ -44,7 +45,7 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
 
   return (
     <section
-      className="relative py-12 md:py-16 min-h-[55vh] md:min-h-[65vh] lg:min-h-[75vh] flex items-start"
+      className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center"
       style={{
         backgroundImage: heroData.imagen
           ? `url(${heroData.imagen})`
@@ -59,12 +60,9 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
       <div className="relative z-10 w-full px-4 pt-6 md:pt-8 overflow-visible">
         <div className="max-w-7xl mx-auto space-y-5 overflow-visible">
           <div className="space-y-2">
-            <h1 className="text-2xl lg:text-5xl font-bold text-white leading-tight uppercase tracking-wide text-center">
+            <H1>
              EXPLORÁ NUESTROS ALOJAMIENTOS
-            </h1>
-            <p className="text-base lg:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto font-light text-center">
-                DMR Rentals Costa Rica ofrece casas, villas y hospedajes únicos en las zonas más destacadas del país.
-              </p>
+            </H1>
           </div>
 
           {/* Desktop Search Box */}

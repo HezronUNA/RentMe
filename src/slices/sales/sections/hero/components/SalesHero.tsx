@@ -22,7 +22,7 @@ export function SalesHero({ onApplyFilters }: SalesHeroProps) {
 
   return (
     <section
-      className="relative py-12 md:py-16 min-h-[55vh] md:min-h-[65vh] lg:min-h-[75vh] flex items-start"
+      className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center"
       style={{
         backgroundImage: heroData.imagen
           ? `url(${heroData.imagen})`
