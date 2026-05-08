@@ -22,15 +22,15 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
         {/* Carrusel con scroll-snap */}
         <div
           className="
-            w-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory
+            w-full overflow-x-auto overflow-y-visible snap-x snap-mandatory
             scrollbar-hide
-            flex gap-4 
-            touch-pan-x
+            flex gap-4
           "
           style={{ 
             scrollbarWidth: "none", 
             msOverflowStyle: "none",
-            WebkitOverflowScrolling: "touch"
+            WebkitOverflowScrolling: "touch",
+            touchAction: "pan-x pan-y"
           }}
         >
           <style>{`

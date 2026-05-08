@@ -40,13 +40,24 @@ export default function WaysWork() {
   ];
 
   return (
-    <section className="w-full py-16 px-4">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative w-full overflow-hidden bg-white px-4 py-16">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-8rem] top-24 h-[28rem] w-[28rem] rounded-full bg-[#e7eee9]/55 blur-[95px]" />
+        <div className="absolute right-[-10rem] bottom-[-7rem] h-[30rem] w-[30rem] rounded-full bg-[#f1e8dc]/60 blur-[105px]" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Título principal */}
         <div className="text-center mb-12">
-          <H2 className="text-2xl md:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800">
+          <p className="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#52655B]/80 font-semibold">
+            Gestion Integral Inmobiliaria
+          </p>
+          <H2 className="mx-auto mt-3 max-w-3xl text-center">
             Nuestras Modalidades de Trabajo
           </H2>
+          <P className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-zinc-700 sm:text-base">
+            Diseñamos servicios claros y medibles para maximizar resultados y reducir fricción en cada etapa.
+          </P>
         </div>
 
         {/* Grid de modalidades */}
@@ -55,25 +66,24 @@ export default function WaysWork() {
             {modalidades.map((modalidad, index) => (
               <div
                 key={modalidad.id}
-                className="group h-full bg-neutral-50 rounded-2xl border border-zinc-200 shadow-sm p-6 flex flex-col 
-                 hover:shadow-[0_10px_40px_rgb(82,101,91,0.35)] transition-all duration-300"
+                className="group h-full rounded-3xl border border-[#52655B]/15 bg-white/90 p-6 shadow-[0_12px_30px_rgba(82,101,91,0.08)] backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(82,101,91,0.18)]"
               >
                 {/* Número de modalidad */}
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 rounded-full bg-[#52655B] text-white flex items-center justify-center font-bold text-lg mr-4">
+                <div className="mb-6 flex items-center gap-4">
+                  <div className="h-12 w-12 rounded-2xl bg-[#52655B] text-white flex items-center justify-center font-semibold text-base shadow-md">
                     {index + 1}
                   </div>
-                  <P className="text-xl mb-5 font-semibold font-title text-gray-900">
+                  <P className="!mt-0 text-lg sm:text-xl font-semibold text-[#2f3a35] leading-tight">
                     {modalidad.titulo}
                   </P>
                 </div>
 
                 {/* Lista de servicios */}
-                <div className="space-y-3">
+                <div className="space-y-3.5">
                   {modalidad.servicios.map((servicio, idx) => (
-                    <div key={idx} className="flex items-start">
-                      <div className="w-2 h-2 rounded-full bg-[#52655B] mt-1.5 mr-3 flex-shrink-0" />
-                      <P className="text-sm leading-relaxed font-body text-gray-700 flex-1">
+                    <div key={idx} className="flex items-start gap-3 rounded-xl border border-transparent px-1.5 py-1 transition-colors duration-300 group-hover:border-[#52655B]/10">
+                      <div className="mt-1.5 h-2 w-2 rounded-full bg-[#52655B] flex-shrink-0" />
+                      <P className="!mt-0 flex-1 text-sm leading-relaxed text-zinc-700">
                         {servicio}
                       </P>
                     </div>
@@ -90,7 +100,7 @@ export default function WaysWork() {
             <Button
               variant="green"
               size="lg"
-              className="hover:bg-[#435349] hover:cursor-pointer transition-colors duration-300"
+              className="rounded-full border border-transparent px-8 hover:bg-[#435349] hover:cursor-pointer transition-colors duration-300"
             >
               Ver más
             </Button>
