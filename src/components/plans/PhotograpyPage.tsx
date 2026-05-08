@@ -20,7 +20,7 @@ function ServiceIcon({ name }: { name?: string }) {
 
 export default function PhotograpyPage() {
   const titleData = {
-    titulo: 'FOTOGRAFÍA Y VIDEO PROFESIONAL',
+    titulo: 'Fotografía y Video Profesional',
     descripcion: 'Potenciamos la imagen de tu propiedad con contenido visual de alta calidad.'
   };
 
@@ -42,7 +42,7 @@ export default function PhotograpyPage() {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
+        <div className="text-center sm:max-w-xl mx-auto mb-8">
           <H2>{titleData.titulo}</H2>
           <P className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">{titleData.descripcion}</P>
         </div>

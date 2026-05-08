@@ -48,9 +48,9 @@ export default function PlansSection() {
     <section className="py-10 bg-white">
       <div className="container mx-auto px-4">
         
-        <div className="text-center mb-10">
-          <H2>
-            SOLUCIONES INMOBILIARIAS INTEGRALES
+        <div className="text-center align-items-center mb-10">
+          <H2 className="max-w-3xl mx-auto">
+            Soluciones Inmobiliarias Integrales
           </H2>
           <P className="text-lg text-gray-600 max-w-3xl mx-auto">
             Asesoría personalizada en gestión, venta y compra de propiedades en Costa Rica.
