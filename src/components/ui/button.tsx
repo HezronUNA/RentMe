@@ -35,12 +35,12 @@ const buttonVariants = cva(
       {
         variant: "whiteBorder",
         revealed: true,
-        class: "bg-white text-[#52655B] border-white",
+        class: "group inline-flex items-center gap-2 rounded-full border border-[#52655B]/20 bg-white px-5 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#52655B]/10  hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]",
       },
        {
         variant: "white",
         revealed: true,
-        class: "bg-white text-[#52655B] border border-[#52655B]",
+        class: "group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-5 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:cursor-pointer hover:-translate-y-0.5 hover:bg-[#f4f1eb] hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]",
       },
     ],
     defaultVariants: {
