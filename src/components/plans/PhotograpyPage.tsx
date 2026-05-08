@@ -40,10 +40,18 @@ export default function PhotograpyPage() {
   const image = service.imagen;
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="relative w-full overflow-hidden bg-white px-4 py-16">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-8rem] top-20 h-[28rem] w-[28rem] rounded-full bg-[#e7eee9]/45 blur-[95px] md:bg-[#e7eee9]/55 md:h-[32rem] md:w-[32rem] md:top-24" />
+        <div className="absolute right-[-8rem] top-20 h-[28rem] w-[28rem] rounded-full bg-[#f1e8dc]/45 blur-[95px] md:bg-[#f1e8dc]/55 md:h-[32rem] md:w-[32rem] md:top-24" />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4">
         <div className="text-center sm:max-w-xl mx-auto mb-8">
-          <H2>{titleData.titulo}</H2>
+          <p className="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#52655B]/80 font-semibold">
+            Contenido Visual Profesional
+          </p>
+          <H2 className="mt-3">{titleData.titulo}</H2>
           <P className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">{titleData.descripcion}</P>
         </div>
 

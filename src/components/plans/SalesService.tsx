@@ -41,7 +41,7 @@ const ITEMS = [
   },
 ];
 
-function IconPlaceholder({ }: { name?: string }) {
+function IconPlaceholder() {
   // Usar un SVG simple consistente con el resto del proyecto
   return (
     <div className="w-12 h-12 rounded-lg bg-[#d9dbd9] flex items-center justify-center">
@@ -63,13 +63,21 @@ function IconPlaceholder({ }: { name?: string }) {
 
 export default function SalesService() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16">
-      <div className="text-center mb-10">
-        <H2 className="sm:max-w-3xl mx-auto">
+    <section className="relative w-full overflow-hidden bg-white">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-8rem] top-16 h-[28rem] w-[28rem] rounded-full bg-[#e7eee9]/45 blur-[95px] md:bg-[#e7eee9]/55 md:h-[32rem] md:w-[32rem] md:top-20" />
+        <div className="absolute right-[-8rem] top-16 h-[28rem] w-[28rem] rounded-full bg-[#f1e8dc]/45 blur-[95px] md:bg-[#f1e8dc]/55 md:h-[32rem] md:w-[32rem] md:top-20" />
+      </div>
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-16">
+        <div className="text-center mb-10">
+        <p className="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-[#52655B]/80 font-semibold">
+          Venta de Propiedades
+        </p>
+        <H2 className="sm:max-w-3xl mx-auto mt-3">
           ¿Querés vender tu propiedad? Nosotros te ayudamos.
         </H2>
 
-      </div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {ITEMS.map((item) => (
@@ -99,6 +107,7 @@ export default function SalesService() {
             </Link>
           </Button>
         </div>
+      </div>
     </section>
   );
 }

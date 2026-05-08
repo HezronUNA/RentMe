@@ -37,8 +37,13 @@ export function Promotions() {
   return (
     <>
       {/* Desktop Version */}
-      <section className="hidden md:block py-20 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="hidden md:block relative overflow-hidden py-20 bg-white">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute left-[-10rem] top-20 h-[32rem] w-[32rem] rounded-full bg-[#e7eee9]/55 blur-[105px]" />
+          <div className="absolute right-[-10rem] top-20 h-[32rem] w-[32rem] rounded-full bg-[#f1e8dc]/55 blur-[105px]" />
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-16">
             <H2 className="sm:max-w-3xl mx-auto mb-6">
