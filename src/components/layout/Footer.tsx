@@ -155,82 +155,131 @@ export default function Footer() {
             {/* Nav + Contacto + Síguenos + Legal */}
             <div className="grid lg:grid-cols-3 gap-y-4 sm:gap-y-8 lg:gap-y-0 lg:gap-x-6">
               
-              {/* Navegación */}
-              <nav aria-label="Páginas principales" className="pt-1">
-                <h4 className="text-[11px] font-medium uppercase tracking-wider text-white/45 mb-2">
-                  Navegación
-                </h4>
-                <ul className="space-y-2 text-sm">
-                  <li>
-                    <Link to="/" className="text-white/60 hover:text-white transition-colors duration-200">
-                      Inicio
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/servicios" className="text-white/60 hover:text-white transition-colors duration-200">
-                      Servicios
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/alojamientos" className="text-white/60 hover:text-white transition-colors duration-200">
-                      Alojamientos
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/ventas" className="text-white/60 hover:text-white transition-colors duration-200">
-                      Ventas
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
+              {/* Navegación + Síguenos (mobile 2 cols) */}
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-0">
+                {/* Navegación */}
+                <nav aria-label="Páginas principales" className="pt-1">
+                  <h4 className="text-[11px] font-medium uppercase tracking-wider text-white/45 mb-2">
+                    Navegación
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <Link to="/" className="text-white/60 hover:text-white transition-colors duration-200">
+                        Inicio
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/servicios" className="text-white/60 hover:text-white transition-colors duration-200">
+                        Servicios
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/alojamientos" className="text-white/60 hover:text-white transition-colors duration-200">
+                        Alojamientos
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/ventas" className="text-white/60 hover:text-white transition-colors duration-200">
+                        Ventas
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
 
-              {/* Contacto */}
-              <nav aria-label="Contáctanos" className="pt-1">
-                <h4 className="text-[11px] font-medium uppercase tracking-wider text-white/45 mb-2">
-                  Contacto
-                </h4>
-                <ul className="space-y-2 text-sm">
-                  <li>
-                    <a
-                      href={buildWhatsAppHref(WHATSAPP_PHONE)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/60 hover:text-white transition-colors duration-200"
-                    >
-                      WhatsApp
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={getHrefByPlatform("instagram")}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/60 hover:text-white transition-colors duration-200"
-                    >
-                      Instagram
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="text-white/60 hover:text-white transition-colors duration-200">
-                      Gmail
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={getHrefByPlatform("facebook")}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/60 hover:text-white transition-colors duration-200"
-                    >
-                      Facebook
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+                {/* Síguenos (mobile) */}
+                <nav aria-label="Síguenos" className="pt-1 lg:hidden">
+                  <h4 className="text-[11px] font-medium uppercase tracking-wider text-white/45 mb-2">
+                    Síguenos
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    {followList.map((s) => {
+                      const href = hrefFromEntry(s);
+                      const label = s.label ?? s.platform;
+                      return (
+                        <li key={label}>
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white/60 hover:text-white transition-colors duration-200"
+                          >
+                            {label.charAt(0).toUpperCase() + label.slice(1)}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+              </div>
 
-              {/* Síguenos + Legal */}
-              <div className="flex flex-col gap-6">
-                <nav aria-label="Síguenos" className="pt-1 hidden sm:block">
+              {/* Contacto + Legal (mobile 2 cols) */}
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-0">
+                {/* Contacto */}
+                <nav aria-label="Contáctanos" className="pt-1">
+                  <h4 className="text-[11px] font-medium uppercase tracking-wider text-white/45 mb-2">
+                    Contacto
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <a
+                        href={buildWhatsAppHref(WHATSAPP_PHONE)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white/60 hover:text-white transition-colors duration-200"
+                      >
+                        WhatsApp
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href={getHrefByPlatform("instagram")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white/60 hover:text-white transition-colors duration-200"
+                      >
+                        Instagram
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="text-white/60 hover:text-white transition-colors duration-200">
+                        Gmail
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href={getHrefByPlatform("facebook")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white/60 hover:text-white transition-colors duration-200"
+                      >
+                        Facebook
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
+                {/* Legal (mobile) */}
+                <nav aria-label="Legal" className="pt-1 lg:hidden">
+                  <h4 className="text-[11px] font-medium uppercase tracking-wider text-white/45 mb-2">
+                    Legal
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <Link
+                        to="/terminos-y-condiciones"
+                        className="text-white/60 hover:text-white transition-colors duration-200"
+                      >
+                        Términos y condiciones
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+              {/* Síguenos + Legal (desktop only) */}
+              <div className="hidden lg:flex lg:flex-col lg:gap-0">
+                {/* Síguenos (desktop) */}
+                <nav aria-label="Síguenos" className="pt-1 lg:order-1">
                   <h4 className="text-[11px] font-medium uppercase tracking-wider text-white/45 mb-2">
                     Síguenos
                   </h4>
@@ -254,8 +303,8 @@ export default function Footer() {
                   </ul>
                 </nav>
 
-                {/* Legal */}
-                <nav aria-label="Legal" className="pt-1">
+                {/* Legal (desktop) */}
+                <nav aria-label="Legal" className="pt-1 lg:order-2 lg:mt-8">
                   <h4 className="text-[11px] font-medium uppercase tracking-wider text-white/45 mb-2">
                     Legal
                   </h4>
@@ -271,7 +320,6 @@ export default function Footer() {
                   </ul>
                 </nav>
               </div>
-
             </div>
 
           </div>
