@@ -41,7 +41,7 @@ export function Promotions() {
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-16">
-            <H2 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">
+            <H2 className="sm:max-w-3xl mx-auto mb-6">
               Donde Promocionamos tu propiedad
             </H2>
             <p className="text-lg text-zinc-600 max-w-2xl mx-auto">
@@ -92,9 +92,9 @@ export function Promotions() {
 
           {/* CTA Section */}
           <div className="max-w-3xl mx-auto text-center rounded-2xl p-10 md:p-14">
-            <h3 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-6">
+            <H2 className="sm:max-w-3xl mx-auto mb-6">
               ¿Listo para impulsar tu propiedad?
-            </h3>
+            </H2>
             <p className="text-zinc-600 text-lg mb-8 max-w-xl mx-auto">
               Contacta con nosotros hoy y descubre cómo podemos ayudarte a aumentar
               tus reservas y mejorar tu rentabilidad.

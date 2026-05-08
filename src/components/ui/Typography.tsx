@@ -16,7 +16,7 @@ export function H2({ className, ...props }: React.HTMLAttributes<HTMLHeadingElem
   return (
     <h2
     style={{ fontFamily: 'Playfair Display, serif' }}
-      className={cn("text-2xl sm:text-4xl font-semibold tracking-[0.14em] uppercase text-zinc-800 mb-4", className)}
+      className={cn("max-w-xl text-[#2f3a35] normal-case tracking-normal leading-tight text-2xl md:text-3xl lg:text-4xl", className)}
       {...props}
     />
   )
