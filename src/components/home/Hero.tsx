@@ -76,18 +76,19 @@ export default function Hero() {
               className="w-[92%] max-w-[360px] rounded-xl border border-white/30 p-4 shadow-md max-h-[88%] overflow-hidden text-white"
               aria-label={`Información para ${leftHero.titulo.toLowerCase()}`}
             >
-              <H1 className="uppercase text-[clamp(20px,6.4vw,28px)] leading-tight text-center">
+              <H1 className="uppercase text-[clamp(22px,6.8vw,30px)] leading-none tracking-[0.08em] text-center">
                 {leftHero.titulo}
               </H1>
 
-              <P className="mt-2 text-[13px] leading-snug text-center max-h-24 overflow-hidden">
+              <P className="mt-3 text-[12px] leading-5 text-center text-white/90 max-h-24 overflow-hidden">
                 {leftHero.subtitulo}
               </P>
 
               <div className="mt-4 flex justify-center">
                 <Link to={leftHero.link} aria-label={`Ver ${leftHero.titulo.toLowerCase()}`}>
-                  <Button variant="whiteBorder">
+                  <Button variant="whiteBorder" className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-5 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f4f1eb] hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]">
                     {leftHero.textoBoton}
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </Button>
                 </Link>
               </div>
@@ -100,18 +101,19 @@ export default function Hero() {
               className="w-[92%] max-w-[360px] rounded-xl border border-white/30 p-4 shadow-md max-h-[88%] overflow-hidden text-white"
               aria-label={`Información para ${rightHero.titulo.toLowerCase()}`}
             >
-              <H1 className="uppercase text-[clamp(20px,6.4vw,28px)] leading-tight text-center">
+              <H1 className="uppercase text-[clamp(22px,6.8vw,30px)] leading-none tracking-[0.08em] text-center">
                 {rightHero.titulo}
               </H1>
 
-              <P className="mt-2 text-[13px] leading-snug text-center max-h-24 overflow-hidden">
+              <P className="mt-3 text-[12px] leading-5 text-center text-white/90 max-h-24 overflow-hidden">
                 {rightHero.subtitulo}
               </P>
 
               <div className="mt-4 flex justify-center">
                 <Link to={rightHero.link} aria-label={`Ver ${rightHero.titulo.toLowerCase()}`}>
-                  <Button variant="whiteBorder">
+                  <Button variant="whiteBorder" className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-5 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f4f1eb] hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]">
                     {rightHero.textoBoton}
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </Button>
                 </Link>
               </div>
@@ -124,17 +126,20 @@ export default function Hero() {
           
           {/* Columna izquierda (HUÉSPEDES) */}
           <div className="max-w-full md:max-w-[460px] px-2">
-            <H1 className="uppercase">{leftHero.titulo}</H1>
+            <H1 className="uppercase text-4xl lg:text-6xl tracking-[0.12em] leading-none">{leftHero.titulo}</H1>
 
-            <P className="mt-3 text-lg lg:text-2xl">{leftHero.subtitulo}</P>
+            <P className="mt-4 text-base leading-7 text-white/88 lg:text-xl">
+              {leftHero.subtitulo}
+            </P>
 
-            <div className="mt-5">
+            <div className="mt-6">
               <Link to={leftHero.link}>
                 <Button
                   variant="whiteBorder"
-                  className="hover:bg-gray-300 hover:border-gray-300 hover:cursor-pointer"
+                  className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-6 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f4f1eb] hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]"
                 >
                   <Small>{leftHero.textoBoton}</Small>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </Button>
               </Link>
             </div>
@@ -142,17 +147,20 @@ export default function Hero() {
 
           {/* Columna derecha (PROPIETARIOS) */}
           <div className="max-w-full md:max-w-[460px] px-2">
-            <H1 className="uppercase">{rightHero.titulo}</H1>
+            <H1 className="uppercase text-4xl lg:text-6xl tracking-[0.12em] leading-none">{rightHero.titulo}</H1>
 
-            <P className="mt-3 text-lg lg:text-2xl">{rightHero.subtitulo}</P>
+            <P className="mt-4 text-base leading-7 text-white/88 lg:text-xl">
+              {rightHero.subtitulo}
+            </P>
 
-            <div className="mt-5">
+            <div className="mt-6">
               <Link to={rightHero.link}>
                 <Button
                   variant="whiteBorder"
-                  className="hover:bg-gray-300 hover:border-gray-300 hover:cursor-pointer"
+                  className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-6 py-3 text-sm font-semibold text-[#2f3a35] shadow-[0_14px_28px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f4f1eb] hover:shadow-[0_18px_32px_rgba(0,0,0,0.16)]"
                 >
                   <Small>{rightHero.textoBoton}</Small>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </Button>
               </Link>
             </div>

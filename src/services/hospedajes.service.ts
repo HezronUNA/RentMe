@@ -20,7 +20,8 @@ export async function getHospedajesDestacados(): Promise<HospedajeDestacado[]> {
         banos,
         camas,
         ubicacion,
-        imagenes
+        imagenes,
+        descripcion
       `)
       .eq('activo', true)
       .eq('destacado', true)
@@ -36,6 +37,7 @@ export async function getHospedajesDestacados(): Promise<HospedajeDestacado[]> {
     return (data || []).map((hospedaje) => ({
       id: hospedaje.id,
       nombre: hospedaje.nombre,
+      descripcion: hospedaje.descripcion || '',
       precioNoche: Number(hospedaje.precio_noche),
       cuartos: hospedaje.cuartos || 0,
       baños: hospedaje.banos || 0,

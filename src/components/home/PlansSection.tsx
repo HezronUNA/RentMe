@@ -1,9 +1,7 @@
-
-import { Button } from "@/components/ui/button"
-import { H2, P, Small } from "@/components/ui/Typography"
+import { H2, P } from "@/components/ui/Typography"
 import { Link } from "@tanstack/react-router"
+import { useEffect, useRef, useState } from "react"
 
-// Contenido estático de planes de gestión
 const PLANES_GESTION = [
   {
     id: '1',
@@ -44,78 +42,119 @@ const PLANES_GESTION = [
 ]
 
 export default function PlansSection() {
+  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const element = entry.target as HTMLElement;
+            const index = Number(element.dataset.index);
+            if (Number.isNaN(index)) return;
+            setVisibleCards((prev) => {
+              const newVisible = [...prev];
+              newVisible[index] = true;
+              return newVisible;
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      const revealElements = containerRef.current.querySelectorAll<HTMLElement>("[data-reveal='true']");
+      revealElements.forEach((element) => observer.observe(element));
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const getCardSize = (index: number) => {
+    const layout = [
+      "sm:col-span-2 col-span-1 h-60 sm:h-80",
+      "col-span-1 h-60 sm:h-80",
+      "col-span-1 h-60 sm:h-80",
+      "col-span-1 h-60 sm:h-80",
+      "col-span-1 h-60 sm:h-80",
+      "sm:col-span-2 col-span-1 h-60 sm:h-80",
+    ]
+    return layout[index] || "col-span-1 h-60 sm:h-80"
+  }
+
   return (
-    <section className="py-10 bg-white">
-      <div className="container mx-auto px-4">
-        
-        <div className="text-center align-items-center mb-10">
-          <H2 className="max-w-3xl mx-auto">
+    <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24 bg-white">
+      {/* Blobs de fondo */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[-8rem] top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/40 blur-3xl" />
+        <div className="absolute right-[-10rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/48 blur-3xl" />
+      </div>
+
+      <div className="relative mx-auto max-w-6xl">
+        {/* Header centrado */}
+        <div className="mb-12 text-center space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#52655B]">
+            Nuestros Servicios
+          </p>
+          <H2 className="max-w-2xl mx-auto text-2xl leading-tight tracking-normal text-[#2f3a35] md:text-3xl">
             Soluciones Inmobiliarias Integrales
           </H2>
-          <P className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <P className="max-w-xl mx-auto text-sm text-gray-600 md:text-base">
             Asesoría personalizada en gestión, venta y compra de propiedades en Costa Rica.
           </P>
         </div>
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
-          {PLANES_GESTION.map((plan, index) => {
 
-            const getCardSize = (index: number) => {
-              // Use responsive col-span: on small screens every card is full width (col-span-1)
-              // on sm+ screens we apply the designed layout. Heights are smaller on mobile.
-              const layout = [
-                "sm:col-span-2 col-span-1 h-48 sm:h-64", // Primera: rectangular (2 columnas en sm+)
-                "col-span-1 h-48 sm:h-64", // Segunda: cuadrada
-                "col-span-1 h-48 sm:h-64", // Tercera
-                "col-span-1 h-48 sm:h-64", // Cuarta
-                "col-span-1 h-48 sm:h-64", // Quinta
-                "sm:col-span-2 col-span-1 h-48 sm:h-64", // Sexta: rectangular en sm+
-              ]
-              return layout[index] || "col-span-1 h-48 sm:h-64"
-            }
-
-            // Determine text size based on card dimensions (slightly smaller on mobile)
-            const getTextSize = (index: number) => {
-              if (index === 0 || index === 5) {
-                return "text-lg sm:text-xl md:text-2xl"
-              }
-              return "text-base sm:text-lg md:text-xl"
-            }
-
-            return (
-              <div 
-                key={`${plan.id}-${index}`}
-                className={`group relative overflow-hidden border border-gray-200/50 rounded-lg hover:border-gray-300 transition-all duration-300 ${getCardSize(index)}`}
+        {/* Grid */}
+        <div
+          ref={containerRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+        >
+          {PLANES_GESTION.map((plan, index) => (
+            <Link to="/servicios" key={`${plan.id}-${index}`} className={getCardSize(index)}>
+              <article
+                data-reveal="true"
+                data-index={index}
+                className={`group relative h-full cursor-pointer overflow-hidden rounded-[1.5rem] bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 ${
+                  visibleCards[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                } hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]`}
+                style={{ transitionDelay: visibleCards[index] ? `${index * 90}ms` : "0ms" }}
               >
-                {/* Background image - not affected by hover */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{
-                    backgroundImage: plan.image ? `url(${plan.image})` : ``
-                  }}
-                ></div>
+                {/* Background image */}
+                <img
+                  src={plan.image}
+                  alt={plan.title}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
 
-                {/* Overlay: visible by default on small screens, hidden on sm+ until hover */}
-                <div className="absolute inset-0 bg-black opacity-50 sm:opacity-30 sm:group-hover:opacity-70 transition-opacity duration-700"></div>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2f3a35]/82 via-[#2f3a35]/30 to-transparent" />
 
-                {/* Text: visible on small screens (no hover), hidden on sm+ until hover */}
-                <div className="absolute inset-0 flex flex-col justify-center items-center text-white opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 px-4">
-                  <P className={`${getTextSize(index)} text-sm sm:text-2xl text-center mb-4 uppercase`}>
-                    {plan.title || 'Servicio'}
+                {/* Content */}
+                <div className="relative flex h-full flex-col justify-end p-5 md:p-7">
+                  <h3 className="text-base font-semibold leading-6 text-white md:text-lg">
+                    {plan.title}
+                  </h3>
+
+                  <P className="mt-3 max-w-sm text-xs leading-5 text-white/78 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
+                    Accede a nuestros servicios profesionales
                   </P>
-                  <Link to="/servicios">
-                  <Button variant="whiteBorder" className="px-6 py-2 hover:bg-white hover:cursor-pointer transition-all duration-300">
-                   <Small>
-                    {plan.textbutton || "Ver mas"}
-                   </Small>
-                  </Button>
-                  </Link>
+                  <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-white opacity-100 sm:opacity-0 sm:transition-all sm:duration-500 sm:translate-y-2 sm:group-hover:translate-y-0 sm:group-hover:opacity-100">
+                    <span className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-white">
+                      {plan.textbutton}
+                    </span>
+                    <span className="text-xs font-medium text-white/80 transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
+              </article>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
   )
 }
-
