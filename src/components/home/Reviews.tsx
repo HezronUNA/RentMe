@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import ReviewDesktop from "./ReviewDesktop"
 import ReviewMobile from "./ReviewMobile"
-import { H2 } from "@/components/ui/Typography"
+import { H2, P } from "@/components/ui/Typography"
 
 // Reseñas estáticas de ejemplo - Exportadas para reutilizar en otros componentes
 export const STATIC_REVIEWS = [
@@ -108,16 +108,32 @@ export default function ReviewsCarousel({
   }, [])
 
   return (
-    <section className={`w-full text-center mx-auto flex flex-col items-center justify-center ${className}`}>
-      <H2 className="mb-8">
-        {title}
-      </H2>
+    <section className={`relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24 ${className}`}>
+      <div className="absolute inset-0 bg-white" />
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[-10rem] top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/55 blur-3xl" />
+        <div className="absolute right-[-8rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/65 blur-3xl" />
+        <div className="absolute left-1/2 top-[58%] h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#52655B]/10" />
+        <div className="absolute left-1/2 top-[58%] h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#52655B]/10" />
+      </div>
 
-      <div className="w-full max-w-[1020px] relative mx-auto">
+      <div className="relative z-10 mx-auto w-full text-center flex flex-col items-center justify-center gap-8">
+        {/* Header Section */}
+        <div className="flex flex-col items-center justify-center gap-3">
+          <span className="text-xs font-semibold uppercase tracking-[0.35em] text-[#52655B]">
+            Experiencias Verificadas
+          </span>
+          <H2 className="text-3xl sm:text-4xl">
+            {title}
+          </H2>
+          <P className="text-base text-gray-600 max-w-2xl">
+            Descubre lo que nuestros huéspedes dicen de sus experiencias en nuestras propiedades
+          </P>
+        </div>
+
+        <div className="w-full max-w-[1020px] relative mx-auto">
         <div className="relative pb-10">
-          <div className="w-full h-auto relative rounded-[5px] overflow-hidden flex items-center justify-center">
-            <div className="hidden md:block absolute inset-0 w-full h-full" style={{ background: "#52655B", zIndex: -1 }}></div>
-            
+          <div className="w-full h-auto relative rounded-[2rem] overflow-hidden flex items-center justify-center">
             <div className="w-full h-full flex items-center justify-center overflow-hidden">
               <div
                 className="flex w-full h-auto touch-pan-y min-h-[400px] md:h-full"
@@ -134,11 +150,11 @@ export default function ReviewsCarousel({
                     key={r.id}
                     className="min-w-full max-w-full flex-shrink-0 flex items-center justify-center p-4"
                   >
-                    <div className="md:hidden p-4 bg-white rounded-[18px] flex flex-col justify-center items-center w-full max-w-[640px] shadow-[0_4px_16px_rgba(0,0,0,0.15)] border border-gray-100">
+                    <div className="md:hidden p-6 bg-white/85 rounded-[2rem] flex flex-col justify-center items-center w-full max-w-[640px] shadow-[0_20px_50px_rgba(82,101,91,0.10)] border border-[#52655B]/20 backdrop-blur-sm">
                       <ReviewMobile review={r} />
                     </div>
                     
-                    <div className="hidden md:flex p-8 bg-white rounded-[18px] flex-col justify-center items-center w-full max-w-[640px]">
+                    <div className="hidden md:flex p-8 bg-white/85 rounded-[2rem] flex-col justify-center items-center w-full max-w-[640px] shadow-[0_20px_50px_rgba(82,101,91,0.10)] border border-[#52655B]/20 backdrop-blur-sm">
                       <ReviewDesktop review={r} />
                     </div>
                   </div>
@@ -214,6 +230,7 @@ export default function ReviewsCarousel({
             </>
           )}
         </div>
+      </div>
       </div>
     </section>
   )

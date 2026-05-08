@@ -1,6 +1,7 @@
 export interface HospedajeDestacado {
   id: string
   nombre: string
+  descripcion: string
   precioNoche: number
   Imagenes: string[]
   cuartos: number
