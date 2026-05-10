@@ -7,37 +7,50 @@ const PLANES_GESTION = [
     id: '1',
     title: 'Gestión de Alojamientos',
     textbutton: 'Ver más',
+    hash: 'gestion-alojamientos',
     image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80'
   },
   {
     id: '2',
     title: 'Limpieza Profesional',
     textbutton: 'Ver más',
+    hash: 'limpieza-profesional',
     image: 'https://i.ibb.co/kVn27zV1/service-5.jpg'
   },
   {
     id: '3',
     title: 'Asesoría Fiscal Airbnb',
     textbutton: 'Ver más',
+    hash: 'gestion-alojamientos',
     image: 'https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800&q=80'
   },
   {
     id: '4',
     title: 'Servicios Facturables',
     textbutton: 'Ver más',
+    hash: 'gestion-alojamientos',
     image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80'
   },
   {
     id: '5',
     title: 'Promoción y Venta/Alquiler',
     textbutton: 'Ver más',
+    hash: 'venta-propiedades',
     image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80'
   },
   {
     id: '6',
     title: 'Fotografía & Video',
     textbutton: 'Ver más',
+    hash: 'fotografia-video',
     image: 'https://res.cloudinary.com/dmq5jbp3z/image/upload/v1762383404/photo-1751107996106-ab89608a49b7_fakdgp.jpg'
+  },
+  {
+    id: '7',
+    title: 'Desarrollo de soluciones tecnológicas',
+    textbutton: 'Ver más',
+    hash: 'tecnologia',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80'
   }
 ]
 
@@ -72,18 +85,19 @@ export default function PlansSection() {
     return () => observer.disconnect();
   }, []);
 
-  // En móvil: todas las cards iguales (col-span-1, h-44)
-  // En sm+: layout asimétrico original
+  // En móvil: todas las cards iguales excepto desarrollo tecnológico
+  // En desktop: primera fila completa y cierre con un bloque ancho
   const getCardSize = (index: number) => {
     const layout = [
-      "col-span-1 h-44 sm:col-span-2 sm:h-80",
-      "col-span-1 h-44 sm:col-span-1 sm:h-80",
-      "col-span-1 h-44 sm:col-span-1 sm:h-80",
-      "col-span-1 h-44 sm:col-span-1 sm:h-80",
-      "col-span-1 h-44 sm:col-span-1 sm:h-80",
-      "col-span-1 h-44 sm:col-span-2 sm:h-80",
+      "col-span-1 h-44 sm:col-span-2 sm:h-80 lg:col-span-1",
+      "col-span-1 h-44 sm:col-span-1 sm:h-80 lg:col-span-1",
+      "col-span-1 h-44 sm:col-span-1 sm:h-80 lg:col-span-1",
+      "col-span-1 h-44 sm:col-span-1 sm:h-80 lg:col-span-1",
+      "col-span-1 h-44 sm:col-span-1 sm:h-80 lg:col-span-1",
+      "col-span-1 h-44 sm:col-span-2 sm:h-80 lg:col-span-1",
+      "col-span-2 h-44 sm:col-span-2 sm:h-80 lg:col-span-2",
     ]
-    return layout[index] || "col-span-1 h-44 sm:h-80"
+    return layout[index] || "col-span-1 h-44 sm:h-80 lg:col-span-1"
   }
 
   return (
@@ -114,7 +128,7 @@ export default function PlansSection() {
           className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
         >
           {PLANES_GESTION.map((plan, index) => (
-            <Link to="/servicios" key={`${plan.id}-${index}`} className={getCardSize(index)}>
+            <Link to="/servicios" hash={`#${plan.hash}`} key={`${plan.id}-${index}`} className={getCardSize(index)}>
               <article
                 data-reveal="true"
                 data-index={index}
