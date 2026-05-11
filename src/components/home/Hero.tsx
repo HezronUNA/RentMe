@@ -41,41 +41,43 @@ export default function Hero() {
       {/* ════════════════ MOBILE ════════════════ */}
       <div className="md:hidden">
         {/* Panel Huéspedes */}
-        <div className="relative h-[52vh] min-h-[300px] overflow-hidden">
+        <div className="relative h-[34vh] min-h-[200px] overflow-hidden">
           <img src={leftHero.imagen} alt={leftHero.badge} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
-          <div className="relative flex h-full flex-col px-5 py-6">
+          <div className="relative flex h-full flex-col px-4 py-3">
             <div className={badgeClass}>{leftHero.badge}</div>
-            {/* Bajado con mt-20 */}
-            <div className="mt-20 text-center flex flex-col items-center">
-              <H1 className="text-white leading-tight tracking-tight text-3xl">
+            <div className="mt-auto pb-4 text-center flex flex-col items-center">
+              <H1 className="text-white leading-tight tracking-tight text-[1.7rem]">
                 {leftHero.titulo1}<br />{leftHero.titulo2}
               </H1>
-              <p className="mt-3 max-w-[280px] text-xs leading-5 text-white/70">{leftHero.subtitulo}</p>
+              <p className="mt-1.5 max-w-[220px] text-[10px] leading-4 text-white/75">{leftHero.subtitulo}</p>
             </div>
             <Link to={leftHero.link} className="mt-auto flex justify-start">
-              <button className={btnClass}>{leftHero.textoBoton} →</button>
+              <button className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-4 py-2 text-[11px] font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20">
+                {leftHero.textoBoton} →
+              </button>
             </Link>
           </div>
         </div>
 
         {/* Panel Propietarios */}
-        <div className="relative h-[52vh] min-h-[300px] overflow-hidden">
+        <div className="relative h-[34vh] min-h-[200px] overflow-hidden">
           <img src={rightHero.imagen} alt={rightHero.badge} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
-          <div className="relative flex h-full flex-col px-5 py-6">
+          <div className="relative flex h-full flex-col px-4 py-3">
             <div className="flex justify-end">
               <div className={badgeClass}>{rightHero.badge}</div>
             </div>
-            {/* Bajado con mt-20 */}
-            <div className="mt-20 text-center flex flex-col items-center">
-              <H1 className="text-white leading-tight tracking-tight text-3xl">
+            <div className="mt-auto pb-4 text-center flex flex-col items-center">
+              <H1 className="text-white leading-tight tracking-tight text-[1.7rem]">
                 {rightHero.titulo1}<br />{rightHero.titulo2}
               </H1>
-              <p className="mt-3 max-w-[280px] text-xs leading-5 text-white/70">{rightHero.subtitulo}</p>
+              <p className="mt-1.5 max-w-[220px] text-[10px] leading-4 text-white/75">{rightHero.subtitulo}</p>
             </div>
             <Link to={rightHero.link} className="mt-auto flex justify-end">
-              <button className={btnClass}>{rightHero.textoBoton} →</button>
+              <button className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-4 py-2 text-[11px] font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20">
+                {rightHero.textoBoton} →
+              </button>
             </Link>
           </div>
         </div>
