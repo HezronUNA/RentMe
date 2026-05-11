@@ -25,7 +25,7 @@ const DEFAULT_SERVICES = [
   "Limpieza profesional",
   "Fotografia y video profesional",
   "Venta de propiedades",
-  "Desarrollo de soluciones tecnológicas",
+  "Servicios contables y asesoría fiscal"
 ];
 const DEFAULT_PLANS = [
   "Coanfitrión en Airbnb",

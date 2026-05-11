@@ -21,14 +21,14 @@ const PLANES_GESTION = [
     id: '3',
     title: 'Asesoría Fiscal Airbnb',
     textbutton: 'Ver más',
-    hash: 'gestion-alojamientos',
+    hash: 'contabilidad-asesoria',
     image: 'https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800&q=80'
   },
   {
     id: '4',
     title: 'Servicios Facturables',
     textbutton: 'Ver más',
-    hash: 'gestion-alojamientos',
+    hash: 'contabilidad-asesoria',
     image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80'
   },
   {
