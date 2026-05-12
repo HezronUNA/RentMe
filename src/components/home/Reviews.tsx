@@ -145,9 +145,9 @@ export default function ReviewsCarousel({
                 onTouchEnd={onTouchEnd}
                 onTransitionEnd={handleTransitionEnd}
               >
-                {items.map((r) => (
+                {items.map((r, index) => (
                   <div
-                    key={r.id}
+                    key={index}
                     className="min-w-full max-w-full flex-shrink-0 flex items-center justify-center p-4"
                   >
                     <div className="md:hidden p-6 bg-white/85 rounded-[2rem] flex flex-col justify-center items-center w-full max-w-[640px] shadow-[0_20px_50px_rgba(82,101,91,0.10)] border border-[#52655B]/20 backdrop-blur-sm">

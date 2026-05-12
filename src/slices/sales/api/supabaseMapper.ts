@@ -22,6 +22,7 @@ type SupabasePropiedadRow = Partial<
     ano_construccion?: number | null
     ubicacion?: unknown
     ubicacion_exacta?: unknown
+    google_maps_url?: string | null
     latitud?: number | null
     longitud?: number | null
     imagenes?: unknown
@@ -150,6 +151,11 @@ export function mapSupabasePropiedad(row: SupabasePropiedadRow): PropiedadVenta 
       ? row.ubicacion_exacta.trim()
       : undefined
 
+  const googleMapsUrl =
+    typeof row.google_maps_url === "string" && row.google_maps_url.trim().length > 0
+      ? row.google_maps_url.trim()
+      : undefined
+
   return {
     id: row.id ?? "",
     descripcion: row.descripcion ?? "",
@@ -162,6 +168,7 @@ export function mapSupabasePropiedad(row: SupabasePropiedadRow): PropiedadVenta 
     amenidades: normalizeAmenidades(row.propiedad_amenidades),
     ubicacion: normalizeUbicacion(row.ubicacion),
     ubicacionTexto,
+    googleMapsUrl,
     ubicacionExacta: normalizeUbicacionExacta(row),
     imagenes: normalizeImages(row.imagenes),
     asesorResponsable: normalizeAsesorResponsable(row.asesor_responsable),

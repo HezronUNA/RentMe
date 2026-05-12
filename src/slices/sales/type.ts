@@ -53,6 +53,7 @@ export interface PropiedadVenta {
   amenidades: string[]
   ubicacion: Ubicacion
   ubicacionTexto?: string
+  googleMapsUrl?: string | null
   ubicacionExacta: FirebaseGeoPoint
   imagenes: string[]
   asesorResponsable: AsesorResponsable
@@ -69,6 +70,7 @@ export interface PropiedadVentaFirestore {
   precio: number
   amenidades: string[]
   ubicacion: Ubicacion
+  googleMapsUrl?: string | null
   ubicacionExacta: FirebaseGeoPoint
   imagenes: string[]
   asesorResponsable: AsesorResponsable
