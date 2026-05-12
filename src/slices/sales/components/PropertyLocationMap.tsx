@@ -2,7 +2,7 @@ import React from 'react';
 import { H4, P } from '@/components/ui/Typography';
 
 interface PropertyLocationMapProps {
-  googleMapsUrl?: string;
+  googleMapsUrl?: string | null;
 }
 
 // Componente del título reutilizable
@@ -31,7 +31,7 @@ const UnavailableLocationMessage: React.FC = () => (
   </div>
 );
 
-const buildEmbedUrl = (url?: string): string | null => {
+const buildEmbedUrl = (url?: string | null): string | null => {
   if (!url) return null;
 
   const trimmedUrl = url.trim();
