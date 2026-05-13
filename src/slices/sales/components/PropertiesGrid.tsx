@@ -57,22 +57,27 @@ export function PropertiesGrid({
 
   // Estado vacío
   if (properties.length === 0) {
-    return (
-      <div className="relative w-full px-4 py-8">
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center py-10 rounded-[2rem] border border-[#52655B]/15 bg-white/85 shadow-[0_20px_50px_rgba(82,101,91,0.08)] backdrop-blur-sm">
-            <div className="text-gray-500 text-lg font-medium mb-2">
-              {emptyMessage}
+     return (
+      <div className="w-full px-4 py-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="rounded-[1.75rem] border border-[#52655B]/10 bg-white px-6 py-10 text-center shadow-[0_16px_40px_rgba(16,24,40,0.06)] sm:px-8">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#52655B]/10 text-[#52655B] ring-1 ring-[#52655B]/10">
+              <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 20h16M6 20v-8m4 8V8m4 12v-4m4 4V4" />
+              </svg>
             </div>
-            <p className="text-gray-400">
-              Intenta ajustar los filtros de búsqueda
+
+            <h3 className="text-lg font-semibold tracking-tight text-[#52655B] sm:text-xl">
+              {emptyMessage}
+            </h3>
+            <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-neutral-500 sm:text-[0.95rem]">
+              Prueba cambiar la ubicación o ajustar un poco los filtros para ver más opciones disponibles.
             </p>
           </div>
         </div>
       </div>
     )
   }
-
   // Grid de propiedades
   return (
     <div className="relative w-full px-4 py-8">
