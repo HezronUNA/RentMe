@@ -15,10 +15,8 @@ interface ReservationFormProps {
 export function ReservationForm({ 
   accommodationId,
   accommodationName,
-  pricePerNight,
   maxGuests 
 }: ReservationFormProps) {
-  const formatPrice = (price: number) => new Intl.NumberFormat('es-CR').format(price)
 
   const { createReservation, isLoading } = useCreateReserve({ accommodationName })
 
@@ -80,13 +78,6 @@ export function ReservationForm({
       onSubmit={handleSubmit}
       className="bg-white border border-zinc-200 rounded-xl shadow-md p-7 md:p-8 flex flex-col gap-6 w-full"
     >
-      <div className="text-center mb-1">
-        <h3 className="text-xl font-bold text-gray-900 mb-2">Reservar Hospedaje</h3>
-        <p className="text-gray-600 text-sm">₡{formatPrice(pricePerNight)} por noche</p>
-        <p className="text-gray-500 text-xs mt-1">
-          Máximo {maxGuests} {maxGuests === 1 ? "huésped" : "huéspedes"}
-        </p>
-      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -141,13 +132,6 @@ export function ReservationForm({
             rows={3}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white resize-none"
           />
-        </div>
-      </div>
-
-      <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <div className="flex justify-between items-center gap-4 font-semibold text-gray-900">
-          <span>Precio por noche</span>
-          <span>₡{formatPrice(pricePerNight)}</span>
         </div>
       </div>
 
