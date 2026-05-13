@@ -32,9 +32,6 @@ export default function Hero() {
   const btnClass =
     'inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-2.5 text-xs font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20 md:px-6 md:py-3 md:text-sm'
 
-  const badgeClass =
-    'inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/80 backdrop-blur-sm'
-
   return (
     <section className="relative text-white">
 
@@ -45,8 +42,8 @@ export default function Hero() {
           <img src={leftHero.imagen} alt={leftHero.badge} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
           <div className="relative flex h-full flex-col px-4 py-3">
-            <div className={badgeClass}>{leftHero.badge}</div>
-            <div className="mt-auto pb-4 text-center flex flex-col items-center">
+          {/* <div className={badgeClass}>{leftHero.badge}</div>*/}
+            <div className="mt-auto pb-4 pt-12 text-center flex flex-col items-center">
               <H1 className="text-white leading-tight tracking-tight text-[1.7rem]">
                 {leftHero.titulo1}<br />{leftHero.titulo2}
               </H1>
@@ -66,7 +63,7 @@ export default function Hero() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
           <div className="relative flex h-full flex-col px-4 py-3">
             <div className="flex justify-end">
-              <div className={badgeClass}>{rightHero.badge}</div>
+           {/*   <div className={badgeClass}>{rightHero.badge}</div>*/}
             </div>
             <div className="mt-auto pb-4 text-center flex flex-col items-center">
               <H1 className="text-white leading-tight tracking-tight text-[1.7rem]">
@@ -98,19 +95,19 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-white/15" />
+       {/* <div className="pointer-events-none absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-white/15" />
         <div className="absolute left-1/2 top-1/2 z-20 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm">
           <span className="text-[9px] font-bold uppercase tracking-widest text-white/90">DMR</span>
-        </div>
+        </div>*/}
 
-        <div className="absolute left-1/2 top-6 z-20 -translate-x-1/2">
+       {/* <div className="absolute left-1/2 top-6 z-20 -translate-x-1/2">
           <p className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.4em] text-white/60">DMR Rentals</p>
-        </div>
+        </div>*/}
 
         <div className="absolute inset-0 z-10 grid grid-cols-2">
           {/* LEFT CONTENT */}
           <div className="flex flex-col p-8 lg:p-12 h-full">
-            <div className={badgeClass}>{leftHero.badge}</div>
+           {/*<div className={badgeClass}>{leftHero.badge}</div>*/}
             
             {/* Texto bajado manualmente con mt-32 (ajusta este número si lo quieres más abajo aún) */}
             <div className="mt-32 flex flex-col items-center text-center">
@@ -131,7 +128,7 @@ export default function Hero() {
 
           {/* RIGHT CONTENT */}
           <div className="flex flex-col p-8 lg:p-12 items-end h-full">
-            <div className={badgeClass}>{rightHero.badge}</div>
+           {/* <div className={badgeClass}>{rightHero.badge}</div> */}
 
             {/* Texto bajado manualmente con mt-32 */}
             <div className="mt-32 w-full flex flex-col items-center text-center">
