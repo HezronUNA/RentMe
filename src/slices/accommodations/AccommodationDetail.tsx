@@ -144,7 +144,7 @@ const AccommodationDetail = () => {
                     </div>
                     <div className="px-4 py-4 border-b border-gray-200 bg-white">
                       <p className="text-xs text-gray-500">Capacidad</p>
-                      <p className="mt-1 text-lg font-semibold text-gray-900">{hospedaje.camas} huéspedes</p>
+                      <p className="mt-1 text-lg font-semibold text-gray-900">{hospedaje.num_huespedes} huéspedes</p>
                     </div>
                   </div>
                 </div>
@@ -226,7 +226,7 @@ const AccommodationDetail = () => {
                 accommodationId={accommodationId}
                 accommodationName={hospedaje.nombre}
                 pricePerNight={hospedaje.precio_noche}
-                maxGuests={hospedaje.camas}
+                maxGuests={hospedaje.num_huespedes}
               />
             </aside>
           </div>
