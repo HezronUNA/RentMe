@@ -1,14 +1,14 @@
-import { H3, P } from '@/components/ui/Typography';
+import { H2, H3, P } from '@/components/ui/Typography';
 
 interface AccommodationLocationMapProps {
   googleMapsUrl?: string | null;
 }
 
 const MapTitle = () => (
-  <div className="w-full px-3.5 py-[5px] bg-[#52655B] rounded-md flex justify-center items-center gap-2.5 mb-6">
-    <P className="flex-1 text-center text-white text-xl font-semibold font-title tracking-widest uppercase pb-0 scroll-m-0">
+  <div className="w-full rounded-md flex justify-center items-center mb-10">
+    <H2 className='text-3xl sm:text-4xl'>
       Ubicación del hospedaje
-    </P>
+    </H2>
   </div>
 );
 
