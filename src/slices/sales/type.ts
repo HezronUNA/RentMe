@@ -9,113 +9,90 @@ export interface Ubicacion {
   distrito: string
 }
 
-export interface UbicacionExacta {
-  lat: number
-  lng: number
-}
-
-// Tipo para GeoPoint de Firebase
-export interface FirebaseGeoPoint {
-  latitude: number
-  longitude: number
-}
-
-// Función utilitaria para convertir GeoPoint a UbicacionExacta
-export const geoPointToUbicacion = (geoPoint: FirebaseGeoPoint | any): UbicacionExacta | null => {
-  if (!geoPoint) return null;
-  
-  // Si ya tiene el formato correcto
-  if (typeof geoPoint.lat === 'number' && typeof geoPoint.lng === 'number') {
-    return { lat: geoPoint.lat, lng: geoPoint.lng };
-  }
-  
-  // Si es un GeoPoint de Firebase
-  if (typeof geoPoint.latitude === 'number' && typeof geoPoint.longitude === 'number') {
-    return { lat: geoPoint.latitude, lng: geoPoint.longitude };
-  }
-  
-  return null;
-};
+/**
+ * URL de ubicación exacta (Google Maps URL)
+ */
+export type UbicacionExacta = string | null;
 
 export interface AsesorResponsable {
   email: string
 }
 
 export interface PropiedadVenta {
-  id: string
+  id: string // UUID en Supabase
+  created_at?: string // Timestamp estándar de Supabase
   descripcion: string
   habitaciones: number
   baños: number
-  areaTerreno: number
+  area_terreno: number
   estado: EstadoPropiedad
-  añoConstruccion?: number
+  año_construccion?: number
   precio: number
   amenidades: string[]
   ubicacion: Ubicacion
-  ubicacionTexto?: string
-  googleMapsUrl?: string | null
-  ubicacionExacta: FirebaseGeoPoint
+  google_maps_url: UbicacionExacta // URL de Google Maps (igual a ubicacion_exacta)
+  ubicacion_exacta: UbicacionExacta // URL de Google Maps
   imagenes: string[]
-  asesorResponsable: AsesorResponsable
+  asesor_responsable: AsesorResponsable
 }
 
-// Tipo para Firestore (sin el ID que se genera automáticamente)
-export interface PropiedadVentaFirestore {
+/**
+ * Para Supabase, el tipo "Table" suele ser el mismo para Insert/Update,
+ * pero omitiendo el 'id' si es autogenerado.
+ */
+export interface PropiedadVentaInsert {
   descripcion: string
   habitaciones: number
   baños: number
-  areaTerreno: number
+  area_terreno: number
   estado: EstadoPropiedad
-  añoConstruccion?: number
+  año_construccion?: number
   precio: number
   amenidades: string[]
   ubicacion: Ubicacion
-  googleMapsUrl?: string | null
-  ubicacionExacta: FirebaseGeoPoint
+  google_maps_url: UbicacionExacta
+  ubicacion_exacta: UbicacionExacta
   imagenes: string[]
-  asesorResponsable: AsesorResponsable
+  asesor_responsable: AsesorResponsable
 }
 
 // Tipos para ReservaVenta
 export interface ReservaVenta {
   id: string
-  propiedadId: string
-  propiedadTitulo?: string
-  clienteNombre: string
-  clienteEmail: string
-  clienteTelefono: string
+  created_at: string 
+  propiedad_id: string
+  propiedad_titulo?: string
+  cliente_nombre: string
+  cliente_email: string
+  cliente_telefono: string
   mensaje?: string
-  fechaReserva: Date
-  fechaCreacion: Date
+  fecha_reserva: string // ISO string es lo mejor para Supabase/Postgres
   estado: EstadoReservaVenta
-  usuarioId?: string // Si el cliente está registrado
-  asesorAsignado?: string // Email del asesor
+  usuario_id?: string 
+  asesor_asignado?: string 
 }
 
-// Tipo para Firestore (sin el ID que se genera automáticamente)
-export interface ReservaVentaFirestore {
-  propiedadId: string
-  propiedadTitulo?: string
-  clienteNombre: string
-  clienteEmail: string
-  clienteTelefono: string
+export interface ReservaVentaInsert {
+  propiedad_id: string
+  propiedad_titulo?: string
+  cliente_nombre: string
+  cliente_email: string
+  cliente_telefono: string
   mensaje?: string
-  fechaReserva: Date
-  fechaCreacion: Date
+  fecha_reserva: string
   estado: EstadoReservaVenta
-  usuarioId?: string
-  asesorAsignado?: string
+  usuario_id?: string
+  asesor_asignado?: string
 }
 
-// Tipo para crear una nueva reserva (datos del formulario)
+// Datos del formulario
+// Asegúrate de que esta interfaz sea la que rige el formulario:
 export interface CrearReservaVenta {
-  propiedadId: string
-  propiedadTitulo?: string
+  propiedad_id: string 
+  propiedad_titulo?: string
   nombre: string
   email: string
   telefono: string
   mensaje?: string
-  usuarioId?: string
+  usuario_id?: string
 }
-
-

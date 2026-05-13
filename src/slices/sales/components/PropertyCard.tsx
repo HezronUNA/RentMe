@@ -88,7 +88,7 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
 
           <div className="flex items-center gap-1">
             <Home className="h-3.5 w-3.5 text-[#52655B]" />
-            <span className="font-medium text-[#2f3a35]">{property.areaTerreno}m²</span>
+            <span className="font-medium text-[#2f3a35]">{property.area_terreno}m²</span>
             <span className="ml-1 text-gray-400">terreno</span>
           </div>
         </div>

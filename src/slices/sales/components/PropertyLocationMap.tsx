@@ -52,6 +52,7 @@ const buildEmbedUrl = (url?: string | null): string | null => {
 
 export const PropertyLocationMap: React.FC<PropertyLocationMapProps> = ({ googleMapsUrl }) => {
   const embedUrl = buildEmbedUrl(googleMapsUrl);
+  console.log('Google Maps URL:', googleMapsUrl);
 
   if (!embedUrl) {
     return (
