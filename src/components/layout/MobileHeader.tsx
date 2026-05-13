@@ -18,6 +18,7 @@ export default function MobileHeader({ nav }: Props) {
   } = nav
 
   const [isAnimating, setIsAnimating] = useState(false)
+  const [serviciosDropdownOpen, setServiciosDropdownOpen] = useState(false)
 
   // Deshabilitar scroll cuando el navbar está abierto
   useEffect(() => {
@@ -173,19 +174,105 @@ export default function MobileHeader({ nav }: Props) {
                 <div className="w-32 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent shadow-sm"></div>
               </div>
 
-              {/* SERVICIOS */}
-              <div className="menu-item flex flex-col items-center gap-2 w-full">
-                <Link
-                  to="/servicios"
-                  onClick={() => {
-                    nav.setIsServiciosFromAlojamientos(false)
-                    setOpen(false)
-                  }}
-                  className="text-2xl font-semibold text-black hover:text-black/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
-                >
-                  SERVICIOS
-                </Link>
+              {/* SERVICIOS DROPDOWN */}
+              <div className="menu-item flex flex-col items-center gap-0 w-full">
+                {/* Botón SERVICIOS con flecha */}
+                <div className="flex items-center gap-2 w-full justify-center">
+                  <Link
+                    to="/servicios"
+                    onClick={() => {
+                      nav.setIsServiciosFromAlojamientos(false)
+                      setOpen(false)
+                    }}
+                    className="text-2xl font-semibold text-black hover:text-black/70 transition-all duration-300 tracking-wide py-3 px-8 hover:scale-105 active:scale-95"
+                  >
+                    SERVICIOS
+                  </Link>
+                  <button
+                    onClick={() => setServiciosDropdownOpen(!serviciosDropdownOpen)}
+                    className="p-1 text-black hover:text-black/70"
+                  >
+                    <svg
+                      className={`w-5 h-5 ${
+                        serviciosDropdownOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Separador */}
                 <div className="w-32 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent shadow-sm"></div>
+
+                {/* Contenedor del Dropdown */}
+                <div
+                  className={`overflow-hidden transition-all duration-300 w-full ${
+                    serviciosDropdownOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="w-full py-2 flex flex-col items-center gap-0">
+                    {/* Administración */}
+                    <a
+                      href="/servicios#gestion-alojamientos"
+                      onClick={() => {
+                        nav.setIsServiciosFromAlojamientos(false)
+                        setOpen(false)
+                        setServiciosDropdownOpen(false)
+                      }}
+                      className="text-lg font-medium text-black/70 hover:text-black/90 transition-all duration-200 tracking-wide py-2 hover:scale-105 active:scale-95"
+                    >
+                      Administración
+                    </a>
+
+                    {/* Venta */}
+                    <a
+                      href="/servicios#venta-propiedades"
+                      onClick={() => {
+                        nav.setIsServiciosFromAlojamientos(false)
+                        setOpen(false)
+                        setServiciosDropdownOpen(false)
+                      }}
+                      className="text-lg font-medium text-black/70 hover:text-black/90 transition-all duration-200 tracking-wide py-2 hover:scale-105 active:scale-95"
+                    >
+                      Venta
+                    </a>
+
+                    {/* Fotografía */}
+                    <a
+                      href="/servicios#fotografia-video"
+                      onClick={() => {
+                        nav.setIsServiciosFromAlojamientos(false)
+                        setOpen(false)
+                        setServiciosDropdownOpen(false)
+                      }}
+                      className="text-lg font-medium text-black/70 hover:text-black/90 transition-all duration-200 tracking-wide py-2 hover:scale-105 active:scale-95"
+                    >
+                      Fotografía
+                    </a>
+
+                    {/* Limpieza */}
+                    <a
+                      href="/servicios#limpieza-profesional"
+                      onClick={() => {
+                        nav.setIsServiciosFromAlojamientos(false)
+                        setOpen(false)
+                        setServiciosDropdownOpen(false)
+                      }}
+                      className="text-lg font-medium text-black/70 hover:text-black/90 transition-all duration-200 tracking-wide py-2 hover:scale-105 active:scale-95"
+                    >
+                      Limpieza
+                    </a>
+                  </div>
+                </div>
               </div>
 
               {/* ADMINISTRACIÓN */}
