@@ -1,123 +1,133 @@
-import { H1 } from "@/components/ui/Typography";
+import { H2 } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/button";
-import { Sparkles, CheckCircle2, Users } from "lucide-react";
+import { Sparkles, Home, Building2, RefreshCw, Check, Star } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
+const SMALL_SERVICES = [
+  {
+    icon: Home,
+    title: "Limpieza residencial",
+    desc: "Mantenimiento completo para alojamientos vacacionales",
+    tag: "Presupuesto basado en tamaño",
+  },
+  {
+    icon: Building2,
+    title: "Limpieza comercial",
+    desc: "Oficinas, locales y espacios corporativos",
+    tag: "Presupuesto",
+  },
+  {
+    icon: RefreshCw,
+    title: "Limpieza profunda",
+    desc: "Sanitización total con protocolos tipo hotel",
+    tag: "4-6 horas",
+  },
+];
+
+const FEATURES = [
+  "Protocolos profesionales tipo hotel",
+  "Productos ecológicos certificados",
+  "Personal capacitado y con seguro",
+];
+
 export default function CleaningServiceHero() {
-  const heroData = {
-    titulo: "Impecable, siempre",
-    descripcion:
-      "Ofrecemos un servicio de limpieza profesional con protocolos estrictos, productos de calidad y control visual. Perfecto para propietarios que quieren tranquilidad y huéspedes que quieren excelencia.",
-    imagen: "https://images.unsplash.com/photo-1774192620915-1b70a930351c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbGVhbmluZyUyMHNlcnZpY2UlMjBwcm9mZXNzaW9uYWwlMjBob3RlbCUyMGx1eHVyeXxlbnwxfHx8fDE3Nzc0MzI3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-  };
-
-  // small icon wrapper for the right card
-  function IconBox({ children }: { children: React.ReactNode }) {
-    return (
-      <div className="p-2.5 bg-[#52655b]/10 rounded-lg shrink-0 w-10 h-10 flex items-center justify-center">
-        {children}
-      </div>
-    );
-  }
-
   return (
-    <div className="relative bg-cover bg-center" style={{ backgroundImage: heroData.imagen ? `url('${heroData.imagen}')` : undefined }}>
-      {/* degradado lateral para legibilidad */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/55 to-white/20" />
-      {/* degradado superior e inferior para difuminar el corte de la imagen */}
-      <div className="absolute top-0 left-0 right-0 h-24 lg:h-40 bg-gradient-to-b from-white to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-24 lg:h-40 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+    <section className="relative w-full overflow-hidden bg-white px-4 py-16 md:px-8 md:py-24">
+      {/* Blobs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-6rem] top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/30 blur-[95px]" />
+        <div className="absolute right-[-6rem] top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/30 blur-[95px]" />
+      </div>
 
-      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24 lg:py-32">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+      <div className="relative z-10 mx-auto max-w-6xl">
+        {/* Section header */}
+        <div className="mb-8 md:mb-10">
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#52655B]/80">
+            Servicios de limpieza profesional
+          </p>
+          <H2 className="max-w-xl text-[#2f3a35]">
+            Impecable, siempre
+          </H2>
+        </div>
 
-          {/* Left column */}
-          <div className="lg:col-span-7 space-y-10">
-            <div className="space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="h-px w-12 bg-[#52655b]" />
-                <span className="text-sm uppercase tracking-wider text-gray-600">Servicios de limpieza</span>
+        {/* Bento grid — asimétrico */}
+        <div className="grid gap-5 lg:grid-cols-[1.5fr_0.5fr]">
+
+          {/* ─── Hero card (left, grande) ─── */}
+          <div className="group relative min-h-[520px] overflow-hidden rounded-3xl lg:min-h-[600px]">
+            <img
+              src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778645973/ashwini-chaudhary-monty-Iu6parQAO-U-unsplash_1_zvk4sk.avif"
+              alt="Limpieza profesional"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#2f3a35]/50 via-[#2f3a35]/70 to-[#2f3a35]/92" />
+
+            <div className="relative flex h-full flex-col justify-between p-6 md:p-8">
+              {/* Badge */}
+              <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/80 backdrop-blur-sm">
+                <Sparkles className="h-3 w-3" />
+                Limpieza profesional
               </div>
 
-              <H1 className="text-black text-center sm:text-start">Impecable,<br/>siempre</H1>
+              {/* Bottom content */}
+              <div className="space-y-5">
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-semibold text-white md:text-3xl">
+                    Servicio de limpieza<br />de primera clase
+                  </h3>
+                  <p className="max-w-md text-sm leading-6 text-white/80 md:text-base">
+                    Limpieza profesional con protocolos estrictos, productos de calidad
+                    y control visual. Tu propiedad lista para cada huésped.
+                  </p>
+                </div>
 
-              <p className="text-xl sm:text-start text-center text-gray-700 max-w-lg">Limpieza profesional con protocolos tipo hotel. Tu propiedad lista para cada huésped.</p>
-            </div>
+                {/* Features con checkmark */}
+                <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                  {FEATURES.map((f) => (
+                    <li key={f} className="flex items-center gap-2 text-sm text-white/85">
+                      <Check className="h-4 w-4 text-[#a8c5b3]" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
 
-            <div className="flex flex-wrap gap-8 pt-4">
-              <div className="flex items-center gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#52655b]" />
-                <span className="text-gray-800">Limpieza profunda</span>
+                <Button
+                  asChild
+                  className="rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-[#2f3a35] hover:cursor-pointer hover:bg-white/90"
+                >
+                  <Link to="/reservar-servicio" search={{ servicio: "Limpieza profesional" }}>
+                    Solicitar servicio →
+                  </Link>
+                </Button>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#52655b]" />
-                <span className="text-gray-800">Control de inventario</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#52655b]" />
-                <span className="text-gray-800">Supervisión constante</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#52655b]" />
-                <span className="text-gray-800">Personal capacitado</span>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap flex justify-center sm:justify-start gap-4 pt-2">
-              <Button asChild className="px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:cursor-pointer hover:bg-[#435349]" variant="green" size="lg">
-                <Link to="/reservar-servicio" search={{ servicio: "Limpieza profesional" }}>
-                  Solicitar servicio
-                </Link>
-              </Button>
             </div>
           </div>
 
-          {/* Right floating card */}
-          <div className="lg:col-span-5">
-            <div className="bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/50">
-              <div className="space-y-8">
-                <div className="text-center py-6 border-b border-gray-100">
-                  <div className="text-6xl mb-2">★★★★★</div>
-                  <p className="text-sm text-gray-600">Excelencia garantizada</p>
+          {/* ─── Small cards (right, apiladas) ─── */}
+          <div className="flex flex-col gap-4">
+            {SMALL_SERVICES.map((s) => (
+              <article
+                key={s.title}
+                className="group flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-5 shadow-[0_8px_20px_rgba(82,101,91,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_32px_rgba(82,101,91,0.12)]"
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#52655B]/10">
+                  <s.icon className="h-5 w-5 text-[#52655B]" />
                 </div>
-
-                <div className="space-y-5">
-                  <div className="flex items-start gap-4">
-                    <IconBox>
-                      <Sparkles className="w-5 h-5 text-[#52655b]" />
-                    </IconBox>
-                    <div>
-                      <h3 className="text-gray-900 mb-1">Estándares de hotel</h3>
-                      <p className="text-sm text-gray-600">Protocolos profesionales en cada servicio</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <IconBox>
-                      <CheckCircle2 className="w-5 h-5 text-[#52655b]" />
-                    </IconBox>
-                    <div>
-                      <h3 className="text-gray-900 mb-1">Verificación visual</h3>
-                      <p className="text-sm text-gray-600">Control de calidad antes de cada check-in</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <IconBox>
-                      <Users className="w-5 h-5 text-[#52655b]" />
-                    </IconBox>
-                    <div>
-                      <h3 className="text-gray-900 mb-1">Equipo experto</h3>
-                      <p className="text-sm text-gray-600">Personal capacitado y supervisado</p>
-                    </div>
-                  </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-zinc-800">{s.title}</h3>
+                  <p className="mt-0.5 text-xs leading-5 text-zinc-500">{s.desc}</p>
                 </div>
-              </div>
-            </div>
+                <div className="mt-auto inline-flex w-fit items-center gap-1 rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1">
+                  <Star className="h-3 w-3 text-[#52655B]" />
+                  <span className="text-[11px] font-medium text-zinc-600">{s.tag}</span>
+                </div>
+              </article>
+            ))}
           </div>
 
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

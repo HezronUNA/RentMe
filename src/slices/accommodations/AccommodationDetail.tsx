@@ -136,7 +136,7 @@ const AccommodationDetail = () => {
                       <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Descripción del hospedaje</h3>
                     </div>
                   </div>
-                  <p className="mt-4 text-gray-700 leading-relaxed max-w-prose">{hospedaje.descripcion}</p>
+                  <p className="mt-4 text-gray-700 leading-relaxed max-w-prose whitespace-pre-line">{hospedaje.descripcion}</p>
                 </section>
               )}
 
