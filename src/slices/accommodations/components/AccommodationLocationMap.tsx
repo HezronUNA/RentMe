@@ -28,8 +28,27 @@ const UnavailableLocationMessage = () => (
   </div>
 );
 
+const buildEmbedUrl = (url?: string | null): string | null => {
+  if (!url) return null;
+
+  const trimmedUrl = url.trim();
+  if (!trimmedUrl) return null;
+
+  if (trimmedUrl.includes('output=embed') || trimmedUrl.includes('/maps/embed')) {
+    return trimmedUrl;
+  }
+
+  const coordinateMatch = trimmedUrl.match(/@(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)/);
+
+  if (coordinateMatch) {
+    return `https://www.google.com/maps?q=${coordinateMatch[1]},${coordinateMatch[2]}&z=15&output=embed`;
+  }
+
+  return `https://www.google.com/maps?q=${encodeURIComponent(trimmedUrl)}&output=embed`;
+};
+
 export const AccommodationLocationMap = ({ googleMapsUrl }: AccommodationLocationMapProps) => {
-  const embedUrl = googleMapsUrl?.trim();
+  const embedUrl = buildEmbedUrl(googleMapsUrl);
 
   if (!embedUrl) {
     return (
@@ -43,7 +62,7 @@ export const AccommodationLocationMap = ({ googleMapsUrl }: AccommodationLocatio
   return (
     <div>
       <MapTitle />
-      <div className="w-full h-[500px] rounded-lg overflow-hidden border shadow-sm bg-gray-100">
+      <div className="w-full overflow-hidden rounded-2xl border border-[#d9dfd8] bg-gray-100 shadow-sm aspect-[16/10] min-h-[320px] md:min-h-[420px] lg:min-h-[500px]">
         <iframe
           title="Ubicación del hospedaje"
           src={embedUrl}

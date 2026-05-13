@@ -23,7 +23,8 @@ export async function crearReservaVenta(data: CrearReservaVenta): Promise<string
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      p_propiedad_venta_id: data.propiedadId,
+      // CORRECCIÓN: Usamos propiedad_id con guion bajo según la interfaz
+      p_propiedad_venta_id: data.propiedad_id, 
       p_cliente_nombre: clienteNombre,
       p_cliente_email: clienteEmail,
       p_cliente_telefono: clienteTelefono,
@@ -38,10 +39,8 @@ export async function crearReservaVenta(data: CrearReservaVenta): Promise<string
     throw new Error(text || 'Error al crear la reserva de venta')
   }
 
-  // RPC returns scalar uuid in body; try to parse
   try {
     const result = await response.json()
-    // If result is { insert_reserva_propiedad_venta_safe: "uuid" } or just uuid
     if (typeof result === 'string') return result
     if (result && typeof result === 'object') {
       const first = Object.values(result)[0]
@@ -51,7 +50,5 @@ export async function crearReservaVenta(data: CrearReservaVenta): Promise<string
     // ignore parse error
   }
 
-  // Fallback: generate id locally (shouldn't usually happen)
   return crypto.randomUUID()
 }
-

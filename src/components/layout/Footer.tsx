@@ -24,32 +24,11 @@ export default function Footer() {
   const followList = FOLLOW_PLATFORMS
     .map((p) => SOCIAL_CONFIG.find((e) => e.platform === p))
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
-  const iconsRef = React.useRef<HTMLDivElement | null>(null);
-  const [iconsVisible, setIconsVisible] = React.useState(false);
-  const [hasAnimated, setHasAnimated] = React.useState(false);
   const currentYear = new Date().getFullYear();
 
   React.useEffect(() => {
-    const el = iconsRef.current;
-    if (!el || hasAnimated) return;
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setIconsVisible(true);
-          setHasAnimated(true);
-          obs.disconnect();
-        }
-      },
-      {
-        threshold: 0.18,
-        rootMargin: "0px 0px -12% 0px",
-      }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [hasAnimated]);
+    // Effect removed - icons display without animation
+  }, []);
 
   return (
     <>
@@ -113,11 +92,10 @@ export default function Footer() {
               {/* Social icons */}
               <div className="mt-1">
                 <div
-                  ref={iconsRef}
                   className="flex items-center gap-2 sm:gap-3"
                   aria-hidden={false}
                 >
-                  {promoIcons.map((s, idx) => {
+                  {promoIcons.map((s) => {
                     const Icon = Icons[s.platform as keyof typeof Icons];
                     const href = hrefFromEntry(s);
                     const label = s.label ?? s.platform;
@@ -129,20 +107,7 @@ export default function Footer() {
                         rel="noopener noreferrer"
                         aria-label={label}
                         title={label}
-                        className={`
-                          flex items-center justify-center
-                          h-8 w-8 rounded-md
-                          bg-white/6 text-white/70
-                          hover:bg-white/14 hover:text-white
-                          shadow-sm hover:shadow-lg
-                          transform
-                          ${iconsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
-                        `}
-                        style={{
-                          transition: iconsVisible
-                            ? `transform 2500ms cubic-bezier(0.16,1,0.3,1) ${idx * 80}ms, opacity 900ms ease`
-                            : "none",
-                        }}
+                        className="flex items-center justify-center h-8 w-8 rounded-md bg-white/6 text-white/70 hover:bg-white/14 hover:text-white"
                       >
                         <Icon size={14} aria-hidden />
                       </a>

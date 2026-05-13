@@ -1,5 +1,4 @@
-import { lazy, Suspense } from 'react'
-import {
+import { 
   createRootRoute,
   createRoute,
   createRouter,
@@ -8,28 +7,28 @@ import {
 import AppLayout from './Layout'
 import ScrollToTop from '@/components/ui/ScrollToTop'
 
-// Importación diferida (lazy) de las páginas
-const HomePage = lazy(() => import('../pages/Index'))
-const AboutUsPage = lazy(() => import('../pages/AboutUsPage'))
-const TermsAndConditionsPage = lazy(() => import('../pages/TermsAndConditionsPage'))
-const ToursPage = lazy(() => import('../pages/ToursPage'))
-const AdminPage = lazy(() => import('../pages/AdminPage'))
-const NotFoundPage = lazy(() => import('../app/NotFoundPage'))
-const AccommodationsPage = lazy(() => import("../slices/accommodations/Page"))
-const SalesPage = lazy(() => import("../slices/sales/Page"))
-const ServicesPage = lazy(() => import("../pages/ServicesPage"))
-const ServiceReservationPage = lazy(() => import("../pages/ServiceReservationPage"))
-const SaleDetailPage = lazy(() => import("../slices/sales/SaleDetail"))
-const AccommodationDetailPage = lazy(() => import("../slices/accommodations/AccommodationDetail"))
-const PlansReservationPage = lazy(() => import("../pages/PlansReservationPage"))
+// Importación estática de las páginas (se cargan con el bundle)
+import HomePage from '../pages/Index'
+import AboutUsPage from '../pages/AboutUsPage'
+import TermsAndConditionsPage from '../pages/TermsAndConditionsPage'
+import ToursPage from '../pages/ToursPage'
+import AdminPage from '../pages/AdminPage'
+import NotFoundPage from '../app/NotFoundPage'
+import AccommodationsPage from "../slices/accommodations/Page"
+import SalesPage from "../slices/sales/Page"
+import ServicesPage from "../pages/ServicesPage"
+import ServiceReservationPage from "../pages/ServiceReservationPage"
+import SaleDetailPage from "../slices/sales/SaleDetail"
+import AccommodationDetailPage from "../slices/accommodations/AccommodationDetail"
+import PlansReservationPage from "../pages/PlansReservationPage"
 
 // Ruta raíz con layout
 const rootRoute = createRootRoute({
   component: () => (
-    <Suspense fallback={<div>Cargando...</div>}>
+    <>
       <ScrollToTop />
       <AppLayout />
-    </Suspense>
+    </>
   ),
   notFoundComponent: NotFoundPage
 })

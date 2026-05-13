@@ -130,12 +130,12 @@ const SaleDetail = () => {
                     </div>
                     <div className="px-4 py-4 border-r border-b border-gray-200 bg-white">
                       <p className="text-xs text-gray-500">Área del terreno</p>
-                      <p className="mt-1 text-lg font-semibold text-gray-900">{propiedad.areaTerreno} m²</p>
+                      <p className="mt-1 text-lg font-semibold text-gray-900">{propiedad.area_terreno} m²</p>
                     </div>
-                    {propiedad.añoConstruccion && (
+                    {propiedad.año_construccion && (
                       <div className="px-4 py-4 border-b border-gray-200 md:border-r bg-white">
                         <p className="text-xs text-gray-500">Año de construcción</p>
-                        <p className="mt-1 text-lg font-semibold text-gray-900">{propiedad.añoConstruccion}</p>
+                        <p className="mt-1 text-lg font-semibold text-gray-900">{propiedad.año_construccion}</p>
                       </div>
                     )}
                   </div>
@@ -198,8 +198,7 @@ const SaleDetail = () => {
           {/* Mapa de ubicación (el sticky se detiene antes de este bloque) */}
           <div className="w-full">
             <PropertyLocationMap
-              ubicacionExacta={propiedad.ubicacionExacta}
-              direccion={propiedad.ubicacionTexto}
+              googleMapsUrl={propiedad.google_maps_url}
             />
           </div>
         </div>
