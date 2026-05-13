@@ -118,6 +118,7 @@ export interface HospedajeRow {
   ubicacion?: string | null
   precio_noche: number
   activo: boolean
+  num_huespedes: number
   destacado?: boolean | null
   latitud?: number | null
   longitud?: number | null
@@ -265,6 +266,7 @@ export interface HospedajeFrontend {
   destacado?: boolean | null
   latitud?: number | null
   longitud?: number | null
+  num_huespedes?: number
   googleMapsUrl?: string | null
   imagenes?: string[]
   creadoEn?: string

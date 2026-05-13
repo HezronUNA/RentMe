@@ -1,4 +1,5 @@
 import { useAccommodationImageGallery } from "../hooks/useAccommodationImageGallery";
+import { useRef, useEffect } from "react";
 
 type Props = {
   images: string[];
@@ -7,6 +8,9 @@ type Props = {
 };
 
 export default function AccommodationImageGallery({ images, alt = "Foto del hospedaje", className = "" }: Props) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const imageRefsRef = useRef<(HTMLDivElement | null)[]>([]);
+
   const {
     index,
     open,
@@ -23,6 +27,22 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
     closeModal,
     toggleZoom,
   } = useAccommodationImageGallery({ images });
+
+  // Hacer scroll automático cuando el índice cambia
+  useEffect(() => {
+    if (scrollContainerRef.current && imageRefsRef.current[index]) {
+      const scrollContainer = scrollContainerRef.current;
+      const targetImage = imageRefsRef.current[index];
+      
+      if (targetImage) {
+        const scrollLeft = targetImage.offsetLeft - scrollContainer.offsetWidth / 2 + targetImage.offsetWidth / 2;
+        scrollContainer.scrollTo({
+          left: scrollLeft,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [index]);
 
   // Función auxiliar para renderizar una imagen
   const renderImage = (imageIndex: number, className: string, showMoreIndicator = false) => (
@@ -112,54 +132,65 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
 
       {/* Grid móvil - más simple */}
       <div className="lg:hidden">
-        {/* Imagen principal */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-zinc-100 mb-3">
-          <img
-            src={currentImage}
-            alt={alt}
-            className="h-full w-full object-cover cursor-pointer"
-            onClick={() => handleImageClick(index)}
-            onError={handleImageError}
-          />
-          
-          {/* Controles móvil */}
-          {hasMultipleImages && (
-            <>
-              <button
-                aria-label="Anterior"
-                onClick={(e) => { e.stopPropagation(); handleModalNavigation('prev'); }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white"
+        {/* Imagen principal con scroll horizontal */}
+        <div className="relative">
+          <div 
+            ref={scrollContainerRef}
+            className="aspect-[4/3] w-full overflow-x-auto rounded-xl bg-zinc-100 mb-3"
+            style={{
+              WebkitOverflowScrolling: 'touch',
+              scrollBehavior: 'smooth',
+              scrollSnapType: 'x mandatory',
+              display: 'flex',
+            }}
+          >
+            {cleanImages.map((imgSrc, imgIndex) => (
+              <div
+                key={imgSrc + imgIndex}
+                ref={(el) => { imageRefsRef.current[imgIndex] = el; }}
+                className="w-full h-full flex-shrink-0"
+                style={{
+                  scrollSnapAlign: 'start',
+                }}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-              <button
-                aria-label="Siguiente"
-                onClick={(e) => { e.stopPropagation(); handleModalNavigation('next'); }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-              
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-sm text-white">
-                {index + 1} / {totalImages}
+                <img
+                  src={imgSrc}
+                  alt={`${alt} ${imgIndex + 1}`}
+                  className="h-full w-full object-cover cursor-pointer"
+                  onClick={() => handleImageClick(imgIndex)}
+                  onError={handleImageError}
+                />
               </div>
-            </>
+            ))}
+          </div>
+
+          {/* Contador e indicadores */}
+          {hasMultipleImages && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-sm text-white z-10">
+              {index + 1} / {totalImages}
+            </div>
           )}
         </div>
         
         {/* Thumbnails móvil */}
         {hasMultipleImages && (
-          <div className="flex gap-2 overflow-x-auto pb-2">
+          <div 
+            className="flex gap-2 pb-2 overflow-x-auto"
+            style={{
+              WebkitOverflowScrolling: 'touch',
+              scrollBehavior: 'smooth',
+              scrollSnapType: 'x mandatory',
+            }}
+          >
             {cleanImages.map((src, i) => (
               <button
                 key={src + i}
                 onClick={() => goTo(i)}
-                className={`h-16 min-w-20 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all
+                className={`h-16 min-w-[80px] flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all scroll-snap-align-start
                 ${i === index ? "border-blue-500" : "border-zinc-200"}`}
+                style={{
+                  scrollSnapAlign: 'start',
+                }}
               >
                 <img 
                   src={src} 

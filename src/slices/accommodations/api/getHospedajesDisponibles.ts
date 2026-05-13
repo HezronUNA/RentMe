@@ -44,6 +44,7 @@ export async function getHospedajesDisponibles(
       tipoHospedajeId: row.tipo_hospedaje_id ?? null,
       ubicacion: row.ubicacion ?? null,
       precioNoche: Number(row.precio_noche ?? 0),
+      num_huespedes: row.num_huespedes ?? 0,
       activo: row.activo ?? true,
       destacado: row.destacado ?? null,
       latitud: row.latitud ?? null,

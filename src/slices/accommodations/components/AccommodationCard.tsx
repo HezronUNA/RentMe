@@ -100,8 +100,8 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
               {accommodation.cuartos} Hab.
             </span>
             <span className="flex-shrink-0 rounded-full border border-[#52655B]/10 bg-[#52655B]/5 px-2 py-0.5 sm:px-3 sm:py-1 inline-flex items-center gap-1.5 text-[11px] sm:text-[13px]">
-              <span className="h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full border border-[#52655B] text-[10px] leading-3 text-center text-[#52655B]">B</span>
-              {accommodation.banos} Baños
+              <span className="h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full border border-[#52655B] text-[10px] leading-3 text-center text-[#52655B]">H</span>
+              {accommodation.num_huespedes} Huespedes
             </span>
           </div>
 
