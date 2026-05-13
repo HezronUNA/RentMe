@@ -18,11 +18,6 @@ const AccommodationDetail = () => {
   const { reglas, loading: reglasLoading } = useHospedajeReglas(accommodationId);
   const { servicios, loading: serviciosLoading } = useHospedajeServicios(accommodationId);
 
-  // Función para formatear precio
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-CR').format(price);
-  };
-
   const isLoading = hospedajeLoading || reglasLoading || serviciosLoading;
 
   if (isLoading) {
@@ -97,25 +92,6 @@ const AccommodationDetail = () => {
                   {hospedaje.ubicacion}
                 </p>
               </header>
-
-              {/* Encabezado con acento lateral + línea divisoria */}
-              <div className="mt-2">
-                <div className="h-px bg-gray-300" />
-                <div className="mt-3 flex items-center gap-3">
-                  <span className="h-5 w-1 bg-[#52655B]" />
-                  <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Precio por noche</h3>
-                </div>
-              </div>
-
-              {/* Precio */}
-              <section className="mt-4">
-                <div className="flex flex-wrap items-center gap-4">
-                  <p className="text-3xl font-extrabold text-[#52655B] leading-none">
-                    ₡{formatPrice(hospedaje.precio_noche)}
-                  </p>
-                  <span className="text-sm text-gray-600">por noche</span>
-                </div>
-              </section>
 
               {/* Encabezado con acento lateral + línea divisoria */}
               <div className="mt-8">
@@ -232,7 +208,7 @@ const AccommodationDetail = () => {
           </div>
 
           {/* Mapa de ubicación */}
-          <div className="w-full">
+          <div className="w-full py-8">
             <AccommodationLocationMap googleMapsUrl={hospedaje.google_maps_url} />
           </div>
         </div>

@@ -9,7 +9,7 @@ export const SOCIAL_CONFIG = [
     label: "WhatsApp",
     phone: "50683888231",
     message:
-      "¡Hola Rent Me CR! Quiero información sobre alojamientos y administración de propiedades.",
+      "Hola, Vengo desde la página de DMR Rentals y me gustaría conocer más sobre los servicios y opciones que manejan. ¡Quedo atento, muchas gracias!",
   },
   {
     platform: "instagram",

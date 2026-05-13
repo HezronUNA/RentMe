@@ -12,12 +12,6 @@ interface AccommodationCardProps {
 }
 
 export function AccommodationCard({ accommodation, onAccommodationClick }: AccommodationCardProps) {
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-CR', {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price)
-  }
 
   const navigate = useNavigate()
 
@@ -66,12 +60,6 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
         <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white backdrop-blur-sm sm:text-[11px]">
           {truncateWords(accommodation.ubicacion)}
         </div>
-
-        <div className="absolute right-4 top-4 rounded-full border border-white/25 bg-white/95 px-4 py-1.5 text-sm sm:text-base font-bold text-[#52655B] shadow-lg">
-          ₡{formatPrice(accommodation.precioNoche)}
-        </div>
-
-        {/* Nombre en la imagen removido: el título permanece en la parte blanca del card */}
       </div>
 
       {/* Info */}
