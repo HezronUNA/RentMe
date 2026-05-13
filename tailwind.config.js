@@ -1,3 +1,5 @@
+import typography from '@tailwindcss/typography'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -20,12 +22,12 @@ export default {
           900: '#0c4a6e',
         }
       },
-       fontFamily: {
+      fontFamily: {
         title: ["Inter", "sans-serif"],   // Para títulos
         body: ["Poppins", "sans-serif"],  // Para textos y subtítulos
         'luxury': ['Playfair Display', 'serif'],
       },
     },
   },
-  plugins: { typography },
+  plugins: [typography],
 }

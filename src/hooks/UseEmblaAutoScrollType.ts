@@ -1,7 +1,7 @@
 // src/shared/hooks/useEmblaAutoScroll.ts
 import { useCallback, useEffect } from 'react'
 import type { EmblaOptionsType } from 'embla-carousel' 
-import useEmblaCarousel from 'node_modules/embla-carousel-react/esm/components/useEmblaCarousel'
+import useEmblaCarousel from 'embla-carousel-react'
 
 // Define the AutoScrollOptionsType if not imported from elsewhere
 type AutoScrollOptionsType = {
