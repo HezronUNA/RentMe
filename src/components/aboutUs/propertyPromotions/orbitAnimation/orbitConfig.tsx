@@ -1,5 +1,5 @@
 import { Facebook, Instagram } from 'lucide-react';
-import { FaAirbnb, FaTiktok } from "react-icons/fa";
+import { AirbnbIcon, TikTokIcon } from "@/app/context/icons";
 import { type OrbitItemConfig } from './OrbitAnimation';
 
 export const platformsConfig: OrbitItemConfig[] = [
@@ -28,7 +28,7 @@ export const platformsConfig: OrbitItemConfig[] = [
     initialAngle: 315,
     content: (
       <div className="flex flex-col items-center group">
-        <FaAirbnb className="w-12 h-12 text-red-500 group-hover:scale-110 transition-transform" />
+        <AirbnbIcon size={48} className="text-red-500 group-hover:scale-110 transition-transform" />
         <span className="text-red-500 font-bold text-lg">Airbnb</span>
       </div>
     )
@@ -77,7 +77,7 @@ export const platformsConfig: OrbitItemConfig[] = [
     content: (
       <div className="flex flex-col items-center group">
         <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-          <FaTiktok className="w-8 h-8 text-white" />
+          <TikTokIcon size={32} className="text-white" />
         </div>
         <span className="text-gray-800 font-bold text-lg">TikTok</span>
       </div>

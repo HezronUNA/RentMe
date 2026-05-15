@@ -17,7 +17,7 @@ export default function Hero() {
     titulo1: 'Tu propiedad,',
     titulo2: 'nuestro cuidado',
     subtitulo: 'Gestionamos tu inmueble con profesionalismo y transparencia.',
-    imagen: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200&q=85',
+    imagen: 'https://res.cloudinary.com/dxrzwnjee/image/upload/v1778855260/hl7uxg4g4sq8ba0jo3pg.avif',
     link: '/servicios',
     textoBoton: 'Ver servicios',
   }

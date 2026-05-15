@@ -4,7 +4,7 @@ import { useIcons } from "@/app/context/useIcons"
 import { SOCIAL_CONFIG, buildWhatsAppHref } from "@/utils/socialMediaConfig"
 import type { UseNavbar } from "@/hooks/useNavbar"
 
-const Logo = "https://i.ibb.co/fGdD3rxd/Chat-GPT-Image-18-nov-2025-02-02-38-p-m.png"
+const Logo = "https://res.cloudinary.com/dxrzwnjee/image/upload/v1778856029/yqzckajrawylryjuefi4.avif"
 
 type Props = {
   nav: UseNavbar
