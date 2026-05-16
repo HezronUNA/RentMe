@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { H1, P } from "@/components/ui/Typography";
-import { FaChevronDown } from "react-icons/fa";
+import { ChevronDownIcon } from "@/app/context/icons";
 
 export default function BannerAboutUs() {
   const scrollToNextSection = () => {
@@ -47,7 +47,7 @@ export default function BannerAboutUs() {
                 onClick={scrollToNextSection}
                 aria-label="Ir a la siguiente sección"
               >
-                <FaChevronDown className="text-xl" />
+                <ChevronDownIcon size={20} />
               </Button>
             </div>
           </div>
