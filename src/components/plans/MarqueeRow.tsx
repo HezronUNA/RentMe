@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { motion } from "framer-motion";
 import { ServiceCard } from "./ServiceCard";
 
 interface MarqueeRowProps {
@@ -17,35 +16,34 @@ export function MarqueeRow({
 }: MarqueeRowProps) {
   const loopItems = useMemo(() => [...items, ...items, ...items, ...items], [items]);
 
-  const cardWidth = 256; // ancho w-64 = 256px
+  const cardWidth = 256;
   const visibleCards = 3;
   const containerWidth = (cardWidth + gap) * visibleCards - gap;
   const totalItemWidth = cardWidth + gap;
-
   const moveDistance = totalItemWidth * items.length;
-
-  const from = direction === "left" ? 0 : -moveDistance;
-  const to = direction === "left" ? -moveDistance : 0;
 
   return (
     <div
       className="relative overflow-hidden mx-auto h-full flex items-center justify-center"
       style={{ width: containerWidth }}
     >
-      <motion.div
+      <style>{`
+        @keyframes marquee-${direction} {
+          from { transform: translateX(${direction === "left" ? 0 : -moveDistance}px); }
+          to { transform: translateX(${direction === "left" ? -moveDistance : 0}px); }
+        }
+      `}</style>
+      <div
         className="flex items-center"
-        style={{ gap }}
-        animate={{ x: [from, to] }}
-        transition={{
-          duration: speed,
-          ease: "linear",
-          repeat: Infinity,
+        style={{
+          gap,
+          animation: `marquee-${direction} ${speed}s linear infinite`,
         }}
       >
         {loopItems.map((it, idx) => (
           <ServiceCard key={`${it.id}-${idx}`} item={it} />
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }
