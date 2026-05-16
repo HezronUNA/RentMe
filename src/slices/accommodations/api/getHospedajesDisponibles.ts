@@ -5,6 +5,7 @@ export interface FiltroHospedajeSupabase {
   ubicacion?: string
   precioMin?: number
   precioMax?: number
+  numHuespedesMin?: number
 }
 
 // Obtener hospedajes activos desde Supabase filtrando solo por ubicación y precio
@@ -28,6 +29,10 @@ export async function getHospedajesDisponibles(
 
     if (typeof filtros.precioMax === 'number') {
       query = query.lte('precio_noche', filtros.precioMax)
+    }
+
+    if (typeof filtros.numHuespedesMin === 'number') {
+      query = query.gte('num_huespedes', filtros.numHuespedesMin)
     }
 
     const { data, error } = await query
