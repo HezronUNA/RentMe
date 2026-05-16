@@ -66,7 +66,7 @@ export default function DesktopHeader({ nav, scrolled }: Props) {
             <div className="flex-shrink-0">
               <Link to="/" aria-label="Ir al inicio">
                 <img
-                  src="https://i.ibb.co/fGdD3rxd/Chat-GPT-Image-18-nov-2025-02-02-38-p-m.png"
+                  src="https://res.cloudinary.com/dxrzwnjee/image/upload/v1778856029/yqzckajrawylryjuefi4.avif"
                   alt="Logo RentME"
                   className={`object-contain transition-all duration-300 ${
                     transparent ? "h-11 w-11 brightness-0 invert" : "h-9 w-9"
