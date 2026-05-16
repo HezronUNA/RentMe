@@ -7,7 +7,7 @@ export default function Hero() {
     titulo1: 'Estancias',
     titulo2: 'como en casa',
     subtitulo: 'Alojamientos seleccionados con atención al detalle para que tu estadía sea perfecta.',
-    imagen: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=85',
+    imagen: 'https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778954335/photo-1613490493576-7fde63acd811_rlhwk3.avif',
     link: '/alojamientos',
     textoBoton: 'Ver alojamientos',
   }
