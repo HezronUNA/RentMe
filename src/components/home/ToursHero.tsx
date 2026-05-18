@@ -24,7 +24,7 @@ export default function ToursHero() {
       name: "Tour Volcán Poás",
       description: "Visita uno de los cráteres más accesibles. Ideal para familias.",
       price: "$98",
-      image: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=900&h=1200&fit=crop",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953246/photo-1470770841072-f978cf4d019e_jocfay.avif",
     },
     {
       id: 3,
@@ -32,7 +32,7 @@ export default function ToursHero() {
       name: "Canopy Zipline",
       description: "Adrenalina entre los árboles. Guías expertos.",
       price: "$48",
-      image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&h=1200&fit=crop",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953071/photo-1500530855697-b586d89ba3ee_vugivk.avif",
     },
     {
       id: 2,
@@ -40,7 +40,7 @@ export default function ToursHero() {
       name: "Tour de Café",
       description: "Recorre una finca auténtica y disfruta de degustaciones.",
       price: "$31",
-      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&h=1200&fit=crop",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953024/photo-1495474472287-4d71bcdd2085_tz6q8i.avif",
     },
     {
       id: 4,
@@ -48,7 +48,7 @@ export default function ToursHero() {
       name: "Tram Aéreo",
       description: "Sobrevuela el dosel del bosque tropical en un tram panorámico.",
       price: "$159",
-      image: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=900&h=1200&fit=crop",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778952981/photo-1448375240586-882707db888b_kjg0kx.avif",
     },
     {
       id: 5,
@@ -56,7 +56,7 @@ export default function ToursHero() {
       name: "San José Walking Tour",
       description: "Explora los mercados tradicionales, murales y la escena cafetera.",
       price: "$45",
-      image: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=900&h=700&fit=crop",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778952883/photo-1519501025264-65ba15a82390_p4wx86.avif",
     },
   ];
 

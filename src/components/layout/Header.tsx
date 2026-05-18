@@ -1,18 +1,35 @@
+import { useEffect, useState } from "react"
 import DesktopHeader from "./DesktopHeader"
 import MobileHeader from "./MobileHeader"
 import { useNavbar } from "@/hooks/useNavbar"
 
 export default function Header() {
   const nav = useNavbar()
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    setScrolled(window.scrollY > 80)
+
+    if (nav.pathname !== "/") {
+      setScrolled(true)
+      return
+    }
+
+    const onScroll = () => setScrolled(window.scrollY > 80)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [nav.pathname])
 
   return (
-    <header className={`w-full sticky top-0 z-40 transition-all duration-300 ${
-      nav.open 
-        ? "bg-gradient-to-b from-gray-100 to-gray-50" 
-        : "bg-neutral-50"
-    } shadow-[4px_4px_4px_rgba(0,0,0,0.25)]`}>
-      <DesktopHeader nav={nav} />
-      <MobileHeader nav={nav} />
+    <header
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        nav.open
+          ? "bg-gradient-to-b from-gray-100 to-gray-50"
+          : "bg-transparent"
+      }`}
+    >
+      <DesktopHeader nav={nav} scrolled={scrolled} />
+      <MobileHeader nav={nav} scrolled={scrolled} />
     </header>
   )
 }

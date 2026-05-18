@@ -16,7 +16,7 @@ export default function FeaturedTours() {
         "Visita uno de los cráteres más accesibles del mundo. Ideal para familias, con guía incluido y transporte desde San José.",
       price: "$98",
       image:
-        "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=900&h=700&fit=crop",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953246/photo-1470770841072-f978cf4d019e_jocfay.avif",
     },
     {
       id: 2,
@@ -26,7 +26,7 @@ export default function FeaturedTours() {
         "Recorre una finca cafetalera auténtica, conoce el proceso de cosecha y disfruta de degustaciones. Experiencia familiar.",
       price: "$31",
       image:
-        "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&h=700&fit=crop",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953024/photo-1495474472287-4d71bcdd2085_tz6q8i.avif",
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ export default function FeaturedTours() {
         "Adrenalina entre los árboles a pocos minutos de la ciudad. Equipo de seguridad incluido y guías expertos en cada línea.",
       price: "$48",
       image:
-        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&h=700&fit=crop",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953071/photo-1500530855697-b586d89ba3ee_vugivk.avif",
     },
     {
       id: 4,
@@ -46,7 +46,7 @@ export default function FeaturedTours() {
         "Sobrevuela el dosel del bosque tropical en un tram panorámico. Fauna, flora y vistas impresionantes del ecosistema.",
       price: "$159",
       image:
-        "https://images.unsplash.com/photo-1448375240586-882707db888b?w=900&h=700&fit=crop",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778952981/photo-1448375240586-882707db888b_kjg0kx.avif",
     },
     {
       id: 5,
@@ -56,7 +56,7 @@ export default function FeaturedTours() {
         "Explora los mercados tradicionales, murales y la escena cafetera local a pie. Historia viva en cada esquina de la capital.",
       price: "$45",
       image:
-        "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=900&h=700&fit=crop",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778952883/photo-1519501025264-65ba15a82390_p4wx86.avif",
     },
     {
       id: 6,
@@ -66,7 +66,7 @@ export default function FeaturedTours() {
         "Rápidos emocionantes en uno de los ríos más bellos de Costa Rica. Perfecto para grupos y amantes de los deportes acuáticos.",
       price: "$128",
       image:
-        "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=900&h=700&fit=crop",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953287/photo-1508804185872-d7badad00f7d_gyaadn.avif",
     },
   ];
 

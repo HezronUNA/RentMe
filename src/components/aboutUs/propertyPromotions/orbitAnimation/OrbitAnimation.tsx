@@ -1,5 +1,4 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { OrbitItem } from './OrbitItem';
 import type { ReactNode } from 'react';
 
@@ -20,14 +19,38 @@ interface OrbitAnimationProps {
   containerSize?: number;
 }
 
-export function OrbitAnimation({ 
-  items = [], 
-  centerContent, 
+function useInView(ref: React.RefObject<Element | null>, opts?: { margin?: string }) {
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.unobserve(el);
+        }
+      },
+      { rootMargin: opts?.margin ?? "0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ref, opts?.margin]);
+
+  return isInView;
+}
+
+export function OrbitAnimation({
+  items = [],
+  centerContent,
   className = "",
-  containerSize = 400 
+  containerSize = 400
 }: OrbitAnimationProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { margin: "-100px" });
 
   return (
     <div
@@ -35,17 +58,16 @@ export function OrbitAnimation({
       className={`relative ${className}`}
       style={{ minHeight: containerSize }}
     >
-      {/* Contenido Central */}
-      <motion.div 
-        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-        transition={{ duration: 1.6 }}
+      <div
+        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 transition-all duration-[1.6s]"
+        style={{
+          opacity: isInView ? 1 : 0,
+          scale: isInView ? '1' : '0.8',
+        }}
       >
         {centerContent}
-      </motion.div>
+      </div>
 
-      {/* Items en Órbita */}
       {items.map((item, index) => (
         <OrbitItem
           key={item.id || index}
@@ -54,7 +76,6 @@ export function OrbitAnimation({
           delay={item.delay}
           direction={item.direction}
           initialAngle={item.initialAngle}
-          animate={isInView} // Pásale la prop animate si tu OrbitItem la soporta
         >
           {item.content}
         </OrbitItem>
@@ -64,4 +85,3 @@ export function OrbitAnimation({
 }
 
 export type { OrbitItemConfig, OrbitAnimationProps };
-
