@@ -1,5 +1,6 @@
 import { useParams } from "@tanstack/react-router";
 import { ReservationForm } from "./components/ReservationForm";
+import { AccommodationNavBar } from "./components/AccommodationNavBar";
 import AccommodationImageGallery from "./components/AccommodationImageGallery";
 import AccommodationLocationMap from "./components/AccommodationLocationMap.tsx";
 import { useHospedajeDetail } from "./hooks/useHospedajeDetail";
@@ -67,8 +68,11 @@ const AccommodationDetail = () => {
 
   return (
     <section className="w-full font-sans">
+      {/* Navbar - Desktop y Mobile */}
+      <AccommodationNavBar />
+
       {/* Galería de imágenes principal */}
-      <div className="px-4 md:px-8 lg:px-16 py-8">
+      <div id="fotos" className="px-4 md:px-8 lg:px-16 py-8 pt-20 md:pt-28">
         <div className="w-full max-w-7xl mx-auto">
           <AccommodationImageGallery
             images={hospedaje.imagenes || []}
@@ -94,13 +98,13 @@ const AccommodationDetail = () => {
               </header>
 
               {/* Encabezado con acento lateral + línea divisoria */}
-              <div className="mt-8">
+              <section id="detalle" className="mt-8 scroll-mt-32">
                 <div className="h-px bg-gray-300" />
                 <div className="mt-3 flex items-center gap-3">
                   <span className="h-5 w-1 bg-[#52655B]" />
                   <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Detalles del hospedaje</h3>
                 </div>
-              </div>
+              </section>
 
               {/* Características principales */}
               <section className="mt-4">
@@ -142,7 +146,7 @@ const AccommodationDetail = () => {
 
               {/* Servicios */}
               {servicios && servicios.length > 0 && (
-                <section className="mt-10">
+                <section id="servicios" className="mt-10 scroll-mt-32">
                   <div>
                     <div className="h-px bg-gray-300" />
                     <div className="mt-3 flex items-center gap-3">
@@ -193,7 +197,7 @@ const AccommodationDetail = () => {
             </article>
 
             {/* Columna derecha: Formulario sticky */}
-            <aside className="w-full self-start lg:sticky lg:top-32 xl:top-60">
+            <aside id="reservation-form" className="w-full self-start lg:sticky lg:top-32 xl:top-60">
               <h3 className="text-2xl font-bold text-[#52655B] mb-2">
                 Reserva tu estadía
               </h3>
@@ -208,13 +212,16 @@ const AccommodationDetail = () => {
           </div>
 
           {/* Mapa de ubicación */}
-          <div className="w-full py-8">
+          <div id="ubicacion" className="w-full py-8 scroll-mt-32">
             <AccommodationLocationMap googleMapsUrl={hospedaje.google_maps_url} />
           </div>
         </div>
       </div>
       <Toaster />
-      <ReviewAccommodation />
+      {/* Sección Reseñas */}
+      <div id="resenas" className="scroll-mt-32">
+        <ReviewAccommodation />
+      </div>
     </section>
   );
 };

@@ -126,12 +126,12 @@ export function DestinationSection({ variant, ubicacion, onUbicacionChange }: De
 
   if (variant === 'desktop') {
     return (
-      <div className="flex-[1.6] flex items-center border-r border-zinc-200 relative" ref={dropdownRef}>
-        <div className="w-full px-6 py-3 flex flex-col justify-center gap-2">
-          <div className="text-zinc-700 text-xs font-semibold tracking-wide text-left uppercase">Ubicación</div>
+      <div className="flex-[1.55] flex items-center border-r border-zinc-200 relative" ref={dropdownRef}>
+        <div className="w-full px-4 py-2 flex flex-col justify-center gap-1">
+          <div className="text-zinc-600 text-[10px] font-semibold tracking-wide text-left uppercase">Ubicación</div>
           <div className="relative">
             <div className="w-full border border-zinc-200 bg-zinc-50 hover:bg-white hover:border-zinc-300 transition-all duration-200 rounded-full">
-              <div className="flex items-center gap-3 px-3 py-2">
+              <div className="flex items-center gap-2.5 px-3 py-1.5">
                 {triggerContent}
               </div>
             </div>
@@ -147,27 +147,27 @@ export function DestinationSection({ variant, ubicacion, onUbicacionChange }: De
   }
 
   return (
-    <div className="relative px-4 py-3.5" ref={dropdownRef}>
+    <div className="relative px-4 py-3" ref={dropdownRef}>
       <button
         onClick={handleToggleDropdown}
-        className="flex w-full min-h-[3.5rem] items-center gap-3 rounded-xl py-1 text-left transition-colors active:bg-neutral-50"
+        className="flex w-full min-h-[3.25rem] items-center gap-3 rounded-xl py-1 text-left transition-colors active:bg-neutral-50"
         disabled={isLoading}
         type="button"
       >
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-100">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#52655B]" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-neutral-100">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4.5 w-4.5 text-[#52655B]" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
           </svg>
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold text-neutral-900">¿Dónde?</p>
+          <p className="text-[11px] font-semibold text-neutral-900">¿Dónde?</p>
           <p className="mt-0.5 truncate text-sm text-neutral-500">
             {isLoading ? 'Cargando ubicaciones…' : ubicacion || 'Buscar destino'}
           </p>
         </div>
         {!isLoading && (
           <svg
-            className={`h-5 w-5 shrink-0 text-neutral-400 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`}
+            className={`h-4.5 w-4.5 shrink-0 text-neutral-400 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -187,7 +187,7 @@ export function DestinationSection({ variant, ubicacion, onUbicacionChange }: De
               placeholder="Buscar cantón..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full rounded-xl border border-neutral-200 bg-white px-3 py-3 text-base text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-[#52655B] focus:ring-2 focus:ring-[#52655B]/20"
+              className="w-full rounded-xl border border-neutral-200 bg-white px-3 py-2.5 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-[#52655B] focus:ring-2 focus:ring-[#52655B]/20"
               autoCapitalize="off"
               autoCorrect="off"
               autoComplete="off"

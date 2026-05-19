@@ -2,10 +2,11 @@ import { DestinationSection } from './DestinationSection';
 import { PriceSection } from './PriceSection';
 import { SearchButton } from './SearchButton';
 import { useSearchBox } from '../../../hooks/useSearchBox';
+import type { FiltrosBusqueda } from '../../../hooks/usePropiedadesConFiltros';
 
 interface SearchBoxProps {
   variant: 'desktop' | 'mobile';
-  onSearchFilters?: (filters: any) => void;
+  onSearchFilters?: (filters: FiltrosBusqueda) => void;
 }
 
 export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
@@ -33,7 +34,7 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
 
   if (variant === 'desktop') {
     return (
-      <div className="w-full max-w-6xl bg-white rounded-full inline-flex items-stretch shadow-[0_8px_28px_rgba(0,0,0,0.12)] p-2 border border-zinc-200/80">
+      <div className="w-full max-w-5xl bg-white rounded-full inline-flex items-stretch shadow-[0_6px_20px_rgba(0,0,0,0.1)] p-1.5 border border-zinc-200/80">
         <DestinationSection 
           variant="desktop" 
           ubicacion={ubicacion}
@@ -71,7 +72,7 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
           onPriceMaxChange={handlePriceMaxChange}
           onPriceMaxBlur={handlePriceMaxBlur}
         />
-        <div className="p-4">
+        <div className="p-3.5">
           <SearchButton variant="mobile" onClick={handleSearchClick} />
         </div>
       </div>
