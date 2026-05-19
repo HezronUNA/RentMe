@@ -75,15 +75,24 @@ export default function FeaturedTours() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = Array.from(containerRef.current?.children || []).indexOf(
-              entry.target as Element,
-            );
+            const element = entry.target as HTMLElement;
+            const index = Number(element.dataset.index);
+
+            if (Number.isNaN(index)) {
+              return;
+            }
 
             setVisibleCards((prev) => {
+              if (prev[index]) {
+                return prev;
+              }
+
               const next = [...prev];
               next[index] = true;
               return next;
             });
+
+            observer.unobserve(element);
           }
         });
       },
@@ -123,6 +132,7 @@ export default function FeaturedTours() {
           {tours.map((tour, index) => (
             <article
               key={tour.id}
+              data-index={index}
               onClick={() => window.open(catalogUrl, "_blank")}
               className={`group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 transform ${
                 visibleCards[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"

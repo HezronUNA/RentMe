@@ -51,10 +51,16 @@ export default function Categories() {
             }
 
             setVisibleCards((prev) => {
+              if (prev[index]) {
+                return prev;
+              }
+
               const newVisible = [...prev];
               newVisible[index] = true;
               return newVisible;
             });
+
+            observer.unobserve(element);
           }
         });
       },
