@@ -16,27 +16,17 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
 
   const handleSearchFilters = (filters: AccommodationSearchFilters) => {
     if (onApplyFilters) {
-      // Convertir AccommodationSearchFilters a FiltrosBusquedaHospedajes (similar a ventas)
+      // Convertir AccommodationSearchFilters a FiltrosBusquedaHospedajes
       const filtrosConvertidos: FiltrosBusquedaHospedajes = {}
       
-      // Mapear destino -> canton (como en ventas)
+      // Mapear destino -> canton
       if (filters.destino && filters.destino.trim() !== '') {
         filtrosConvertidos.canton = filters.destino.trim()
       }
 
-      if (filters.cuartos && filters.cuartos > 0) {
-        filtrosConvertidos.cuartos = filters.cuartos
-      }
-
-      const precioMinNum = parseFloat(filters.price)
-      const precioMaxNum = parseFloat(filters.precioMax)
-
-      if (!isNaN(precioMinNum) && precioMinNum > 0) {
-        filtrosConvertidos.precioMin = precioMinNum
-      }
-
-      if (!isNaN(precioMaxNum) && precioMaxNum > 0) {
-        filtrosConvertidos.precioMax = precioMaxNum
+      // Mapear huéspedes
+      if (filters.huespedes && filters.huespedes > 0) {
+        filtrosConvertidos.huespedes = filters.huespedes
       }
 
       onApplyFilters(filtrosConvertidos);

@@ -52,7 +52,7 @@ export default function AccommodationsPage() {
                         <span className="truncate">{filtrosActivos.canton}</span>
                         <button
                           type="button"
-                          onClick={() => buscarConFiltros({ precioMin: filtrosActivos.precioMin, precioMax: filtrosActivos.precioMax, cuartos: filtrosActivos.cuartos })}
+                          onClick={() => buscarConFiltros({ precioMin: filtrosActivos.precioMin, precioMax: filtrosActivos.precioMax, cuartos: filtrosActivos.cuartos, huespedes: filtrosActivos.huespedes })}
                           className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#52655B] transition-all duration-200 hover:bg-white/70 hover:shadow-sm"
                           aria-label="Quitar filtro de ubicación"
                         >
@@ -70,7 +70,7 @@ export default function AccommodationsPage() {
                         </span>
                         <button
                           type="button"
-                          onClick={() => buscarConFiltros({ canton: filtrosActivos.canton, cuartos: filtrosActivos.cuartos })}
+                          onClick={() => buscarConFiltros({ canton: filtrosActivos.canton, cuartos: filtrosActivos.cuartos, huespedes: filtrosActivos.huespedes })}
                           className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#52655B] transition-all duration-200 hover:bg-white/70 hover:shadow-sm"
                           aria-label="Quitar filtro de precio"
                         >
