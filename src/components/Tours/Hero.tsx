@@ -12,7 +12,7 @@ export default function Hero() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1552980870-139c7b393f0c?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206257/photo-1552980870-139c7b393f0c_ainnco.avif"
             alt="Tours y Experiencias"
             className="h-full w-full object-cover"
           />
