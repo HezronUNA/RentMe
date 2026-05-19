@@ -6,6 +6,7 @@ import Intro from "@/components/tours/Intro";
 import Transfers from "@/components/tours/Transfers";
 
 
+
 export default function ToursPage() {
   return (
     <div className="w-full">
