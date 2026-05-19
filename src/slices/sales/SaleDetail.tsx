@@ -1,9 +1,11 @@
-import { useParams } from "@tanstack/react-router";
-import { ContactForm } from "./components/ContactForm";
-import PropertyImageGallery from "./components/PropertyImageGallery";
-import { PropertyLocationMap } from "./components/PropertyLocationMap";
-import { usePropiedadById } from "./hooks/usePropiedadById";
-import { Toaster } from "@/components/ui/Sonner";
+import { useParams } from "@tanstack/react-router"
+import { ContactForm } from "./components/ContactForm"
+import PropertyImageGallery from "./components/PropertyImageGallery"
+import { PropertyLocationMap } from "./components/PropertyLocationMap"
+import { usePropiedadById } from "./hooks/usePropiedadById"
+import { Toaster } from "@/components/ui/Sonner"
+import { SalesNavBar } from "./components/SalesNavBar"
+import { SalesActionBar } from "./components/SalesActionBar"
 
 const SaleDetail = () => {
   const params = useParams({ from: "/ventas/$ventaId" });
@@ -65,8 +67,11 @@ const SaleDetail = () => {
 
   return (
     <section className="w-full font-sans">
+      {/* Navbar - Desktop y Mobile */}
+      <SalesNavBar propertyName={propiedad.ubicacion.distrito} />
+
       {/* Galería de imágenes principal */}
-      <div className="px-4 md:px-8 lg:px-16 py-8">
+      <div id="fotos" className="px-4 md:px-8 lg:px-16 py-8 pt-20 md:pt-28">
         <div className="w-full max-w-7xl mx-auto">
           <PropertyImageGallery
             images={propiedad.imagenes}
@@ -82,7 +87,7 @@ const SaleDetail = () => {
               El sticky se detiene al terminar este grid (antes del mapa). */}
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_520px] gap-10 xl:gap-16 mb-12">
             {/* Columna izquierda: detalles */}
-            <article className="w-full">
+            <article id="detalles" className="w-full">
               <header className="mb-6 md:mb-8">
                 <h1 className="text-3xl md:text-4xl font-bold text-[#52655B] leading-tight">
                   {propiedad.ubicacion.distrito}
@@ -183,7 +188,7 @@ const SaleDetail = () => {
             </article>
 
             {/* Columna derecha: Formulario sticky */}
-            <aside className="w-full self-start lg:sticky lg:top-32 xl:top-60">
+            <aside id="contact-form" className="w-full self-start lg:sticky lg:top-32 xl:top-60">
               <h3 className="text-2xl font-bold text-[#52655B] mb-2">
                 Agenda una cita con el propietario
               </h3>
@@ -196,13 +201,17 @@ const SaleDetail = () => {
           </div>
 
           {/* Mapa de ubicación (el sticky se detiene antes de este bloque) */}
-          <div className="w-full">
+          <div id="ubicacion" className="w-full">
             <PropertyLocationMap
               googleMapsUrl={propiedad.google_maps_url}
             />
           </div>
         </div>
       </div>
+
+      {/* Action Bar - Desktop solo */}
+      <SalesActionBar propertyName={propiedad.ubicacion.distrito} />
+
       <Toaster />
     </section>
   );
