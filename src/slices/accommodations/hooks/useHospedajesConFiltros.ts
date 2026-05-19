@@ -8,6 +8,7 @@ export interface FiltrosBusquedaHospedajes {
   precioMin?: number
   precioMax?: number
   cuartos?: number
+  huespedes?: number
 }
 
 /**
@@ -26,6 +27,7 @@ export function useHospedajesConFiltros() {
         ubicacion: filtrosActivos.canton,
         precioMin: filtrosActivos.precioMin,
         precioMax: filtrosActivos.precioMax,
+        numHuespedesMin: filtrosActivos.huespedes ?? filtrosActivos.cuartos,
       }),
       enabled: true
     }
@@ -37,15 +39,7 @@ export function useHospedajesConFiltros() {
     enabled,
     staleTime: 3 * 60 * 1000, // 3 minutos
     refetchOnWindowFocus: false,
-    select: (data: HospedajeFrontend[] | null) => {
-      let resultado = data || []
-
-      if (typeof filtrosActivos.cuartos === 'number' && filtrosActivos.cuartos > 0) {
-        resultado = resultado.filter((hospedaje) => hospedaje.cuartos >= filtrosActivos.cuartos!)
-      }
-
-      return resultado
-    }
+    select: (data: HospedajeFrontend[] | null) => data || []
   })
 
   const buscarConFiltros = useCallback((filtros: FiltrosBusquedaHospedajes) => {
@@ -103,23 +97,12 @@ export function useHospedajesConFiltros() {
 export const crearFiltrosDesdeSearchBox = (filtrosSearchBox: any): FiltrosBusquedaHospedajes => {
   const filtros: FiltrosBusquedaHospedajes = {}
 
-  if (filtrosSearchBox.ubicacion?.trim()) {
-    filtros.canton = filtrosSearchBox.ubicacion.trim()
+  if (filtrosSearchBox.destino?.trim()) {
+    filtros.canton = filtrosSearchBox.destino.trim()
   }
 
-  if (filtrosSearchBox.cuartos && filtrosSearchBox.cuartos > 0) {
-    filtros.cuartos = filtrosSearchBox.cuartos
-  }
-
-  const precioMinNum = parseFloat(filtrosSearchBox.price)
-  const precioMaxNum = parseFloat(filtrosSearchBox.precioMax)
-
-  if (!isNaN(precioMinNum) && precioMinNum > 0) {
-    filtros.precioMin = precioMinNum
-  }
-
-  if (!isNaN(precioMaxNum) && precioMaxNum > 0) {
-    filtros.precioMax = precioMaxNum
+  if (filtrosSearchBox.huespedes && filtrosSearchBox.huespedes > 0) {
+    filtros.huespedes = filtrosSearchBox.huespedes
   }
 
   return filtros
