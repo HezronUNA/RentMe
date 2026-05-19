@@ -1,7 +1,6 @@
 import { useParams } from "@tanstack/react-router";
 import { ReservationForm } from "./components/ReservationForm";
 import { AccommodationNavBar } from "./components/AccommodationNavBar";
-import { AccommodationActionBar } from "./components/AccommodationActionBar";
 import AccommodationImageGallery from "./components/AccommodationImageGallery";
 import AccommodationLocationMap from "./components/AccommodationLocationMap.tsx";
 import { useHospedajeDetail } from "./hooks/useHospedajeDetail";
@@ -69,18 +68,11 @@ const AccommodationDetail = () => {
 
   return (
     <section className="w-full font-sans">
-      {/* Navbar sticky - Solo desktop */}
-      <div className="hidden md:block">
-        <AccommodationNavBar />
-      </div>
-
-      {/* Action bar circular - Solo mobile */}
-      <div className="md:hidden">
-        <AccommodationActionBar accommodationName={hospedaje.nombre} />
-      </div>
+      {/* Navbar - Desktop y Mobile */}
+      <AccommodationNavBar />
 
       {/* Galería de imágenes principal */}
-      <div id="fotos" className="px-4 md:px-8 lg:px-16 py-8">
+      <div id="fotos" className="px-4 md:px-8 lg:px-16 py-8 pt-20 md:pt-28">
         <div className="w-full max-w-7xl mx-auto">
           <AccommodationImageGallery
             images={hospedaje.imagenes || []}

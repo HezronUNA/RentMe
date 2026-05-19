@@ -1,84 +1,35 @@
-import { useNavigate } from "@tanstack/react-router";
-import { toast } from "sonner";
+import { useDetailNavigation } from "@/hooks/useDetailNavigation"
 
 interface AccommodationActionBarProps {
-  accommodationName: string;
-  onReserveClick?: () => void;
+  accommodationName?: string
+  onReserveClick?: () => void
 }
 
 export function AccommodationActionBar({
-  accommodationName,
+  accommodationName = "Alojamiento",
   onReserveClick,
 }: AccommodationActionBarProps) {
-  const navigate = useNavigate();
+  const { handleGoBack, handleShare } = useDetailNavigation({
+    backRoute: "/alojamientos",
+    propertyName: accommodationName,
+  })
 
   /**
    * Maneja el scroll suave hacia el formulario de reserva
    */
   const handleReserveClick = () => {
     if (onReserveClick) {
-      onReserveClick();
-      return;
+      onReserveClick()
+      return
     }
 
-    const reservationForm = document.getElementById("reservation-form");
-
+    const reservationForm = document.getElementById("reservation-form")
     if (reservationForm) {
-      reservationForm.scrollIntoView({ behavior: "smooth", block: "start" });
+      reservationForm.scrollIntoView({ behavior: "smooth", block: "start" })
     } else {
-      console.warn("Elemento de formulario de reserva no encontrado (id='reservation-form')");
-      toast.error("No se pudo encontrar el formulario de reserva");
+      console.warn("Elemento de formulario de reserva no encontrado (id='reservation-form')")
     }
-  };
-
-  /**
-   * Maneja el compartir la propiedad
-   */
-  const handleShare = async () => {
-    try {
-      const shareData = {
-        title: accommodationName,
-        text: `Mira este alojamiento: ${accommodationName}`,
-        url: window.location.href,
-      };
-
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        toast.success("¡Enlace copiado al portapapeles!");
-      }
-    } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") {
-        return;
-      }
-
-      if (error instanceof Error && error.message.includes("Clipboard")) {
-        try {
-          const input = document.createElement("input");
-          input.value = window.location.href;
-          document.body.appendChild(input);
-          input.select();
-          document.execCommand("copy");
-          document.body.removeChild(input);
-          toast.success("¡Enlace copiado al portapapeles!");
-        } catch (_err) {
-          console.error("Error al copiar enlace:", _err);
-          toast.error("No se pudo copiar el enlace");
-        }
-      } else {
-        console.error("Error al compartir:", error);
-        toast.error("No se pudo compartir la propiedad");
-      }
-    }
-  };
-
-  /**
-   * Maneja el regreso a la página de alojamientos
-   */
-  const handleGoBack = () => {
-    navigate({ to: "/alojamientos" });
-  };
+  }
 
   const actions = [
     {
@@ -141,8 +92,9 @@ export function AccommodationActionBar({
   return (
     <aside
       className="
+        hidden md:flex
         fixed left-4 top-1/2 -translate-y-1/2 z-50
-        flex flex-col gap-3
+        flex-col gap-3
         animate-in fade-in slide-in-from-left-4 duration-700
       "
       aria-label="Acciones del alojamiento"
