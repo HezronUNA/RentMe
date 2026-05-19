@@ -10,31 +10,31 @@ export default function Categories() {
       id: 1,
       name: "Aventura en volcanes",
       description: "Sube al Poás e Irazú. Vistas únicas desde el cráter y paisajes que no olvidarás.",
-      image: "https://www.arenal.net/img/Qk_dzY9sqs-800.webp"
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206667/Qk_dzY9sqs-800_ci8avq.avif"
     },
     {
       id: 2,
       name: "Café & Chocolate",
       description: "Recorre fincas cafetaleras, aprende el proceso y prueba el mejor café de origen.",
-      image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1200&h=900&fit=crop"
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206741/photo-1509042239860-f550ce710b93_fgyfey.avif"
     },
     {
       id: 3,
       name: "Naturaleza",
       description: "Teleférico aéreo en el bosque lluvioso, cataratas La Paz y fauna exótica a tu lado.",
-      image: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&h=900&fit=crop"
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206804/photo-1448375240586-882707db888b_gsh2m5.avif"
     },
     {
       id: 4,
       name: "Cultura & Ciudad",
       description: "City tour por San José, mercados, historia y arte urbano con guías locales.",
-      image: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1200&h=900&fit=crop"
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206868/photo-1519501025264-65ba15a82390_bgvejo.avif"
     },
     {
       id: 5,
       name: "Bienestar",
       description: "Yoga, meditación y masajes a domicilio. Relájate sin salir de tu alojamiento.",
-      image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&h=900&fit=crop"
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206930/photo-1506126613408-eca07ce68773_romdej.avif"
     }
   ];
 

@@ -74,7 +74,7 @@ export default function Intro() {
 
             <div className="relative h-[420px] overflow-hidden rounded-[1.5rem]">
               <img
-                src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=1200&auto=format&fit=crop"
+                src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206453/photo-1526772662000-3f88f10405ff_dyto5x.avif"
                 alt="Experiencias de tours en Costa Rica"
                 className="h-full w-full object-cover"
               />
