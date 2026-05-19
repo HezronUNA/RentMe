@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from '@tanstack/react-router'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import SocialBar from '@/components/layout/SocialBar'
 
 const Layout = () => {
   const location = useLocation()
@@ -13,10 +12,6 @@ const Layout = () => {
     <div className="min-h-screen flex flex-col">
       {/* Header solo se muestra si NO estamos en detalle */}
       {!isDetailPage && <Header />}
-      
-      <div className="hidden md:block">
-        <SocialBar />
-      </div>
       
       <main className="flex-1">
         <Outlet /> 
