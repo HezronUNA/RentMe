@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/schema.json",
-  "name": "rentme",
+  "name": "dmrrentals",
   "compatibility_date": "2026-05-20",
   "assets": {
     "directory": "./dist"
