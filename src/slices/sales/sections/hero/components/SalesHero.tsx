@@ -5,9 +5,10 @@ import { H1 } from "@/components/ui/Typography";
 
 interface SalesHeroProps {
   onApplyFilters?: (filters: FiltrosBusqueda) => void;
+  showDesktopSearch?: boolean;
 }
 
-export function SalesHero({ onApplyFilters }: SalesHeroProps) {
+export function SalesHero({ onApplyFilters, showDesktopSearch = true }: SalesHeroProps) {
   // Contenido estático del hero
   const heroData = {
     titulo: 'ENCONTRÁ TU PRÓXIMA INVERSIÓN EN COSTA RICA',
@@ -43,9 +44,11 @@ export function SalesHero({ onApplyFilters }: SalesHeroProps) {
           </div>
 
           {/* Desktop Search Box */}
-          <div className="hidden lg:flex justify-center mt-6">
-            <SearchBox variant="desktop" onSearchFilters={handleSearchFilters} />
-          </div>
+          {showDesktopSearch && (
+            <div className="hidden lg:flex justify-center mt-6">
+              <SearchBox variant="desktop" onSearchFilters={handleSearchFilters} />
+            </div>
+          )}
 
           {/* Mobile Search Box */}
           <div className="lg:hidden mt-4 overflow-visible">

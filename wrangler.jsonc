@@ -1,14 +1,8 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "dmrrentals",
+  "$schema": "node_modules/wrangler/schema.json",
+  "name": "rentme",
   "compatibility_date": "2026-05-20",
-  "observability": {
-    "enabled": true
-  },
   "assets": {
-    "directory": "dist"
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+    "directory": "./dist"
+  }
 }

@@ -126,16 +126,16 @@ export function AccommodationDestination({
 
   if (variant === 'desktop') {
     return (
-      <div className="flex-1 flex items-center border-r border-zinc-200 relative" ref={dropdownRef}>
-        <div className="w-full px-4 py-2 flex flex-col justify-center gap-1">
-          <div className="text-zinc-600 text-[10px] font-semibold tracking-wide text-left uppercase">Dónde</div>
+      <div className="relative w-[360px] shrink-0" ref={dropdownRef}>
+        <div className="h-[56px] w-full rounded-xl border border-zinc-300 bg-white/70 px-3 transition-colors hover:border-zinc-400 focus-within:border-[#52655B]/40 focus-within:ring-1 focus-within:ring-[#52655B]/10">
+          <div className="mb-1 text-left text-[10px] font-semibold uppercase tracking-wide text-zinc-700">Ubicación</div>
           <div className="relative">
-            <div className="w-full border border-zinc-200 bg-zinc-50 hover:bg-white hover:border-zinc-300 transition-all duration-200 rounded-full">
-              <div className="flex items-center gap-2 px-3 py-1.5">{triggerContent}</div>
+            <div className="w-full">
+              <div className="flex items-center gap-2 px-0 py-0">{triggerContent}</div>
             </div>
             {isOpen && (
-              <div className="absolute left-0 right-0 top-[calc(100%+4px)] z-[9999] bg-white border border-zinc-200 rounded-lg shadow-lg overflow-hidden">
-                <div className="max-h-36 overflow-y-auto">{renderDropdownContent()}</div>
+              <div className="absolute left-0 right-0 top-[calc(100%+10px)] z-[9999] overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xl">
+                <div className="max-h-42 overflow-y-auto">{renderDropdownContent()}</div>
               </div>
             )}
           </div>

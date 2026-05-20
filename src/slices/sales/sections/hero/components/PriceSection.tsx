@@ -30,14 +30,9 @@ export function PriceSection({
 }: PriceSectionProps) {
   if (variant === 'desktop') {
     return (
-      <div className="w-[320px] px-4 py-2 flex flex-col justify-center border-r border-zinc-200">
-        <div className="text-zinc-600 text-[10px] font-semibold tracking-wide text-left mb-2 uppercase">
-          Rango de Precio
-        </div>
-
-        <div className="grid grid-cols-2 gap-1.5">
+      <div className="h-[56px] w-[240px] rounded-xl border border-zinc-300 bg-white/70 px-2.5 transition-colors hover:border-zinc-400 focus-within:border-[#52655B]/40 focus-within:ring-1 focus-within:ring-[#52655B]/10">
+        <div className="grid h-full grid-cols-2 items-center gap-1.5">
           <div className="relative">
-            <span className="text-zinc-500 text-[10px] font-medium block mb-1">Desde</span>
             <div className="relative">
               <ColonesMark className="left-2" />
               <input
@@ -45,13 +40,12 @@ export function PriceSection({
                 value={price}
                 onChange={onPriceChange}
                 onBlur={onPriceBlur}
-                placeholder="0"
-                className="w-full border border-zinc-200 rounded-xl py-2 pl-8 pr-2 text-black text-sm font-medium tracking-wide text-left outline-none focus:border-zinc-400 transition-colors bg-zinc-50"
+                placeholder="Desde"
+                className="h-[32px] w-full rounded-lg border border-zinc-300 bg-white py-1 pl-7 pr-2 text-left text-xs font-medium tracking-wide text-black outline-none transition-colors focus:border-[#52655B]/40 focus:ring-1 focus:ring-[#52655B]/10"
               />
             </div>
           </div>
           <div className="relative">
-            <span className="text-zinc-500 text-[10px] font-medium block mb-1">Hasta</span>
             <div className="relative">
               <ColonesMark className="left-2" />
               <input
@@ -59,8 +53,8 @@ export function PriceSection({
                 value={precioMax}
                 onChange={onPriceMaxChange}
                 onBlur={onPriceMaxBlur}
-                placeholder="Sin límite"
-                className="w-full border border-zinc-200 rounded-xl py-2 pl-8 pr-2 text-black text-sm font-medium tracking-wide text-left outline-none focus:border-zinc-400 transition-colors bg-zinc-50"
+                placeholder="Hasta"
+                className="h-[32px] w-full rounded-lg border border-zinc-300 bg-white py-1 pl-7 pr-2 text-left text-xs font-medium tracking-wide text-black outline-none transition-colors focus:border-[#52655B]/40 focus:ring-1 focus:ring-[#52655B]/10"
               />
             </div>
           </div>

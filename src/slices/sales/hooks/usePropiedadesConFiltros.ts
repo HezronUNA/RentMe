@@ -16,6 +16,8 @@ export interface FiltrosBusqueda {
   baños?: number
 }
 
+type ValorFiltro = FiltrosBusqueda[keyof FiltrosBusqueda] | null | undefined
+
 /**
  * Hook avanzado para búsqueda con múltiples filtros usando TanStack Query
  * Permite combinar diferentes criterios de búsqueda
@@ -69,9 +71,10 @@ export function usePropiedadesConFiltros() {
     select: (data) => {
       // Aplicar filtros adicionales que no están cubiertos por las APIs
       let resultado = data
+      const habitacionesMinimas = filtrosActivos.habitaciones
 
-      if (filtrosActivos.habitaciones !== undefined) {
-        resultado = resultado.filter(p => p.habitaciones === filtrosActivos.habitaciones)
+      if (habitacionesMinimas !== undefined) {
+        resultado = resultado.filter(p => p.habitaciones >= habitacionesMinimas)
       }
 
       if (filtrosActivos.baños !== undefined) {
@@ -103,15 +106,34 @@ export function usePropiedadesConFiltros() {
     setFiltrosActivos({})
   }, [])
 
-  const actualizarFiltro = useCallback((clave: keyof FiltrosBusqueda, valor: any) => {
+  const actualizarFiltro = useCallback((clave: keyof FiltrosBusqueda, valor: ValorFiltro) => {
     setFiltrosActivos(prev => {
-      const nuevosFiltros = { ...prev }
+      const nuevosFiltros: FiltrosBusqueda = { ...prev }
       
       // Si el valor es null o undefined, remover la clave
       if (valor === null || valor === undefined) {
         delete nuevosFiltros[clave]
       } else {
-        nuevosFiltros[clave] = valor
+        switch (clave) {
+          case 'estado':
+            nuevosFiltros.estado = valor as EstadoPropiedad
+            break
+          case 'canton':
+            nuevosFiltros.canton = valor as string
+            break
+          case 'precioMin':
+            nuevosFiltros.precioMin = valor as number
+            break
+          case 'precioMax':
+            nuevosFiltros.precioMax = valor as number
+            break
+          case 'habitaciones':
+            nuevosFiltros.habitaciones = valor as number
+            break
+          case 'baños':
+            nuevosFiltros.baños = valor as number
+            break
+        }
       }
       
       return nuevosFiltros

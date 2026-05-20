@@ -1,4 +1,5 @@
 import { SalesHero } from "./sections/hero/components/SalesHero"
+import { SearchBox } from "./sections/hero/components/SearchBox"
 import { PropertiesGrid } from "./components/component"
 import { usePropiedadesConFiltros, type FiltrosBusqueda } from "./hooks"
 
@@ -17,10 +18,14 @@ export default function SalesPage() {
     buscarConFiltros(filters);
   };
 
+  const handleSalesSearchFilters = (filters: FiltrosBusqueda) => {
+    handleApplyFilters(filters)
+  }
+
   return (
     <section>
       {/* Hero Section */}
-      <SalesHero onApplyFilters={handleApplyFilters} />
+      <SalesHero onApplyFilters={handleApplyFilters} showDesktopSearch={false} />
       
       {/* Content Section */}
       <div className="relative overflow-hidden bg-white">
@@ -31,6 +36,9 @@ export default function SalesPage() {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 py-16 pb-4">
+          <div className="mb-8 hidden lg:block">
+            <SearchBox variant="desktop" onSearchFilters={handleSalesSearchFilters} />
+          </div>
           
           {/* Filtros activos indicator */}
           {tieneFiltrosActivos && (
@@ -53,7 +61,7 @@ export default function SalesPage() {
                         <span className="truncate">{filtrosActivos.canton}</span>
                         <button
                           type="button"
-                          onClick={() => buscarConFiltros({ habitaciones: filtrosActivos.habitaciones, baños: filtrosActivos.baños, precioMin: filtrosActivos.precioMin, precioMax: filtrosActivos.precioMax, estado: filtrosActivos.estado })}
+                          onClick={() => buscarConFiltros({ habitaciones: filtrosActivos.habitaciones, precioMin: filtrosActivos.precioMin, precioMax: filtrosActivos.precioMax, estado: filtrosActivos.estado })}
                           className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#52655B] transition-all duration-200 hover:bg-white/70 hover:shadow-sm"
                           aria-label="Quitar filtro de ubicación"
                         >
@@ -69,25 +77,9 @@ export default function SalesPage() {
                         <span>{filtrosActivos.habitaciones} habitacion{filtrosActivos.habitaciones !== 1 ? 'es' : ''}</span>
                         <button
                           type="button"
-                          onClick={() => buscarConFiltros({ canton: filtrosActivos.canton, baños: filtrosActivos.baños, precioMin: filtrosActivos.precioMin, precioMax: filtrosActivos.precioMax, estado: filtrosActivos.estado })}
+                          onClick={() => buscarConFiltros({ canton: filtrosActivos.canton, precioMin: filtrosActivos.precioMin, precioMax: filtrosActivos.precioMax, estado: filtrosActivos.estado })}
                           className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#52655B] transition-all duration-200 hover:bg-white/70 hover:shadow-sm"
                           aria-label="Quitar filtro de habitaciones"
-                        >
-                          <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 6l12 12M18 6L6 18" />
-                          </svg>
-                        </button>
-                      </span>
-                    )}
-
-                    {filtrosActivos.baños && (
-                      <span className="inline-flex items-center gap-3 rounded-full border border-[#52655B]/15 bg-[#52655B]/10 px-4 py-2 text-sm font-medium text-[#52655B] ring-1 ring-[#52655B]/15 transition-all duration-200 hover:scale-105 hover:bg-[#52655B]/15">
-                        <span>{filtrosActivos.baños} baño{filtrosActivos.baños !== 1 ? 's' : ''}</span>
-                        <button
-                          type="button"
-                          onClick={() => buscarConFiltros({ canton: filtrosActivos.canton, habitaciones: filtrosActivos.habitaciones, precioMin: filtrosActivos.precioMin, precioMax: filtrosActivos.precioMax, estado: filtrosActivos.estado })}
-                          className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#52655B] transition-all duration-200 hover:bg-white/70 hover:shadow-sm"
-                          aria-label="Quitar filtro de baños"
                         >
                           <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 6l12 12M18 6L6 18" />
@@ -103,7 +95,7 @@ export default function SalesPage() {
                         </span>
                         <button
                           type="button"
-                          onClick={() => buscarConFiltros({ canton: filtrosActivos.canton, habitaciones: filtrosActivos.habitaciones, baños: filtrosActivos.baños, estado: filtrosActivos.estado })}
+                          onClick={() => buscarConFiltros({ canton: filtrosActivos.canton, habitaciones: filtrosActivos.habitaciones, estado: filtrosActivos.estado })}
                           className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#52655B] transition-all duration-200 hover:bg-white/70 hover:shadow-sm"
                           aria-label="Quitar filtro de precio"
                         >
