@@ -1,6 +1,0 @@
-allowBuilds:
-  '@firebase/util': true
-  '@swc/core': true
-  esbuild: true
-  protobufjs: true
-  supabase: true
