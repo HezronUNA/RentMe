@@ -1,5 +1,7 @@
 import { AccommodationsHero } from "./sections/hero/AccommodationsHero"
+import { AccommodationSearchBox } from "./sections/hero/components/AccommodationSearchBox"
 import { AccommodationsGrid } from "./components/component"
+import type { AccommodationSearchFilters } from "./sections/hero/components/AccommodationSearchBox"
 import { useHospedajesConFiltros, type FiltrosBusquedaHospedajes } from "./hooks/useHospedajesConFiltros"
 
 export default function AccommodationsPage() {
@@ -17,10 +19,24 @@ export default function AccommodationsPage() {
     buscarConFiltros(filters);
   };
 
+  const handleAccommodationSearchFilters = (filters: AccommodationSearchFilters) => {
+    const filtrosConvertidos: FiltrosBusquedaHospedajes = {}
+
+    if (filters.destino && filters.destino.trim()) {
+      filtrosConvertidos.canton = filters.destino.trim()
+    }
+
+    if (filters.huespedes && filters.huespedes > 0) {
+      filtrosConvertidos.huespedes = filters.huespedes
+    }
+
+    handleApplyFilters(filtrosConvertidos)
+  }
+
   return (
     <section>
       {/* Hero Section */}
-      <AccommodationsHero onApplyFilters={handleApplyFilters} />
+      <AccommodationsHero />
       
       {/* Content Section */}
       <div className="relative overflow-hidden bg-white">
@@ -30,7 +46,11 @@ export default function AccommodationsPage() {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 py-16 pb-4">
-          
+          <div className="mb-8 hidden lg:block">
+            <AccommodationSearchBox variant="desktop" onSearchFilters={handleAccommodationSearchFilters} />
+          </div>
+            <div className="mb-4 lg:hidden" />
+
           {/* Filtros activos indicator */}
           {tieneFiltrosActivos && (
             <div className="mb-8 rounded-[1.5rem] border border-black/5 bg-white/90 p-4 shadow-[0_12px_32px_rgba(16,24,40,0.08)] backdrop-blur-md transition-all duration-300">

@@ -36,19 +36,28 @@ export function AccommodationSearchBox({ variant, onSearchFilters }: Accommodati
 
   if (variant === 'desktop') {
     return (
-      <div className="w-full max-w-5xl bg-white rounded-full inline-flex items-stretch shadow-[0_6px_20px_rgba(0,0,0,0.1)] p-1.5 border border-zinc-200/80">
-        <AccommodationDestination 
-          variant="desktop" 
-          destino={destino}
-          onDestinoChange={setDestino}
-        />
-        <AccommodationGuests
-          variant="desktop"
-          cuartos={huespedes}
-          onDecrease={decreaseHuespedes}
-          onIncrease={increaseHuespedes}
-        />
-        <AccommodationSearchButton variant="desktop" onClick={handleSearchClick} />
+      <div className="w-full bg-transparent">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="flex w-full items-stretch justify-between">
+            <div className="flex shrink-0 items-stretch gap-4">
+              <div className="w-[360px] shrink-0">
+                <AccommodationDestination
+                  variant="desktop"
+                  destino={destino}
+                  onDestinoChange={setDestino}
+                />
+              </div>
+              <AccommodationGuests
+                variant="desktop"
+                cuartos={huespedes}
+                onDecrease={decreaseHuespedes}
+                onIncrease={increaseHuespedes}
+              />
+            </div>
+
+            <AccommodationSearchButton variant="desktop" onClick={handleSearchClick} />
+          </div>
+        </div>
       </div>
     );
   }

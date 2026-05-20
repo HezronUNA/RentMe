@@ -1,8 +1,7 @@
 
-import { AccommodationSearchBox } from './components/AccommodationSearchBox';
-import type { AccommodationSearchFilters } from './components/AccommodationSearchBox';
-import type { FiltrosBusquedaHospedajes } from '../../hooks/useHospedajesConFiltros';
 import { H1 } from '@/components/ui/Typography';
+import { AccommodationSearchBox, type AccommodationSearchFilters } from './components/AccommodationSearchBox';
+import type { FiltrosBusquedaHospedajes } from '../../hooks/useHospedajesConFiltros';
 
 interface AccommodationsHeroProps {
   onApplyFilters?: (filters: FiltrosBusquedaHospedajes) => void;
@@ -15,22 +14,17 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
   };
 
   const handleSearchFilters = (filters: AccommodationSearchFilters) => {
-    if (onApplyFilters) {
-      // Convertir AccommodationSearchFilters a FiltrosBusquedaHospedajes
-      const filtrosConvertidos: FiltrosBusquedaHospedajes = {}
-      
-      // Mapear destino -> canton
-      if (filters.destino && filters.destino.trim() !== '') {
-        filtrosConvertidos.canton = filters.destino.trim()
-      }
+    if (!onApplyFilters) return;
 
-      // Mapear huéspedes
-      if (filters.huespedes && filters.huespedes > 0) {
-        filtrosConvertidos.huespedes = filters.huespedes
-      }
-
-      onApplyFilters(filtrosConvertidos);
+    const filtrosConvertidos: FiltrosBusquedaHospedajes = {};
+    if (filters.destino && filters.destino.trim() !== '') {
+      filtrosConvertidos.canton = filters.destino.trim();
     }
+    if (filters.huespedes && filters.huespedes > 0) {
+      filtrosConvertidos.huespedes = filters.huespedes;
+    }
+
+    onApplyFilters(filtrosConvertidos);
   };
 
   return (
@@ -55,13 +49,8 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
             </H1>
           </div>
 
-          {/* Desktop Search Box */}
-          <div className="hidden lg:flex justify-center mt-6">
-            <AccommodationSearchBox variant="desktop" onSearchFilters={handleSearchFilters} />
-          </div>
-
-          {/* Mobile Search Box */}
-          <div className="lg:hidden mt-4 overflow-visible">
+          {/* Mobile search box: kept inside hero for small screens */}
+          <div className="lg:hidden mt-4">
             <AccommodationSearchBox variant="mobile" onSearchFilters={handleSearchFilters} />
           </div>
         </div>
