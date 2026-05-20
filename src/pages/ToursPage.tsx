@@ -1,9 +1,9 @@
-import Categories from "@/components/tours/Categories";
-import CTAFinal from "@/components/tours/CTAFinal";
-import FeaturedTours from "@/components/tours/FeaturedTours";
-import Hero from "@/components/tours/Hero";
-import Intro from "@/components/tours/Intro";
-import Transfers from "@/components/tours/Transfers";
+import Categories from "@/components/Tours/Categories";
+import CTAFinal from "@/components/Tours/CTAFinal";
+import FeaturedTours from "@/components/Tours/FeaturedTours";
+import Hero from "@/components/Tours/Hero";
+import Intro from "@/components/Tours/Intro";
+import Transfers from "@/components/Tours/Transfers";
 
 
 export default function ToursPage() {
