@@ -2,10 +2,15 @@ import type { CrearReservaVenta } from "../type"
 import { supabaseConfig } from "@/api/supabase/config"
 import { sanitizeForStorage } from '@/utils/sanitize'
 
+export interface ReservaVentaCreada {
+  id: string
+  codigo: string
+}
+
 /**
  * Crear una nueva reserva de venta (usa REST fetch igual que hospedajes)
  */
-export async function crearReservaVenta(data: CrearReservaVenta): Promise<string> {
+export async function crearReservaVenta(data: CrearReservaVenta): Promise<ReservaVentaCreada> {
   // Sanitize inputs
   const clienteNombre = sanitizeForStorage(data.nombre) ?? ''
   const clienteEmail = sanitizeForStorage(data.email) ?? null
@@ -41,14 +46,37 @@ export async function crearReservaVenta(data: CrearReservaVenta): Promise<string
 
   try {
     const result = await response.json()
-    if (typeof result === 'string') return result
+    if (typeof result === 'string') {
+      return {
+        id: result,
+        codigo: '',
+      }
+    }
     if (result && typeof result === 'object') {
+      const maybeId = typeof result.id === 'string' ? result.id : null
+      const maybeCodigo = typeof result.codigo === 'string' ? result.codigo : null
+
+      if (maybeId) {
+        return {
+          id: maybeId,
+          codigo: maybeCodigo ?? '',
+        }
+      }
+
       const first = Object.values(result)[0]
-      if (typeof first === 'string') return first
+      if (typeof first === 'string') {
+        return {
+          id: first,
+          codigo: '',
+        }
+      }
     }
   } catch (e) {
     // ignore parse error
   }
 
-  return crypto.randomUUID()
+  return {
+    id: crypto.randomUUID(),
+    codigo: '',
+  }
 }
