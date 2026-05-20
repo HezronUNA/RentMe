@@ -5,7 +5,6 @@ import { PropertyLocationMap } from "./components/PropertyLocationMap"
 import { usePropiedadById } from "./hooks/usePropiedadById"
 import { Toaster } from "@/components/ui/Sonner"
 import { SalesNavBar } from "./components/SalesNavBar"
-import { SalesActionBar } from "./components/SalesActionBar"
 
 const SaleDetail = () => {
   const params = useParams({ from: "/ventas/$ventaId" });
@@ -208,9 +207,6 @@ const SaleDetail = () => {
           </div>
         </div>
       </div>
-
-      {/* Action Bar - Desktop solo */}
-      <SalesActionBar propertyName={propiedad.ubicacion.distrito} />
 
       <Toaster />
     </section>
