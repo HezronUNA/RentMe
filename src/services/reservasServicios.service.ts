@@ -18,6 +18,11 @@ export interface ReservaServicioInsert {
   ip_address?: string | null;
 }
 
+export interface ReservaServicioCreada {
+  id: string;
+  codigo: string;
+}
+
 type ReservaServicioInput = ReservaServicioInsert | CreateReservaServicioInput;
 
 // Función para obtener la IP del cliente
@@ -83,7 +88,7 @@ function normalizeReservaServicioData(reservaData: ReservaServicioInput): Reserv
   };
 }
 
-export async function createReservaServicio(input: ReservaServicioInput): Promise<string> {
+export async function createReservaServicio(input: ReservaServicioInput): Promise<ReservaServicioCreada> {
   const payload = normalizeReservaServicioData(input);
 
   // Sanitize text fields
@@ -109,7 +114,7 @@ export async function createReservaServicio(input: ReservaServicioInput): Promis
       notas,
       ip_address: clientIP,
     })
-    .select();
+    .select('*');
 
   if (error) {
     console.error("Error creando reserva de servicio:", error);
@@ -120,5 +125,8 @@ export async function createReservaServicio(input: ReservaServicioInput): Promis
     throw new Error("Error creando reserva de servicio");
   }
 
-  return data[0].id as string;
+  return {
+    id: data[0].id as string,
+    codigo: (data[0] as { codigo?: string | null }).codigo ?? '',
+  };
 }

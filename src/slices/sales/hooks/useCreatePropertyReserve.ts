@@ -33,7 +33,7 @@ function getRemainingCooldownMs(key: string) {
   return Math.max(0, SALES_RATE_LIMIT_WINDOW_MS - elapsed)
 }
 
-function buildWhatsappMessage(data: PropertyReserveData, propertyTitle?: string) {
+function buildWhatsappMessage(data: PropertyReserveData, propertyTitle?: string, trackingCode?: string) {
   return [
     'Hola, me interesa esta propiedad en venta.',
     '',
@@ -41,6 +41,7 @@ function buildWhatsappMessage(data: PropertyReserveData, propertyTitle?: string)
     `Nombre: ${data.nombre}`,
     `Correo: ${data.email}`,
     `Teléfono: ${data.telefono}`,
+    trackingCode ? `Código de seguimiento: ${trackingCode}` : null,
     data.mensaje ? `Mensaje: ${data.mensaje}` : null,
   ]
     .filter(Boolean)
@@ -82,7 +83,7 @@ export const useCreatePropertyReserve = ({ propertyTitle }: UseCreatePropertyRes
     try {
       // Guardar la reserva usando el servicio
       const safePayload = {
-        propiedadId: data.propiedadId,
+        propiedad_id: data.propiedadId,
         propiedadTitulo: propertyTitle,
         nombre: sanitizeForStorage(data.nombre) ?? '',
         email,
@@ -91,20 +92,24 @@ export const useCreatePropertyReserve = ({ propertyTitle }: UseCreatePropertyRes
         usuarioId: undefined,
       }
 
-      const reservaId = await crearReservaVenta(safePayload as any)
+      const reserva = await crearReservaVenta(safePayload as any)
 
       localStorage.setItem(cooldownKey, Date.now().toString())
 
-      setReservationId(reservaId)
+      setReservationId(reserva.id)
 
       // Construir mensaje de WhatsApp
-      const whatsappMessage = buildWhatsappMessage(data, propertyTitle)
+      const whatsappMessage = buildWhatsappMessage(data, propertyTitle, reserva.codigo)
       const whatsappLink = buildWhatsAppHref(whatsappPhone, whatsappMessage)
+
+      const trackingCodeMessage = reserva.codigo
+        ? `Tu solicitud fue registrada. Tu código de seguimiento es: ${reserva.codigo}`
+        : 'Tu solicitud fue registrada.'
 
       toast.dismiss(loadingToast)
 
       toast.success('¡Reserva creada exitosamente!', {
-        description: 'Tu solicitud fue registrada y se abrirá WhatsApp para continuar.',
+        description: trackingCodeMessage,
         duration: 5000,
         style: {
           backgroundColor: '#10B981',
@@ -113,10 +118,10 @@ export const useCreatePropertyReserve = ({ propertyTitle }: UseCreatePropertyRes
         },
         className: 'text-white',
         action: {
-          label: 'Copiar ID',
+          label: 'Copiar código',
           onClick: () => {
-            navigator.clipboard.writeText(reservaId)
-            toast.success('ID copiado al portapapeles', {
+            navigator.clipboard.writeText(reserva.codigo || reserva.id)
+            toast.success('Código copiado al portapapeles', {
               duration: 2000,
             })
           },
@@ -125,7 +130,7 @@ export const useCreatePropertyReserve = ({ propertyTitle }: UseCreatePropertyRes
 
       window.open(whatsappLink, '_blank', 'noopener,noreferrer')
 
-      return reservaId
+      return reserva.id
     } catch (err) {
       console.error('Error creando reserva de propiedad:', err)
 

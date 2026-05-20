@@ -32,6 +32,7 @@ type SupabasePropiedadRow = Partial<
 
 type SupabaseReservaRow = Partial<
   ReservaVenta & {
+    codigo?: string | null
     propiedad_venta_id?: string
     propiedad_titulo?: string | null
     cliente_nombre?: string | null
@@ -184,6 +185,7 @@ export function mapSupabaseReserva(row: SupabaseReservaRow): ReservaVenta {
 
   return {
     id: row.id ?? "",
+    codigo: row.codigo ?? undefined,
     created_at: row.created_at ?? row.fecha_creacion ?? new Date().toISOString(),
     propiedad_id: row.propiedad_id ?? row.propiedad_venta_id ?? "",
     propiedad_titulo: row.propiedad_titulo ?? undefined,
