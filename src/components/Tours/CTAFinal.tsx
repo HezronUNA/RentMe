@@ -11,6 +11,7 @@ export default function CTAFinal() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
+            observer.unobserve(entry.target);
           }
         });
       },

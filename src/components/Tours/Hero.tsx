@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { H1, P } from "@/components/ui/Typography";
+import { H1 } from "@/components/ui/Typography";
 
 export default function Hero() {
   const navigateToTours = () => {
@@ -12,28 +12,33 @@ export default function Hero() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206257/photo-1552980870-139c7b393f0c_ainnco.avif"
+            src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779211219/photo-1592409482913-c3094afdb249_jyijfy.avif"
             alt="Tours y Experiencias"
+            fetchPriority="high"
+            decoding="async"
             className="h-full w-full object-cover"
           />
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/20" />
           {/* Smooth transition overlay to white */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/10" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex h-full items-center justify-center px-4 md:px-10">
+        <div className="relative z-10 flex h-full items-center justify-center px-4 pt-12 md:px-10 md:pt-16 lg:pt-16">
           <div className="max-w-4xl text-center space-y-6">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-[1px] w-8 bg-white/60 rounded" />
+              <span className="text-sm text-white/80 uppercase tracking-wide">Tours - Experiencias</span>
+              <div className="h-[1px] w-8 bg-white/60 rounded" />
+            </div>
             <H1>
               Explora lo extraordinario
             </H1>
             
-            <P className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed font-body">
-              Más allá del alojamiento, te conectamos con las mejores experiencias que Costa Rica tiene para ofrecer. 
-            </P>
+            
 
-            <div className="pt-6">
+            <div className="pt-6 md:pt-4 lg:pt-4">
               <Button
                 variant="whiteBorder"
                 size="lg"

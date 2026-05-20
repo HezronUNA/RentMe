@@ -36,10 +36,16 @@ export default function Transfers() {
           }
 
           setVisibleBlocks((prev) => {
+            if (prev[index]) {
+              return prev;
+            }
+
             const next = [...prev];
             next[index] = true;
             return next;
           });
+
+          observer.unobserve(element);
         });
       },
       { threshold: 0.12 },
