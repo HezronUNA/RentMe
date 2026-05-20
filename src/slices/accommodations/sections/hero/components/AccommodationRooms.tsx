@@ -13,40 +13,43 @@ export function AccommodationGuests({
 }: AccommodationGuestsProps) {
   if (variant === 'desktop') {
     return (
-      <div className="flex-1 flex items-center border-r border-zinc-200">
-        <div className="w-full px-4 py-2 flex flex-col justify-center gap-1">
-          <div className="text-zinc-600 text-[10px] font-semibold tracking-wide text-left uppercase">
-            Huéspedes
-          </div>
-          
-          <div className="flex items-center justify-between rounded-2xl px-1 py-0.5 hover:bg-zinc-100/80 transition-colors">
-            <button
-              onClick={onDecrease}
-              disabled={cuartos === 0}
-              className="w-7 h-7 rounded-full border border-zinc-300 bg-white text-zinc-600 flex items-center justify-center hover:border-zinc-400 hover:text-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </button>
-            <span className="text-black text-sm font-semibold min-w-[32px] text-center">
-              {cuartos}
-            </span>
-            <button
-              onClick={onIncrease}
-              className="w-7 h-7 rounded-full border border-zinc-300 bg-white text-zinc-600 flex items-center justify-center hover:border-zinc-400 hover:text-zinc-800 transition-all duration-200 cursor-pointer"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-                <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </button>
-          </div>
+      <div className="h-[56px] w-[220px] rounded-xl border border-zinc-300 bg-white/70 px-3 transition-colors hover:border-zinc-400 focus-within:border-[#52655B]/40 focus-within:ring-1 focus-within:ring-[#52655B]/10">
+        <label className="mb-1 block text-left text-[10px] font-semibold uppercase tracking-wide text-zinc-700">
+          Huéspedes
+        </label>
+
+        <div className="flex items-center justify-between gap-2">
+          <button
+            onClick={onDecrease}
+            disabled={cuartos === 0}
+            className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border border-zinc-300 text-black transition-colors hover:border-zinc-400 hover:bg-zinc-100 hover:text-black disabled:cursor-not-allowed disabled:opacity-40"
+            type="button"
+            aria-label="Reducir huéspedes"
+          >
+            <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+
+          <span className="min-w-[90px] rounded-lg border border-zinc-300 bg-white px-2 py-1 text-center text-xs font-semibold text-black">
+            {cuartos === 0 ? 'Todos' : `${cuartos}+ huésp`}
+          </span>
+
+          <button
+            onClick={onIncrease}
+            className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border border-zinc-300 text-black transition-colors hover:border-zinc-400 hover:bg-zinc-100 hover:text-black"
+            type="button"
+            aria-label="Aumentar huéspedes"
+          >
+            <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
     );
   }
 
-  // Mobile — fila tipo “huéspedes” en Airbnb
   return (
     <div className="flex items-center gap-3 px-4 py-3.5">
       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-100">

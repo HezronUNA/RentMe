@@ -1,5 +1,6 @@
 import { DestinationSection } from './DestinationSection';
 import { PriceSection } from './PriceSection';
+import { BedroomsSection } from './BedroomsSection';
 import { SearchButton } from './SearchButton';
 import { useSearchBox } from '../../../hooks/useSearchBox';
 import type { FiltrosBusqueda } from '../../../hooks/usePropiedadesConFiltros';
@@ -11,13 +12,14 @@ interface SearchBoxProps {
 
 export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
   const [
-    { price, precioMax, ubicacion},
+    { price, precioMax, ubicacion, habitaciones },
     { 
       handlePriceChange, 
       handlePriceBlur,
       handlePriceMaxChange,
       handlePriceMaxBlur,
       handleUbicacionChange,
+      handleHabitacionesChange,
       getFiltrosActuales
     }
   ] = useSearchBox();
@@ -34,22 +36,36 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
 
   if (variant === 'desktop') {
     return (
-      <div className="w-full max-w-5xl bg-white rounded-full inline-flex items-stretch shadow-[0_6px_20px_rgba(0,0,0,0.1)] p-1.5 border border-zinc-200/80">
-        <DestinationSection 
-          variant="desktop" 
-          ubicacion={ubicacion}
-          onUbicacionChange={handleUbicacionChange}
-        />
-        <PriceSection
-          variant="desktop"
-          price={price}
-          precioMax={precioMax}
-          onPriceChange={handlePriceChange}
-          onPriceBlur={handlePriceBlur}
-          onPriceMaxChange={handlePriceMaxChange}
-          onPriceMaxBlur={handlePriceMaxBlur}
-        />
-        <SearchButton variant="desktop" onClick={handleSearchClick} />
+      <div className="w-full bg-transparent">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="flex w-full items-stretch justify-between">
+            <div className="flex shrink-0 items-stretch gap-4">
+              <div className="w-[360px] shrink-0">
+                <DestinationSection
+                  variant="desktop"
+                  ubicacion={ubicacion}
+                  onUbicacionChange={handleUbicacionChange}
+                />
+              </div>
+              <BedroomsSection
+                variant="desktop"
+                habitaciones={habitaciones}
+                onHabitacionesChange={handleHabitacionesChange}
+              />
+              <PriceSection
+                variant="desktop"
+                price={price}
+                precioMax={precioMax}
+                onPriceChange={handlePriceChange}
+                onPriceBlur={handlePriceBlur}
+                onPriceMaxChange={handlePriceMaxChange}
+                onPriceMaxBlur={handlePriceMaxBlur}
+              />
+            </div>
+
+            <SearchButton variant="desktop" onClick={handleSearchClick} />
+          </div>
+        </div>
       </div>
     );
   }

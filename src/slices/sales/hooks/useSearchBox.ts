@@ -2,21 +2,14 @@ import { useState } from 'react';
 import type { FiltrosBusqueda } from './usePropiedadesConFiltros';
 
 interface SearchBoxState {
-  guests: number;
   price: string;
   ubicacion: string;
   habitaciones: number;
-  baños: number;
   precioMax: string;
 }
 
 interface SearchBoxActions {
-  decreaseGuests: () => void;
-  increaseGuests: () => void;
-  decreaseHabitaciones: () => void;
-  increaseHabitaciones: () => void;
-  decreaseBaños: () => void;
-  increaseBaños: () => void;
+  handleHabitacionesChange: (habitaciones: number) => void;
   handlePriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handlePriceBlur: () => void;
   handlePriceMaxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -26,42 +19,10 @@ interface SearchBoxActions {
 }
 
 export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
-  const [guests, setGuests] = useState(0);
   const [price, setPrice] = useState('');
   const [precioMax, setPrecioMax] = useState('');
   const [ubicacion, setUbicacion] = useState('');
   const [habitaciones, setHabitaciones] = useState(0);
-  const [baños, setBaños] = useState(0);
-
-  const decreaseGuests = () => {
-    if (guests > 0) {
-      setGuests(prev => prev - 1);
-    }
-  };
-
-  const increaseGuests = () => {
-    setGuests(prev => prev + 1);
-  };
-
-  const decreaseHabitaciones = () => {
-    if (habitaciones > 0) {
-      setHabitaciones(prev => prev - 1);
-    }
-  };
-
-  const increaseHabitaciones = () => {
-    setHabitaciones(prev => prev + 1);
-  };
-
-  const decreaseBaños = () => {
-    if (baños > 0) {
-      setBaños(prev => prev - 1);
-    }
-  };
-
-  const increaseBaños = () => {
-    setBaños(prev => prev + 1);
-  };
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^\d.]/g, '');
@@ -101,6 +62,15 @@ export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
     setUbicacion(nuevaUbicacion);
   };
 
+  const handleHabitacionesChange = (nuevaCantidad: number) => {
+    if (Number.isNaN(nuevaCantidad) || nuevaCantidad < 0) {
+      setHabitaciones(0);
+      return;
+    }
+
+    setHabitaciones(nuevaCantidad);
+  };
+
   const getFiltrosActuales = (): FiltrosBusqueda => {
     const filtros: FiltrosBusqueda = {};
 
@@ -110,10 +80,6 @@ export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
 
     if (habitaciones > 0) {
       filtros.habitaciones = habitaciones;
-    }
-
-    if (baños > 0) {
-      filtros.baños = baños;
     }
 
     const precioMinNum = parseFloat(price);
@@ -131,23 +97,14 @@ export function useSearchBox(): [SearchBoxState, SearchBoxActions] {
   };
 
   return [
-    // Estado
     {
-      guests,
       price,
       precioMax,
       ubicacion,
       habitaciones,
-      baños,
     },
-    // Acciones
     {
-      decreaseGuests,
-      increaseGuests,
-      decreaseHabitaciones,
-      increaseHabitaciones,
-      decreaseBaños,
-      increaseBaños,
+      handleHabitacionesChange,
       handlePriceChange,
       handlePriceBlur,
       handlePriceMaxChange,

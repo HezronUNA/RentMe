@@ -80,26 +80,6 @@ export default function AdminCTAFinal() {
                 </svg>
               </span>
             </a>
-
-            <a
-              href="mailto:dmonge97@gmail.com"
-              className="group relative inline-flex w-fit self-center items-center justify-center gap-2 rounded-full border border-[#d7ddda] bg-white px-4 py-2.5 text-xs font-semibold text-[#52655B] shadow-[0_8px_16px_rgba(82,101,91,0.08)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#c3cbc7] hover:bg-[#f7f8f7] hover:shadow-[0_12px_24px_rgba(82,101,91,0.12)] md:gap-3 md:px-8 md:py-4 md:text-base"
-            >
-              <span className="relative">Enviar un correo</span>
-              <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#52655B]/10 transition-transform duration-300 group-hover:translate-x-1 md:h-8 md:w-8">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  aria-hidden="true"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </span>
-            </a>
           </div>
         </article>
       </div>
