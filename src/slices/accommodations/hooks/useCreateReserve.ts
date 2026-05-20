@@ -9,7 +9,11 @@ interface UseCreateReservationProps {
   accommodationName?: string
 }
 
-function buildWhatsappMessage(reservationData: CrearReservaHospedaje, accommodationName?: string) {
+function buildWhatsappMessage(
+  reservationData: CrearReservaHospedaje,
+  accommodationName?: string,
+  trackingCode?: string,
+) {
   const checkIn = typeof reservationData.fechaCheckIn === 'string'
     ? reservationData.fechaCheckIn
     : reservationData.fechaCheckIn.toISOString().split('T')[0]
@@ -28,6 +32,7 @@ function buildWhatsappMessage(reservationData: CrearReservaHospedaje, accommodat
     `Huéspedes: ${reservationData.numeroHuespedes}`,
     `Check-in: ${checkIn}`,
     `Check-out: ${checkOut}`,
+    trackingCode ? `Código de seguimiento: ${trackingCode}` : null,
     reservationData.mensaje ? `Mensaje: ${reservationData.mensaje}` : null,
   ]
     .filter(Boolean)
@@ -60,16 +65,24 @@ export const useCreateReserve = ({ accommodationName }: UseCreateReservationProp
         mensaje: sanitizeForStorage((reservationData as any).mensaje) ?? undefined,
       }
 
-      const newReservationId = await crearReservaHospedaje(safeData as any)
-      setReservationId(newReservationId)
+      const newReservation = await crearReservaHospedaje(safeData as any)
+      setReservationId(newReservation.id)
 
-      const whatsappMessage = buildWhatsappMessage(reservationData, accommodationName)
+      const whatsappMessage = buildWhatsappMessage(
+        reservationData,
+        accommodationName,
+        newReservation.codigo,
+      )
       const whatsappLink = buildWhatsAppHref(whatsappPhone, whatsappMessage)
+
+      const trackingCodeMessage = newReservation.codigo
+        ? `Tu reserva fue registrada. Tu código de seguimiento es: ${newReservation.codigo}`
+        : 'Tu reserva fue registrada.'
 
       toast.dismiss(loadingToast)
 
       toast.success('¡Reserva creada exitosamente!', {
-        description: 'Tu solicitud fue registrada y se abrirá WhatsApp para continuar.',
+        description: trackingCodeMessage,
         duration: 5000,
         style: {
           backgroundColor: '#10B981',
@@ -78,10 +91,10 @@ export const useCreateReserve = ({ accommodationName }: UseCreateReservationProp
         },
         className: 'text-white',
         action: {
-          label: 'Copiar ID',
+          label: 'Copiar código',
           onClick: () => {
-            navigator.clipboard.writeText(newReservationId)
-            toast.success('ID copiado al portapapeles', {
+            navigator.clipboard.writeText(newReservation.codigo || newReservation.id)
+            toast.success('Código copiado al portapapeles', {
               duration: 2000,
             })
           },
@@ -90,7 +103,7 @@ export const useCreateReserve = ({ accommodationName }: UseCreateReservationProp
 
       window.open(whatsappLink, '_blank', 'noopener,noreferrer')
 
-      return newReservationId
+      return newReservation.id
     } catch (err) {
       console.error('Error creando reserva:', err)
 

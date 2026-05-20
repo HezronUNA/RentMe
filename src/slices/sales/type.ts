@@ -59,6 +59,7 @@ export interface PropiedadVentaInsert {
 // Tipos para ReservaVenta
 export interface ReservaVenta {
   id: string
+  codigo?: string
   created_at: string 
   propiedad_id: string
   propiedad_titulo?: string
@@ -73,6 +74,7 @@ export interface ReservaVenta {
 }
 
 export interface ReservaVentaInsert {
+  codigo?: string
   propiedad_id: string
   propiedad_titulo?: string
   cliente_nombre: string
