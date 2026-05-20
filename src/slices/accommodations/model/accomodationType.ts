@@ -28,6 +28,7 @@ export interface ReglaDB {
 
 export interface ReservaHospedajeDB {
   id: string
+  codigo?: string
   hospedaje_id: string
   nombre_cliente: string
   telefono: string
@@ -41,6 +42,7 @@ export interface ReservaHospedajeDB {
 
 export interface ReservaHospedajeInsert {
   id?: string
+  codigo?: string
   hospedaje_id: string
   nombre_cliente: string
   telefono: string
@@ -65,6 +67,7 @@ export interface ReservaHospedajeUpdate {
 
 export interface ReservaHospedajeFrontend {
   id: string
+  codigo?: string
   hospedajeId: string
   nombreCliente: string
   telefono: string

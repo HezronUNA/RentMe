@@ -50,7 +50,7 @@ function getRemainingCooldownMs(key: string) {
   return Math.max(0, SERVICE_RATE_LIMIT_WINDOW_MS - elapsed);
 }
 
-function buildWhatsappMessage(formData: ReservationFormData) {
+function buildWhatsappMessage(formData: ReservationFormData, trackingCode?: string) {
   return [
     "Hola, me gustaría reservar un servicio.",
     "",
@@ -58,6 +58,7 @@ function buildWhatsappMessage(formData: ReservationFormData) {
     `Telefono: ${formData.telefono}`,
     `Correo: ${formData.correo}`,
     `Servicio interesado: ${formData.servicio}`,
+    trackingCode ? `Código de seguimiento: ${trackingCode}` : null,
     formData.mensaje ? `Consulta: ${formData.mensaje}` : null,
   ]
     .filter(Boolean)
@@ -128,7 +129,24 @@ export function useServiceReservationForm() {
       localStorage.setItem(cooldownKey, nowTs.toString());
 
       try {
-        await createReservaServicio(safeData);
+        const reservation = await createReservaServicio(safeData);
+
+        toast.success("¡Solicitud enviada exitosamente!", {
+          description: reservation.codigo
+            ? `Tu solicitud fue registrada. Tu código de seguimiento es: ${reservation.codigo}`
+            : "Tu solicitud fue registrada.",
+          duration: 5000,
+          style: {
+            backgroundColor: "#10B981",
+            color: "white",
+            border: "1px solid #059669",
+          },
+          className: "text-white",
+        });
+
+        const whatsappMessage = buildWhatsappMessage(formData, reservation.codigo);
+        const whatsappLink = buildWhatsAppHref(whatsappPhone, whatsappMessage);
+        window.open(whatsappLink, "_blank", "noopener,noreferrer");
       } catch (error) {
         const isRateLimitError = error instanceof Error && error.message.includes("rate_limit_exceeded");
         if (!isRateLimitError) {
@@ -136,10 +154,6 @@ export function useServiceReservationForm() {
         }
         throw error;
       }
-
-      const whatsappMessage = buildWhatsappMessage(formData);
-      const whatsappLink = buildWhatsAppHref(whatsappPhone, whatsappMessage);
-      window.open(whatsappLink, "_blank", "noopener,noreferrer");
 
       setFormData({
         ...INITIAL_FORM,

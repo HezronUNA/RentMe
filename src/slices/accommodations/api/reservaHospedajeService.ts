@@ -7,6 +7,11 @@ import type {
 
 type ReservaHospedajeInput = ReservaHospedajeInsert | CrearReservaHospedaje
 
+export interface ReservaHospedajeCreada {
+  id: string
+  codigo: string
+}
+
 function toDateString(value: string | Date) {
   return typeof value === "string" ? value : value.toISOString().split("T")[0]
 }
@@ -34,7 +39,7 @@ function normalizeReservaData(reservaData: ReservaHospedajeInput): ReservaHosped
 // Crear una nueva reserva de hospedaje en Supabase
 export async function crearReservaHospedaje(
   reservaData: ReservaHospedajeInput
-): Promise<string> {
+): Promise<ReservaHospedajeCreada> {
   const payload = normalizeReservaData(reservaData)
 
   // Sanitize text fields
@@ -73,15 +78,38 @@ export async function crearReservaHospedaje(
 
   try {
     const result = await response.json()
-    if (typeof result === 'string') return result
+    if (typeof result === 'string') {
+      return {
+        id: result,
+        codigo: '',
+      }
+    }
     if (result && typeof result === 'object') {
+      const maybeId = typeof result.id === 'string' ? result.id : null
+      const maybeCodigo = typeof result.codigo === 'string' ? result.codigo : null
+
+      if (maybeId) {
+        return {
+          id: maybeId,
+          codigo: maybeCodigo ?? '',
+        }
+      }
+
       const first = Object.values(result)[0]
-      if (typeof first === 'string') return first
+      if (typeof first === 'string') {
+        return {
+          id: first,
+          codigo: '',
+        }
+      }
     }
   } catch {
     // ignore
   }
 
-  return crypto.randomUUID()
+  return {
+    id: crypto.randomUUID(),
+    codigo: '',
+  }
 }
 
