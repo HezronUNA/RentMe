@@ -2,25 +2,26 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
-  RouterProvider
+  RouterProvider,
+  lazyRouteComponent,
 } from '@tanstack/react-router'
 import AppLayout from './Layout'
 import ScrollToTop from '@/components/ui/ScrollToTop'
 
-// Importación estática de las páginas (se cargan con el bundle)
-import HomePage from '../pages/Index'
-import AboutUsPage from '../pages/AboutUsPage'
-import TermsAndConditionsPage from '../pages/TermsAndConditionsPage'
-import ToursPage from '../pages/ToursPage'
-import AdminPage from '../pages/AdminPage'
 import NotFoundPage from '../app/NotFoundPage'
-import AccommodationsPage from "../slices/accommodations/Page"
-import SalesPage from "../slices/sales/Page"
-import ServicesPage from "../pages/ServicesPage"
-import ServiceReservationPage from "../pages/ServiceReservationPage"
-import SaleDetailPage from "../slices/sales/SaleDetail"
-import AccommodationDetailPage from "../slices/accommodations/AccommodationDetail"
-import PlansReservationPage from "../pages/PlansReservationPage"
+
+const HomePage = lazyRouteComponent(() => import('../pages/Index'))
+const AboutUsPage = lazyRouteComponent(() => import('../pages/AboutUsPage'))
+const TermsAndConditionsPage = lazyRouteComponent(() => import('../pages/TermsAndConditionsPage'))
+const ToursPage = lazyRouteComponent(() => import('../pages/ToursPage'))
+const AdminPage = lazyRouteComponent(() => import('../pages/AdminPage'))
+const AccommodationsPage = lazyRouteComponent(() => import('../slices/accommodations/Page'))
+const SalesPage = lazyRouteComponent(() => import('../slices/sales/Page'))
+const ServicesPage = lazyRouteComponent(() => import('../pages/ServicesPage'))
+const ServiceReservationPage = lazyRouteComponent(() => import('../pages/ServiceReservationPage'))
+const SaleDetailPage = lazyRouteComponent(() => import('../slices/sales/SaleDetail'))
+const AccommodationDetailPage = lazyRouteComponent(() => import('../slices/accommodations/AccommodationDetail'))
+const PlansReservationPage = lazyRouteComponent(() => import('../pages/PlansReservationPage'))
 
 // Ruta raíz con layout
 const rootRoute = createRootRoute({
