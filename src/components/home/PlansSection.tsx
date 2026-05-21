@@ -143,6 +143,7 @@ export default function PlansSection() {
                   alt={plan.title}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
+                  decoding="async"
                 />
 
                 {/* Gradient overlay */}

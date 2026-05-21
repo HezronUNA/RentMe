@@ -65,6 +65,7 @@ export default function TechnologySolutions() {
               alt="Desarrollo tecnológico"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
               loading="lazy"
+              decoding="async"
             />
             {/* Overlay degradado más limpio */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#1f2623]/82 via-[#2f3a35]/30 to-transparent" />

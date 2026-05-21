@@ -39,7 +39,7 @@ export default function Hero() {
       <div className="md:hidden">
         {/* Panel Huéspedes */}
         <div className="relative h-[34vh] min-h-[200px] overflow-hidden">
-          <img src={leftHero.imagen} alt={leftHero.badge} className="absolute inset-0 h-full w-full object-cover" />
+          <img src={leftHero.imagen} alt={leftHero.badge} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
           <div className="relative flex h-full flex-col px-4 py-3">
           {/* <div className={badgeClass}>{leftHero.badge}</div>*/}
@@ -59,7 +59,7 @@ export default function Hero() {
 
         {/* Panel Propietarios */}
         <div className="relative h-[34vh] min-h-[200px] overflow-hidden">
-          <img src={rightHero.imagen} alt={rightHero.badge} className="absolute inset-0 h-full w-full object-cover" />
+          <img src={rightHero.imagen} alt={rightHero.badge} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
           <div className="relative flex h-full flex-col px-4 py-3">
             <div className="flex justify-end">
@@ -86,11 +86,11 @@ export default function Hero() {
 
         <div className="absolute inset-0 grid grid-cols-2">
           <div className="relative overflow-hidden group">
-            <img src={leftHero.imagen} alt={leftHero.badge} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+            <img src={leftHero.imagen} alt={leftHero.badge} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#2f3a35]/85 via-[#2f3a35]/45 to-transparent" />
           </div>
           <div className="relative overflow-hidden group">
-            <img src={rightHero.imagen} alt={rightHero.badge} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+            <img src={rightHero.imagen} alt={rightHero.badge} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-l from-[#2f3a35]/85 via-[#2f3a35]/45 to-transparent" />
           </div>
         </div>

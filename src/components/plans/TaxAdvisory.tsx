@@ -94,6 +94,7 @@ export default function TaxAdvisory() {
               alt="Asesoría fiscal para Airbnb"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
               loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-[#2f3a35]/55 via-[#2f3a35]/75 to-[#2f3a35]/93" />
 

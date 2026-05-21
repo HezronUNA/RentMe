@@ -41,6 +41,8 @@ export function PropertyCard({ property, onPropertyClick }: PropertyCardProps) {
         <img
           src={img}
           alt={`Propiedad en ${property.ubicacion.canton}`}
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
           onError={(e) => {
             const target = e.target as HTMLImageElement

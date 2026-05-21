@@ -139,7 +139,8 @@ export default function ReviewsCarousel({
                 className="flex w-full h-auto touch-pan-y min-h-[400px] md:h-full"
                 style={{
                   transform: `translateX(-${currentIndex * 100}%)`,
-                  transition: isTransitioning ? 'transform 500ms ease-in-out' : 'none'
+                  transition: isTransitioning ? 'transform 500ms ease-in-out' : 'none',
+                  willChange: 'transform'
                 }}
                 onTouchStart={onTouchStart}
                 onTouchEnd={onTouchEnd}

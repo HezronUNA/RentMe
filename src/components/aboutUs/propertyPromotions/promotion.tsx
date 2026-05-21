@@ -63,6 +63,8 @@ export function Promotions() {
                 <img
                   src="https://i.ibb.co/fGdD3rxd/Chat-GPT-Image-18-nov-2025-02-02-38-p-m.png"
                   alt="Costa Rica DMR Rentals"
+                  loading="lazy"
+                  decoding="async"
                   className="mx-auto max-w-[200px] md:max-w-[250px] h-auto rounded-lg"
                 />
               }
