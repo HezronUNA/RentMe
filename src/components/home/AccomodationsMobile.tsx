@@ -1,8 +1,17 @@
 import { Button } from "@/components/ui/button"
 import { P } from "@/components/ui/Typography"
 import { Link, useNavigate } from "@tanstack/react-router"
+import type { HospedajeDestacado } from "@/types/AccomodationsHighlights"
 
-type Props = { hospedajes: any[] }
+type HospedajeMobileCard = HospedajeDestacado & {
+  imagenes?: Array<string | { url?: string }>
+  Imagenes?: Array<string | { url?: string }>
+  ubicacion?: HospedajeDestacado["ubicacion"] & {
+    provincia?: string
+  }
+}
+
+type Props = { hospedajes: HospedajeMobileCard[] }
 
 export default function AccomodationsMobile({ hospedajes }: Props) {
   const navigate = useNavigate()
@@ -10,6 +19,12 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
   const truncate = (text?: string, max = 80) => {
     if (!text) return "";
     return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+  }
+
+  const getImageUrl = (value?: string | { url?: string }) => {
+    if (!value) return "https://placehold.co/600x360"
+    if (typeof value === "string") return value
+    return value.url || "https://placehold.co/600x360"
   }
   return (
     <>
@@ -43,10 +58,7 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
           <div className="shrink-0 w-4" aria-hidden="true" />
           
           {hospedajes.map((h) => {
-            const img =
-              (h.imagenes && h.imagenes[0]) ||
-              (h.Imagenes && h.Imagenes[0]) ||
-              "https://placehold.co/600x360"
+            const img = getImageUrl((h.imagenes && h.imagenes[0]) || (h.Imagenes && h.Imagenes[0]))
 
             return (
               <article
@@ -58,7 +70,8 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
                   <img
                     src={img}
                     alt={h.nombre}
-                    loading="lazy"
+                    loading="eager"
+                    fetchPriority="high"
                     decoding="async"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
