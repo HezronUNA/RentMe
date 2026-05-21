@@ -1,0 +1,8 @@
+{
+  "name": "dmrrentals",
+  "assets": {
+    "directory": "dist",
+    "spa": true
+  },
+  "compatibility_date": "2026-05-21"
+}
