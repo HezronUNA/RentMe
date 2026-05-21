@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import DesktopHeader from "./DesktopHeader"
 import MobileHeader from "./MobileHeader"
 import { useNavbar } from "@/hooks/useNavbar"
@@ -6,6 +6,7 @@ import { useNavbar } from "@/hooks/useNavbar"
 export default function Header() {
   const nav = useNavbar()
   const [scrolled, setScrolled] = useState(false)
+  const ticking = useRef(false)
 
   useEffect(() => {
     setScrolled(window.scrollY > 80)
@@ -15,7 +16,15 @@ export default function Header() {
       return
     }
 
-    const onScroll = () => setScrolled(window.scrollY > 80)
+    const onScroll = () => {
+      if (!ticking.current) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 80)
+          ticking.current = false
+        })
+        ticking.current = true
+      }
+    }
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [nav.pathname])

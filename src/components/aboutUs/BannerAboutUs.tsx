@@ -18,8 +18,10 @@ export default function BannerAboutUs() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://i.ibb.co/MxRS9CNB/vacation-home-4.jpg"
+            src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779381042/dji_fly_20250917_100912_790_1758125418822_photo_optimized_1_zrb4o0.avif"
             alt="Sobre Nosotros"
+            fetchPriority="high"
+            decoding="async"
             className="h-full w-full object-cover"
           />
           {/* Overlay for better text readability */}

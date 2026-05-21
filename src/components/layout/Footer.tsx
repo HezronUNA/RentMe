@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIcons } from "@/app/context/useIcons";
 import { Link } from "@tanstack/react-router";
 import { buildWhatsAppHref, SOCIAL_CONFIG } from "@/utils/socialMediaConfig";
@@ -26,42 +25,31 @@ export default function Footer() {
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
   const currentYear = new Date().getFullYear();
 
-  React.useEffect(() => {
-    // Effect removed - icons display without animation
-  }, []);
-
   return (
-    <>
-      <style>{`
-        @keyframes blobA { from { transform: translate(0,0) scale(1); } to { transform: translate(18px,12px) scale(1.03); } }
-        @keyframes blobB { from { transform: translate(0,0) scale(1); } to { transform: translate(-14px,-10px) scale(1.02); } }
-      `}</style>
 
       <footer className="relative bg-gradient-to-b from-[#2b4639] via-[#315748] to-[#1b3328] text-white overflow-hidden">
         {/* blobs */}
         <div className="absolute inset-0 pointer-events-none -z-10">
           <div
             aria-hidden
-            className="absolute top-0 left-0 opacity-8"
+            className="absolute top-0 left-0 opacity-8 blob-a"
             style={{
               width: 300,
               height: 300,
               background: "#3d6b52",
               filter: "blur(48px)",
               borderRadius: "60% 40% 50% 50% / 55% 45% 55% 45%",
-              animation: "blobA 10s ease-in-out infinite alternate",
             }}
           />
           <div
             aria-hidden
-            className="absolute bottom-0 right-0 opacity-6"
+            className="absolute bottom-0 right-0 opacity-6 blob-b"
             style={{
               width: 260,
               height: 260,
               background: "#8a7d52",
               filter: "blur(64px)",
               borderRadius: "45% 55% 40% 60% / 60% 40% 55% 45%",
-              animation: "blobB 12s ease-in-out infinite alternate",
             }}
           />
         </div>
@@ -297,6 +285,5 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-    </>
   );
 }

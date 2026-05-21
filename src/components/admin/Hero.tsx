@@ -7,20 +7,19 @@ export default function AdminHero() {
 
   return (
     <section className="relative text-white">
-      <div className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-center bg-cover"
-          style={{ backgroundImage: `url(${bgImage})` }}
+      <div className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center overflow-hidden">
+        <img
+          src={bgImage}
+          alt="Administración de propiedades"
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
         />
-
-        {/* overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#52655B]/10 to-transparent" />
 
         <div className="relative z-10 flex h-full items-center justify-center px-4 md:px-10">
           <div className="max-w-4xl text-center">
-            {/* Eyebrow / section header */}
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-[1px] w-8 bg-white/60 rounded" />
               <span className="text-sm text-white/80 uppercase tracking-wide">Administración · Modalidades</span>

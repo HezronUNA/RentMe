@@ -22,21 +22,11 @@ export function SalesNavBarDesktop({ propertyName = "Propiedad" }: SalesNavBarDe
     scrollThreshold: 200,
   })
 
-  /**
-   * Scroll al formulario de contacto con smooth behavior
-   */
   const handleContactScroll = () => {
-    document.documentElement.style.scrollBehavior = "smooth"
-    
     const contactForm = document.getElementById("contact-form")
     if (contactForm) {
-      const elementPosition = contactForm.getBoundingClientRect().top + window.scrollY
-      const offsetPosition = elementPosition - 100 // 100px de offset
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      })
+      contactForm.scrollIntoView({ behavior: "smooth", block: "start" })
+      window.scrollBy(0, -100)
     }
   }
 

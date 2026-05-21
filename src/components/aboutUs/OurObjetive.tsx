@@ -13,6 +13,8 @@ export default function OurObjetiveSection() {
           <img
             src="https://i.ibb.co/PGrYyvVn/objetivo-1.jpg"
             alt="Equipo Rent Me CR"
+            loading="lazy"
+            decoding="async"
             className="rounded-2xl w-full h-auto object-cover shadow-lg"
           />
         </div>

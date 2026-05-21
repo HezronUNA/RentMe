@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export interface SectionConfig {
   id: string
@@ -10,44 +10,44 @@ interface UseSectionScrollOptions {
   scrollThreshold?: number
 }
 
-/**
- * Hook para detectar la sección activa durante el scroll
- * y manejar scroll suave a secciones
- */
 export function useSectionScroll({
   sections,
   scrollThreshold = 200,
 }: UseSectionScrollOptions) {
   const [activeSection, setActiveSection] = useState<string>(sections[0]?.id || "")
+  const observerRef = useRef<IntersectionObserver | null>(null)
 
-  /**
-   * Detectar sección activa al scrollear
-   */
   useEffect(() => {
-    const handleScroll = () => {
-      // Iterar de atrás hacia adelante para obtener la última sección visible
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i]
-        const element = document.getElementById(section.id)
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.boundingClientRect.top - a.boundingClientRect.top)
 
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          // Si el elemento está a menos de scrollThreshold del top, es la sección activa
-          if (rect.top <= scrollThreshold) {
-            setActiveSection(section.id)
-            break
-          }
+      if (visible.length > 0) {
+        const topMost = visible.reduce((prev, curr) =>
+          curr.boundingClientRect.top < prev.boundingClientRect.top ? curr : prev,
+        )
+        if (topMost.boundingClientRect.top <= scrollThreshold) {
+          setActiveSection(topMost.target.id)
         }
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    observerRef.current = new IntersectionObserver(handleIntersect, {
+      rootMargin: `-${scrollThreshold}px 0px -40% 0px`,
+      threshold: 0,
+    })
+
+    sections.forEach((s) => {
+      const el = document.getElementById(s.id)
+      if (el) observerRef.current?.observe(el)
+    })
+
+    return () => {
+      observerRef.current?.disconnect()
+    }
   }, [sections, scrollThreshold])
 
-  /**
-   * Scroll suave a una sección específica
-   */
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {

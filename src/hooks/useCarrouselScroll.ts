@@ -1,13 +1,12 @@
-// src/hooks/useHorizontalCarousel.ts
 import { useCallback, useEffect, useRef, useState } from "react"
 
 type Options = {
   slideSelector?: string
   gapPx?: number
   behavior?: ScrollBehavior
-  autoplayMs?: number           // p.ej. 4000
-  pauseOnHover?: boolean        // true = pausa al hover
-  loop?: boolean                // true = vuelve al inicio
+  autoplayMs?: number
+  pauseOnHover?: boolean
+  loop?: boolean
 }
 
 type BindHover = {
@@ -27,8 +26,10 @@ export default function useHorizontalCarousel({
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const [hovered, setHovered] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
+  const activeIndexRef = useRef(0)
+  const cachedWidthRef = useRef(0)
+  const [slideCount, setSlideCount] = useState(0)
 
-  // Lista de slides (se recalcula cuando cambia el DOM via updateState)
   const getSlides = useCallback((): HTMLElement[] => {
     const el = scrollerRef.current
     if (!el) return []
@@ -37,34 +38,53 @@ export default function useHorizontalCarousel({
 
   const getSlideWidth = useCallback(() => {
     const el = scrollerRef.current
-    if (!el) return 0
+    if (!el) return cachedWidthRef.current
     const first = el.querySelector(slideSelector) as HTMLElement | null
-    // si usas basis-full/min-w-full, esto será el ancho del viewport
-    return first?.clientWidth ?? Math.round(el.clientWidth)
+    const width = first?.clientWidth ?? Math.round(el.clientWidth)
+    cachedWidthRef.current = width
+    return width
   }, [slideSelector])
 
   const updateState = useCallback(() => {
     const el = scrollerRef.current
     if (!el) return
-    const width = getSlideWidth()
+    const width = cachedWidthRef.current || getSlideWidth()
     if (!width) return
     const idx = Math.round(el.scrollLeft / (width + gapPx))
-    setActiveIndex(idx)
+    if (idx !== activeIndexRef.current) {
+      activeIndexRef.current = idx
+      setActiveIndex(idx)
+    }
   }, [gapPx, getSlideWidth])
 
   useEffect(() => {
-    updateState()
+    cachedWidthRef.current = getSlideWidth()
+    setSlideCount(getSlides().length)
     const el = scrollerRef.current
     if (!el) return
 
-    const onScroll = () => updateState()
+    let ticking = false
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateState()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
     el.addEventListener("scroll", onScroll, { passive: true })
 
-    const ro = new ResizeObserver(() => updateState())
+    const ro = new ResizeObserver(() => {
+      cachedWidthRef.current = getSlideWidth()
+      updateState()
+    })
     ro.observe(el)
 
-    // si las imágenes cargan después, recalcula
-    const onLoad = () => updateState()
+    const onLoad = () => {
+      cachedWidthRef.current = getSlideWidth()
+      updateState()
+    }
     window.addEventListener("load", onLoad)
 
     return () => {
@@ -72,7 +92,7 @@ export default function useHorizontalCarousel({
       ro.disconnect()
       window.removeEventListener("load", onLoad)
     }
-  }, [updateState])
+  }, [getSlideWidth, updateState, getSlides])
 
   const goTo = useCallback(
     (index: number) => {
@@ -80,10 +100,11 @@ export default function useHorizontalCarousel({
       if (!el) return
       const slides = getSlides()
       if (!slides.length) return
-      const width = getSlideWidth()
+      const width = cachedWidthRef.current || getSlideWidth()
       const max = slides.length - 1
       const clamped = Math.max(0, Math.min(index, max))
       el.scrollTo({ left: clamped * (width + gapPx), behavior })
+      activeIndexRef.current = clamped
       setActiveIndex(clamped)
     },
     [behavior, gapPx, getSlideWidth, getSlides]
@@ -92,25 +113,23 @@ export default function useHorizontalCarousel({
   const scrollNext = useCallback(() => {
     const slides = getSlides()
     if (!slides.length) return
-    const next = activeIndex + 1
+    const next = activeIndexRef.current + 1
     if (next < slides.length) goTo(next)
     else if (loop) goTo(0)
-  }, [activeIndex, getSlides, goTo, loop])
+  }, [getSlides, goTo, loop])
 
   const scrollPrev = useCallback(() => {
     const slides = getSlides()
     if (!slides.length) return
-    const prev = activeIndex - 1
+    const prev = activeIndexRef.current - 1
     if (prev >= 0) goTo(prev)
     else if (loop) goTo(slides.length - 1)
-  }, [activeIndex, getSlides, goTo, loop])
+  }, [getSlides, goTo, loop])
 
-  // AUTOPLAY
   const startAutoplay = useCallback(() => {
     if (!autoplayMs) return
     if (timerRef.current) clearInterval(timerRef.current)
     timerRef.current = setInterval(() => {
-      // usar requestAnimationFrame para evitar que se "salte"
       requestAnimationFrame(scrollNext)
     }, autoplayMs)
   }, [autoplayMs, scrollNext])
@@ -123,22 +142,14 @@ export default function useHorizontalCarousel({
   }, [])
 
   useEffect(() => {
-    if (!autoplayMs) return
+    if (!autoplayMs || slideCount === 0) return
     if (pauseOnHover && hovered) {
       stopAutoplay()
       return
     }
     startAutoplay()
     return stopAutoplay
-  }, [autoplayMs, pauseOnHover, hovered, startAutoplay, stopAutoplay])
-
-  // Reiniciar autoplay cuando cambie cantidad de slides (por renders async)
-  useEffect(() => {
-    if (!autoplayMs) return
-    startAutoplay()
-    return stopAutoplay
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getSlides().length])
+  }, [autoplayMs, pauseOnHover, hovered, slideCount, startAutoplay, stopAutoplay])
 
   const bindHover: BindHover =
     pauseOnHover
@@ -159,5 +170,3 @@ export default function useHorizontalCarousel({
     stopAutoplay,
   }
 }
-
-
