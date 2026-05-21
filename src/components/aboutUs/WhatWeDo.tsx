@@ -40,19 +40,23 @@ export default function WhatWeDo() {
     }
   ];
 
-  // Autoplay para carrusel móvil
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
     let currentIndex = 0;
+    let cachedWidth = carousel.offsetWidth;
+
+    const ro = new ResizeObserver(() => {
+      cachedWidth = carousel.offsetWidth;
+    });
+    ro.observe(carousel);
     
     const scroll = () => {
       if (!carousel) return;
-      
       currentIndex = (currentIndex + 1) % mobileCards.length;
-      const cardWidth = carousel.offsetWidth * 0.85; // 85% del ancho
-      const scrollPosition = (cardWidth + 16) * currentIndex; // 16px es el margen
+      const cardWidth = cachedWidth * 0.85;
+      const scrollPosition = (cardWidth + 16) * currentIndex;
 
       carousel.scrollTo({
         left: scrollPosition,
@@ -60,10 +64,12 @@ export default function WhatWeDo() {
       });
     };
 
-    // Autoplay cada 5 segundos
     const interval = setInterval(scroll, 5000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      ro.disconnect();
+    };
   }, [mobileCards.length]);
 
   return (

@@ -127,6 +127,8 @@ export default function ToursHero() {
               <img
                 src={tour.image}
                 alt={tour.name}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 sm:group-hover:scale-110"
               />
               

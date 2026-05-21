@@ -52,8 +52,10 @@ export function PromotionsMobile() {
             items={platformsConfigMobile}
             centerContent={
               <img 
-                src="https://i.ibb.co/fGdD3rxd/Chat-GPT-Image-18-nov-2025-02-02-38-p-m.png" 
-                alt="Costa Rica DMR Rentals" 
+                src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779381345/logo_dmr_rentals_1_uriw4n.avif" 
+                alt="Costa Rica DMR Rentals"
+                loading="lazy"
+                decoding="async"
                 className="max-w-[140px] h-auto rounded-lg"
               />
             }

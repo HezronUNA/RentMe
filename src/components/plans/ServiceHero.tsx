@@ -1,7 +1,6 @@
 import { H1 } from "@/components/ui/Typography"
 
 export function ServiceHero() {
-  // Contenido estático del hero
   const heroData = {
     titulo: 'GESTIONAMOS TU PROPIEDAD COMO SI FUERA NUESTRA',
     subtitulo: 'Descubrí nuestras modalidades de servicio y elegí la que mejor se adapta a tus necesidades.',
@@ -9,21 +8,15 @@ export function ServiceHero() {
   };
 
   return (
-    <section
-      className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center"
-      style={{
-        backgroundImage: heroData.imagen
-          ? `url(${heroData.imagen})`
-          : "linear-gradient(135deg, #3b5c50 0%, #94a593 100%)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundBlendMode: heroData.imagen ? "overlay" : undefined,
-      }}
-    >
-      {/* Overlay solo si hay imagen */}
-      {heroData.imagen && (
-        <div className="absolute inset-0 bg-black/60"></div>
-      )}
+    <section className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center overflow-hidden">
+      <img
+        src={heroData.imagen}
+        alt="Servicios DMR Rentals"
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-black/60" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 w-full text-center">
         <div className="space-y-6">

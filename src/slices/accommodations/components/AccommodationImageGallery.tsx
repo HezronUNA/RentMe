@@ -28,17 +28,14 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
     toggleZoom,
   } = useAccommodationImageGallery({ images });
 
-  // Hacer scroll automático cuando el índice cambia
   useEffect(() => {
     if (scrollContainerRef.current && imageRefsRef.current[index]) {
-      const scrollContainer = scrollContainerRef.current;
       const targetImage = imageRefsRef.current[index];
-      
       if (targetImage) {
-        const scrollLeft = targetImage.offsetLeft - scrollContainer.offsetWidth / 2 + targetImage.offsetWidth / 2;
-        scrollContainer.scrollTo({
-          left: scrollLeft,
+        targetImage.scrollIntoView({
           behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center',
         });
       }
     }
@@ -53,6 +50,8 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
       <img
         src={cleanImages[imageIndex]}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         onError={handleImageError}
       />
@@ -156,6 +155,8 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
                 <img
                   src={imgSrc}
                   alt={`${alt} ${imgIndex + 1}`}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover cursor-pointer"
                   onClick={() => handleImageClick(imgIndex)}
                   onError={handleImageError}
@@ -195,6 +196,8 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
                 <img 
                   src={src} 
                   alt={`${alt} miniatura ${i + 1}`} 
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover" 
                   onError={handleImageError}
                 />
@@ -214,6 +217,7 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
             <img
               src={currentImage}
               alt={alt}
+              decoding="async"
               className={`max-h-[90vh] max-w-[95vw] select-none transition-transform duration-200 ${zoom ? "scale-150 cursor-zoom-out" : "cursor-zoom-in"}`}
               onClick={toggleZoom}
             />

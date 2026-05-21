@@ -33,6 +33,8 @@ export default function PropertyImageGallery({ images, alt = "Foto de la propied
       <img
         src={cleanImages[imageIndex]}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         onError={handleImageError}
       />
@@ -117,6 +119,7 @@ export default function PropertyImageGallery({ images, alt = "Foto de la propied
           <img
             src={currentImage}
             alt={alt}
+            decoding="async"
             className="h-full w-full object-cover cursor-pointer"
             onClick={() => handleImageClick(index)}
             onError={handleImageError}
@@ -164,6 +167,8 @@ export default function PropertyImageGallery({ images, alt = "Foto de la propied
                 <img 
                   src={src} 
                   alt={`${alt} miniatura ${i + 1}`} 
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover" 
                   onError={handleImageError}
                 />
@@ -183,6 +188,7 @@ export default function PropertyImageGallery({ images, alt = "Foto de la propied
             <img
               src={currentImage}
               alt={alt}
+              decoding="async"
               className={`max-h-[90vh] max-w-[95vw] select-none transition-transform duration-200 ${zoom ? "scale-150 cursor-zoom-out" : "cursor-zoom-in"}`}
               onClick={toggleZoom}
             />

@@ -76,6 +76,8 @@ export default function Intro() {
               <img
                 src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206453/photo-1526772662000-3f88f10405ff_dyto5x.avif"
                 alt="Experiencias de tours en Costa Rica"
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />

@@ -89,6 +89,8 @@ export default function PhotograpyPage() {
               <img
                 src={image}
                 alt={items[0]?.titulo ?? 'Fotografía del servicio'}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-[520px] object-cover rounded-2xl shadow-xl"
               />
 

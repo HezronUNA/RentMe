@@ -22,18 +22,15 @@ export function SalesHero({ onApplyFilters, showDesktopSearch = true }: SalesHer
   };
 
   return (
-    <section
-      className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center"
-      style={{
-        backgroundImage: heroData.imagen
-          ? `url(${heroData.imagen})`
-          : "linear-gradient(135deg, #3b5c50 0%, #94a593 100%)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundBlendMode: heroData.imagen ? "overlay" : undefined,
-      }}
-    >
-      {heroData.imagen && <div className="absolute inset-0 bg-black/60" />}
+    <section className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center overflow-hidden">
+      <img
+        src={heroData.imagen}
+        alt="Propiedades en venta en Costa Rica"
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-black/60" />
 
       <div className="relative z-10 w-full px-4 pt-6 md:pt-8 overflow-visible">
         <div className="max-w-7xl mx-auto space-y-5 overflow-visible">

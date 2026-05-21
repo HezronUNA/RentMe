@@ -60,6 +60,7 @@ export default function CleaningServiceHero() {
               alt="Limpieza profesional"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
               loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-[#2f3a35]/50 via-[#2f3a35]/70 to-[#2f3a35]/92" />
 
