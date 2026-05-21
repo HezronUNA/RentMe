@@ -7,7 +7,7 @@ export default function Hero() {
     titulo1: 'Estancias',
     titulo2: 'como en casa',
     subtitulo: 'Alojamientos seleccionados con atención al detalle para que tu estadía sea perfecta.',
-    imagen: 'https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778954335/photo-1613490493576-7fde63acd811_rlhwk3.avif',
+    imagen: 'https://res.cloudinary.com/dmq5jbp3z/image/upload/f_auto,q_auto,w_auto/v1778954335/photo-1613490493576-7fde63acd811_rlhwk3.avif',
     link: '/alojamientos',
     textoBoton: 'Ver alojamientos',
   }
@@ -17,7 +17,7 @@ export default function Hero() {
     titulo1: 'Tu propiedad,',
     titulo2: 'nuestro cuidado',
     subtitulo: 'Gestionamos tu inmueble con profesionalismo y transparencia.',
-    imagen: 'https://res.cloudinary.com/dxrzwnjee/image/upload/v1778855260/hl7uxg4g4sq8ba0jo3pg.avif',
+    imagen: 'https://res.cloudinary.com/dxrzwnjee/image/upload/f_auto,q_auto,w_auto/v1778855260/hl7uxg4g4sq8ba0jo3pg.avif',
     link: '/servicios',
     textoBoton: 'Ver servicios',
   }
