@@ -119,6 +119,7 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                         alt={h.nombre || h.ubicacion?.direccion || "Alojamiento"}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                         loading="lazy"
+                        fetchPriority="low"
                         decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#2f3a35]/65 via-[#2f3a35]/15 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />

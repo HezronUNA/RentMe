@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { Link } from "@tanstack/react-router";
 import { H2, P } from "@/components/ui/Typography";
 
-export default function AboutPreview() {
+function AboutPreview() {
   return (
     <section className="relative overflow-hidden bg-white px-4 py-16 md:px-8 md:py-24">
       {/* Blobs — centrados verticalmente a los lados, sin desbordarse hacia otras secciones */}
@@ -51,6 +52,7 @@ export default function AboutPreview() {
               alt="Equipo de trabajo"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               loading="lazy"
+              fetchPriority="low"
               decoding="async"
             />
             {/* Gradient overlay */}
@@ -84,3 +86,5 @@ export default function AboutPreview() {
     </section>
   );
 }
+
+export default memo(AboutPreview)
