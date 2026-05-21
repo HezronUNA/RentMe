@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { H2, P } from "@/components/ui/Typography"
 import { Link } from "@tanstack/react-router"
 import { useEffect, useRef, useState } from "react"
@@ -43,7 +44,7 @@ const PLANES_GESTION = [
     title: 'Fotografía & Video',
     textbutton: 'Ver más',
     hash: 'fotografia-video',
-    image: 'https://res.cloudinary.com/dmq5jbp3z/image/upload/v1762383404/photo-1751107996106-ab89608a49b7_fakdgp.jpg'
+    image: 'https://res.cloudinary.com/dmq5jbp3z/image/upload/f_auto,q_auto,w_auto/v1762383404/photo-1751107996106-ab89608a49b7_fakdgp.jpg'
   },
   {
     id: '7',
@@ -54,7 +55,7 @@ const PLANES_GESTION = [
   }
 ]
 
-export default function PlansSection() {
+function PlansSection() {
   const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -143,6 +144,7 @@ export default function PlansSection() {
                   alt={plan.title}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
+                  fetchPriority="low"
                   decoding="async"
                 />
 
@@ -176,3 +178,5 @@ export default function PlansSection() {
     </section>
   )
 }
+
+export default memo(PlansSection)

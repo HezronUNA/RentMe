@@ -70,8 +70,8 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
                   <img
                     src={img}
                     alt={h.nombre}
-                    loading="eager"
-                    fetchPriority="high"
+                    loading="lazy"
+                    fetchPriority="low"
                     decoding="async"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
