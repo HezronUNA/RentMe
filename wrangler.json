@@ -1,8 +1,8 @@
 {
   "name": "dmrrentals",
+  "main": "worker.js",
   "assets": {
-    "directory": "dist",
-    "spa": true
+    "directory": "dist"
   },
   "compatibility_date": "2026-05-21"
 }
