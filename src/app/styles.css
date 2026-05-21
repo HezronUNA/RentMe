@@ -298,6 +298,13 @@
   contain-intrinsic-size: 1px 500px;
 }
 
+@supports (-webkit-touch-callout: none) {
+  .content-visibility-auto {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
