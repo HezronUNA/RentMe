@@ -1,7 +1,6 @@
 import { memo } from "react"
 import { H2, P } from "@/components/ui/Typography"
 import { Link } from "@tanstack/react-router"
-import { useEffect, useRef, useState } from "react"
 
 const PLANES_GESTION = [
   {
@@ -56,36 +55,6 @@ const PLANES_GESTION = [
 ]
 
 function PlansSection() {
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const element = entry.target as HTMLElement;
-            const index = Number(element.dataset.index);
-            if (Number.isNaN(index)) return;
-            setVisibleCards((prev) => {
-              const newVisible = [...prev];
-              newVisible[index] = true;
-              return newVisible;
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      const revealElements = containerRef.current.querySelectorAll<HTMLElement>("[data-reveal='true']");
-      revealElements.forEach((element) => observer.observe(element));
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   // En móvil: todas las cards iguales excepto desarrollo tecnológico
   // En desktop: primera fila completa y cierre con un bloque ancho
   const getCardSize = (index: number) => {
@@ -125,18 +94,12 @@ function PlansSection() {
 
         {/* Grid — 2 cols en móvil, 4 en desktop */}
         <div
-          ref={containerRef}
           className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
         >
           {PLANES_GESTION.map((plan, index) => (
             <Link to="/servicios" hash={`#${plan.hash}`} key={`${plan.id}-${index}`} className={getCardSize(index)}>
               <article
-                data-reveal="true"
-                data-index={index}
-                className={`group relative h-full cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_8px_20px_rgba(82,101,91,0.08)] transition-all duration-700 ${
-                  visibleCards[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                } hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]`}
-                style={{ transitionDelay: visibleCards[index] ? `${index * 90}ms` : "0ms" }}
+                className="group relative h-full cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_8px_20px_rgba(82,101,91,0.08)] transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]"
               >
                 {/* Background image */}
                 <img

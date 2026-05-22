@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { Link } from "@tanstack/react-router";
 import { H2} from "@/components/ui/Typography";
-import { useEffect, useRef, useState } from "react";
 
 interface Tour {
   id: number;
@@ -13,9 +12,6 @@ interface Tour {
 }
 
 function ToursHero() {
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-
   const catalogUrl = "https://p.localbird.io/rentmecr-san-jose/discover";
 
   const tours: Tour[] = [
@@ -61,28 +57,6 @@ function ToursHero() {
     },
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Array.from(containerRef.current?.children || []).indexOf(entry.target as Element);
-            setVisibleCards((prev) => {
-              const next = [...prev];
-              next[index] = true;
-              return next;
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (containerRef.current) {
-      Array.from(containerRef.current.children).forEach((child) => observer.observe(child));
-    }
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section className="relative w-full overflow-hidden bg-white px-4 py-16 md:px-8 md:py-24">
       {/* Blobs de fondo */}
@@ -112,18 +86,12 @@ function ToursHero() {
 
         {/* Contenedor con Scroll Horizontal en móvil y 5 columnas en Escritorio */}
         <div 
-          ref={containerRef} 
           className="flex gap-4 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:gap-4"
         >
-          {tours.map((tour, index) => (
+          {tours.map((tour) => (
             <article
               key={tour.id}
-              className={`group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md transition-all duration-700 
-              aspect-[10/12] min-w-[62%] 
-              sm:aspect-[3/4.2] sm:min-w-0 
-              sm:hover:-translate-y-1.5 sm:shadow-lg
-              ${visibleCards[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${index * 80}ms` }}
+              className="group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md transition-all duration-700 aspect-[10/12] min-w-[62%] sm:aspect-[3/4.2] sm:min-w-0 sm:hover:-translate-y-1.5 sm:shadow-lg"
             >
               <img
                 src={tour.image}
