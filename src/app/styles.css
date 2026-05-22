@@ -258,6 +258,31 @@
   will-change: transform, opacity, backdrop-filter;
 }
 
+@supports (-webkit-touch-callout: none) {
+  .mobile-header-pill {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .mobile-header-drawer {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .navbar-enter,
+  .navbar-exit {
+    animation: none !important;
+    will-change: transform, opacity !important;
+  }
+
+  .navbar-enter,
+  .navbar-exit,
+  .mobile-header-pill,
+  .mobile-header-drawer {
+    transform: translateZ(0);
+  }
+}
+
 .menu-item {
   opacity: 0;
   animation: menu-item-fade-in 500ms ease-out forwards;
