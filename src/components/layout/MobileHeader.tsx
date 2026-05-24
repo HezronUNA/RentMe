@@ -27,11 +27,14 @@ export default function MobileHeader({ nav, scrolled }: Props) {
 
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = "hidden"
-      requestAnimationFrame(() => setShowDrawer(true))
+      setShowDrawer(true)
+      const t = setTimeout(() => {
+        document.body.style.overflow = "hidden"
+      }, 50)
+      return () => clearTimeout(t)
     } else {
       setShowDrawer(false)
-      document.body.style.overflow = "unset"
+      document.body.style.overflow = ""
     }
   }, [open])
 
@@ -82,7 +85,7 @@ export default function MobileHeader({ nav, scrolled }: Props) {
               onClick={() => setOpen((v) => !v)}
               className="p-2 rounded-full hover:bg-[#52655B]/10 transition-all duration-300 group"
             >
-              <svg viewBox="0 0 24 24" fill="none" className={`h-6 w-6 transition-all duration-500 ${
+              <svg viewBox="0 0 24 24" fill="none" className={`h-6 w-6 transition-all duration-150 ${
                 transparent ? "text-white" : "text-[#52655B]"
               }`}>
                 {open ? (
@@ -105,7 +108,7 @@ export default function MobileHeader({ nav, scrolled }: Props) {
 
       {/* Overlay */}
       <div
-        className={`fixed inset-0 z-[60] transition-opacity duration-[350ms] ${
+        className={`fixed inset-0 z-[60] transition-opacity duration-[200ms] ${
           showDrawer ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         style={{ background: "rgba(0,0,0,0.5)" }}
@@ -114,7 +117,7 @@ export default function MobileHeader({ nav, scrolled }: Props) {
 
       {/* Drawer panel */}
       <div
-        className={`fixed right-0 top-0 h-full w-[75vw] max-w-[300px] bg-white shadow-[-4px_0_12px_rgba(0,0,0,0.15)] z-[70] flex flex-col transition-transform duration-[350ms] ease-in-out ${
+        className={`fixed right-0 top-0 h-full w-[75vw] max-w-[300px] bg-white shadow-[-4px_0_12px_rgba(0,0,0,0.15)] z-[70] flex flex-col transition-transform duration-[220ms] ease-out ${
           showDrawer
             ? "translate-x-0 visible pointer-events-auto mobile-header-drawer"
             : "translate-x-full invisible pointer-events-none mobile-header-drawer"
