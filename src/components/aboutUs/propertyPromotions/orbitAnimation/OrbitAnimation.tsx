@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { OrbitItem } from './OrbitItem';
 import type { ReactNode } from 'react';
 
@@ -19,30 +19,6 @@ interface OrbitAnimationProps {
   containerSize?: number;
 }
 
-function useInView(ref: React.RefObject<Element | null>, opts?: { margin?: string }) {
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.unobserve(el);
-        }
-      },
-      { rootMargin: opts?.margin ?? "0px" }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref, opts?.margin]);
-
-  return isInView;
-}
-
 export function OrbitAnimation({
   items = [],
   centerContent,
@@ -50,7 +26,28 @@ export function OrbitAnimation({
   containerSize = 400
 }: OrbitAnimationProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { margin: "-100px" });
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const center = el.querySelector<HTMLElement>('[data-orbit-center]')
+    if (!center) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (center.classList.contains('is-visible')) return
+          center.classList.add('is-visible')
+          observer.unobserve(el)
+        }
+      },
+      { rootMargin: "-100px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
@@ -59,11 +56,8 @@ export function OrbitAnimation({
       style={{ minHeight: containerSize }}
     >
       <div
-        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 transition-all duration-[1.6s]"
-        style={{
-          opacity: isInView ? 1 : 0,
-          scale: isInView ? '1' : '0.8',
-        }}
+        data-orbit-center
+        className="orbit-center absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
       >
         {centerContent}
       </div>

@@ -327,6 +327,55 @@
   to { transform: rotate(360deg); }
 }
 
+/* Reveal animations — todos los componentes con IntersectionObserver */
+.reveal-card,
+.reveal-block,
+.plans-card,
+.tours-card,
+.orbit-center {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 768px) {
+  .reveal-card,
+  .reveal-block,
+  .plans-card,
+  .tours-card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 600ms ease, transform 600ms ease;
+  }
+
+  .reveal-card.is-visible,
+  .reveal-block.is-visible,
+  .plans-card.is-visible,
+  .tours-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-card:hover,
+  .plans-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .tours-card:hover {
+    transform: translateY(-6px);
+  }
+
+  .orbit-center {
+    opacity: 0;
+    scale: 0.8;
+    transition: opacity 1.6s ease, scale 1.6s ease;
+  }
+
+  .orbit-center.is-visible {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

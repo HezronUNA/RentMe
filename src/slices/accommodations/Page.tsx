@@ -40,7 +40,7 @@ export default function AccommodationsPage() {
       
       {/* Content Section */}
       <div className="relative overflow-hidden bg-white">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
           <div className="absolute left-[-14rem] top-16 h-[42rem] w-[42rem] rounded-full bg-[#e7eee9]/75 blur-[110px]" />
           <div className="absolute right-[-14rem] bottom-[-10rem] h-[44rem] w-[44rem] rounded-full bg-[#f1e8dc]/80 blur-[120px]" />
         </div>

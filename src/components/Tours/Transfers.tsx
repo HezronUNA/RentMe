@@ -1,8 +1,7 @@
 import { H2, P } from "@/components/ui/Typography";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Transfers() {
-  const [visibleBlocks, setVisibleBlocks] = useState<boolean[]>([]);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const catalogUrl = "https://p.localbird.io/rentmecr-san-jose/discover";
@@ -22,47 +21,37 @@ export default function Transfers() {
   ];
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement
+            if (el.classList.contains('is-visible')) return
+            const delay = isDesktop ? i * 80 : 0
+            setTimeout(() => {
+              el.classList.add('is-visible')
+              observer.unobserve(el)
+            }, delay)
           }
-
-          const element = entry.target as HTMLElement;
-          const index = Number(element.dataset.index);
-          if (Number.isNaN(index)) {
-            return;
-          }
-
-          setVisibleBlocks((prev) => {
-            if (prev[index]) {
-              return prev;
-            }
-
-            const next = [...prev];
-            next[index] = true;
-            return next;
-          });
-
-          observer.unobserve(element);
-        });
+        })
       },
-      { threshold: 0.12 },
-    );
+      { threshold: 0.08, rootMargin: '0px 0px 60px 0px' }
+    )
 
     if (sectionRef.current) {
-      const revealElements = sectionRef.current.querySelectorAll<HTMLElement>("[data-reveal='true']");
-      revealElements.forEach((element) => observer.observe(element));
+      const elements = sectionRef.current.querySelectorAll<HTMLElement>('[data-reveal]')
+      elements.forEach(el => observer.observe(el))
     }
 
-    return () => observer.disconnect();
-  }, []);
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24">
       <div className="absolute inset-0 bg-white" />
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute left-[-6rem] top-1/2 h-[27rem] w-[27rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/50 blur-3xl" />
         <div className="absolute right-[-10rem] top-1/2 h-[25rem] w-[25rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/60 blur-3xl" />
       </div>
@@ -70,11 +59,8 @@ export default function Transfers() {
       <div ref={sectionRef} className="relative mx-auto max-w-6xl">
         <div className="grid items-start gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           <article
-            data-reveal="true"
-            data-index={0}
-            className={`rounded-[2rem] border border-[#52655B]/10 bg-white p-6 shadow-[0_16px_42px_rgba(82,101,91,0.08)] transition-all duration-700 md:p-8 ${
-              visibleBlocks[0] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+            data-reveal
+            className="rounded-[2rem] border border-[#52655B]/10 bg-white p-6 shadow-[0_16px_42px_rgba(82,101,91,0.08)] transition-all duration-700 reveal-block md:p-8"
           >
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#52655B]">
               Transporte
@@ -108,11 +94,8 @@ export default function Transfers() {
           </article>
 
           <div
-            data-reveal="true"
-            data-index={1}
-            className={`grid gap-4 sm:grid-cols-2 ${
-              visibleBlocks[1] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            } transition-all duration-700`}
+            data-reveal
+            className="grid gap-4 sm:grid-cols-2 transition-all duration-700 reveal-block"
           >
             {transferOptions.map((option, index) => (
               <article

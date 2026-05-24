@@ -1,8 +1,7 @@
 import { H2, P } from "@/components/ui/Typography";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Categories() {
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const categories = [
@@ -39,49 +38,38 @@ export default function Categories() {
   ];
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        entries.forEach((entry, i) => {
           if (entry.isIntersecting) {
-            const element = entry.target as HTMLElement;
-            const index = Number(element.dataset.index);
-
-            if (Number.isNaN(index)) {
-              return;
-            }
-
-            setVisibleCards((prev) => {
-              if (prev[index]) {
-                return prev;
-              }
-
-              const newVisible = [...prev];
-              newVisible[index] = true;
-              return newVisible;
-            });
-
-            observer.unobserve(element);
+            const el = entry.target as HTMLElement
+            if (el.classList.contains('is-visible')) return
+            const delay = isDesktop ? i * 80 : 0
+            setTimeout(() => {
+              el.classList.add('is-visible')
+              observer.unobserve(el)
+            }, delay)
           }
-        });
+        })
       },
-      { threshold: 0.1 }
-    );
+      { threshold: 0.08, rootMargin: '0px 0px 60px 0px' }
+    )
 
     if (containerRef.current) {
-      const revealElements = containerRef.current.querySelectorAll<HTMLElement>("[data-reveal='true']");
-      revealElements.forEach((element) => {
-        observer.observe(element);
-      });
+      const elements = containerRef.current.querySelectorAll<HTMLElement>('[data-reveal]')
+      elements.forEach(el => observer.observe(el))
     }
 
-    return () => observer.disconnect();
-  }, []);
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24">
       <div className="absolute inset-0 bg-white" />
       {/* Background decoration */}
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute left-[-8rem] top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/40 blur-3xl" />
         <div className="absolute right-[-10rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/48 blur-3xl" />
       </div>
@@ -107,12 +95,9 @@ export default function Categories() {
         >
           <article
             onClick={() => window.open("https://p.localbird.io/rentmecr-san-jose/discover", "_blank")}
-            data-reveal="true"
-            data-index={0}
-            className={`group relative min-h-[34rem] cursor-pointer overflow-hidden rounded-[2rem] bg-[#2f3a35] text-white shadow-[0_24px_60px_rgba(47,58,53,0.18)] transition-all duration-700 ${
-              visibleCards[0] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            } hover:-translate-y-1`}
-            style={{ transitionDelay: visibleCards[0] ? "0ms" : "0ms" }}
+            data-reveal
+            className="group relative min-h-[34rem] cursor-pointer overflow-hidden rounded-[2rem] bg-[#2f3a35] text-white shadow-[0_24px_60px_rgba(47,58,53,0.18)] transition-all duration-700 reveal-card hover:-translate-y-1"
+            style={{ transitionDelay: "0ms" }}
           >
             <img
               src={categories[0].image}
@@ -155,12 +140,9 @@ export default function Categories() {
               <article
                 key={category.id}
                 onClick={() => window.open("https://p.localbird.io/rentmecr-san-jose/discover", "_blank")}
-                data-reveal="true"
-                data-index={index + 1}
-                className={`group relative min-h-[16rem] cursor-pointer overflow-hidden rounded-[1.5rem] bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 ${
-                  visibleCards[index + 1] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                } hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]`}
-                style={{ transitionDelay: visibleCards[index + 1] ? `${(index + 1) * 90}ms` : "0ms" }}
+                data-reveal
+                className="group relative min-h-[16rem] cursor-pointer overflow-hidden rounded-[1.5rem] bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 reveal-card hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]"
+                style={{ transitionDelay: `${(index + 1) * 80}ms` }}
               >
                 <img
                   src={category.image}

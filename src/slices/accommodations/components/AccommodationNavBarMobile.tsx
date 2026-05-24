@@ -30,11 +30,14 @@ export function AccommodationNavBarMobile({ accommodationName = "Alojamiento" }:
 
   useEffect(() => {
     if (menuOpen) {
-      document.body.style.overflow = "hidden"
-      requestAnimationFrame(() => setShowDrawer(true))
+      setShowDrawer(true)
+      const t = setTimeout(() => {
+        document.body.style.overflow = "hidden"
+      }, 50)
+      return () => clearTimeout(t)
     } else {
       setShowDrawer(false)
-      document.body.style.overflow = "unset"
+      document.body.style.overflow = ""
     }
   }, [menuOpen])
 
@@ -147,7 +150,7 @@ export function AccommodationNavBarMobile({ accommodationName = "Alojamiento" }:
 
       {/* Overlay */}
       <div
-        className={`fixed inset-0 z-[60] transition-opacity duration-[350ms] ${showDrawer ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 z-[60] transition-opacity duration-[200ms] ${showDrawer ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
           }`}
         style={{ background: "rgba(0,0,0,0.5)" }}
         onClick={closeMenu}
@@ -155,7 +158,7 @@ export function AccommodationNavBarMobile({ accommodationName = "Alojamiento" }:
 
       {/* Drawer panel */}
       <div
-        className={`fixed right-0 top-0 h-full w-[75vw] max-w-[300px] bg-white shadow-[-4px_0_12px_rgba(0,0,0,0.15)] z-[70] flex flex-col transition-transform duration-[350ms] ease-in-out ${showDrawer
+        className={`fixed right-0 top-0 h-full w-[75vw] max-w-[300px] bg-white shadow-[-4px_0_12px_rgba(0,0,0,0.15)] z-[70] flex flex-col transition-transform duration-[220ms] ease-out ${showDrawer
             ? "translate-x-0 visible pointer-events-auto"
             : "translate-x-full invisible pointer-events-none"
           }`}
