@@ -109,10 +109,9 @@ function ToursHero() {
 
         {/* Contenedor con Scroll Horizontal en móvil y 5 columnas en Escritorio */}
         <div 
-          ref={containerRef} 
           className="flex gap-4 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:gap-4"
         >
-          {tours.map((tour, index) => (
+          {tours.map((tour) => (
             <article
               key={tour.id}
               className={`group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md md:transition-all md:duration-700 md:opacity-0 md:translate-y-8 md:[&.is-visible]:opacity-100 md:[&.is-visible]:translate-y-0
