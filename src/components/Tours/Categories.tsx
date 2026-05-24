@@ -97,7 +97,6 @@ export default function Categories() {
             onClick={() => window.open("https://p.localbird.io/rentmecr-san-jose/discover", "_blank")}
             data-reveal
             className="group relative min-h-[34rem] cursor-pointer overflow-hidden rounded-[2rem] bg-[#2f3a35] text-white shadow-[0_24px_60px_rgba(47,58,53,0.18)] transition-all duration-700 reveal-card hover:-translate-y-1"
-            style={{ transitionDelay: "0ms" }}
           >
             <img
               src={categories[0].image}
@@ -136,13 +135,12 @@ export default function Categories() {
           </article>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
-            {categories.slice(1).map((category, index) => (
+            {categories.slice(1).map((category) => (
               <article
                 key={category.id}
                 onClick={() => window.open("https://p.localbird.io/rentmecr-san-jose/discover", "_blank")}
                 data-reveal
                 className="group relative min-h-[16rem] cursor-pointer overflow-hidden rounded-[1.5rem] bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 reveal-card hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]"
-                style={{ transitionDelay: `${(index + 1) * 80}ms` }}
               >
                 <img
                   src={category.image}

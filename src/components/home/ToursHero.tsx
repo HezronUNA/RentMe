@@ -61,31 +61,32 @@ function ToursHero() {
   ];
 
   useEffect(() => {
-    // Solo activar animación en desktop (md = 768px+)
-    const isDesktop = window.matchMedia('(min-width: 768px)').matches;
-    if (!isDesktop) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry, i) => {
           if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            if (el.classList.contains('is-visible')) return;
             setTimeout(() => {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }, i * 50);
+              el.classList.add('is-visible');
+              observer.unobserve(el);
+            }, i * 80);
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 80px 0px' }
     );
+
     if (containerRef.current) {
-      Array.from(containerRef.current.children).forEach((child) => observer.observe(child));
+      const elements = containerRef.current.querySelectorAll<HTMLElement>('[data-reveal="true"]');
+      elements.forEach(el => observer.observe(el));
     }
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-white px-4 py-16 md:px-8 md:py-24" style={{ contain: 'paint layout' }}>
+    <section ref={containerRef} className="relative w-full overflow-hidden bg-white px-4 py-16 md:px-8 md:py-24" style={{ contain: 'paint layout' }}>
       {/* Blobs de fondo */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
         <div className="absolute left-[-6rem] top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/25 blur-[90px]" />
@@ -115,12 +116,12 @@ function ToursHero() {
         <div 
           className="flex gap-4 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:gap-4"
         >
-          {tours.map((tour, index) => {
+          {tours.map((tour) => {
             var cardClass = "tours-card group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md aspect-[10/12] min-w-[62%] sm:aspect-[3/4.2] sm:min-w-0 sm:hover:-translate-y-1.5 sm:shadow-lg"
             return <article
               key={tour.id}
+              data-reveal="true"
               className={cardClass}
-              style={{ transitionDelay: `${index * 80}ms` }}
             >
               <img
                 src={tour.image}
