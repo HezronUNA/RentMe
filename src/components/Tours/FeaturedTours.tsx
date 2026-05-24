@@ -119,7 +119,7 @@ export default function FeaturedTours() {
         </div>
 
         <div ref={containerRef} className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-          {tours.map((tour, index) => (
+          {tours.map((tour) => (
             <article
               key={tour.id}
               data-reveal

@@ -135,7 +135,7 @@ export default function Categories() {
           </article>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
-            {categories.slice(1).map((category, index) => (
+            {categories.slice(1).map((category) => (
               <article
                 key={category.id}
                 onClick={() => window.open("https://p.localbird.io/rentmecr-san-jose/discover", "_blank")}
