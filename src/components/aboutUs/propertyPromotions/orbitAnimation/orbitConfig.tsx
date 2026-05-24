@@ -28,7 +28,9 @@ export const platformsConfig: OrbitItemConfig[] = [
     initialAngle: 315,
     content: (
       <div className="flex flex-col items-center group">
-        <AirbnbIcon size={48} className="text-red-500 group-hover:scale-110 transition-transform" />
+        <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+          <AirbnbIcon size={28} className="text-white" />
+        </div>
         <span className="text-red-500 font-bold text-lg">Airbnb</span>
       </div>
     )
