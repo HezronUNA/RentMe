@@ -59,6 +59,10 @@ function PlansSection() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Solo activar animación en desktop (md = 768px+)
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+    if (!isDesktop) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry, i) => {
@@ -70,7 +74,7 @@ function PlansSection() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
 
     if (containerRef.current) {
@@ -127,7 +131,7 @@ function PlansSection() {
               <article
                 data-reveal="true"
                 data-index={index}
-                className="group relative h-full cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_8px_20px_rgba(82,101,91,0.08)] md:transition-all md:duration-700 md:opacity-0 md:translate-y-6 md:[&.is-visible]:opacity-100 md:[&.is-visible]:translate-y-0 hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]"
+                className="plans-card group relative h-full cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_8px_20px_rgba(82,101,91,0.08)] hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]"
                 style={{ transitionDelay: `${index * 90}ms` }}
               >
                 {/* Background image */}
