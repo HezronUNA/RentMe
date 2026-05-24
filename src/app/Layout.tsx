@@ -14,7 +14,7 @@ const Layout = () => {
       {!isDetailPage && <Header />}
       
       <main className="flex-1">
-        <Outlet /> 
+        <Outlet />
       </main>
       
       <Footer/>

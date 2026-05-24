@@ -120,7 +120,6 @@ function PlansSection() {
 
         {/* Grid — 2 cols en móvil, 4 en desktop */}
         <div
-          ref={containerRef}
           className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
         >
           {PLANES_GESTION.map((plan, index) => (

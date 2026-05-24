@@ -3,7 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoscroll from 'embla-carousel-auto-scroll';
 import { Button } from "@/components/ui/button";
 import { Small, P } from "@/components/ui/Typography";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 type HospedajeCard = {
   id: string | number;
@@ -26,7 +26,6 @@ type HospedajeCard = {
 type Props = { hospedajes: HospedajeCard[] };
 
 export default function AccomodationsDesktop({ hospedajes }: Props) {
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Configuración de Embla Carousel con auto-scroll
@@ -61,34 +60,6 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
     return value.url || "https://placehold.co/600x360";
   }
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Array.from(containerRef.current?.children || []).indexOf(
-              entry.target as Element,
-            );
-
-            setVisibleCards((prev) => {
-              const next = [...prev];
-              next[index] = true;
-              return next;
-            });
-          }
-        });
-      },
-      { threshold: 0.15 },
-    );
-
-    const current = containerRef.current;
-    if (current) {
-      Array.from(current.children).forEach((child) => observer.observe(child));
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <>
       <div className="relative w-full flex justify-center px-4">
@@ -108,10 +79,7 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                 >
                   <article
                     onClick={() => navigate({ to: `/alojamientos/${h.id}` })}
-                    className={`group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 transform ${
-                      visibleCards[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    } hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(82,101,91,0.14)] border border-zinc-200 h-full`}
-                    style={{ transitionDelay: `${(index % hospedajes.length) * 90}ms` }}
+                    className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 transform hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(82,101,91,0.14)] border border-zinc-200 h-full"
                   >
                     <div className="relative h-36 overflow-hidden bg-gradient-to-br from-[#52655B]/10 to-[#52655B]/5 sm:h-40">
                       <img

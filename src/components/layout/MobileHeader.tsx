@@ -11,6 +11,8 @@ type Props = {
   scrolled: boolean
 }
 
+type SocialEntry = (typeof SOCIAL_CONFIG)[number]
+
 export default function MobileHeader({ nav, scrolled }: Props) {
   const Icons = useIcons()
   const { open, setOpen } = nav
@@ -39,7 +41,7 @@ export default function MobileHeader({ nav, scrolled }: Props) {
     setActiveAccordion((prev) => (prev === name ? null : name))
   }
 
-  const hrefFromEntry = (entry: any) => {
+  const hrefFromEntry = (entry: SocialEntry) => {
     return entry.platform === "whatsapp"
       ? buildWhatsAppHref(entry.phone || "", entry.message)
       : entry.url || "#"
@@ -51,8 +53,8 @@ export default function MobileHeader({ nav, scrolled }: Props) {
       <div className="relative z-50 mx-auto max-w-[calc(100%-2rem)] mt-3 ">
         <div className={`rounded-full px-5 transition-all duration-300 ease-out ${
           transparent
-            ? "bg-white/0 backdrop-blur-none shadow-none"
-            : "bg-white/90 backdrop-blur-xl shadow-sm"
+            ? "bg-white/0 backdrop-blur-none shadow-none mobile-header-pill"
+            : "bg-white/90 backdrop-blur-xl shadow-sm mobile-header-pill"
         }`}>
           <div className="h-14 flex items-center justify-between">
             <Link to="/" aria-label="Ir al inicio" onClick={close}>
@@ -114,8 +116,8 @@ export default function MobileHeader({ nav, scrolled }: Props) {
       <div
         className={`fixed right-0 top-0 h-full w-[75vw] max-w-[300px] bg-white shadow-[-4px_0_12px_rgba(0,0,0,0.15)] z-[70] flex flex-col transition-transform duration-[350ms] ease-in-out ${
           showDrawer
-            ? "translate-x-0 visible pointer-events-auto"
-            : "translate-x-full invisible pointer-events-none"
+            ? "translate-x-0 visible pointer-events-auto mobile-header-drawer"
+            : "translate-x-full invisible pointer-events-none mobile-header-drawer"
         }`}
       >
             {/* Logo + Close */}
