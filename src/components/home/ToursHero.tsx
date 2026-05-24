@@ -61,6 +61,10 @@ function ToursHero() {
   ];
 
   useEffect(() => {
+    // Solo activar animación en desktop (md = 768px+)
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+    if (!isDesktop) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry, i) => {
@@ -72,7 +76,7 @@ function ToursHero() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
     if (containerRef.current) {
       Array.from(containerRef.current.children).forEach((child) => observer.observe(child));
@@ -112,7 +116,7 @@ function ToursHero() {
           className="flex gap-4 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:gap-4"
         >
           {tours.map((tour, index) => {
-            var cardClass = "group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md md:transition-all md:duration-700 md:opacity-0 md:translate-y-8 md:[&.is-visible]:opacity-100 md:[&.is-visible]:translate-y-0 aspect-[10/12] min-w-[62%] sm:aspect-[3/4.2] sm:min-w-0 sm:hover:-translate-y-1.5 sm:shadow-lg"
+            var cardClass = "tours-card group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md aspect-[10/12] min-w-[62%] sm:aspect-[3/4.2] sm:min-w-0 sm:hover:-translate-y-1.5 sm:shadow-lg"
             return <article
               key={tour.id}
               className={cardClass}
