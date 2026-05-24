@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Link } from "@tanstack/react-router";
 import { H2} from "@/components/ui/Typography";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface Tour {
   id: number;
@@ -13,7 +13,6 @@ interface Tour {
 }
 
 function ToursHero() {
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const catalogUrl = "https://p.localbird.io/rentmecr-san-jose/discover";
@@ -64,14 +63,12 @@ function ToursHero() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        entries.forEach((entry, i) => {
           if (entry.isIntersecting) {
-            const index = Array.from(containerRef.current?.children || []).indexOf(entry.target as Element);
-            setVisibleCards((prev) => {
-              const next = [...prev];
-              next[index] = true;
-              return next;
-            });
+            setTimeout(() => {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }, i * 50);
           }
         });
       },
@@ -84,9 +81,9 @@ function ToursHero() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-white px-4 py-16 md:px-8 md:py-24">
+    <section className="relative w-full overflow-hidden bg-white px-4 py-16 md:px-8 md:py-24" style={{ contain: 'paint layout' }}>
       {/* Blobs de fondo */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
         <div className="absolute left-[-6rem] top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/25 blur-[90px]" />
         <div className="absolute right-[-6rem] top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/25 blur-[90px]" />
       </div>
@@ -118,11 +115,10 @@ function ToursHero() {
           {tours.map((tour, index) => (
             <article
               key={tour.id}
-              className={`group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md transition-all duration-700 
+              className={`group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md md:transition-all md:duration-700 md:opacity-0 md:translate-y-8 md:[&.is-visible]:opacity-100 md:[&.is-visible]:translate-y-0
               aspect-[10/12] min-w-[62%] 
               sm:aspect-[3/4.2] sm:min-w-0 
-              sm:hover:-translate-y-1.5 sm:shadow-lg
-              ${visibleCards[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              sm:hover:-translate-y-1.5 sm:shadow-lg`}
               style={{ transitionDelay: `${index * 80}ms` }}
             >
               <img
@@ -130,7 +126,7 @@ function ToursHero() {
                 alt={tour.name}
                 loading="lazy"
                 fetchPriority="low"
-                decoding="async"
+                decoding="sync"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 sm:group-hover:scale-110"
               />
               
@@ -138,7 +134,7 @@ function ToursHero() {
 
               {/* Contenido Miniaturizado */}
               <div className="relative p-4 sm:p-5">
-                <div className="mb-1 rounded-full w-fit bg-white/10 px-2 py-0.5 text-[7px] font-bold uppercase tracking-widest text-white backdrop-blur-sm border border-white/10 sm:text-[8px]">
+                <div className="mb-1 rounded-full w-fit bg-white/10 px-2 py-0.5 text-[7px] font-bold uppercase tracking-widest text-white border border-white/10 sm:text-[8px]">
                   {tour.category}
                 </div>
 
@@ -158,7 +154,7 @@ function ToursHero() {
                     e.stopPropagation();
                     window.open(catalogUrl, "_blank");
                   }}
-                  className="w-full rounded-full bg-white/10 py-2 text-[9px] font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/20 transition-all active:scale-95 sm:py-2 sm:text-[10px] sm:hover:bg-white sm:hover:text-[#2f3a35]"
+                  className="w-full rounded-full bg-white/10 py-2 text-[9px] font-bold uppercase tracking-wider text-white border border-white/20 transition-all active:scale-95 sm:py-2 sm:text-[10px] sm:hover:bg-white sm:hover:text-[#2f3a35]"
                 >
                   Reservar
                 </button>

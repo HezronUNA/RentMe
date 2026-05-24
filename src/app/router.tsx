@@ -5,6 +5,7 @@ import {
   RouterProvider,
   lazyRouteComponent,
 } from '@tanstack/react-router'
+import { Suspense } from 'react'
 import AppLayout from './Layout'
 import ScrollToTop from '@/components/ui/ScrollToTop'
 
@@ -26,10 +27,27 @@ const PlansReservationPage = lazyRouteComponent(() => import('../pages/PlansRese
 // Ruta raíz con layout
 const rootRoute = createRootRoute({
   component: () => (
-    <>
+    <Suspense fallback={
+      <div style={{
+        minHeight: '100dvh',
+        background: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          width: 32,
+          height: 32,
+          border: '3px solid #e7eee9',
+          borderTopColor: '#52655B',
+          borderRadius: '50%',
+          animation: 'spin 0.8s linear infinite'
+        }} />
+      </div>
+    }>
       <ScrollToTop />
       <AppLayout />
-    </>
+    </Suspense>
   ),
   notFoundComponent: NotFoundPage
 })

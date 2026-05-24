@@ -9,7 +9,10 @@ const ReviewsCarousel = lazy(() => import("@/components/home/Reviews"));
 
 export default function HomePage() {
   return (
-    <section className="flex flex-col justify-center gap-6">
+    <section
+      className="flex flex-col justify-center gap-6"
+      style={{ transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
+    >
       <Hero />
 
       <Suspense fallback={<div className="min-h-[240px]" aria-hidden="true" />}>

@@ -165,12 +165,10 @@
 
 .blob-a {
   animation: blobA 10s ease-in-out infinite alternate;
-  will-change: transform;
 }
 
 .blob-b {
   animation: blobB 12s ease-in-out infinite alternate;
-  will-change: transform;
 }
 
 /* Utility class to hide scrollbar */
@@ -290,19 +288,18 @@
 
 .orbit-item {
   animation: orbit-float var(--duration, 10s) ease-in-out var(--delay, 0s) infinite;
-  will-change: transform;
-}
-
-.content-visibility-auto {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 500px;
 }
 
 @supports (-webkit-touch-callout: none) {
-  .content-visibility-auto {
-    content-visibility: visible;
-    contain-intrinsic-size: auto;
+  .navbar-enter,
+  .navbar-exit {
+    animation: none !important;
+    will-change: auto !important;
   }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
