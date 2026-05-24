@@ -57,7 +57,7 @@ export default function ModalidadesServicio() {
 
   return (
     <section className="relative w-full overflow-hidden bg-white px-4 py-16">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
         <div className="absolute left-[-8rem] top-20 h-[28rem] w-[28rem] rounded-full bg-[#e7eee9]/55 blur-[95px]" />
         <div className="absolute right-[-10rem] top-20 h-[28rem] w-[28rem] rounded-full bg-[#f1e8dc]/55 blur-[95px]" />
       </div>

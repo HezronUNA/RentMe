@@ -41,7 +41,7 @@ export default function PhotograpyPage() {
 
   return (
     <section className="relative w-full overflow-hidden bg-white px-4 py-16">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
         <div className="absolute left-[-8rem] top-20 h-[28rem] w-[28rem] rounded-full bg-[#e7eee9]/45 blur-[95px] md:bg-[#e7eee9]/55 md:h-[32rem] md:w-[32rem] md:top-24" />
         <div className="absolute right-[-8rem] top-20 h-[28rem] w-[28rem] rounded-full bg-[#f1e8dc]/45 blur-[95px] md:bg-[#f1e8dc]/55 md:h-[32rem] md:w-[32rem] md:top-24" />
       </div>

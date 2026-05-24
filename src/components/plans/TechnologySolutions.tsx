@@ -38,7 +38,7 @@ export default function TechnologySolutions() {
   return (
     <section id="desarrollo-tecnologico" className="relative w-full overflow-hidden bg-white">
       {/* Blobs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
         <div className="absolute left-[-6rem] top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/30 blur-[95px]" />
         <div className="absolute right-[-6rem] top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/30 blur-[95px]" />
       </div>

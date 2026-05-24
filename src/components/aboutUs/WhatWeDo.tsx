@@ -74,7 +74,7 @@ export default function WhatWeDo() {
 
   return (
     <section id="about-us-content" className="relative overflow-hidden bg-white">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
         <div className="absolute left-[8%] top-28 h-[22rem] w-[22rem] rounded-full bg-[#e7eee9]/45 blur-[80px] md:left-[4%] md:top-24 md:h-[32rem] md:w-[32rem] md:bg-[#e7eee9]/75 md:blur-[105px]" />
         <div className="absolute right-[-3rem] bottom-20 h-[24rem] w-[24rem] rounded-full bg-[#f1e8dc]/50 blur-[85px] md:right-[-6rem] md:bottom-28 md:h-[34rem] md:w-[34rem] md:bg-[#f1e8dc]/80 md:blur-[110px]" />
       </div>

@@ -35,7 +35,7 @@ export function PromotionsMobile() {
 
   return (
     <section className="relative overflow-hidden py-8 bg-white">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
         <div className="absolute left-[-6rem] top-20 h-[18rem] w-[18rem] rounded-full bg-[#e7eee9]/35 blur-[70px]" />
         <div className="absolute right-[-6rem] top-20 h-[18rem] w-[18rem] rounded-full bg-[#f1e8dc]/35 blur-[70px]" />
       </div>

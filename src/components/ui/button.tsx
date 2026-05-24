@@ -70,15 +70,17 @@ export function Button({
   const Comp = asChild ? Slot : "button"
   const ref = React.useRef<HTMLButtonElement | null>(null)
   const [revealed, setRevealed] = React.useState(false)
+  const revealedRef = React.useRef(false)
 
   React.useEffect(() => {
-    if (!revealOnView || revealed) return
+    if (!revealOnView) return
     const el = ref.current
     if (!el) return
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !revealedRef.current) {
+          revealedRef.current = true
           const t = setTimeout(() => setRevealed(true), revealDelay)
           return () => clearTimeout(t)
         }
@@ -87,7 +89,7 @@ export function Button({
     )
     io.observe(el)
     return () => io.disconnect()
-  }, [revealOnView, revealDelay, revealed])
+  }, [revealOnView, revealDelay])
 
   return (
     <Comp
