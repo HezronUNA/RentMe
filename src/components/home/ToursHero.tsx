@@ -112,13 +112,11 @@ function ToursHero() {
           ref={containerRef} 
           className="flex gap-4 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-5 sm:overflow-visible sm:pb-0 sm:gap-4"
         >
-          {tours.map((tour, index) => (
-            <article
+          {tours.map((tour, index) => {
+            var cardClass = "group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md md:transition-all md:duration-700 md:opacity-0 md:translate-y-8 md:[&.is-visible]:opacity-100 md:[&.is-visible]:translate-y-0 aspect-[10/12] min-w-[62%] sm:aspect-[3/4.2] sm:min-w-0 sm:hover:-translate-y-1.5 sm:shadow-lg"
+            return <article
               key={tour.id}
-              className={`group relative flex shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[1.5rem] bg-[#2f3a35] shadow-md md:transition-all md:duration-700 md:opacity-0 md:translate-y-8 md:[&.is-visible]:opacity-100 md:[&.is-visible]:translate-y-0
-              aspect-[10/12] min-w-[62%] 
-              sm:aspect-[3/4.2] sm:min-w-0 
-              sm:hover:-translate-y-1.5 sm:shadow-lg`}
+              className={cardClass}
               style={{ transitionDelay: `${index * 80}ms` }}
             >
               <img
@@ -160,7 +158,7 @@ function ToursHero() {
                 </button>
               </div>
             </article>
-          ))}
+          })}
         </div>
 
         {/* Botón Inferior Móvil */}
