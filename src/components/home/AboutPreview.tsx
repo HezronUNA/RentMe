@@ -6,7 +6,7 @@ function AboutPreview() {
   return (
     <section className="relative overflow-hidden bg-white px-4 py-16 md:px-8 md:py-24">
       {/* Blobs — centrados verticalmente a los lados, sin desbordarse hacia otras secciones */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
         <div className="absolute left-[-6rem] top-1/2 -translate-y-1/2 h-[26rem] w-[26rem] rounded-full bg-[#e7eee9]/25 blur-[90px]" />
         <div className="absolute right-[-6rem] top-1/2 -translate-y-1/2 h-[26rem] w-[26rem] rounded-full bg-[#f1e8dc]/25 blur-[90px]" />
       </div>
@@ -59,13 +59,13 @@ function AboutPreview() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#2f3a35]/90 via-[#2f3a35]/25 to-transparent" />
 
             {/* Top badge — absolute sobre la imagen */}
-            <div className="absolute left-4 top-4 inline-flex w-fit rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-white/80 backdrop-blur-sm">
+            <div className="absolute left-4 top-4 inline-flex w-fit rounded-full border border-white/20 bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-white/80">
               Nuestra esencia
             </div>
 
             {/* Bottom content — absolute en la parte baja */}
             <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-              <div className="mb-2 inline-flex w-fit rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/85 backdrop-blur-sm">
+              <div className="mb-2 inline-flex w-fit rounded-full bg-white/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/85">
                 DMR Rentals
               </div>
               <h3 className="text-base font-semibold leading-snug text-white md:text-lg">

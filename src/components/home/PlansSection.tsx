@@ -1,6 +1,7 @@
 import { memo } from "react"
 import { H2, P } from "@/components/ui/Typography"
 import { Link } from "@tanstack/react-router"
+import { useEffect, useRef } from "react"
 
 const PLANES_GESTION = [
   {
@@ -55,6 +56,31 @@ const PLANES_GESTION = [
 ]
 
 function PlansSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }, i * 50);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      const revealElements = containerRef.current.querySelectorAll<HTMLElement>("[data-reveal='true']");
+      revealElements.forEach((element) => observer.observe(element));
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   // En móvil: todas las cards iguales excepto desarrollo tecnológico
   // En desktop: primera fila completa y cierre con un bloque ancho
   const getCardSize = (index: number) => {
@@ -71,9 +97,9 @@ function PlansSection() {
   }
 
   return (
-    <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24 bg-white">
+    <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24 bg-white" style={{ contain: 'paint layout' }}>
       {/* Blobs de fondo */}
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute left-[-8rem] top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/40 blur-3xl" />
         <div className="absolute right-[-10rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/48 blur-3xl" />
       </div>
@@ -99,7 +125,10 @@ function PlansSection() {
           {PLANES_GESTION.map((plan, index) => (
             <Link to="/servicios" hash={`#${plan.hash}`} key={`${plan.id}-${index}`} className={getCardSize(index)}>
               <article
-                className="group relative h-full cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_8px_20px_rgba(82,101,91,0.08)] transition-all duration-700 hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]"
+                data-reveal="true"
+                data-index={index}
+                className="group relative h-full cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_8px_20px_rgba(82,101,91,0.08)] md:transition-all md:duration-700 md:opacity-0 md:translate-y-6 md:[&.is-visible]:opacity-100 md:[&.is-visible]:translate-y-0 hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]"
+                style={{ transitionDelay: `${index * 90}ms` }}
               >
                 {/* Background image */}
                 <img
@@ -108,7 +137,7 @@ function PlansSection() {
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                   fetchPriority="low"
-                  decoding="async"
+                  decoding="sync"
                 />
 
                 {/* Gradient overlay */}

@@ -29,7 +29,7 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
   return (
     <>
       <div className="relative -mx-4 px-4">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
           <div className="absolute left-[-6rem] top-[15%] h-44 w-44 rounded-full bg-[#e7eee9]/55 blur-3xl" />
           <div className="absolute right-[-5rem] bottom-[12%] h-40 w-40 rounded-full bg-[#f1e8dc]/60 blur-3xl" />
           <div className="absolute left-1/2 top-[8%] h-32 w-32 -translate-x-1/2 rounded-full bg-[#52655B]/10 blur-3xl" />
@@ -76,7 +76,7 @@ export default function AccomodationsMobile({ hospedajes }: Props) {
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#2f3a35]/65 via-[#2f3a35]/15 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-white backdrop-blur-sm">
+                  <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-white">
                     {h.ubicacion?.provincia || 'Alojamiento'}
                   </div>
                 </div>
