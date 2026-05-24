@@ -119,13 +119,12 @@ export default function FeaturedTours() {
         </div>
 
         <div ref={containerRef} className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-          {tours.map((tour, index) => (
+          {tours.map((tour) => (
             <article
               key={tour.id}
               data-reveal
               onClick={() => window.open(catalogUrl, "_blank")}
               className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 transform reveal-card hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(82,101,91,0.14)]"
-              style={{ transitionDelay: `${index * 80}ms` }}
             >
               <div className="relative h-36 overflow-hidden bg-gradient-to-br from-[#52655B]/10 to-[#52655B]/5 sm:h-40">
                 <img

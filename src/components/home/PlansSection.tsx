@@ -59,27 +59,25 @@ function PlansSection() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Solo activar animación en desktop (md = 768px+)
-    const isDesktop = window.matchMedia('(min-width: 768px)').matches;
-    if (!isDesktop) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry, i) => {
           if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            if (el.classList.contains('is-visible')) return;
             setTimeout(() => {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }, i * 50);
+              el.classList.add('is-visible');
+              observer.unobserve(el);
+            }, i * 90);
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 80px 0px' }
     );
 
     if (containerRef.current) {
-      const revealElements = containerRef.current.querySelectorAll<HTMLElement>("[data-reveal='true']");
-      revealElements.forEach((element) => observer.observe(element));
+      const elements = containerRef.current.querySelectorAll<HTMLElement>('[data-reveal="true"]');
+      elements.forEach(el => observer.observe(el));
     }
 
     return () => observer.disconnect();
@@ -101,7 +99,7 @@ function PlansSection() {
   }
 
   return (
-    <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24 bg-white" style={{ contain: 'paint layout' }}>
+    <section ref={containerRef} className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24 bg-white" style={{ contain: 'paint layout' }}>
       {/* Blobs de fondo */}
       <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute left-[-8rem] top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/40 blur-3xl" />
@@ -130,9 +128,7 @@ function PlansSection() {
             <Link to="/servicios" hash={`#${plan.hash}`} key={`${plan.id}-${index}`} className={getCardSize(index)}>
               <article
                 data-reveal="true"
-                data-index={index}
                 className="plans-card group relative h-full cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_8px_20px_rgba(82,101,91,0.08)] hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(82,101,91,0.14)]"
-                style={{ transitionDelay: `${index * 90}ms` }}
               >
                 {/* Background image */}
                 <img
