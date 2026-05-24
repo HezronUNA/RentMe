@@ -17,7 +17,7 @@ function Hero() {
     badge: 'Para propietarios',
     titulo1: 'Tu propiedad,',
     titulo2: 'nuestro cuidado',
-    subtitulo: 'Gestionamos tu inmueble con profesionalismo y transparencia.',
+    subtitulo: 'Gestionamos tu inmueble con profesionalismo y transparencia en Costa Rica.',
     imagen: 'https://res.cloudinary.com/dxrzwnjee/image/upload/f_auto,q_auto,w_auto/v1778855260/hl7uxg4g4sq8ba0jo3pg.avif',
     link: '/servicios',
     textoBoton: 'Ver servicios',

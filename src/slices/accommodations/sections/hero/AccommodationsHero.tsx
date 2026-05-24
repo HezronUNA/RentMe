@@ -10,7 +10,7 @@ interface AccommodationsHeroProps {
 export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) {
   // Contenido estático del hero
   const heroData = {
-    imagen: 'https://i.ibb.co/C543ZBCF/Banner.jpg'
+    imagen: 'https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779663842/dji_fly_20240603_141814_222_1779297601679_photo_optimized_1_dvzyip.avif'
   };
 
   const handleSearchFilters = (filters: AccommodationSearchFilters) => {

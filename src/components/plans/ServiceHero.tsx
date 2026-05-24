@@ -3,7 +3,7 @@ import { H1 } from "@/components/ui/Typography"
 export function ServiceHero() {
   const heroData = {
     titulo: 'GESTIONAMOS TU PROPIEDAD COMO SI FUERA NUESTRA',
-    subtitulo: 'Descubrí nuestras modalidades de servicio y elegí la que mejor se adapta a tus necesidades.',
+    subtitulo: 'Descubrí nuestras modalidades de servicio y elegí la que mejor se adapta a tus necesidades en Costa Rica.',
     imagen: 'https://i.ibb.co/Kck4KrC2/hero-Service.jpg'
   };
 

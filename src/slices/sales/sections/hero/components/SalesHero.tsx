@@ -12,7 +12,7 @@ export function SalesHero({ onApplyFilters, showDesktopSearch = true }: SalesHer
   // Contenido estático del hero
   const heroData = {
     titulo: 'ENCONTRÁ TU PRÓXIMA INVERSIÓN EN COSTA RICA',
-    imagen: 'https://i.ibb.co/1fh0YydY/francesca-tosolini-t-Hk-JAMc-O3-QE-unsplash-1.jpg'
+    imagen: 'https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779663743/dji_fly_20260326_164130_164_1774565014685_photo_optimized_5_1_ps9szw.avif'
   };
 
   const handleSearchFilters = (filters: FiltrosBusqueda) => {
