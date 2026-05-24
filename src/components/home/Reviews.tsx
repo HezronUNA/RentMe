@@ -110,7 +110,7 @@ export default function ReviewsCarousel({
   return (
     <section className={`relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24 ${className}`}>
       <div className="absolute inset-0 bg-white" />
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute left-[-10rem] top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/55 blur-3xl" />
         <div className="absolute right-[-8rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/65 blur-3xl" />
         <div className="absolute left-1/2 top-[58%] h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#52655B]/10" />
@@ -140,7 +140,7 @@ export default function ReviewsCarousel({
                 style={{
                   transform: `translateX(-${currentIndex * 100}%)`,
                   transition: isTransitioning ? 'transform 500ms ease-in-out' : 'none',
-                  willChange: 'transform'
+                  willChange: isTransitioning ? 'transform' : 'auto'
                 }}
                 onTouchStart={onTouchStart}
                 onTouchEnd={onTouchEnd}
@@ -151,11 +151,11 @@ export default function ReviewsCarousel({
                     key={index}
                     className="min-w-full max-w-full flex-shrink-0 flex items-center justify-center p-4"
                   >
-                    <div className="md:hidden p-6 bg-white/85 rounded-[2rem] flex flex-col justify-center items-center w-full max-w-[640px] shadow-[0_20px_50px_rgba(82,101,91,0.10)] border border-[#52655B]/20 backdrop-blur-sm">
+                    <div className="md:hidden p-6 bg-white/90 rounded-[2rem] flex flex-col justify-center items-center w-full max-w-[640px] shadow-[0_20px_50px_rgba(82,101,91,0.10)] border border-[#52655B]/20">
                       <ReviewMobile review={r} />
                     </div>
                     
-                    <div className="hidden md:flex p-8 bg-white/85 rounded-[2rem] flex-col justify-center items-center w-full max-w-[640px] shadow-[0_20px_50px_rgba(82,101,91,0.10)] border border-[#52655B]/20 backdrop-blur-sm">
+                    <div className="hidden md:flex p-8 bg-white/90 rounded-[2rem] flex-col justify-center items-center w-full max-w-[640px] shadow-[0_20px_50px_rgba(82,101,91,0.10)] border border-[#52655B]/20">
                       <ReviewDesktop review={r} />
                     </div>
                   </div>
