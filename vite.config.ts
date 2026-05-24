@@ -6,7 +6,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), sitemap({
-    hostname: 'https://tudominio.com',
+    hostname: 'https://www.dmrrentalscr.com/',
   })],
   resolve: {
     alias: {
