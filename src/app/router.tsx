@@ -9,8 +9,6 @@ import { Suspense } from 'react'
 import AppLayout from './Layout'
 import ScrollToTop from '@/components/ui/ScrollToTop'
 
-import NotFoundPage from '../app/NotFoundPage'
-
 const HomePage = lazyRouteComponent(() => import('../pages/Index'))
 const AboutUsPage = lazyRouteComponent(() => import('../pages/AboutUsPage'))
 const TermsAndConditionsPage = lazyRouteComponent(() => import('../pages/TermsAndConditionsPage'))
@@ -49,7 +47,7 @@ const rootRoute = createRootRoute({
       <AppLayout />
     </Suspense>
   ),
-  notFoundComponent: NotFoundPage
+ /* notFoundComponent: */
 })
 
 // Rutas hijas
