@@ -23,6 +23,7 @@ const ServiceReservationPage = lazyRouteComponent(() => import('../pages/Service
 const SaleDetailPage = lazyRouteComponent(() => import('../slices/sales/SaleDetail'))
 const AccommodationDetailPage = lazyRouteComponent(() => import('../slices/accommodations/AccommodationDetail'))
 const PlansReservationPage = lazyRouteComponent(() => import('../pages/PlansReservationPage'))
+const GuiaAlojamientosCostaRicaPage = lazyRouteComponent(() => import('../pages/GuiaAlojamientosCostaRicaPage'))
 
 // Ruta raíz con layout
 const rootRoute = createRootRoute({
@@ -125,6 +126,12 @@ const reservarPlanRoute = createRoute({
   component: PlansReservationPage,
 })
 
+const guiaAlojamientosRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/blog/guia-alojamientos-costa-rica",
+  component: GuiaAlojamientosCostaRicaPage,
+})
+
 // Árbol de rutas
 const routeTree = rootRoute.addChildren([
   homeRoute,
@@ -138,7 +145,8 @@ const routeTree = rootRoute.addChildren([
   serviciosRoute,
   adminRoute,
   reservarServicioRoute,
-  reservarPlanRoute
+  reservarPlanRoute,
+  guiaAlojamientosRoute,
 ])
 
 // Configuración del router

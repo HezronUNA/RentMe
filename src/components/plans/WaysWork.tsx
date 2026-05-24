@@ -130,8 +130,8 @@ function ModalidadCard({ modalidad, numero }: ModalidadCardProps) {
             <ul className="space-y-6">
               {modalidad.serviciosIncluidosData.map((servicio: string, idx: number) => (
                 <li key={idx} className="flex items-center gap-4">
-                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-green-100">
-                    <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#52655B] flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </span>
@@ -148,8 +148,8 @@ function ModalidadCard({ modalidad, numero }: ModalidadCardProps) {
             <ul className="space-y-6">
               {modalidad.serviciosAdicionalesData.map((servicio: string, idx: number) => (
                 <li key={idx} className="flex items-center gap-4">
-                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-green-100">
-                    <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#52655B] flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </span>

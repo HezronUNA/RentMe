@@ -61,7 +61,7 @@ export default function TechnologySolutions() {
           {/* ── LEFT: imagen hero ── */}
           <div className="group relative min-h-[480px] overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-900 shadow-[0_24px_60px_rgba(47,58,53,0.12)] lg:min-h-[560px]">
             <img
-              src="https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_1280.jpg"
+              src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779665297/IMG_1154_vfhg0e.avif"
               alt="Desarrollo tecnológico"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
               loading="lazy"

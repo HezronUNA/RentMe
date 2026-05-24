@@ -312,7 +312,7 @@
 }
 
 .orbit-item {
-  animation: orbit-float var(--duration, 10s) ease-in-out var(--delay, 0s) infinite;
+  animation: orbit-float var(--duration, 10s) ease-in-out var(--delay, 0s) infinite backwards;
 }
 
 @supports (-webkit-touch-callout: none) {
