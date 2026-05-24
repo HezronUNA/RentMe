@@ -41,7 +41,7 @@ export default function WaysWork() {
 
   return (
     <section className="relative w-full overflow-hidden bg-white px-4 py-16">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
         <div className="absolute left-[-8rem] top-24 h-[28rem] w-[28rem] rounded-full bg-[#e7eee9]/55 blur-[95px]" />
         <div className="absolute right-[-10rem] bottom-[-7rem] h-[30rem] w-[30rem] rounded-full bg-[#f1e8dc]/60 blur-[105px]" />
       </div>

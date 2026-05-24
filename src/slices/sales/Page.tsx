@@ -29,7 +29,7 @@ export default function SalesPage() {
       
       {/* Content Section */}
       <div className="relative overflow-hidden bg-white">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
           <div className="absolute left-[-15rem] top-16 h-[42rem] w-[42rem] rounded-full bg-[#e7eee9]/75 blur-[110px]" />
           <div className="absolute right-[-14rem] bottom-[-10rem] h-[46rem] w-[46rem] rounded-full bg-[#f1e8dc]/80 blur-[120px]" />
           <div className="absolute left-[-8rem] bottom-[6rem] h-[24rem] w-[24rem] rounded-full bg-[#dbe9e2]/45 blur-[90px]" />

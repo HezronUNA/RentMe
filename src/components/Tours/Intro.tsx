@@ -4,7 +4,7 @@ export default function Intro() {
   return (
     <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24">
       <div className="absolute inset-0 bg-white" />
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute left-[-12rem] top-[-6rem] h-[28rem] w-[28rem] rounded-full bg-[#e7eee9]/35 blur-3xl" />
         <div className="absolute right-[-10rem] bottom-[2rem] h-[26rem] w-[26rem] rounded-full bg-[#f1e8dc]/40 blur-3xl" />
       </div>

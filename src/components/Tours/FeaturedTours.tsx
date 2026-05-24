@@ -1,8 +1,7 @@
 import { H2, P } from "@/components/ui/Typography";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function FeaturedTours() {
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const catalogUrl = "https://p.localbird.io/rentmecr-san-jose/discover";
@@ -71,46 +70,37 @@ export default function FeaturedTours() {
   ];
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        entries.forEach((entry, i) => {
           if (entry.isIntersecting) {
-            const element = entry.target as HTMLElement;
-            const index = Number(element.dataset.index);
-
-            if (Number.isNaN(index)) {
-              return;
-            }
-
-            setVisibleCards((prev) => {
-              if (prev[index]) {
-                return prev;
-              }
-
-              const next = [...prev];
-              next[index] = true;
-              return next;
-            });
-
-            observer.unobserve(element);
+            const el = entry.target as HTMLElement
+            if (el.classList.contains('is-visible')) return
+            const delay = isDesktop ? i * 80 : 0
+            setTimeout(() => {
+              el.classList.add('is-visible')
+              observer.unobserve(el)
+            }, delay)
           }
-        });
+        })
       },
-      { threshold: 0.15 },
-    );
+      { threshold: 0.08, rootMargin: '0px 0px 60px 0px' }
+    )
 
-    const current = containerRef.current;
-    if (current) {
-      Array.from(current.children).forEach((child) => observer.observe(child));
+    if (containerRef.current) {
+      const elements = containerRef.current.querySelectorAll<HTMLElement>('[data-reveal]')
+      elements.forEach(el => observer.observe(el))
     }
 
-    return () => observer.disconnect();
-  }, []);
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24">
       <div className="absolute inset-0 bg-white" />
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute left-[-7rem] top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/45 blur-3xl" />
         <div className="absolute right-[-10rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/52 blur-3xl" />
       </div>
@@ -132,12 +122,10 @@ export default function FeaturedTours() {
           {tours.map((tour, index) => (
             <article
               key={tour.id}
-              data-index={index}
+              data-reveal
               onClick={() => window.open(catalogUrl, "_blank")}
-              className={`group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 transform ${
-                visibleCards[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              } hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(82,101,91,0.14)]`}
-              style={{ transitionDelay: visibleCards[index] ? `${index * 90}ms` : "0ms" }}
+              className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_12px_30px_rgba(82,101,91,0.08)] transition-all duration-700 transform reveal-card hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(82,101,91,0.14)]"
+              style={{ transitionDelay: `${index * 80}ms` }}
             >
               <div className="relative h-36 overflow-hidden bg-gradient-to-br from-[#52655B]/10 to-[#52655B]/5 sm:h-40">
                 <img

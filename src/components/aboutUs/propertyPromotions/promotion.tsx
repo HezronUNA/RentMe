@@ -38,7 +38,7 @@ export function Promotions() {
     <>
       {/* Desktop Version */}
       <section className="hidden md:block relative overflow-hidden py-20 bg-white">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden hidden md:block">
           <div className="absolute left-[-10rem] top-20 h-[32rem] w-[32rem] rounded-full bg-[#e7eee9]/55 blur-[105px]" />
           <div className="absolute right-[-10rem] top-20 h-[32rem] w-[32rem] rounded-full bg-[#f1e8dc]/55 blur-[105px]" />
         </div>

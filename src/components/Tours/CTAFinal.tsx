@@ -1,34 +1,39 @@
 import { H2, P } from "@/components/ui/Typography";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function CTAFinal() {
-  const [isVisible, setIsVisible] = useState(false);
   const blockRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
+            const el = entry.target as HTMLElement
+            if (el.classList.contains('is-visible')) return
+            setTimeout(() => {
+              el.classList.add('is-visible')
+              observer.unobserve(el)
+            }, isDesktop ? 150 : 0)
           }
-        });
+        })
       },
-      { threshold: 0.15 },
-    );
+      { threshold: 0.08, rootMargin: '0px 0px 60px 0px' }
+    )
 
     if (blockRef.current) {
-      observer.observe(blockRef.current);
+      observer.observe(blockRef.current)
     }
 
-    return () => observer.disconnect();
-  }, []);
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24">
       <div className="absolute inset-0 bg-white" />
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute left-[-10rem] top-1/2 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/55 blur-3xl" />
         <div className="absolute right-[-8rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/65 blur-3xl" />
         <div className="absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#52655B]/10" />
@@ -38,9 +43,8 @@ export default function CTAFinal() {
       <div className="relative mx-auto max-w-5xl">
         <article
           ref={blockRef}
-          className={`relative overflow-hidden rounded-[2rem] border border-[#52655B]/20 bg-white/85 px-6 py-12 text-center shadow-[0_20px_50px_rgba(82,101,91,0.10)] backdrop-blur-sm transition-all duration-700 md:px-12 md:py-16 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          data-reveal
+          className="relative overflow-hidden rounded-[2rem] border border-[#52655B]/20 bg-white/85 px-6 py-12 text-center shadow-[0_20px_50px_rgba(82,101,91,0.10)] backdrop-blur-sm transition-all duration-700 reveal-block md:px-12 md:py-16"
         >
           <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#52655B]/8 to-transparent" />
 

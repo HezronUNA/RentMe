@@ -21,7 +21,7 @@ export default function Plan3() {
     <section className="relative w-full overflow-hidden px-4 py-16 md:px-8 md:py-24">
       <div className="absolute inset-0 bg-white" />
 
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute left-[-8rem] top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-[#e7eee9]/45 blur-3xl" />
         <div className="absolute right-[-10rem] top-1/2 h-[24rem] w-[24rem] -translate-y-1/2 rounded-full bg-[#f1e8dc]/52 blur-3xl" />
       </div>
