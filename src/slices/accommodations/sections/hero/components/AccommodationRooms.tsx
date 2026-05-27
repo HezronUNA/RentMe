@@ -13,8 +13,8 @@ export function AccommodationGuests({
 }: AccommodationGuestsProps) {
   if (variant === 'desktop') {
     return (
-      <div className="h-[56px] w-[220px] rounded-xl border border-zinc-300 bg-white/70 px-3 transition-colors hover:border-zinc-400 focus-within:border-[#52655B]/40 focus-within:ring-1 focus-within:ring-[#52655B]/10">
-        <label className="mb-1 block text-left text-[10px] font-semibold uppercase tracking-wide text-zinc-700">
+      <div className="h-[62px] w-[220px] shrink-0 rounded-2xl bg-white px-3 transition-colors hover:bg-[#f8faf8]">
+        <label className="mb-1 block text-left text-[10px] font-semibold uppercase tracking-[0.08em] text-zinc-500">
           Huéspedes
         </label>
 
@@ -22,7 +22,7 @@ export function AccommodationGuests({
           <button
             onClick={onDecrease}
             disabled={cuartos === 0}
-            className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border border-zinc-300 text-black transition-colors hover:border-zinc-400 hover:bg-zinc-100 hover:text-black disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-zinc-300 text-zinc-700 transition-colors hover:border-zinc-400 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-40"
             type="button"
             aria-label="Reducir huéspedes"
           >
@@ -31,13 +31,13 @@ export function AccommodationGuests({
             </svg>
           </button>
 
-          <span className="min-w-[90px] rounded-lg border border-zinc-300 bg-white px-2 py-1 text-center text-xs font-semibold text-black">
-            {cuartos === 0 ? 'Todos' : `${cuartos}+ huésp`}
+          <span className="min-w-[96px] rounded-lg border border-zinc-200 bg-zinc-50 px-2 py-1 text-center text-xs font-semibold text-zinc-800">
+            {cuartos === 0 ? 'Huéspedes' : `${cuartos} huésp.`}
           </span>
 
           <button
             onClick={onIncrease}
-            className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border border-zinc-300 text-black transition-colors hover:border-zinc-400 hover:bg-zinc-100 hover:text-black"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-zinc-300 text-zinc-700 transition-colors hover:border-zinc-400 hover:bg-zinc-100"
             type="button"
             aria-label="Aumentar huéspedes"
           >

@@ -37,25 +37,29 @@ export function AccommodationSearchBox({ variant, onSearchFilters }: Accommodati
   if (variant === 'desktop') {
     return (
       <div className="w-full bg-transparent">
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="flex w-full items-stretch justify-between">
-            <div className="flex shrink-0 items-stretch gap-4">
-              <div className="w-[360px] shrink-0">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="rounded-[22px] border border-black/10 bg-white px-2 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.09)]">
+            <div className="flex w-full items-center gap-2">
+              <div className="flex min-w-0 flex-1 items-stretch gap-2">
+                <div className="min-w-0 flex-[1.1]">
                 <AccommodationDestination
                   variant="desktop"
                   destino={destino}
                   onDestinoChange={setDestino}
                 />
               </div>
-              <AccommodationGuests
-                variant="desktop"
-                cuartos={huespedes}
-                onDecrease={decreaseHuespedes}
-                onIncrease={increaseHuespedes}
-              />
+              <div className="w-px bg-black/10" />
+              <div className="flex min-w-[220px] flex-[0.9] items-center justify-start pl-1">
+                <AccommodationGuests
+                  variant="desktop"
+                  cuartos={huespedes}
+                  onDecrease={decreaseHuespedes}
+                  onIncrease={increaseHuespedes}
+                />
+              </div>
             </div>
-
-            <AccommodationSearchButton variant="desktop" onClick={handleSearchClick} />
+              <AccommodationSearchButton variant="desktop" onClick={handleSearchClick} />
+            </div>
           </div>
         </div>
       </div>
