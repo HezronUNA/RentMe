@@ -27,13 +27,13 @@ export default function Categories() {
       id: 4,
       name: "Cultura & Ciudad",
       description: "City tour por San José, mercados, historia y arte urbano con guías locales.",
-      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206868/photo-1519501025264-65ba15a82390_bgvejo.avif"
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779900137/cesar-badilla-miranda-YsOw5A7uT8Q-unsplashCIUDAD_bgov6a.jpg"
     },
     {
       id: 5,
-      name: "Bienestar",
-      description: "Yoga, meditación y masajes a domicilio. Relájate sin salir de tu alojamiento.",
-      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206930/photo-1506126613408-eca07ce68773_romdej.avif"
+      name: "Transporte",
+      description: "Traslados privados, transporte al aeropuerto y servicios para viajar cómodamente por Costa Rica.",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779901438/istockphoto-2220113430-612x612TRANSPORTE_tseatq.jpg"
     }
   ];
 
