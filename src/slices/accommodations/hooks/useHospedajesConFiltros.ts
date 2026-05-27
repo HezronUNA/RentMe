@@ -52,7 +52,7 @@ export function useHospedajesConFiltros() {
 
   const tieneFiltrosActivos = useMemo(() => {
     return Object.values(filtrosActivos).some(valor => 
-      valor !== undefined && valor !== null && valor !== '' && 
+      valor !== undefined && valor !== null && valor !== '' && valor !== 0 &&
       (Array.isArray(valor) ? valor.length > 0 : true)
     )
   }, [filtrosActivos])

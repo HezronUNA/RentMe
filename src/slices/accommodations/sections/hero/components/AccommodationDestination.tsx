@@ -102,7 +102,7 @@ export function AccommodationDestination({
       </svg>
       <input
         type="text"
-        placeholder={isLoading ? 'Cargando...' : 'Destino'}
+        placeholder={isLoading ? 'Cargando...' : 'Selecciona una ubicación'}
         value={isOpen ? searchTerm : destino}
         onChange={(e) => {
           setSearchTerm(e.target.value);
@@ -112,7 +112,7 @@ export function AccommodationDestination({
           if (!isOpen && !isLoading) handleToggleDropdown(e);
         }}
         disabled={isLoading}
-        className="flex-1 min-w-0 text-gray-900 text-xs font-medium bg-transparent border-none outline-none placeholder:text-zinc-400 transition-colors"
+        className="flex-1 min-w-0 bg-transparent text-sm font-medium text-gray-900 placeholder:text-zinc-400 transition-colors border-none outline-none"
       />
       {!isLoading && (
         <button onClick={handleToggleDropdown} type="button" className="flex-shrink-0 p-1 hover:bg-zinc-200 rounded-full transition-colors cursor-pointer">
@@ -126,12 +126,14 @@ export function AccommodationDestination({
 
   if (variant === 'desktop') {
     return (
-      <div className="relative w-[360px] shrink-0" ref={dropdownRef}>
-        <div className="h-[56px] w-full rounded-xl border border-zinc-300 bg-white/70 px-3 transition-colors hover:border-zinc-400 focus-within:border-[#52655B]/40 focus-within:ring-1 focus-within:ring-[#52655B]/10">
-          <div className="mb-1 text-left text-[10px] font-semibold uppercase tracking-wide text-zinc-700">Ubicación</div>
+      <div className="relative w-full shrink-0" ref={dropdownRef}>
+        <div className="h-[62px] w-full rounded-2xl bg-white px-4 transition-colors hover:bg-[#f8faf8] focus-within:bg-[#f8faf8]">
+          <div className="mb-1 text-left text-[10px] font-semibold uppercase tracking-[0.08em] text-zinc-500">
+            Destino
+          </div>
           <div className="relative">
             <div className="w-full">
-              <div className="flex items-center gap-2 px-0 py-0">{triggerContent}</div>
+              <div className="flex items-center gap-2 px-0 py-0.5">{triggerContent}</div>
             </div>
             {isOpen && (
               <div className="absolute left-0 right-0 top-[calc(100%+10px)] z-[9999] overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xl">
