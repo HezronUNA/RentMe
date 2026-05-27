@@ -101,9 +101,9 @@ export default function AccomodationsDesktop({ hospedajes }: Props) {
                         <h3 className="text-sm font-semibold leading-5 text-[#2f3a35] transition-colors duration-500 group-hover:text-[#52655B] sm:text-base">
                           {h.ubicacion?.direccion || h.nombre || "Alojamiento"}
                         </h3>
-                        <div className="shrink-0 rounded-full border border-[#52655B]/10 bg-[#52655B]/5 px-2.5 py-1 text-xs font-semibold text-[#52655B]">
+                        {/* <div className="shrink-0 rounded-full border border-[#52655B]/10 bg-[#52655B]/5 px-2.5 py-1 text-xs font-semibold text-[#52655B]">
                           {h.precioNoche ? `₡${h.precioNoche?.toLocaleString?.('es-CR') ?? h.precioNoche}` : ''}
-                        </div>
+                        </div> */}
                       </div>
 
                       <P className="mx-auto mb-5 max-w-[92%] text-center text-xs leading-5 text-gray-600 transition-colors duration-500 group-hover:text-gray-700 sm:text-left">

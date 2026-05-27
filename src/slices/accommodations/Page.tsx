@@ -36,7 +36,7 @@ export default function AccommodationsPage() {
   return (
     <section>
       {/* Hero Section */}
-      <AccommodationsHero />
+      <AccommodationsHero onApplyFilters={handleApplyFilters} />
       
       {/* Content Section */}
       <div className="relative overflow-hidden bg-white">
