@@ -6,28 +6,28 @@ import { Link } from "@tanstack/react-router";
 const SMALL_SERVICES = [
   {
     icon: Home,
-    title: "Limpieza residencial",
-    desc: "Mantenimiento completo para alojamientos vacacionales",
-    tag: "Presupuesto basado en tamaño",
+    title: "Capacitación de personal",
+    desc: "Formación práctica con protocolos tipo hotel para equipos de limpieza",
+    tag: "Presencial o en línea",
   },
   {
     icon: Building2,
-    title: "Limpieza comercial",
-    desc: "Oficinas, locales y espacios corporativos",
-    tag: "Presupuesto",
+    title: "Estándares y lineamientos",
+    desc: "Documentación personalizada de procesos y checklists para tu operación",
+    tag: "Material incluido",
   },
   {
     icon: RefreshCw,
-    title: "Limpieza profunda",
-    desc: "Sanitización total con protocolos tipo hotel",
-    tag: "4-6 horas",
+    title: "Auditoría de calidad",
+    desc: "Evaluación del cumplimiento de estándares con retroalimentación detallada",
+    tag: "Informe de resultados",
   },
 ];
 
 const FEATURES = [
-  "Protocolos profesionales tipo hotel",
-  "Productos ecológicos certificados",
-  "Personal capacitado y con seguro",
+  "Protocolos documentados",
+  "Evaluaciones de desempeño",
+  "Lineamientos personalizados",
 ];
 
 export default function CleaningServiceHero() {
@@ -43,11 +43,14 @@ export default function CleaningServiceHero() {
         {/* Section header */}
         <div className="mb-8 md:mb-10">
           <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#52655B]/80">
-            Servicios de limpieza profesional
+            CAPACITACIÓN Y ESTÁNDARES DE CALIDAD
           </p>
-          <H2 className="max-w-xl text-[#2f3a35]">
-            Impecable, siempre
+          <H2 className="max-w-xl text-[#1f1a16]">
+            Profesionaliza tu equipo, eleva tus resultados
           </H2>
+          <p className="mt-4 max-w-2xl text-sm text-zinc-600">
+            Formamos a tu personal con los lineamientos y estándares que garantizan un servicio impecable, sin importar quién lo ejecute.
+          </p>
         </div>
 
         {/* Bento grid — asimétrico */}
@@ -68,18 +71,17 @@ export default function CleaningServiceHero() {
               {/* Badge */}
               <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/80 backdrop-blur-sm">
                 <Sparkles className="h-3 w-3" />
-                Limpieza profesional
+                Capacitación profesional
               </div>
 
               {/* Bottom content */}
               <div className="space-y-5">
                 <div className="space-y-3">
                   <h3 className="text-2xl font-semibold text-white md:text-3xl">
-                    Servicio de limpieza<br />de primera clase
+                    Estándares que marcan la diferencia
                   </h3>
                   <p className="max-w-md text-sm leading-6 text-white/80 md:text-base">
-                    Limpieza profesional con protocolos estrictos, productos de calidad
-                    y control visual. Tu propiedad lista para cada huésped.
+                    Capacitamos a tu equipo con protocolos, checklists y lineamientos de calidad tipo hotelero para que cada espacio cumpla con las expectativas del huésped.
                   </p>
                 </div>
 
@@ -97,8 +99,8 @@ export default function CleaningServiceHero() {
                   asChild
                   className="rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-[#2f3a35] hover:cursor-pointer hover:bg-white/90"
                 >
-                  <Link to="/reservar-servicio" search={{ servicio: "Limpieza profesional" }}>
-                    Solicitar servicio →
+                  <Link to="/reservar-servicio">
+                    Solicitar capacitación →
                   </Link>
                 </Button>
               </div>
