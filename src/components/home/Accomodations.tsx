@@ -21,10 +21,10 @@ export default function Accomodations() {
         {/* Header — siempre visible */}
         <div className="text-center space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#52655B]">
-            Alojamientos recomendados
+            Nuestras Propiedades Destacadas
           </p>
-          <H2 className="max-w-2xl mx-auto text-2xl md:text-4xl font-title uppercase">
-            Alojamientos Disponibles
+          <H2 className="max-w-2xl mx-auto text-2xl md:text-4xl font-title">
+            Alojamientos Destacados
           </H2>
           <p className="max-w-2xl mx-auto text-sm text-gray-600 md:text-base">
             Selección de hospedajes destacados para que encuentres tu próxima estadía con facilidad.
