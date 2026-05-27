@@ -187,10 +187,11 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
               <button
                 key={src + i}
                 onClick={() => goTo(i)}
-                className={`h-16 min-w-[80px] flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all scroll-snap-align-start
+                className={`h-16 w-20 overflow-hidden rounded-lg border-2 transition-all scroll-snap-align-start
                 ${i === index ? "border-blue-500" : "border-zinc-200"}`}
                 style={{
                   scrollSnapAlign: 'start',
+                  flexShrink: 0,
                 }}
               >
                 <img 
@@ -198,7 +199,8 @@ export default function AccommodationImageGallery({ images, alt = "Foto del hosp
                   alt={`${alt} miniatura ${i + 1}`} 
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-cover" 
+                  className="block h-full w-full object-cover" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   onError={handleImageError}
                 />
               </button>
