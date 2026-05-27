@@ -161,15 +161,17 @@ export default function PropertyImageGallery({ images, alt = "Foto de la propied
               <button
                 key={src + i}
                 onClick={() => goTo(i)}
-                className={`h-16 min-w-20 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all
+                className={`h-16 w-20 overflow-hidden rounded-lg border-2 transition-all
                 ${i === index ? "border-blue-500" : "border-zinc-200"}`}
+                style={{ flexShrink: 0 }}
               >
                 <img 
                   src={src} 
                   alt={`${alt} miniatura ${i + 1}`} 
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-cover" 
+                  className="block h-full w-full object-cover" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   onError={handleImageError}
                 />
               </button>
