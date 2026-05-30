@@ -24,7 +24,7 @@ function ToursHero() {
       name: "Tour Volcán Poás",
       description: "Visita uno de los cráteres más accesibles. Ideal para familias.",
       price: "$98",
-      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/f_auto,q_auto,w_auto/v1778953246/photo-1470770841072-f978cf4d019e_jocfay.avif",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779206667/Qk_dzY9sqs-800_ci8avq.avif",
     },
     {
       id: 3,
@@ -32,7 +32,7 @@ function ToursHero() {
       name: "Canopy Zipline",
       description: "Adrenalina entre los árboles. Guías expertos.",
       price: "$48",
-      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/f_auto,q_auto,w_auto/v1778953071/photo-1500530855697-b586d89ba3ee_vugivk.avif",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779904978/image_rzppju.jpg",
     },
     {
       id: 2,
@@ -48,7 +48,7 @@ function ToursHero() {
       name: "Tram Aéreo",
       description: "Sobrevuela el dosel del bosque tropical en un tram panorámico.",
       price: "$159",
-      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/f_auto,q_auto,w_auto/v1778952981/photo-1448375240586-882707db888b_kjg0kx.avif",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779900616/angela-erick-cWHAW_tjk7Q-unsplashNATURE_shrkq5.jpg",
     },
     {
       id: 5,
@@ -56,7 +56,7 @@ function ToursHero() {
       name: "San José Walking Tour",
       description: "Explora los mercados tradicionales, murales y la escena cafetera.",
       price: "$45",
-      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/f_auto,q_auto,w_auto/v1778952883/photo-1519501025264-65ba15a82390_p4wx86.avif",
+      image: "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779900137/cesar-badilla-miranda-YsOw5A7uT8Q-unsplashCIUDAD_bgov6a.jpg",
     },
   ];
 

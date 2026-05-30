@@ -1,5 +1,4 @@
 import { DestinationSection } from './DestinationSection';
-import { PriceSection } from './PriceSection';
 import { BedroomsSection } from './BedroomsSection';
 import { SearchButton } from './SearchButton';
 import { useSearchBox } from '../../../hooks/useSearchBox';
@@ -12,12 +11,8 @@ interface SearchBoxProps {
 
 export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
   const [
-    { price, precioMax, ubicacion, habitaciones },
+    { ubicacion, habitaciones },
     { 
-      handlePriceChange, 
-      handlePriceBlur,
-      handlePriceMaxChange,
-      handlePriceMaxBlur,
       handleUbicacionChange,
       handleHabitacionesChange,
       getFiltrosActuales
@@ -37,33 +32,29 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
   if (variant === 'desktop') {
     return (
       <div className="w-full bg-transparent">
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="flex w-full items-stretch justify-between">
-            <div className="flex shrink-0 items-stretch gap-4">
-              <div className="w-[360px] shrink-0">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="rounded-[22px] border border-black/10 bg-white px-2 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.09)]">
+            <div className="flex w-full items-center gap-2">
+              <div className="flex min-w-0 flex-1 items-stretch gap-2">
+                <div className="min-w-0 flex-[1.1]">
                 <DestinationSection
                   variant="desktop"
                   ubicacion={ubicacion}
                   onUbicacionChange={handleUbicacionChange}
                 />
               </div>
-              <BedroomsSection
-                variant="desktop"
-                habitaciones={habitaciones}
-                onHabitacionesChange={handleHabitacionesChange}
-              />
-              <PriceSection
-                variant="desktop"
-                price={price}
-                precioMax={precioMax}
-                onPriceChange={handlePriceChange}
-                onPriceBlur={handlePriceBlur}
-                onPriceMaxChange={handlePriceMaxChange}
-                onPriceMaxBlur={handlePriceMaxBlur}
-              />
+                <div className="w-px bg-black/10" />
+                <div className="flex min-w-[220px] flex-[0.9] items-center justify-start pl-1">
+                  <BedroomsSection
+                    variant="desktop"
+                    habitaciones={habitaciones}
+                    onHabitacionesChange={handleHabitacionesChange}
+                  />
+                </div>
             </div>
 
             <SearchButton variant="desktop" onClick={handleSearchClick} />
+            </div>
           </div>
         </div>
       </div>
@@ -79,16 +70,12 @@ export function SearchBox({ variant, onSearchFilters }: SearchBoxProps) {
           ubicacion={ubicacion}
           onUbicacionChange={handleUbicacionChange}
         />
-        <PriceSection
+        <BedroomsSection
           variant="mobile"
-          price={price}
-          precioMax={precioMax}
-          onPriceChange={handlePriceChange}
-          onPriceBlur={handlePriceBlur}
-          onPriceMaxChange={handlePriceMaxChange}
-          onPriceMaxBlur={handlePriceMaxBlur}
+          habitaciones={habitaciones}
+          onHabitacionesChange={handleHabitacionesChange}
         />
-        <div className="p-3.5">
+        <div className="p-4">
           <SearchButton variant="mobile" onClick={handleSearchClick} />
         </div>
       </div>

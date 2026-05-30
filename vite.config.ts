@@ -1,13 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
-import  sitemap  from 'vite-plugin-sitemap'
 import path from 'path'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), sitemap({
-    hostname: 'https://www.dmrrentalscr.com/',
-  })],
+  plugins: [react(), tailwindcss(), ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

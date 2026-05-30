@@ -15,7 +15,7 @@ export default function FeaturedTours() {
         "Visita uno de los cráteres más accesibles del mundo. Ideal para familias, con guía incluido y transporte desde San José.",
       price: "$98",
       image:
-        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953246/photo-1470770841072-f978cf4d019e_jocfay.avif",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779898924/manfred-madrigal-IHvgTT3b1_o-unsplash_VolcanPoas_cphc7s.jpg",
     },
     {
       id: 2,
@@ -35,7 +35,7 @@ export default function FeaturedTours() {
         "Adrenalina entre los árboles a pocos minutos de la ciudad. Equipo de seguridad incluido y guías expertos en cada línea.",
       price: "$48",
       image:
-        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953071/photo-1500530855697-b586d89ba3ee_vugivk.avif",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779904978/image_rzppju.jpg",
     },
     {
       id: 4,
@@ -45,7 +45,7 @@ export default function FeaturedTours() {
         "Sobrevuela el dosel del bosque tropical en un tram panorámico. Fauna, flora y vistas impresionantes del ecosistema.",
       price: "$159",
       image:
-        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778952981/photo-1448375240586-882707db888b_kjg0kx.avif",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779900616/angela-erick-cWHAW_tjk7Q-unsplashNATURE_shrkq5.jpg",
     },
     {
       id: 5,
@@ -55,7 +55,7 @@ export default function FeaturedTours() {
         "Explora los mercados tradicionales, murales y la escena cafetera local a pie. Historia viva en cada esquina de la capital.",
       price: "$45",
       image:
-        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778952883/photo-1519501025264-65ba15a82390_p4wx86.avif",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779900137/cesar-badilla-miranda-YsOw5A7uT8Q-unsplashCIUDAD_bgov6a.jpg",
     },
     {
       id: 6,
@@ -65,7 +65,7 @@ export default function FeaturedTours() {
         "Rápidos emocionantes en uno de los ríos más bellos de Costa Rica. Perfecto para grupos y amantes de los deportes acuáticos.",
       price: "$128",
       image:
-        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1778953287/photo-1508804185872-d7badad00f7d_gyaadn.avif",
+        "https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779901527/outward-bound-costa-rica-Huuf2q9_2cA-unsplashRAITING_1_r5xf3w.jpg",
     },
   ];
 
