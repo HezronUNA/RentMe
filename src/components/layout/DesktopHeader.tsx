@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router"
+import { useRef, useState, useEffect } from "react"
 import type { UseNavbar } from "@/hooks/useNavbar"
 import { Small } from "@/components/ui/Typography"
+import { Building2, HandCoins, Camera, Sparkles, Briefcase, ArrowRight, LayoutGrid } from "lucide-react"
 
 type Props = {
   nav: UseNavbar
@@ -39,15 +41,26 @@ function serviciosLinkClass(nav: UseNavbar, scrolled: boolean) {
   )
 }
 
-
-
 export default function DesktopHeader({ nav, scrolled }: Props) {
   const transparent = isTransparent(nav, scrolled)
+
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
 
   const navigate = useNavigate()
   const handleCTA = () => {
     navigate({ to: "/alojamientos" })
-    }
+  }
 
   const pillBg = transparent
     ? "bg-white/05 backdrop-blur-xl"
@@ -93,77 +106,98 @@ export default function DesktopHeader({ nav, scrolled }: Props) {
                 <Small className="uppercase tracking-wide whitespace-nowrap text-xs">SOBRE NOSOTROS</Small>
               </Link>
 
-              {/* SERVICIOS DROPDOWN */}
-              <div className="relative group py-1">
-                <Link
-                  to="/servicios"
-                  className={serviciosLinkClass(nav, scrolled)}
+              {/* SERVICIOS DROPDOWN (estructura basada en ejemplo proporcionado, colores originales preservados) */}
+              <div className="relative py-1" ref={dropdownRef}>
+                {/* Trigger */}
+                <button
+                  onClick={() => setDropdownOpen((v) => !v)}
+                  aria-expanded={dropdownOpen}
+                  aria-haspopup="menu"
+                  className={serviciosLinkClass(nav, scrolled) + (dropdownOpen ? (transparent ? " !text-white !bg-white/15" : " !text-[#2f3a35] !bg-[#52655B]/10") : "")}
                 >
-                  <Small className="uppercase tracking-wide whitespace-nowrap text-xs">SERVICIOS</Small>
-                </Link>
+                  <Small className="uppercase tracking-wide whitespace-nowrap text-xs flex items-center gap-1">
+                    SERVICIOS
+                    <svg
+                      className={`w-3 h-3 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
+                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </Small>
+                </button>
 
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-0 w-72 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 pt-1">
-                  <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div className="px-4 pb-4 pt-2.5 space-y-0.5">
-                      <a
-                        href="/servicios#gestion-alojamientos"
-                        className="group/item flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#52655B]/10 transition-all duration-300"
-                      >
-                        <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-[#52655B] to-[#52655B]/80 flex items-center justify-center text-white transition-transform duration-300 group-hover/item:scale-110">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                          </svg>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-xs font-medium text-[#52655B] transition-colors duration-300 group-hover/item:text-[#2f3a35]">Administración</p>
-                          <p className="text-[10px] text-[#52655B]/60">de propiedades</p>
-                        </div>
-                      </a>
+                {/* Content (mimicking DropdownMenuContent) */}
+                <div
+                  role="menu"
+                  className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] z-50 origin-top transition-all duration-300 ease-out ${
+                    dropdownOpen
+                      ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+                      : "opacity-0 -translate-y-2 scale-[0.98] pointer-events-none"
+                  }`}
+                >
+                  {/* (Label removed as requested) */}
 
-                      <a
-                        href="/servicios#venta-propiedades"
-                        className="group/item flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#52655B]/10 transition-all duration-300"
-                      >
-                        <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-[#52655B] to-[#52655B]/80 flex items-center justify-center text-white transition-transform duration-300 group-hover/item:scale-110">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12a9 9 0 0118 0v.75c0 1.657 1.344 3 3 3H21a.75.75 0 00.75-.75V12a9 9 0 00-9-9h-.75a3 3 0 00-3 3v.75a3 3 0 00-3-3H3a9 9 0 000 18h.75a3 3 0 003-3v-.75a9.066 9.066 0 00-3-6.75z" />
-                          </svg>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-xs font-medium text-[#52655B] transition-colors duration-300 group-hover/item:text-[#2f3a35]">Venta</p>
-                          <p className="text-[10px] text-[#52655B]/60">de propiedades</p>
-                        </div>
-                      </a>
+                  {/* Panel body */}
+                  <div className={`rounded-[20px] mt-2 p-0.5 bg-white ring-1 ring-[#52655B]/10 border border-[#e9efe9] shadow-[0_18px_36px_rgba(82,101,91,0.07)] backdrop-blur-sm overflow-hidden`}>
+                    {/* Header */}
+                    <div className="flex items-center gap-3 px-4 py-3 bg-[#f3f2ee] border-b border-[#52655B]/08">
+                      <div className="bg-[#52655B] rounded-[9px] w-7 h-7 flex items-center justify-center shrink-0">
+                        <Briefcase size={15} color="#c8d9d0" />
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-[#52655B]">Nuestros servicios</p>
+                        <p className="text-[11px] text-[#8a9e95]">Soluciones para propietarios</p>
+                      </div>
+                    </div>
 
-                      <a
-                        href="/servicios#fotografia-video"
-                        className="group/item flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#52655B]/10 transition-all duration-300"
-                      >
-                        <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-[#52655B] to-[#52655B]/80 flex items-center justify-center text-white transition-transform duration-300 group-hover/item:scale-110">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                          </svg>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-xs font-medium text-[#52655B] transition-colors duration-300 group-hover/item:text-[#2f3a35]">Fotografía</p>
-                          <p className="text-[10px] text-[#52655B]/60">y Video</p>
-                        </div>
-                      </a>
+                    {/* Items */}
+                    <div className="flex flex-col divide-y divide-[#e6efe6]">
+                      {[
+                        { label: "Administración", sub: "de propiedades", href: "/servicios#gestion-alojamientos", icon: Building2 },
+                        { label: "Venta", sub: "de propiedades", href: "/servicios#venta-propiedades", icon: HandCoins },
+                        { label: "Fotografía", sub: "y Video", href: "/servicios#fotografia-video", icon: Camera },
+                        { label: "Limpieza", sub: "profesional", href: "/servicios#limpieza-profesional", icon: Sparkles },
+                      ].map((item, index) => {
+                        const IconComp = item.icon
+                        return (
+                          <Link
+                            key={item.href}
+                            to={item.href}
+                            onClick={() => setDropdownOpen(false)}
+                            role="menuitem"
+                            tabIndex={0}
+                            style={{ transitionDelay: dropdownOpen ? `${index * 45}ms` : "0ms" }}
+                            className="group/item w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md border border-transparent transition-all duration-200 ease-out hover:bg-[#52655B]/5 hover:border-[#52655B]/10"
+                          >
+                            <div className="w-[34px] h-[34px] rounded-[10px] bg-[#52655B]/08 flex items-center justify-center shrink-0 transition-colors duration-150 group-hover/item:bg-[#52655B]/15">
+                              <IconComp size={17} color="#52655B" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-semibold text-[#52655B]">{item.label}</p>
+                              <p className="text-xs text-[#52655B]/60 mt-0.5">{item.sub}</p>
+                            </div>
+                            <ArrowRight size={14} color="#8a9e95" className="opacity-0 transition-all duration-150 group-hover/item:opacity-100 group-hover/item:translate-x-[2px]" />
+                          </Link>
+                        )
+                      })}
+                    </div>
 
-                      <a
-                        href="/servicios#limpieza-profesional"
-                        className="group/item flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#52655B]/10 transition-all duration-300"
+                    {/* Divider */}
+                    <div className="h-px bg-[#52655B]/09 mx-3 my-0.5" />
+
+                    {/* Footer */}
+                    <div className="mx-1.5 mb-1.5">
+                      <Link
+                        to="/servicios"
+                        onClick={() => setDropdownOpen(false)}
+                        className="flex items-center justify-between w-full rounded-xl border border-[#52655B]/13 bg-[#52655B]/04 px-3.5 py-2.5 transition-colors duration-150 hover:bg-[#52655B]/09"
                       >
-                        <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-[#52655B] to-[#52655B]/80 flex items-center justify-center text-white transition-transform duration-300 group-hover/item:scale-110">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                          </svg>
+                        <div className="flex items-center gap-2">
+                          <LayoutGrid size={15} color="#52655B" />
+                          <span className="text-[11px] font-medium text-[#52655B] tracking-wide">Ver todos los servicios</span>
                         </div>
-                        <div className="flex-1">
-                          <p className="text-xs font-medium text-[#52655B] transition-colors duration-300 group-hover/item:text-[#2f3a35]">Limpieza</p>
-                          <p className="text-[10px] text-[#52655B]/60">profesional</p>
-                        </div>
-                      </a>
+                        <ArrowRight size={13} color="#a0b5a8" />
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -194,5 +228,3 @@ export default function DesktopHeader({ nav, scrolled }: Props) {
     </div>
   )
 }
-
-
