@@ -119,6 +119,37 @@
   }
 }
 
+@media (hover: hover) and (pointer: fine) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #60776b #eef3ef;
+  }
+
+  html::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: linear-gradient(180deg, #f3f7f4 0%, #e9f0eb 100%);
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #7f988d 0%, #60776b 100%);
+    border: 2px solid #eef3ef;
+    border-radius: 9999px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #6d867a 0%, #4f665b 100%);
+  }
+
+  html::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(180deg, #5d756a 0%, #44594f 100%);
+  }
+}
+
 /* Agregar al archivo src/app/styles.css */
 
 /* Embla Carousel Styles */
@@ -178,6 +209,28 @@
 }
 
 .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Remove number input up/down arrows (spinners) across browsers */
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Also remove arrows on inputs that may show clear/decoration in some browsers */
+input::-webkit-clear-button,
+input::-webkit-search-cancel-button,
+input::-webkit-search-decoration {
   display: none;
 }
 
