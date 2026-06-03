@@ -1,4 +1,3 @@
-import { useParams } from "@tanstack/react-router"
 import { ContactForm } from "./components/ContactForm"
 import PropertyImageGallery from "./components/PropertyImageGallery"
 import { PropertyLocationMap } from "./components/PropertyLocationMap"
@@ -7,8 +6,7 @@ import { Toaster } from "@/components/ui/Sonner"
 import { SalesNavBar } from "./components/SalesNavBar"
 
 const SaleDetail = () => {
-  const params = useParams({ from: "/ventas/$ventaId" });
-  const propertyId = params.ventaId;
+  const propertyId = window.location.pathname.split("/").filter(Boolean).at(-1) ?? "";
 
   const { propiedad, loading, error } = usePropiedadById(propertyId);
 

@@ -1,6 +1,6 @@
 export default function TermsAndConditionsPage() {
   return (
-    <main className="px-4 py-10 md:px-6 md:py-14">
+    <main className="px-4 pt-24 pb-10 md:px-6 md:pt-28 md:pb-14">
       <article className="mx-auto flex w-full max-w-4xl flex-col gap-8 text-left">
         <header className="flex flex-col gap-4">
           <h1 className="text-3xl font-bold tracking-tight text-zinc-900 md:text-4xl">

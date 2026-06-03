@@ -2,7 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router"
 import { useRef, useState, useEffect } from "react"
 import type { UseNavbar } from "@/hooks/useNavbar"
 import { Small } from "@/components/ui/Typography"
-import { Building2, HandCoins, Camera, Sparkles, Briefcase, ArrowRight, LayoutGrid } from "lucide-react"
+import { Building2, Camera, Sparkles, Briefcase, ArrowRight, LayoutGrid } from "lucide-react"
 
 type Props = {
   nav: UseNavbar
@@ -94,10 +94,6 @@ export default function DesktopHeader({ nav, scrolled }: Props) {
                 <Small className="uppercase tracking-wide whitespace-nowrap text-xs">TOURS</Small>
               </Link>
 
-              <Link to="/ventas" className={linkClass(nav, scrolled, "/ventas")}>
-                <Small className="uppercase tracking-wide whitespace-nowrap text-xs">VENTAS</Small>
-              </Link>
-
               <Link to="/alojamientos" className={linkClass(nav, scrolled, "/alojamientos")}>
                 <Small className="uppercase tracking-wide whitespace-nowrap text-xs">ALOJAMIENTOS</Small>
               </Link>
@@ -154,7 +150,6 @@ export default function DesktopHeader({ nav, scrolled }: Props) {
                     <div className="flex flex-col divide-y divide-[#e6efe6]">
                       {[
                         { label: "Administración", sub: "de propiedades", href: "/servicios#gestion-alojamientos", icon: Building2 },
-                        { label: "Venta", sub: "de propiedades", href: "/servicios#venta-propiedades", icon: HandCoins },
                         { label: "Fotografía", sub: "y Video", href: "/servicios#fotografia-video", icon: Camera },
                         { label: "Limpieza", sub: "profesional", href: "/servicios#limpieza-profesional", icon: Sparkles },
                       ].map((item, index) => {
