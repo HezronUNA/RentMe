@@ -1,5 +1,5 @@
 
-import type { MouseEvent } from 'react'
+import { useState, type MouseEvent } from 'react'
 import type { HospedajeFrontend } from "../model/accomodationType"
 import { useNavigate } from "@tanstack/react-router"
 import { Bed, Home } from 'lucide-react'
@@ -14,6 +14,7 @@ interface AccommodationCardProps {
 export function AccommodationCard({ accommodation, onAccommodationClick }: AccommodationCardProps) {
 
   const navigate = useNavigate()
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   const truncate = (text?: string, max = 120) => {
     if (!text) return ""
@@ -49,17 +50,21 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
       onClick={handleClick}
     >
       {/* Imagen */}
-      <div className="relative h-40 overflow-hidden bg-gradient-to-br from-[#52655B]/10 to-[#52655B]/5 sm:h-44">
+      <div className="relative h-40 overflow-hidden bg-[linear-gradient(135deg,rgba(82,101,91,0.18)_0%,rgba(82,101,91,0.06)_48%,rgba(27,51,40,0.16)_100%)] sm:h-44">
+        <div className="absolute inset-0 animate-pulse bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.35),transparent_45%)] opacity-70" />
         <img
           src={img}
           alt={accommodation.nombre}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          onLoad={() => setImageLoaded(true)}
+          className={`relative z-10 h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-110 ${
+            imageLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-md scale-[1.03]'
+          }`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2f3a35]/65 via-[#2f3a35]/15 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#2f3a35]/70 via-[#2f3a35]/18 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
 
-        <div className="absolute left-4 top-4 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white backdrop-blur-sm sm:text-[11px]">
+        <div className="absolute left-4 top-4 z-30 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white backdrop-blur-sm sm:text-[11px]">
           {truncateWords(accommodation.ubicacion)}
         </div>
       </div>
@@ -90,7 +95,7 @@ export function AccommodationCard({ accommodation, onAccommodationClick }: Accom
               {accommodation.cuartos} Hab.
             </span>
             <span className="flex-shrink-0 rounded-full border border-[#52655B]/10 bg-[#52655B]/5 px-2 py-0.5 sm:px-3 sm:py-1 inline-flex items-center gap-1.5 text-[11px] sm:text-[13px]">
-              <span className="h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full border border-[#52655B] text-[10px] leading-3 text-center text-[#52655B]">H</span>
+              <span className="h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full border border-[#52655B] text-[10px] leading-3 text-center text-[#52655B]">B</span>
               {accommodation.banos} Baños
             </span>
           </div>

@@ -23,18 +23,27 @@ const AccommodationDetail = () => {
 
   if (isLoading) {
     return (
-      <section className="w-full py-12">
+      <section className="w-full min-h-screen bg-[#f4f7f5] py-12">
         <div className="px-4 md:px-8 lg:px-16">
           <div className="w-full max-w-7xl mx-auto">
-            <div className="animate-pulse">
-              <div className="bg-gray-300 h-96 rounded-xl mb-8"></div>
+            <div className="animate-pulse space-y-8">
+              <div className="relative h-96 overflow-hidden rounded-2xl bg-[linear-gradient(135deg,rgba(82,101,91,0.18)_0%,rgba(82,101,91,0.06)_48%,rgba(27,51,40,0.14)_100%)] shadow-[0_18px_40px_rgba(82,101,91,0.10)]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.38),transparent_42%)]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/20" />
+              </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <div className="h-6 bg-gray-300 rounded"></div>
-                  <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                  <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                <div className="space-y-4 rounded-2xl bg-white/80 p-5 shadow-[0_12px_30px_rgba(82,101,91,0.06)] backdrop-blur-sm">
+                  <div className="h-6 rounded-full bg-[linear-gradient(90deg,rgba(82,101,91,0.18),rgba(82,101,91,0.08),rgba(82,101,91,0.18))]" />
+                  <div className="h-4 w-3/4 rounded-full bg-[linear-gradient(90deg,rgba(82,101,91,0.14),rgba(82,101,91,0.06),rgba(82,101,91,0.14))]" />
+                  <div className="h-4 w-1/2 rounded-full bg-[linear-gradient(90deg,rgba(82,101,91,0.14),rgba(82,101,91,0.06),rgba(82,101,91,0.14))]" />
+                  <div className="mt-6 grid grid-cols-2 gap-3">
+                    <div className="h-20 rounded-xl bg-[linear-gradient(90deg,rgba(82,101,91,0.12),rgba(82,101,91,0.05),rgba(82,101,91,0.12))]" />
+                    <div className="h-20 rounded-xl bg-[linear-gradient(90deg,rgba(82,101,91,0.12),rgba(82,101,91,0.05),rgba(82,101,91,0.12))]" />
+                    <div className="h-20 rounded-xl bg-[linear-gradient(90deg,rgba(82,101,91,0.12),rgba(82,101,91,0.05),rgba(82,101,91,0.12))]" />
+                    <div className="h-20 rounded-xl bg-[linear-gradient(90deg,rgba(82,101,91,0.12),rgba(82,101,91,0.05),rgba(82,101,91,0.12))]" />
+                  </div>
                 </div>
-                <div className="h-64 bg-gray-300 rounded"></div>
+                <div className="h-64 rounded-2xl bg-[linear-gradient(135deg,rgba(82,101,91,0.16)_0%,rgba(82,101,91,0.06)_48%,rgba(27,51,40,0.12)_100%)] shadow-[0_12px_30px_rgba(82,101,91,0.08)]" />
               </div>
             </div>
           </div>
