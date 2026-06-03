@@ -1,8 +1,11 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { H1 } from '@/components/ui/Typography'
 
 function Hero() {
+  const [leftImageLoaded, setLeftImageLoaded] = useState(false)
+  const [rightImageLoaded, setRightImageLoaded] = useState(false)
+
   const leftHero = {
     badge: 'Para huéspedes',
     titulo1: 'Estancias',
@@ -39,8 +42,20 @@ function Hero() {
       {/* ════════════════ MOBILE ════════════════ */}
       <div className="md:hidden">
         {/* Panel Huéspedes */}
-        <div className="relative h-[34vh] min-h-[200px] overflow-hidden">
-          <img src={leftHero.imagen} alt={leftHero.badge} loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="relative h-[34vh] min-h-[200px] overflow-hidden bg-[#4f665b]">
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,#6f857a_0%,#52655b_44%,#2f3a35_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_40%)]" />
+          <img
+            src={leftHero.imagen}
+            alt={leftHero.badge}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            onLoad={() => setLeftImageLoaded(true)}
+            className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out ${
+              leftImageLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-lg scale-[1.03]'
+            }`}
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
           <div className="relative flex h-full flex-col px-4 py-3">
           {/* <div className={badgeClass}>{leftHero.badge}</div>*/}
@@ -59,8 +74,20 @@ function Hero() {
         </div>
 
         {/* Panel Propietarios */}
-        <div className="relative h-[34vh] min-h-[200px] overflow-hidden">
-          <img src={rightHero.imagen} alt={rightHero.badge} loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="relative h-[34vh] min-h-[200px] overflow-hidden bg-[#4f665b]">
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,#6f857a_0%,#52655b_44%,#2f3a35_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_40%)]" />
+          <img
+            src={rightHero.imagen}
+            alt={rightHero.badge}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            onLoad={() => setRightImageLoaded(true)}
+            className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out ${
+              rightImageLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-lg scale-[1.03]'
+            }`}
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-[#2f3a35]/60 via-[#2f3a35]/30 to-[#2f3a35]/80" />
           <div className="relative flex h-full flex-col px-4 py-3">
             <div className="flex justify-end">
@@ -86,12 +113,36 @@ function Hero() {
       <div className="relative hidden h-[70vh] overflow-hidden md:block lg:h-[680px]">
 
         <div className="absolute inset-0 grid grid-cols-2">
-          <div className="relative overflow-hidden group">
-            <img src={leftHero.imagen} alt={leftHero.badge} loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+          <div className="relative overflow-hidden group bg-[#4f665b]">
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,#6f857a_0%,#52655b_44%,#2f3a35_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_40%)]" />
+            <img
+              src={leftHero.imagen}
+              alt={leftHero.badge}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              onLoad={() => setLeftImageLoaded(true)}
+              className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
+                leftImageLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-lg scale-[1.03]'
+              }`}
+            />
             <div className="absolute inset-0 bg-gradient-to-r from-[#2f3a35]/85 via-[#2f3a35]/45 to-transparent" />
           </div>
-          <div className="relative overflow-hidden group">
-            <img src={rightHero.imagen} alt={rightHero.badge} loading="eager" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+          <div className="relative overflow-hidden group bg-[#4f665b]">
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,#6f857a_0%,#52655b_44%,#2f3a35_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_40%)]" />
+            <img
+              src={rightHero.imagen}
+              alt={rightHero.badge}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              onLoad={() => setRightImageLoaded(true)}
+              className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
+                rightImageLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-lg scale-[1.03]'
+              }`}
+            />
             <div className="absolute inset-0 bg-gradient-to-l from-[#2f3a35]/85 via-[#2f3a35]/45 to-transparent" />
           </div>
         </div>
