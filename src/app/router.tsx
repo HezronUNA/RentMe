@@ -17,10 +17,8 @@ const TermsAndConditionsPage = lazyRouteComponent(() => import('../pages/TermsAn
 const ToursPage = lazyRouteComponent(() => import('../pages/ToursPage'))
 const AdminPage = lazyRouteComponent(() => import('../pages/AdminPage'))
 const AccommodationsPage = lazyRouteComponent(() => import('../slices/accommodations/Page'))
-const SalesPage = lazyRouteComponent(() => import('../slices/sales/Page'))
 const ServicesPage = lazyRouteComponent(() => import('../pages/ServicesPage'))
 const ServiceReservationPage = lazyRouteComponent(() => import('../pages/ServiceReservationPage'))
-const SaleDetailPage = lazyRouteComponent(() => import('../slices/sales/SaleDetail'))
 const AccommodationDetailPage = lazyRouteComponent(() => import('../slices/accommodations/AccommodationDetail'))
 const PlansReservationPage = lazyRouteComponent(() => import('../pages/PlansReservationPage'))
 const GuiaAlojamientosCostaRicaPage = lazyRouteComponent(() => import('../pages/GuiaAlojamientosCostaRicaPage'))
@@ -84,18 +82,6 @@ const alojamientoDetailRoute = createRoute({
   component: AccommodationDetailPage
 })
 
-const ventasRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/ventas",
-  component: SalesPage,
-})
-
-const ventaDetailRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/ventas/$ventaId",
-  component: SaleDetailPage
-})
-
 const serviciosRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/servicios",
@@ -140,8 +126,6 @@ const routeTree = rootRoute.addChildren([
   toursRoute,
   alojamientosRoute,
   alojamientoDetailRoute,
-  ventasRoute,
-  ventaDetailRoute,
   serviciosRoute,
   adminRoute,
   reservarServicioRoute,

@@ -5,8 +5,9 @@ import { H2 } from "../ui/Typography";
 
 const WHATSAPP_PHONE = "50683888231";
 const FOLLOW_PLATFORMS = ["instagram", "facebook", "tiktok"];
+type SocialEntry = (typeof SOCIAL_CONFIG)[number];
 
-function hrefFromEntry(entry: any) {
+function hrefFromEntry(entry: SocialEntry) {
   return entry.platform === "whatsapp"
     ? buildWhatsAppHref(entry.phone || "", entry.message)
     : entry.url || "#";
@@ -68,7 +69,7 @@ export default function Footer() {
               </H2>
 
               <p className="text-white/95 text-sm sm:text-lg font-normal leading-snug max-w-md">
-                Tu aliado confiable en la compra, venta y gestión de propiedades en
+                Tu aliado confiable en la gestión de propiedades en
                 Costa Rica.
               </p>
 
@@ -117,6 +118,16 @@ export default function Footer() {
                   </h4>
                   <ul className="space-y-2 text-sm">
                     <li>
+                      <Link to="/tours" className="text-white/60 hover:text-white transition-colors duration-200">
+                        Tours
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/nosotros" className="text-white/60 hover:text-white transition-colors duration-200">
+                        Sobre nosotros
+                      </Link>
+                    </li>
+                    <li>
                       <Link to="/" className="text-white/60 hover:text-white transition-colors duration-200">
                         Inicio
                       </Link>
@@ -132,8 +143,8 @@ export default function Footer() {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/ventas" className="text-white/60 hover:text-white transition-colors duration-200">
-                        Ventas
+                      <Link to="/administracion" className="text-white/60 hover:text-white transition-colors duration-200">
+                        Administración
                       </Link>
                     </li>
                   </ul>
