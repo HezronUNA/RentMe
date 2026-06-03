@@ -1,22 +1,31 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { H1 } from "@/components/ui/Typography";
 
 export default function Hero() {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const navigateToTours = () => {
     window.open("https://p.localbird.io/rentmecr-san-jose/discover", "_blank");
   };
 
   return (
     <section className="relative text-white">
-      <div className="relative h-[50vh] min-h-[400px] md:h-[60vh] lg:h-[450px] overflow-hidden">
+      <div className="relative h-[50vh] min-h-[400px] overflow-hidden bg-[#4f665b] md:h-[60vh] lg:h-[450px]">
         {/* Background Image */}
         <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,#6f857a_0%,#52655b_44%,#2f3a35_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_40%)]" />
           <img
             src="https://res.cloudinary.com/dmq5jbp3z/image/upload/v1779211219/photo-1592409482913-c3094afdb249_jyijfy.avif"
             alt="Tours y Experiencias"
             fetchPriority="high"
+            loading="eager"
             decoding="async"
-            className="h-full w-full object-cover"
+            onLoad={() => setImageLoaded(true)}
+            className={`relative z-10 h-full w-full object-cover transition-all duration-700 ease-out ${
+              imageLoaded ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-lg scale-[1.03]"
+            }`}
           />
           {/* Overlay for better text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/20" />
