@@ -13,7 +13,6 @@ export function AccommodationDestination({
 }: AccommodationDestinationProps) {
   const {
     isOpen,
-    searchTerm,
     dropdownRef,
     isLoading,
     error,
@@ -21,7 +20,6 @@ export function AccommodationDestination({
     handleToggleDropdown,
     handleSelectLocation,
     handleClearSelection,
-    setSearchTerm,
     getStatusMessage,
     shouldShowClearButton,
     isLocationSelected,
@@ -100,27 +98,12 @@ export function AccommodationDestination({
       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#52655B] flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
       </svg>
-      <input
-        type="text"
-        placeholder={isLoading ? 'Cargando...' : 'Selecciona una ubicación'}
-        value={isOpen ? searchTerm : destino}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          if (!isOpen) handleToggleDropdown(e as any);
-        }}
-        onFocus={(e) => {
-          if (!isOpen && !isLoading) handleToggleDropdown(e);
-        }}
-        disabled={isLoading}
-        className="flex-1 min-w-0 bg-transparent text-sm font-medium text-gray-900 placeholder:text-zinc-400 transition-colors border-none outline-none"
-      />
-      {!isLoading && (
-        <button onClick={handleToggleDropdown} type="button" className="flex-shrink-0 p-1 hover:bg-zinc-200 rounded-full transition-colors cursor-pointer">
-          <svg className={`h-3 w-3 text-zinc-600 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-          </svg>
-        </button>
-      )}
+      <span className="flex-1 min-w-0 text-sm font-medium text-gray-900 truncate text-left">
+        {destino || (isLoading ? 'Cargando...' : 'Selecciona una ubicación')}
+      </span>
+      <svg className={`h-3.5 w-3.5 flex-shrink-0 text-zinc-600 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+      </svg>
     </>
   );
 
@@ -132,12 +115,17 @@ export function AccommodationDestination({
             Destino
           </div>
           <div className="relative">
-            <div className="w-full">
-              <div className="flex items-center gap-2 px-0 py-0.5">{triggerContent}</div>
-            </div>
+            <button
+              type="button"
+              onClick={handleToggleDropdown}
+              className="flex w-full items-center gap-2 px-0 py-0.5 text-left"
+              disabled={isLoading}
+            >
+              {triggerContent}
+            </button>
             {isOpen && (
               <div className="absolute left-0 right-0 top-[calc(100%+10px)] z-[9999] overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-xl">
-                <div className="max-h-42 overflow-y-auto">{renderDropdownContent()}</div>
+                <div className="max-h-56 overflow-y-auto overscroll-contain">{renderDropdownContent()}</div>
               </div>
             )}
           </div>
@@ -161,7 +149,7 @@ export function AccommodationDestination({
         <div className="min-w-0 flex-1">
           <p className="text-xs font-semibold text-neutral-900">¿Dónde?</p>
           <p className="mt-0.5 truncate text-sm text-neutral-500">
-            {isLoading ? 'Cargando destinos…' : destino || 'Buscar destino'}
+            {isLoading ? 'Cargando destinos…' : destino || 'Selecciona una ubicación'}
           </p>
         </div>
         {!isLoading && (
@@ -180,20 +168,7 @@ export function AccommodationDestination({
 
       {isOpen && (
         <div className="absolute left-2 right-2 top-full z-[9999] mt-1 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl ring-1 ring-black/5">
-          <div className="border-b border-neutral-100 bg-neutral-50 px-3 py-3">
-            <input
-              type="search"
-              placeholder="Buscar destino..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full rounded-xl border border-neutral-200 bg-white px-3 py-3 text-base text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-[#52655B] focus:ring-2 focus:ring-[#52655B]/20"
-              autoCapitalize="off"
-              autoCorrect="off"
-              autoComplete="off"
-              autoFocus
-            />
-          </div>
-          <div className="max-h-[min(40vh,220px)] overflow-y-auto overscroll-contain">{renderDropdownContent()}</div>
+          <div className="max-h-[min(42vh,260px)] overflow-y-auto overscroll-contain">{renderDropdownContent()}</div>
         </div>
       )}
     </div>

@@ -11,7 +11,6 @@ export function useAccommodationDestination({
   onLocationChange,
 }: UseAccommodationDestinationProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Obtener ubicaciones de hospedajes desde Supabase
@@ -22,7 +21,6 @@ export function useAccommodationDestination({
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
-        setSearchTerm('');
       }
     };
 
@@ -33,35 +31,23 @@ export function useAccommodationDestination({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
-  // Filtrar ubicaciones basado en el término de búsqueda
+  // Lista de ubicaciones disponibles
   const filteredLocations = useMemo(() => {
     if (!Array.isArray(locations) || locations.length === 0) {
       return [];
     }
 
-    if (!searchTerm.trim()) {
-      return locations;
-    }
-
-    return locations.filter(
-      (location) =>
-        location &&
-        location.descripcion &&
-        typeof location.descripcion === 'string' &&
-        location.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [locations, searchTerm]);
+    return locations;
+  }, [locations]);
 
   const handleSelectLocation = (locationDescripcion: string) => {
     onLocationChange(locationDescripcion);
     setIsOpen(false);
-    setSearchTerm('');
   };
 
   const handleClearSelection = () => {
     onLocationChange('');
     setIsOpen(false);
-    setSearchTerm('');
   };
 
   const handleToggleDropdown = (e?: React.MouseEvent | React.FocusEvent) => {
@@ -73,14 +59,6 @@ export function useAccommodationDestination({
     if (!isLoading) {
       const newIsOpen = !isOpen;
       setIsOpen(newIsOpen);
-      if (!newIsOpen) {
-        setSearchTerm('');
-      } else {
-        // Si se abre el dropdown y hay una ubicación seleccionada, ponerla en el searchTerm
-        if (selectedLocation && !searchTerm) {
-          setSearchTerm(selectedLocation);
-        }
-      }
     }
   };
 
@@ -89,9 +67,7 @@ export function useAccommodationDestination({
     if (isLoading) return 'Cargando destinos...';
     if (error) return 'Error al cargar destinos. Intenta de nuevo.';
     if (!Array.isArray(filteredLocations) || filteredLocations.length === 0) {
-      return searchTerm
-        ? `No se encontraron destinos con "${searchTerm}"`
-        : 'No hay destinos disponibles';
+      return 'No hay destinos disponibles';
     }
     return null;
   };
@@ -105,7 +81,6 @@ export function useAccommodationDestination({
 
   return {
     isOpen,
-    searchTerm,
     dropdownRef,
     isLoading,
     error,
@@ -113,7 +88,6 @@ export function useAccommodationDestination({
     handleToggleDropdown,
     handleSelectLocation,
     handleClearSelection,
-    setSearchTerm,
     getStatusMessage,
     shouldShowClearButton,
     isLocationSelected,

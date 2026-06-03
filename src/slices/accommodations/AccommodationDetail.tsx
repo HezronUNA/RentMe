@@ -312,7 +312,10 @@ const AccommodationDetail = () => {
               </button>
             </div>
 
-            <div className="max-h-[calc(88vh-89px)] overflow-y-auto px-6 py-6">
+            <div
+              className="max-h-[calc(88vh-89px)] overflow-y-auto px-6 py-6"
+              style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 32px)' }}
+            >
               <div className="space-y-8 text-gray-700 leading-relaxed">
                 <p className="whitespace-pre-line text-[15px] md:text-base">
                   {hospedaje.descripcion}
@@ -331,6 +334,7 @@ const AccommodationDetail = () => {
                         </li>
                       ))}
                     </ul>
+                    <div className="h-8" />
                   </div>
                 )}
               </div>
