@@ -30,7 +30,7 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
   };
 
   return (
-    <section className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center overflow-hidden bg-[#51665b]">
+    <section className="relative h-[70vh] min-h-[400px] md:h-[60vh] lg:h-[450px] flex items-center justify-center overflow-visible md:overflow-hidden bg-[#51665b]">
       <div className="absolute inset-0 bg-[linear-gradient(135deg,#71877c_0%,#5a6f64_42%,#34473d_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_45%)]" />
       <img
@@ -47,7 +47,7 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
       <div className="absolute inset-0 bg-black/55" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/25" />
 
-      <div className="relative z-10 w-full px-4 pt-6 md:pt-8 overflow-visible">
+      <div className="relative z-20 w-full px-4 pt-6 md:pt-8 overflow-visible">
         <div className="max-w-7xl mx-auto space-y-5 overflow-visible">
           <div className="space-y-2">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -61,7 +61,7 @@ export function AccommodationsHero({ onApplyFilters }: AccommodationsHeroProps) 
           </div>
 
           {/* Mobile search box: kept inside hero for small screens */}
-          <div className="lg:hidden mt-4">
+          <div className="relative z-30 lg:hidden mt-4 overflow-visible">
             <AccommodationSearchBox variant="mobile" onSearchFilters={handleSearchFilters} />
           </div>
         </div>
