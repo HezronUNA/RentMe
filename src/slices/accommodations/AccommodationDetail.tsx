@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "@tanstack/react-router";
 import { ReservationForm } from "./components/ReservationForm";
 import { AccommodationNavBar } from "./components/AccommodationNavBar";
@@ -10,9 +11,12 @@ import ReviewAccommodation from "./components/ReviewAccommodation";
 import { Toaster } from "sonner";
 import { Button } from "@/components/ui/button";
 
+const DESCRIPTION_LIMIT = 260;
+
 const AccommodationDetail = () => {
   const params = useParams({ from: "/alojamientos/$alojamientoId" });
   const accommodationId = params.alojamientoId;
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
 
   // Obtener datos desde Supabase
   const { hospedaje, loading: hospedajeLoading, error: hospedajeError } = useHospedajeDetail(accommodationId);
@@ -20,6 +24,33 @@ const AccommodationDetail = () => {
   const { servicios, loading: serviciosLoading } = useHospedajeServicios(accommodationId);
 
   const isLoading = hospedajeLoading || reglasLoading || serviciosLoading;
+
+  useEffect(() => {
+    if (!isDescriptionOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsDescriptionOpen(false);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isDescriptionOpen]);
+
+  const description = hospedaje?.descripcion ?? "";
+  const isDescriptionTruncated = description.length > DESCRIPTION_LIMIT;
+  const previewDescription = isDescriptionTruncated
+    ? `${description.slice(0, DESCRIPTION_LIMIT).trimEnd()}...`
+    : description;
 
   if (isLoading) {
     return (
@@ -149,7 +180,21 @@ const AccommodationDetail = () => {
                       <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Descripción del hospedaje</h3>
                     </div>
                   </div>
-                  <p className="mt-4 text-gray-700 leading-relaxed max-w-prose whitespace-pre-line">{hospedaje.descripcion}</p>
+                  <div className="mt-4 max-w-prose">
+                    <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                      {previewDescription}
+                    </p>
+                    {isDescriptionTruncated && (
+                      <Button
+                        type="button"
+                        variant="green"
+                        className="mt-4 rounded-full px-5 py-2.5 text-sm font-semibold"
+                        onClick={() => setIsDescriptionOpen(true)}
+                      >
+                        Ver más
+                      </Button>
+                    )}
+                  </div>
                 </section>
               )}
 
@@ -231,6 +276,68 @@ const AccommodationDetail = () => {
       <div id="resenas" className="scroll-mt-32">
         <ReviewAccommodation />
       </div>
+
+      {isDescriptionOpen && hospedaje.descripcion && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 px-4 py-6"
+          onClick={() => setIsDescriptionOpen(false)}
+          role="presentation"
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="description-modal-title"
+            className="relative w-full max-w-3xl max-h-[88vh] overflow-hidden rounded-3xl bg-white shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4 border-b border-gray-200 px-6 py-5">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#52655B]">
+                  Acerca de este espacio
+                </p>
+                <h2 id="description-modal-title" className="mt-2 text-2xl font-bold text-gray-900">
+                  {hospedaje.nombre}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsDescriptionOpen(false)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                aria-label="Cerrar descripción"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-5 w-5">
+                  <path d="M18 6 6 18" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="m6 6 12 12" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="max-h-[calc(88vh-89px)] overflow-y-auto px-6 py-6">
+              <div className="space-y-8 text-gray-700 leading-relaxed">
+                <p className="whitespace-pre-line text-[15px] md:text-base">
+                  {hospedaje.descripcion}
+                </p>
+
+                {servicios && servicios.length > 0 && (
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Servicios incluidos</h3>
+                    <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                      {servicios.map((item) => (
+                        <li key={item.servicio.id} className="flex items-start gap-2">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="mt-1 h-3.5 w-3.5 text-[#52655B]">
+                            <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                          <span>{item.servicio.nombre}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
