@@ -6,7 +6,7 @@ import { Link } from "@tanstack/react-router";
 const MODALIDADES = [
   {
     id: 'modalidad-1',
-    nombre: 'Coanfrición en Airbnb',
+    nombre: 'Coanfitrión en Airbnb',
     textBoton: 'Reservar',
     serviciosIncluidosData: [
       'Gestión total de perfil Airbnb',
